@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Page for Ember Component Library Template</title>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/ember.js/1.0.0/ember.js"></script>
+  <script type="text/javascript" src="../build/emberui.min.js"></script>
+  <script type="text/javascript">
+    App = Ember.Application.createWithMixins(EmberUI.Register);
+  </script>
+</head>
+<body>
+  <script type="text/x-handlebars">
+    {{hello-world}}
+  </script>
+</body>
+</html>

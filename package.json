@@ -1,0 +1,12 @@
+{
+  "name": "emberui",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-ember-handlebars": "~0.7.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-sass": "~0.2.0"
+  }
+}
