@@ -13,8 +13,8 @@ module.exports = function(grunt) {
           namespace: "Ember.TEMPLATES"
         },
         files: {
-          ".tmp/hello-world-components.js": [
-            "app/templates/components/hello-world.hbs"
+          ".tmp/eui-button-components.js": [
+            "app/templates/components/eui-button.hbs"
           ]
         }
       }
@@ -42,8 +42,8 @@ module.exports = function(grunt) {
     clean: ['.tmp'],
     watch: {
       scripts: {
-        files: 'app/scripts/**/*.js',
-        tasks: ['ember_handlebars']
+        files: 'app/**',
+        tasks: ['default']
       }
     }
   });
@@ -56,5 +56,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
 
   // Default task(s). (The one that is ran when 'grunt' command is called from the directory)
-  grunt.registerTask('default', ['ember_handlebars', 'uglify', 'clean', 'sass' ]);
+  grunt.registerTask('default', ['ember_handlebars', 'uglify', 'sass', 'clean' ]);
 };
