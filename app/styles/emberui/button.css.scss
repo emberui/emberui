@@ -1,0 +1,40 @@
+.eui-button {
+  border: none;
+  padding: 0;
+  background: #ffffff;
+  display: inline-block;
+  vertical-align: middle;
+  outline: none;
+
+  i {
+    font-style: normal;
+  }
+
+}
+
+/* SIZES */
+.eui-button {
+  &.eui-tiny {
+    padding: 0 5px;
+    line-height: 18px;
+    font-size: 9px;
+  }
+
+  &.eui-small {
+    padding: 0 13px;
+    line-height: 25px;
+    font-size: 11px;
+  }
+
+  &.eui-medium {
+    padding: 0 25px;
+    line-height: 35px;
+    font-size: 14px;
+  }
+
+  &.eui-large {
+    padding: 0 35px;
+    line-height: 45px;
+    font-size: 17px;
+  }
+}

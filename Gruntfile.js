@@ -22,7 +22,8 @@ module.exports = function(grunt) {
     sass : {
       dist: {
         options: {
-          style: 'nested'
+          style: 'nested',
+          compass: true
         },
         files: {
           'build/emberui.css': 'app/styles/emberui/*.scss',
@@ -54,6 +55,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-compass');
 
   // Default task(s). (The one that is ran when 'grunt' command is called from the directory)
   grunt.registerTask('default', ['ember_handlebars', 'uglify', 'sass', 'clean' ]);
