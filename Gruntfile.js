@@ -13,8 +13,8 @@ module.exports = function(grunt) {
           namespace: "Ember.TEMPLATES"
         },
         files: {
-          ".tmp/eui-button-components.js": [
-            "app/templates/components/eui-button.hbs"
+          ".tmp/emberui-components.js": [
+            "app/templates/**/*.hbs"
           ]
         }
       }
