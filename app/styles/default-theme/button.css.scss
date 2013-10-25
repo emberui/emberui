@@ -92,8 +92,11 @@ $experimental-support-for-svg: true;
     }
 
     /* disabled */
-    &.eui-disabled {
-
+    &:disabled {
+      .eui-wrapper {
+        background: #51b6ee;
+        color: #b6ddf7;
+      }
     }
 
     /* loading */
@@ -123,8 +126,11 @@ $experimental-support-for-svg: true;
     }
 
     /* disabled */
-    &.eui-disabled {
-
+    &:disabled {
+      .eui-wrapper {
+        background: #f3f3f3;
+        color: #b9b9b9;
+      }
     }
 
     /* loading */

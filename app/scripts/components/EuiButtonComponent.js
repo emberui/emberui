@@ -9,9 +9,5 @@ EmberUI.EuiButtonComponent = Ember.Component.extend({
 
   computatedType: function() {
     return 'eui-' + (this.get('type') || 'secondary');
-  }.property('type'),
-
-  disabled: function() {
-    return this.get("disabled") || false;
-  }
+  }.property('type')
 });

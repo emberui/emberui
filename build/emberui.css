@@ -4,7 +4,11 @@
   background: #ffffff;
   display: inline-block;
   vertical-align: middle;
-  outline: none; }
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
   .eui-button i {
     font-style: normal; }
 
@@ -25,3 +29,7 @@
   padding: 0 35px;
   line-height: 45px;
   font-size: 17px; }
+
+/* DISABLED */
+.eui-button:disabled {
+  pointer-events: none; }

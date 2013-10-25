@@ -88,6 +88,9 @@
         background-image: -moz-linear-gradient(top, #4ea5d9 0%, #51b6ee 100%);
         background-image: -o-linear-gradient(top, #4ea5d9 0%, #51b6ee 100%);
         background-image: linear-gradient(top, #4ea5d9 0%, #51b6ee 100%); }
+    .eui-button.eui-primary:disabled .eui-wrapper {
+      background: #51b6ee;
+      color: #b6ddf7; }
   .eui-button.eui-secondary {
     color: #848484;
     text-shadow: 1px 1px #ffffff;
@@ -126,6 +129,9 @@
         background-image: -moz-linear-gradient(top, #f1f1f1 0%, #ffffff 100%);
         background-image: -o-linear-gradient(top, #f1f1f1 0%, #ffffff 100%);
         background-image: linear-gradient(top, #f1f1f1 0%, #ffffff 100%); }
+    .eui-button.eui-secondary:disabled .eui-wrapper {
+      background: #f3f3f3;
+      color: #b9b9b9; }
   .eui-button:hover .eui-wrapper:before, .eui-button:focus .eui-wrapper:before {
     content: "";
     position: absolute;
