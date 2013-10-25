@@ -1,11 +1,15 @@
 EmberUI.EuiButtonComponent = Ember.Component.extend({
   tagName: 'button',
-  classNameBindings: [':eui-button', 'size', 'type'],
+  classNameBindings: [':eui-button', 'computatedSize', 'computatedType'],
   attributeBindings: ['disabled'],
 
-  size: 'eui-medium',
+  computatedSize: function() {
+    return 'eui-' + (this.get('size') || 'medium');
+  }.property('size'),
 
-  type: 'eui-primary',
+  computatedType: function() {
+    return 'eui-' + (this.get('type') || 'secondary');
+  }.property('type'),
 
   disabled: function() {
     return this.get("disabled") || false;
