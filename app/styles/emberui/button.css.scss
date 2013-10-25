@@ -47,3 +47,10 @@
 .eui-button:disabled {
   pointer-events: none;
 }
+
+/* LOADING */
+.eui-button.eui-loading {
+  i {
+    opacity: 0;
+  }
+}

@@ -24,6 +24,7 @@ $experimental-support-for-svg: true;
       height: 18px;
       line-height: 18px;
       padding: 0 5px;
+      min-width: 8px;
     }
   }
 
@@ -34,7 +35,8 @@ $experimental-support-for-svg: true;
     .eui-wrapper {
       height: 25px;
       line-height: 25px;
-      padding: 0 13px;
+      padding: 0 12px;
+      min-width: 1px;
     }
   }
 
@@ -45,7 +47,8 @@ $experimental-support-for-svg: true;
     .eui-wrapper {
       height: 35px;
       line-height: 35px;
-      padding: 0 25px;
+      padding: 0 15px;
+      min-width: 5px;
     }
   }
 
@@ -56,7 +59,8 @@ $experimental-support-for-svg: true;
     .eui-wrapper {
       height: 45px;
       line-height: 45px;
-      padding: 0 35px;
+      padding: 0 20px;
+      min-width: 5px;
     }
   }
 }
@@ -100,8 +104,10 @@ $experimental-support-for-svg: true;
     }
 
     /* loading */
-    &.eui-loading {
-
+    .eui-loading-animation li {
+      box-shadow:
+        1px 1px 0px rgba(255,255,255,0.3),
+        inset 0px 1px 0px rgba(0,0,0,0.1);
     }
   }
 
@@ -134,8 +140,10 @@ $experimental-support-for-svg: true;
     }
 
     /* loading */
-    &.eui-loading {
-
+    .eui-loading-animation li {
+      box-shadow:
+        1px 1px 0px rgba(255,255,255,1),
+        inset 0px 1px 0px rgba(0,0,0,0.1);
     }
   }
 
@@ -166,4 +174,65 @@ $experimental-support-for-svg: true;
       box-shadow: inset 0px 1px 3px rgba(0,0,0,0.15);
     }
   }
+
+  /* loading */
+  .eui-loading-animation {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0 15%;
+    box-sizing: border-box;
+    list-style: none;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      vertical-align: middle;
+      width: 7px;
+      height: 7px;
+      border-radius: 7px;
+      background: rgba(0,0,0,0.2);
+      @include transition(background 0.2s);
+      -webkit-animation: eui-button-loading 1s infinite;
+      -moz-animation: eui-button-loading 1s infinite;
+      animation: eui-button-loading 1s infinite;
+
+      &:nth-child(3n+2) {
+        -webkit-animation-delay: 0.15s;
+        -moz-animation-delay: 0.15s;
+        animation-delay: 0.15s;
+      }
+
+      &:nth-child(3n+3) {
+        -webkit-animation-delay: 0.3s;
+        -moz-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+      }
+    }
+  }
+}
+
+
+@-webkit-keyframes eui-button-loading {
+  0%   { opacity: 0.4; }
+  20%  { opacity: 0.4; }
+  50% { opacity: 1.0; }
+  100% { opacity: 0.4; }
+}
+@-moz-keyframes eui-button-loading {
+  0%   { opacity: 0.4; }
+  20%  { opacity: 0.4; }
+  50% { opacity: 1.0; }
+  100% { opacity: 0.4; }
+}
+@keyframes eui-button-loading {
+  0%   { opacity: 0.4; }
+  20%  { opacity: 0.4; }
+  50% { opacity: 1.0; }
+  100% { opacity: 0.4; }
 }

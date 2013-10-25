@@ -14,28 +14,32 @@
   .eui-button.eui-tiny .eui-wrapper {
     height: 18px;
     line-height: 18px;
-    padding: 0 5px; }
+    padding: 0 5px;
+    min-width: 8px; }
 .eui-button.eui-small {
   border-radius: 3px;
   padding: 1px; }
   .eui-button.eui-small .eui-wrapper {
     height: 25px;
     line-height: 25px;
-    padding: 0 13px; }
+    padding: 0 12px;
+    min-width: 1px; }
 .eui-button.eui-medium {
   border-radius: 4px;
   padding: 1px; }
   .eui-button.eui-medium .eui-wrapper {
     height: 35px;
     line-height: 35px;
-    padding: 0 25px; }
+    padding: 0 15px;
+    min-width: 5px; }
 .eui-button.eui-large {
   border-radius: 5px;
   padding: 1px; }
   .eui-button.eui-large .eui-wrapper {
     height: 45px;
     line-height: 45px;
-    padding: 0 35px; }
+    padding: 0 20px;
+    min-width: 5px; }
 
 /*
   * TYPES
@@ -48,7 +52,8 @@
   /* Primary */
   /* Secondary */
   /* hover & focus */
-  /* active */ }
+  /* active */
+  /* loading */ }
   .eui-button.eui-primary {
     color: #ffffff;
     text-shadow: 0px -1px rgba(0, 0, 0, 0.2);
@@ -91,6 +96,8 @@
     .eui-button.eui-primary:disabled .eui-wrapper {
       background: #51b6ee;
       color: #b6ddf7; }
+    .eui-button.eui-primary .eui-loading-animation li {
+      box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3), inset 0px 1px 0px rgba(0, 0, 0, 0.1); }
   .eui-button.eui-secondary {
     color: #848484;
     text-shadow: 1px 1px #ffffff;
@@ -132,6 +139,8 @@
     .eui-button.eui-secondary:disabled .eui-wrapper {
       background: #f3f3f3;
       color: #b9b9b9; }
+    .eui-button.eui-secondary .eui-loading-animation li {
+      box-shadow: 1px 1px 0px white, inset 0px 1px 0px rgba(0, 0, 0, 0.1); }
   .eui-button:hover .eui-wrapper:before, .eui-button:focus .eui-wrapper:before {
     content: "";
     position: absolute;
@@ -148,6 +157,80 @@
       padding-bottom: 0px !important;
       padding-top: 1px !important;
       box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15); }
+  .eui-button .eui-loading-animation {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0 15%;
+    box-sizing: border-box;
+    list-style: none;
+    text-align: center; }
+    .eui-button .eui-loading-animation li {
+      display: inline-block;
+      vertical-align: middle;
+      width: 7px;
+      height: 7px;
+      border-radius: 7px;
+      background: rgba(0, 0, 0, 0.2);
+      -webkit-transition: background 0.2s;
+      -moz-transition: background 0.2s;
+      -o-transition: background 0.2s;
+      transition: background 0.2s;
+      -webkit-animation: eui-button-loading 1s infinite;
+      -moz-animation: eui-button-loading 1s infinite;
+      animation: eui-button-loading 1s infinite; }
+      .eui-button .eui-loading-animation li:nth-child(3n+2) {
+        -webkit-animation-delay: 0.15s;
+        -moz-animation-delay: 0.15s;
+        animation-delay: 0.15s; }
+      .eui-button .eui-loading-animation li:nth-child(3n+3) {
+        -webkit-animation-delay: 0.3s;
+        -moz-animation-delay: 0.3s;
+        animation-delay: 0.3s; }
+
+@-webkit-keyframes eui-button-loading {
+  0% {
+    opacity: 0.4; }
+
+  20% {
+    opacity: 0.4; }
+
+  50% {
+    opacity: 1.0; }
+
+  100% {
+    opacity: 0.4; } }
+
+@-moz-keyframes eui-button-loading {
+  0% {
+    opacity: 0.4; }
+
+  20% {
+    opacity: 0.4; }
+
+  50% {
+    opacity: 1.0; }
+
+  100% {
+    opacity: 0.4; } }
+
+@keyframes eui-button-loading {
+  0% {
+    opacity: 0.4; }
+
+  20% {
+    opacity: 0.4; }
+
+  50% {
+    opacity: 1.0; }
+
+  100% {
+    opacity: 0.4; } }
 
 /* RESET STYLES */
 .eui-button i {
