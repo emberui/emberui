@@ -1,6 +1,6 @@
 EmberUI.EuiButtonComponent = Ember.Component.extend({
   tagName: 'button',
-  classNameBindings: [':eui-button', 'computedSize', 'computedType', 'loading:eui-loading'],
+  classNameBindings: [':eui-button', 'computedSize', 'computedType', 'loading:eui-loading', 'icon:eui-icon'],
   attributeBindings: ['isDisabled:disabled'],
 
   computedSize: function() {

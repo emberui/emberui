@@ -1,9 +1,7 @@
 .eui-button {
-  position: relative;
   padding: 1px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); }
   .eui-button .eui-wrapper {
-    position: relative;
     border-radius: inherit;
     padding-bottom: 1px !important; }
 
@@ -52,8 +50,7 @@
   /* Primary */
   /* Secondary */
   /* hover & focus */
-  /* active */
-  /* loading */ }
+  /* active */ }
   .eui-button.eui-primary {
     color: #ffffff;
     text-shadow: 0px -1px rgba(0, 0, 0, 0.2);
@@ -157,41 +154,6 @@
       padding-bottom: 0px !important;
       padding-top: 1px !important;
       box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15); }
-  .eui-button .eui-loading-animation {
-    display: block;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    margin: 0;
-    padding: 0 15%;
-    box-sizing: border-box;
-    list-style: none;
-    text-align: center; }
-    .eui-button .eui-loading-animation li {
-      display: inline-block;
-      vertical-align: middle;
-      width: 7px;
-      height: 7px;
-      border-radius: 7px;
-      background: rgba(0, 0, 0, 0.2);
-      -webkit-transition: background 0.2s;
-      -moz-transition: background 0.2s;
-      -o-transition: background 0.2s;
-      transition: background 0.2s;
-      -webkit-animation: eui-button-loading 1s infinite;
-      -moz-animation: eui-button-loading 1s infinite;
-      animation: eui-button-loading 1s infinite; }
-      .eui-button .eui-loading-animation li:nth-child(3n+2) {
-        -webkit-animation-delay: 0.15s;
-        -moz-animation-delay: 0.15s;
-        animation-delay: 0.15s; }
-      .eui-button .eui-loading-animation li:nth-child(3n+3) {
-        -webkit-animation-delay: 0.3s;
-        -moz-animation-delay: 0.3s;
-        animation-delay: 0.3s; }
 
 @-webkit-keyframes eui-button-loading {
   0% {

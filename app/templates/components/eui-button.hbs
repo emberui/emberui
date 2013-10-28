@@ -1,5 +1,12 @@
 <div class="eui-wrapper">
-  <i>{{title}}</i>
+  <i>
+    {{#if icon}}
+      <b {{bind-attr class='icon title::eui-no-title'}}></b>
+    {{/if}}
+
+    {{title}}
+  </i>
+
   {{#if loading}}
     <ul class="eui-loading-animation">
       <li></li>
