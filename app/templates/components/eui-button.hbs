@@ -1,10 +1,14 @@
 <div class="eui-wrapper">
   <i>
     {{#if icon}}
-      <b {{bind-attr class='icon title::eui-no-title'}}></b>
+      <b {{bind-attr class='icon'}}></b>
     {{/if}}
 
-    {{title}}
+    {{label}}
+
+    {{#if trailingIcon}}
+      <b {{bind-attr class='trailingIcon'}}></b>
+    {{/if}}
   </i>
 
   {{#if loading}}

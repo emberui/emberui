@@ -1,0 +1,32 @@
+{{#if primaryAction}}
+  {{eui-button
+    label=primaryAction.label
+    type=view.type
+    size=view.size
+    icon=view.icon
+    loading=view.loading
+    disabled=view.disabled
+    class="eui-primaryaction"
+    action="primaryAction"}}
+
+  {{eui-button
+    type=view.type
+    size=view.size
+    icon="fa fa-caret-down"
+    loading=false
+    disabled=view.disabled
+    class="eui-trigger"
+    action="toggleWindow"}}
+
+{{else}}
+  {{eui-button
+    label=view.label
+    type=view.type
+    size=view.size
+    icon=view.icon
+    trailingIcon="fa fa-caret-down"
+    loading=view.loading
+    disabled=view.disabled
+    action="toggleWindow"}}
+
+{{/if}}

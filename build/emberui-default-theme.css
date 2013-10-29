@@ -1,3 +1,13 @@
+.eui-groupbutton .eui-button.eui-primaryaction {
+  float: left;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px; }
+.eui-groupbutton .eui-button.eui-trigger {
+  float: left;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  margin-left: -1px; }
+
 .eui-button {
   padding: 1px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); }

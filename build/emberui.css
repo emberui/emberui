@@ -1,7 +1,13 @@
+.eui-singlebutton,
+.eui-groupbutton {
+  display: inline-block;
+  vertical-align: middle; }
+
 .eui-button {
   position: relative;
   border: none;
   padding: 0;
+  margin: 0;
   background: #f6f6f6;
   display: inline-block;
   vertical-align: middle;
@@ -20,26 +26,24 @@
   padding: 0 5px;
   line-height: 18px;
   font-size: 9px; }
-  .eui-button.eui-tiny b.eui-no-title {
-    margin: 0 -10px; }
 .eui-button.eui-small {
   padding: 0 13px;
   line-height: 25px;
   font-size: 11px; }
-  .eui-button.eui-small b.eui-no-title {
-    margin: 0 -10px; }
+  .eui-button.eui-small.eui-no-label .eui-wrapper {
+    padding: 0 6px; }
 .eui-button.eui-medium {
   padding: 0 25px;
   line-height: 35px;
   font-size: 14px; }
-  .eui-button.eui-medium b.eui-no-title {
-    margin: 0 -10px; }
+  .eui-button.eui-medium.eui-no-label .eui-wrapper {
+    padding: 0 12px; }
 .eui-button.eui-large {
   padding: 0 35px;
   line-height: 45px;
   font-size: 17px; }
-  .eui-button.eui-large b.eui-no-title {
-    margin: 0 -10px; }
+  .eui-button.eui-large.eui-no-label .eui-wrapper {
+    padding: 0 15px; }
 
 /* DISABLED */
 .eui-button:disabled {

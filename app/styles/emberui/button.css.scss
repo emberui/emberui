@@ -1,10 +1,17 @@
 @import "compass";
 $experimental-support-for-svg: true;
 
+.eui-singlebutton,
+.eui-groupbutton {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .eui-button {
   position: relative;
   border: none;
   padding: 0;
+  margin: 0;
   background: #f6f6f6;
   display: inline-block;
   vertical-align: middle;
@@ -29,10 +36,6 @@ $experimental-support-for-svg: true;
     padding: 0 5px;
     line-height: 18px;
     font-size: 9px;
-
-    b.eui-no-title {
-      margin: 0 -10px;
-    }
   }
 
   &.eui-small {
@@ -40,8 +43,8 @@ $experimental-support-for-svg: true;
     line-height: 25px;
     font-size: 11px;
 
-    b.eui-no-title {
-      margin: 0 -10px;
+    &.eui-no-label .eui-wrapper {
+      padding: 0 6px;
     }
   }
 
@@ -50,8 +53,8 @@ $experimental-support-for-svg: true;
     line-height: 35px;
     font-size: 14px;
 
-    b.eui-no-title {
-      margin: 0 -10px;
+    &.eui-no-label .eui-wrapper {
+      padding: 0 12px;
     }
   }
 
@@ -60,8 +63,8 @@ $experimental-support-for-svg: true;
     line-height: 45px;
     font-size: 17px;
 
-    b.eui-no-title {
-      margin: 0 -10px;
+    &.eui-no-label .eui-wrapper {
+      padding: 0 15px;
     }
   }
 }
