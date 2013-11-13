@@ -204,6 +204,102 @@
   100% {
     opacity: 0.4; } }
 
+.eui-input {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 1px; }
+  .eui-input .eui-wrapper {
+    position: relative;
+    width: 100%; }
+  .eui-input input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    border: none;
+    box-sizing: border-box; }
+
+/* SIZES */
+.eui-input.eui-tiny {
+  border-radius: 3px; }
+  .eui-input.eui-tiny .eui-wrapper {
+    height: 18px;
+    line-height: 18px; }
+  .eui-input.eui-tiny input {
+    border-radius: 3px;
+    padding: 0 5px;
+    font-size: 9px; }
+.eui-input.eui-small {
+  border-radius: 3px; }
+  .eui-input.eui-small .eui-wrapper {
+    height: 25px;
+    line-height: 25px; }
+  .eui-input.eui-small input {
+    border-radius: 3px;
+    padding: 0 5px;
+    font-size: 11px; }
+.eui-input.eui-medium {
+  border-radius: 4px; }
+  .eui-input.eui-medium .eui-wrapper {
+    height: 35px;
+    line-height: 35px; }
+  .eui-input.eui-medium input {
+    border-radius: 4px;
+    padding: 0 5px;
+    font-size: 14px; }
+.eui-input.eui-large {
+  border-radius: 5px; }
+  .eui-input.eui-large .eui-wrapper {
+    height: 45px;
+    line-height: 45px;
+    font-size: 17px; }
+  .eui-input.eui-large input {
+    border-radius: 5px;
+    padding: 0 5px;
+    font-size: 17px; }
+
+/*
+  * TYPES
+  *
+  * Default: White inputs
+  *
+  */
+.eui-input {
+  /* Default */
+  /* focus */ }
+  .eui-input.eui-default {
+    color: #ffffff;
+    text-shadow: 0px -1px rgba(0, 0, 0, 0.2);
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSgwLCAwLCAwLCAwLjMpIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSJyZ2JhKDAsIDAsIDAsIDAuMTUpIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.3)), color-stop(100%, rgba(0, 0, 0, 0.15)));
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    background-image: linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    /* disabled */ }
+    .eui-input.eui-default input {
+      box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YxZjFmMSIvPjxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+      background-size: 100%;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f1f1f1), color-stop(50%, #ffffff));
+      background-image: -webkit-linear-gradient(top, #f1f1f1 0%, #ffffff 50%);
+      background-image: -moz-linear-gradient(top, #f1f1f1 0%, #ffffff 50%);
+      background-image: -o-linear-gradient(top, #f1f1f1 0%, #ffffff 50%);
+      background-image: linear-gradient(top, #f1f1f1 0%, #ffffff 50%); }
+    .eui-input.eui-default:disabled .eui-wrapper {
+      background: #51b6ee;
+      color: #b6ddf7; }
+  .eui-input input:focus {
+    margin: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: solid 1px #7fb5ff;
+    box-shadow: 0px 0px 4px #0090ff, inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+    outline: none; }
+
 /* RESET STYLES */
 .eui-button i {
   font-style: normal; }
