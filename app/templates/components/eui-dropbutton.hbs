@@ -1,7 +1,7 @@
 {{#if primaryAction}}
   {{eui-button
     label=primaryAction.label
-    type=view.type
+    style=view.style
     size=view.size
     icon=view.icon
     loading=view.loading
@@ -10,7 +10,7 @@
     action="primaryAction"}}
 
   {{eui-button
-    type=view.type
+    style=view.style
     size=view.size
     icon="fa fa-caret-down"
     loading=false
@@ -21,7 +21,7 @@
 {{else}}
   {{eui-button
     label=view.label
-    type=view.type
+    style=view.style
     size=view.size
     icon=view.icon
     trailingIcon="fa fa-caret-down"

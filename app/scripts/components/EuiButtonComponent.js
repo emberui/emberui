@@ -1,10 +1,10 @@
 EmberUI.EuiButtonComponent = Ember.Component.extend({
   tagName: 'button',
-  classNameBindings: [':eui-button', 'computedSize', 'computedType', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+  classNameBindings: [':eui-button', 'computedSize', 'computedStyle', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
   attributeBindings: ['isDisabled:disabled'],
 
   label: null,
-  type: null,
+  style: null,
   size: null,
   icon: null,
   trailingIcon: null,
@@ -17,9 +17,9 @@ EmberUI.EuiButtonComponent = Ember.Component.extend({
     return 'eui-' + (this.get('size') || 'medium');
   }.property('size'),
 
-  computedType: function() {
-    return 'eui-' + (this.get('type') || 'secondary');
-  }.property('type'),
+  computedStyle: function() {
+    return 'eui-' + (this.get('style') || 'secondary');
+  }.property('style'),
 
   isDisabled: function() {
     if (this.get('disabled') || this.get('loading')) return true;
