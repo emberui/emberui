@@ -20,6 +20,7 @@ $experimental-support-for-svg: true;
     padding: 0;
     border: none;
     box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
   }
 }
 
@@ -98,8 +99,6 @@ $experimental-support-for-svg: true;
 .eui-input {
   /* Default */
   &.eui-default {
-    color: #ffffff;
-    text-shadow: 0px -1px rgba(0,0,0,0.2);
     @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.3) 0%,  rgba(0, 0, 0, 0.15) 100%));
 
     input {
@@ -123,6 +122,21 @@ $experimental-support-for-svg: true;
     border: solid 1px #7fb5ff;
     box-shadow:
       0px 0px 4px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+}
+
+
+/* ERROR */
+.eui-input.eui-error {
+  input {
+    margin: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: solid 1px #ff7f7f;
+    box-shadow:
+      0px 0px 4px #ff0000,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
     outline: none;
   }

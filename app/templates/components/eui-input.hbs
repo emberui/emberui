@@ -1,3 +1,13 @@
 <div class="eui-wrapper">
   {{input value=value name=name pattern=pattern disabled=disabled maxlength=maxlength tabindex=tabindex}}
 </div>
+
+{{#if computedErrorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{computedErrorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}

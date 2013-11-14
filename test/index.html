@@ -13,6 +13,8 @@
     App = Ember.Application.createWithMixins(EmberUI.Register);
 
     App.ApplicationController = Ember.Controller.extend({
+      triggerErrorValue: null,
+
       dropbuttonOptionsList: [
         Ember.Object.create({ label: 'Action 1', action: 'action-one'}),
         Ember.Object.create({ label: 'Action 2', action: 'action-two', disabled: true}),
@@ -23,7 +25,11 @@
         Ember.Object.create({ label: 'Action 1', action: 'action-one'}),
         Ember.Object.create({ label: 'Action 2', action: 'action-two', disabled: true}),
         Ember.Object.create({ label: 'Action 3', action: 'action-three', primary: true})
-      ]
+      ],
+
+      triggerError:function() {
+        return this.get('triggerErrorValue');
+      }.property('triggerErrorValue')
     });
   </script>
 </head>
@@ -56,8 +62,13 @@
     {{eui-input size="medium" value="sample input" disabled=true}}
     {{eui-input size="large" value="sample input"}}
     {{eui-input value="no size"}}
-    {{eui-input value="no size assigned width" width="500px"}}
+    {{eui-input value="no size assigned width" hasError=true}}
+    {{eui-input value="no size assigned width" hasError="wrong thing!"}}
+    {{eui-input value="no size assigned width" errorMessage="wrong thing as well!"}}
+    {{eui-input value="required" required=true}}
+    {{eui-input required=true}}
 
+    {{eui-input value=triggerErrorValue hasError=triggerError}}
 
   </script>
 </body>
