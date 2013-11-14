@@ -103,16 +103,15 @@ $experimental-support-for-svg: true;
     @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.3) 0%,  rgba(0, 0, 0, 0.15) 100%));
 
     input {
+      color: #303030;
       box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.1);
       @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 50%));
     }
 
     /* disabled */
-    &:disabled {
-      .eui-wrapper {
-        background: #51b6ee;
-        color: #b6ddf7;
-      }
+    input:disabled {
+      background: #f6f6f6;
+      color: #777777;
     }
   }
 
