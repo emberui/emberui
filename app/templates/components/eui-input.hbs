@@ -2,7 +2,7 @@
   {{#if placeholderVisible}}
     <label {{bindAttr for=inputId}}>{{placeholder}}</label>
   {{/if}}
-  {{input value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}
+  {{input type=type value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}
 </div>
 
 {{#if computedErrorMessage}}
