@@ -20,11 +20,11 @@ EmberUI.EuiInputComponent = Ember.Component.extend({
   }.property('size'),
 
   computedStyle: function() {
-    return 'eui-' + (this.get('type') || 'default');
-  }.property('type'),
+    return 'eui-' + (this.get('style') || 'default');
+  }.property('style'),
 
   computedWidth: function() {
     var widths = {'tiny': '100px', 'small': '150px', 'medium': '200px', 'large': '250px'};
     return 'width: ' + (this.get('width') || widths[this.get('size')] || widths['medium']);
-  }.property('type', 'size')
+  }.property('style', 'size')
 });
