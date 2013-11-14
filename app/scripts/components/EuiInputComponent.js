@@ -7,7 +7,6 @@ EmberUI.EuiInputComponent = Ember.Component.extend({
   size: null,
   width: null,
   name: null,
-  pattern: null,
   disabled: null,
   maxlength: null,
   tabindex: null,
@@ -17,6 +16,12 @@ EmberUI.EuiInputComponent = Ember.Component.extend({
   required: null,
   hasError: null,
   errorMessage: null,
+  inputId: null,
+
+  // We need to bind the value of the label to the input's id because IE8 and IE9 doesn't support pointer-events: none;
+  didInsertElement: function() {
+    this.set('inputId', this.$('input').attr('id'));
+  },
 
   computedSize: function() {
     return 'eui-' + (this.get('size') || 'medium');
@@ -31,6 +36,11 @@ EmberUI.EuiInputComponent = Ember.Component.extend({
     return 'width: ' + (this.get('width') || widths[this.get('size')] || widths['medium']);
   }.property('style', 'size'),
 
+  placeholderVisible: function() {
+    var placeholder = this.get('placeholder');
+    var value = this.get('value');
+    if (placeholder && !value) return true;
+  }.property('placeholder', 'value'),
 
   computedErrorState: null,
   computedErrorMessage: null,
