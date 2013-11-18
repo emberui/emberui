@@ -74,6 +74,10 @@ EmberUI.EuiInputComponent = Ember.Component.extend({
     this.validateField();
   },
 
+  onChange: function() {
+    if (this.get('computedErrorState')) Ember.run.once(this, 'validateField');
+  }.observes('value'),
+
   validateOnLoad: function() {
     this.validateField('onload');
   }.on('init')
