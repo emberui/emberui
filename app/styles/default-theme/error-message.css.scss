@@ -9,8 +9,9 @@ $experimental-support-for-svg: true;
   border-radius: 3px;
   z-index: 100;
   margin-top: 1px;
-
   -webkit-animation: eui-error 0.2s 1;
+  -moz-animation: eui-error 0.2s 1;
+  animation: eui-error 0.2s 1;
 
   .eui-error-wrapper {
     border-radius: 3px;
@@ -75,4 +76,16 @@ $experimental-support-for-svg: true;
   0%   { -webkit-transform: scale(0); }
   90% { -webkit-transform: scale(1.2); }
   100% { -webkit-transform: scale(1); }
+}
+
+@-moz-keyframes eui-error {
+  0%   { -moz-transform: scale(0); }
+  90% { -moz-transform: scale(1.2); }
+  100% { -moz-transform: scale(1); }
+}
+
+@keyframes eui-error {
+  0%   { transform: scale(0); }
+  90% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
