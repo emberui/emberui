@@ -10,6 +10,8 @@ $experimental-support-for-svg: true;
   z-index: 100;
   margin-top: 1px;
 
+  -webkit-animation: eui-error 0.2s 1;
+
   .eui-error-wrapper {
     border-radius: 3px;
     @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 100%));
@@ -67,4 +69,10 @@ $experimental-support-for-svg: true;
       -webkit-text-fill-color: transparent;
     }
   }
+}
+
+@-webkit-keyframes eui-error {
+  0%   { -webkit-transform: scale(0); }
+  90% { -webkit-transform: scale(1.2); }
+  100% { -webkit-transform: scale(1); }
 }

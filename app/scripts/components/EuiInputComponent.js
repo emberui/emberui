@@ -51,11 +51,12 @@ EmberUI.EuiInputComponent = Ember.Component.extend({
     var required = this.get('required');
     var value = this.get('value');
 
-    if ( type === 'onload' && value === null) return;
+    if (type === 'onload' && value === null) return;
 
     if (hasError || errorMessage || (required && !value)) {
       this.set('computedErrorState', true);
 
+      // Because hasError can either be true or contain an error message we need to check which it is
       if (hasError && typeof(hasError) !== 'boolean' ) {
         this.set('computedErrorMessage', hasError);
 
