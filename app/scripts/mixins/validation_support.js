@@ -10,6 +10,11 @@ EmberUI.ValidationSupport = Ember.Mixin.create({
 
     if (type === 'onload' && value === null) return;
 
+    // We only ever show one error message at a time
+    if ($.isArray([hasError])) {
+      hasError = hasError[0];
+    }
+
     if (hasError || errorMessage || (required && !value)) {
       this.set('computedErrorState', true);
 
