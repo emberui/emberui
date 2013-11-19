@@ -185,7 +185,9 @@ $experimental-support-for-svg: true;
 
 /* ERROR */
 .eui-input.eui-error input,
-.eui-textarea.eui-error textarea {
+.eui-input.eui-error input:focus,
+.eui-textarea.eui-error textarea,
+.eui-textarea.eui-error textarea:focus {
   margin: -1px;
   width: calc(100% + 2px);
   height: calc(100% + 2px);
