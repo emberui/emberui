@@ -1,7 +1,8 @@
 @import "compass";
 $experimental-support-for-svg: true;
 
-.eui-input {
+.eui-input,
+.eui-textarea {
   display: inline-block;
   vertical-align: middle;
   padding: 1px;
@@ -10,9 +11,11 @@ $experimental-support-for-svg: true;
   .eui-wrapper {
     position: relative;
     width: 100%;
+    height: 100%;
   }
 
-  input {
+  input,
+  textarea {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -22,6 +25,7 @@ $experimental-support-for-svg: true;
     border: none;
     box-sizing: border-box;
     font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
+    resize: none;
   }
 
   label {
@@ -42,7 +46,8 @@ $experimental-support-for-svg: true;
 
 
 /* SIZES */
-.eui-input {
+.eui-input,
+.eui-textarea {
   &.eui-tiny {
     border-radius: 3px;
     font-size: 9px;
@@ -52,9 +57,10 @@ $experimental-support-for-svg: true;
       line-height: 18px;
     }
 
-    input {
+    input,
+    textarea {
       border-radius: 3px;
-      padding: 0 4px;
+      padding: 3px 4px;
       font-size: inherit;
     }
 
@@ -72,9 +78,10 @@ $experimental-support-for-svg: true;
       line-height: 25px;
     }
 
-    input {
+    input,
+    textarea {
       border-radius: 3px;
-      padding: 0 5px;
+      padding: 6px 5px;
       font-size: inherit;
     }
 
@@ -92,9 +99,10 @@ $experimental-support-for-svg: true;
       line-height: 35px;
     }
 
-    input {
+    input,
+    textarea {
       border-radius: 4px;
-      padding: 0 7px;
+      padding: 10px 7px;
       font-size: inherit;
     }
 
@@ -113,9 +121,10 @@ $experimental-support-for-svg: true;
       font-size: 17px;
     }
 
-    input {
+    input,
+    textarea {
       border-radius: 5px;
-      padding: 0 9px;
+      padding: 12px 9px;
       font-size: inherit;
     }
 
@@ -125,6 +134,8 @@ $experimental-support-for-svg: true;
   }
 }
 
+.eui-textarea .eui-wrapper { height: 100% !important;}
+
 
 /*
   * TYPES
@@ -132,7 +143,8 @@ $experimental-support-for-svg: true;
   * Default: White inputs
   *
   */
-.eui-input {
+.eui-input,
+.eui-textarea {
   /* Default */
   &.eui-default {
     @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.3) 0%,  rgba(0, 0, 0, 0.15) 100%));
@@ -141,21 +153,24 @@ $experimental-support-for-svg: true;
       color: #b9b9b9;
     }
 
-    input {
+    input,
+    textarea {
       color: #303030;
       box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.1);
       @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 50%));
     }
 
     /* disabled */
-    input:disabled {
+    input:disabled,
+    textarea:disabled {
       background: #f6f6f6;
       color: #777777;
     }
   }
 
   /* focus */
-  input:focus {
+  input:focus,
+  textarea:focus {
     margin: -1px;
     width: calc(100% + 2px);
     height: calc(100% + 2px);
@@ -169,15 +184,14 @@ $experimental-support-for-svg: true;
 
 
 /* ERROR */
-.eui-input.eui-error {
-  input {
-    margin: -1px;
-    width: calc(100% + 2px);
-    height: calc(100% + 2px);
-    border: solid 1px #ff7f7f;
-    box-shadow:
-      0px 0px 4px #ff0000,
-      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
-    outline: none;
-  }
+.eui-input.eui-error input,
+.eui-textarea.eui-error textarea {
+  margin: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  border: solid 1px #ff7f7f;
+  box-shadow:
+    0px 0px 4px #ff0000,
+    inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  outline: none;
 }
