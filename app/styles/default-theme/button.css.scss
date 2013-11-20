@@ -167,18 +167,24 @@ $experimental-support-for-svg: true;
 
 
   /* hover & focus */
+  .eui-wrapper:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0px;
+    left:0px;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: rgba(255,255,255,0.1);
+    opacity: 0;
+    @include transition(opacity 0.2s);
+  }
+
   &:hover,
   &:focus {
     .eui-wrapper:before {
-      content: "";
-      position: absolute;
-      display: block;
-      top: 0px;
-      left:0px;
-      height: 100%;
-      width: 100%;
-      background: rgba(255,255,255,0.15);
-      border-radius: inherit;
+      opacity: 1;
     }
   }
 
