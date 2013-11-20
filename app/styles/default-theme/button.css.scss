@@ -29,6 +29,10 @@ $experimental-support-for-svg: true;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  i {
+    @include transition(opacity 0.2s);
+  }
 }
 
 
