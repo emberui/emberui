@@ -179,6 +179,9 @@ $experimental-support-for-svg: true;
       0px 0px 4px #0090ff,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
     outline: none;
+    -webkit-animation: eui-focus-highlight 0.2s 1;
+    -moz-animation: eui-focus-highlight 0.2s 1;
+    animation: eui-focus-highlight 0.2s 1;
   }
 }
 
@@ -196,4 +199,99 @@ $experimental-support-for-svg: true;
     0px 0px 4px #ff0000,
     inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   outline: none;
+  -webkit-animation: eui-error-highlight 0.2s 1;
+  -moz-animation: eui-error-highlight 0.2s 1;
+  animation: eui-error-highlight 0.2s 1;
+}
+
+
+
+@-webkit-keyframes eui-error-highlight {
+  0%   {
+    border: solid 1px transparent;
+    box-shadow:
+      0px 0px 0px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border: solid 1px #ff7f7f;
+    box-shadow:
+      0px 0px 4px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@-webkit-keyframes eui-focus-highlight {
+  0%   {
+    border: solid 1px transparent;
+    box-shadow:
+      0px 0px 0px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border: solid 1px #7fb5ff;
+    box-shadow:
+      0px 0px 4px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@-moz-keyframes eui-error-highlight {
+  0%   {
+    border: solid 1px transparent;
+    box-shadow:
+      0px 0px 0px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border: solid 1px #ff7f7f;
+    box-shadow:
+      0px 0px 4px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@-moz-keyframes eui-focus-highlight {
+  0%   {
+    border: solid 1px transparent;
+    box-shadow:
+      0px 0px 0px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border: solid 1px #7fb5ff;
+    box-shadow:
+      0px 0px 4px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes eui-error-highlight {
+  0%   {
+    border: solid 1px transparent;
+    box-shadow:
+      0px 0px 0px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border: solid 1px #ff7f7f;
+    box-shadow:
+      0px 0px 4px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes eui-focus-highlight {
+  0%   {
+    border: solid 1px transparent;
+    box-shadow:
+      0px 0px 0px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border: solid 1px #7fb5ff;
+    box-shadow:
+      0px 0px 4px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
 }
