@@ -1,4 +1,6 @@
 EmberUI.ValidationSupport = Ember.Mixin.create({
+  errorMessage: null,
+
   computedErrorState: null,
   computedErrorMessage: null,
 
@@ -8,7 +10,7 @@ EmberUI.ValidationSupport = Ember.Mixin.create({
     var required = this.get('required');
     var value = this.get('value');
 
-    if (type === 'onload' && !value) return;
+    if (type === 'onload' && !value && !errorMessage) return;
 
     // We only ever show one error message at a time
     if ($.isArray(hasError)) {
@@ -35,6 +37,10 @@ EmberUI.ValidationSupport = Ember.Mixin.create({
   focusOut: function() {
     this.validateField();
   },
+
+  onErrorMessage: function() {
+    Ember.run.once(this, 'validateField');
+  }.observes('errorMessage'),
 
   onChange: function() {
     if (this.get('computedErrorState')) Ember.run.once(this, 'validateField');
