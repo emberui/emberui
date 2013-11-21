@@ -90,7 +90,7 @@ $experimental-support-for-svg: true;
     overflow: hidden;
     margin: 0;
     padding: 0 4px;
-    box-sizing: border-box;
+    @include box-sizing(border-box);
     list-style: none;
     text-align: center;
 
