@@ -35,6 +35,11 @@ $experimental-support-for-svg: true;
   }
 }
 
+button.eui-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
 
 /* SIZES */
 .eui-button {
