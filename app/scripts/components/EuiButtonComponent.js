@@ -25,7 +25,7 @@ EmberUI.EuiButtonComponent = Ember.Component.extend({
     if (this.get('disabled') || this.get('loading')) return true;
   }.property('disabled', 'loading'),
 
-  click: function() {
+  click: function(event) {
     event.preventDefault()
     this.sendAction();
   }
