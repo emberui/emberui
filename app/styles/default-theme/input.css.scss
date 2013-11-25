@@ -41,6 +41,7 @@ $experimental-support-for-svg: true;
     text-overflow: ellipsis;
     white-space: nowrap;
     @include box-sizing(border-box);
+    text-align: left;
   }
 }
 
