@@ -27,6 +27,6 @@ EmberUI.EuiButtonComponent = Ember.Component.extend({
 
   click: function(event) {
     event.preventDefault()
-    this.sendAction();
+    this.sendAction('action', this.get('context'));
   }
 });

@@ -29,7 +29,11 @@
 
       triggerError:function() {
         return this.get('triggerErrorValue');
-      }.property('triggerErrorValue')
+      }.property('triggerErrorValue'),
+
+      testContext: function(context) {
+        console.log(context.itemToDelete)
+      }
     });
   </script>
 </head>
@@ -52,6 +56,7 @@
     {{eui-dropbutton size="small" label="Drop Button" action=dropbuttonOptionsList}}
     {{eui-dropbutton size="small" label="Split Button" action=splitbuttonOptionsList}}
     {{eui-dropbutton size="small" label="Split Button" action=splitbuttonOptionsList}}
+    {{eui-button size="small" label="context" action="testContext" itemToDelete="item1"}}
 
     <br />
     <br />
