@@ -1,1 +1,0 @@
-EmberUI = Ember.Namespace.create();
