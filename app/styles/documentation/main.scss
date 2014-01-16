@@ -4,7 +4,9 @@ body {
   font-size: 16px;
   line-height: 22px;
   color: #303030;
-  min-width: 950px
+  min-width: 950px;
+  font-family: "adelle-sans",sans-serif;
+  font-style: normal;
 }
 
 .container {
@@ -23,7 +25,7 @@ a {
   }
 }
 
-.navigation {
+.site-navigation {
   background: url("/assets/images/header.jpg") center top;
   background-size: cover;
 
@@ -70,8 +72,8 @@ a {
     margin: 0;
     padding-top: 145px;
     text-align: center;
-    font-weight: bold;
     font-size: 60px;
+    font-weight: 700;
   }
 
   h2 {
@@ -79,5 +81,122 @@ a {
     font-style: italic;
     font-weight: normal;
     text-align: center;
+    font-weight: 400;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.docs-navigation {
+  float: left;
+  width: 200px;
+  line-height: 30px;
+  padding-top: 10px;
+  color: #acacac;
+
+  h6 {
+    position: relative;
+    text-transform: uppercase;
+    color: #b4c5d4;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+    padding-left: 25px;
+    line-height: 22px;
+    font-family: "adelle-sans", sans-serif;
+
+    &:before {
+      font-family: FontAwesome;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 20px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 22px;
+    }
+
+    &.fa-lightbulb-o:before {
+      font-size: 18px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0 0 0 25px;
+    margin: 0;
+  }
+}
+
+
+.docs-content {
+  float: left;
+  width: 740px;
+  line-height: 22px;
+  padding-bottom: 50px;
+
+  h1 {
+    font-weight: 700;
+    margin-top: 30px;
+    font-size: 26px;
+    line-height: 38px;
+  }
+
+  .intro {
+    border-top: solid 5px #e5e5e5;
+    border-bottom: solid 5px #e5e5e5;
+    padding: 30px 0;
+    font-size: 26px;
+    line-height: 38px;
+    font-style: italic;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin: 55px 0 22px 0;
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 33px 0 0 0;
+  }
+
+  p {
+    margin: 11px 0;
+  }
+
+  h4 + p {
+    margin-top: 0px;
+  }
+
+  .defaults {
+    margin: 11px 0 22px 0;
+    font-style: italic;
+    list-style: none;
+    padding: 0;
+  }
+
+  .output {
+    border: solid 1px #e6edf3;
+    @include border-radius(5px);
+    background: #f9fcfe;
+    padding: 30px 10px 10px 10px;
+    position: relative;
+
+    &:before {
+      content: "OUTPUT";
+      color: #b4c5d4;
+      font-size: 12px;
+      font-weight: 700;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      line-height: 12px;
+      text-shadow: 1px 1px #ffffff;
+    }
   }
 }
