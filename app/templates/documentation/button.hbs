@@ -6,9 +6,9 @@
 
 <h2>Aesthetic</h2>
 
-<h4>label</h4>
+<h4>label <span>string</span></h4>
 <p>
-  The text displayed on top of the button. Don’t assign it if you don’t want a label.
+  The text displayed on the button.
 </p>
 
 <pre>{{view.exampleLabel}}</pre>
@@ -18,15 +18,16 @@
 </div>
 
 
-<h4>size</h4>
+<h4>size <span>string</span></h4>
 <p>
-  Controls the size of the button. There are four sizes available by default.
+  Controls the size of the button.
 </p>
 
+<h5>Values</h5>
 <ul class="defaults">
   <li>tiny</li>
   <li>small</li>
-  <li>medium (default value)</li>
+  <li>medium (default)</li>
   <li>large</li>
 </ul>
 
@@ -40,13 +41,14 @@
 </div>
 
 
-<h4>style</h4>
+<h4>style <span>string</span></h4>
 <p>
-  Controls the aestetic style of the button. There are two styles available by default.
+  Controls the aesthetic style of the button.
 </p>
 
+<h5>Values</h5>
 <ul class="defaults">
-  <li>secondary (default value)</li>
+  <li>secondary (default)</li>
   <li>primary</li>
 </ul>
 
@@ -58,7 +60,7 @@
 </div>
 
 
-<h4>icon</h4>
+<h4>icon <span>string</span></h4>
 <p>
   Displays an icon in front of the label. If no label is set, the button will show up square with the icon centered.
 </p>
@@ -73,8 +75,8 @@
 <pre>{{view.exampleIcon}}</pre>
 
 <div class="output">
-  {{eui-button icon='fa fa-cog'}}
   {{eui-button label='Settings' icon='fa fa-cog'}}
+  {{eui-button icon='fa fa-cog'}}
 </div>
 
 

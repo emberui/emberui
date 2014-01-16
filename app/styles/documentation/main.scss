@@ -160,9 +160,23 @@ a {
   }
 
   h4 {
+    border-top: solid 1px #e5e5e5;
+    padding-top: 22px;
     font-size: 16px;
     font-weight: 700;
-    margin: 33px 0 0 0;
+    margin: 22px 0 22px 0;
+
+    span {
+      color: #919191;
+      font-weight: normal;
+      font-size: 13px;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+
+  h2 + h4 {
+    border-top: none;
   }
 
   p {
@@ -173,11 +187,18 @@ a {
     margin-top: 0px;
   }
 
+  h5 {
+    margin: 22px 0 11px 0;
+    font-weight: normal;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #919191;
+  }
+
   .defaults {
     margin: 11px 0 22px 0;
-    font-style: italic;
     list-style: none;
-    padding: 0;
+    padding: 0 0 0 20px;
   }
 
   pre {
