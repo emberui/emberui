@@ -180,6 +180,36 @@ a {
     padding: 0;
   }
 
+  pre {
+    border: solid 1px #e6edf3;
+    @include border-radius(5px);
+    background: #f9fcfe;
+    font-family: "Inconsolata", Courier, sans-serif;
+    color: #5a7282;
+    font-size: 13px;
+    line-height: 18px;
+    padding: 3px 0 3px 40px;
+    position: relative;
+    margin: 22px 0 7px 0;
+    overflow: hidden;
+
+    &:before {
+      content: "1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 10\A 11\A 12\A 13\A 14\A 15";
+      width: 24px;
+      line-height: 18px;
+      font-size: 13px;
+      border-right: solid 1px #e6edf3;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      background: #f4f8fb;
+      text-align: right;
+      padding: 3px 5px 3px 0;
+      color: #b4c5d4;
+      text-shadow: 1px 1px #ffffff;
+    }
+  }
+
   .output {
     border: solid 1px #e6edf3;
     @include border-radius(5px);
