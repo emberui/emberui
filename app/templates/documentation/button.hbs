@@ -1,7 +1,7 @@
 <h1>\{{eui-button}}</h1>
 
 <div class="intro">
-  A configurable button that automatically shifts between a regular button, dropbutton, and splitbutton.
+  A configurable button with support for icons and error messages.
 </div>
 
 <h2>Parameters</h2>
@@ -19,9 +19,6 @@
 
   <li class="header">Actions</li>
   <li><a href="#section-action">action</a></li>
-
-  <li class="header">Error Handling</li>
-  <li><a href="#section-errorMessage">errorMessage</a></li>
 </ul>
 
 <h4 id="section-label">label <span>string</span></h4>
@@ -29,7 +26,7 @@
   The text displayed on the button.
 </p>
 
-<pre>{{view.exampleLabel}}</pre>
+<pre>\{{eui-button label='Save Changes'}}</pre>
 
 <div class="output">
   {{eui-button label='Save Changes'}}
@@ -96,10 +93,6 @@
   Pass in a class that will get assgined to a <em>&lt;b&gt;</em> tag inside the button label. You can customize the icon with the css <em>:before</em> selector or set a background image on the tag if icon fonts are not to be used.
 </p>
 
-<p>
-  The example uses <a href="http://fontawesome.io/">FontAwesome</a> for its icons.
-</p>
-
 <pre>\{{eui-button label='Settings' icon='fa fa-cog'}}
 \{{eui-button icon='fa fa-cog'}}</pre>
 
@@ -108,6 +101,10 @@
   {{eui-button icon='fa fa-cog'}}
 </div>
 
+<p>
+  The example uses <a href="http://fontawesome.io/">FontAwesome</a> for its icons.
+</p>
+
 
 <h4 id="section-disabled">disabled <span>boolean</span></h4>
 <p>
@@ -115,7 +112,7 @@
 </p>
 
 <pre>\{{eui-button label='Save Changes' disabled=true}}
-\{{eui-button label='Click to Disable' disabledBinding=isDisabled action='switchToDisabled'}}</pre>
+\{{eui-button label='Click to Disable' disabled=isDisabled action='switchToDisabled'}}</pre>
 
 <pre>actions: {
   switchToDisabled: function(controller) {
@@ -125,7 +122,7 @@
 
 <div class="output">
   {{eui-button label='Save Changes' disabled=true}}
-  {{eui-button label='Click to Disable' disabledBinding=isDisabled action='switchToDisabled'}}
+  {{eui-button label='Click to Disable' disabled=isDisabled action='switchToDisabled'}}
 </div>
 
 
@@ -138,7 +135,7 @@
 </p>
 
 <pre>\{{eui-button label='Save Changes' loading=true}}
-\{{eui-button label='Click to Load' loadingBinding=isLoading action='switchToLoading'}}</pre>
+\{{eui-button label='Click to Load' loading=isLoading action='switchToLoading'}}</pre>
 
 <pre>actions: {
   switchToLoading: function(controller) {
@@ -148,16 +145,35 @@
 
 <div class="output">
   {{eui-button label='Save Changes' loading=true}}
-  {{eui-button label='Click to Load' loadingBinding=isLoading action='switchToLoading'}}
+  {{eui-button label='Click to Load' loading=isLoading action='switchToLoading'}}
 </div>
 
 
 <h4 id="section-action">action <span>string | array</span></h4>
 <p>
-  TODO
+  The action you want to execute when the user clicks on the button.
 </p>
 
-<h4 id="section-errorMessage">errorMessage <span>string</span></h4>
+<pre>\{{eui-button label='Show Alert' action='showAlert'}}</pre>
+
+<pre>actions: {
+  showAlert: function() {
+    alert("Showing Alert");
+  }
+}</pre>
+
+<div class="output">
+  {{eui-button label='Show Alert' action='showAlert'}}
+</div>
+
 <p>
-  TODO
+  The context of the button gets passed through with the click and allows you to pass through information that the action can act on.
 </p>
+
+<pre>\{{eui-button label='Show Alert' action='deleteItem' itemToDelete=item}}</pre>
+
+<pre>actions: {
+  deleteItem: function(context) {
+    this.controller.get('items').removeObject(context.itemToDelete);
+  }
+}</pre>

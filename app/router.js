@@ -11,6 +11,7 @@ Router.map(function() {
     this.route('errorhandling', { path: '/errorhandling' });
 
     this.route('button', { path: '/button' });
+    this.route('dropbutton', { path: '/dropbutton' });
     this.route('input', { path: '/input' });
     this.route('textarea', { path: '/textarea' });
   });

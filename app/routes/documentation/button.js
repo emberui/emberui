@@ -6,6 +6,10 @@ export default Ember.Route.extend({
 
     switchToDisabled: function(controller) {
       this.get("controller").set('isDisabled', true);
+    },
+
+    showAlert: function() {
+      alert("Showing Alert");
     }
   }
 });
