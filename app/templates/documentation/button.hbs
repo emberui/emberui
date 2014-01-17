@@ -52,7 +52,10 @@
   Additional sizes can be added via CSS. See <a href="###">Styles &amp; Theming</a>
 </p>
 
-<pre>{{view.exampleSize}}</pre>
+<pre>\{{eui-button label='Save Changes' size='tiny'}}
+\{{eui-button label='Save Changes' size='small'}}
+\{{eui-button label='Save Changes' size='medium'}}
+\{{eui-button label='Save Changes' size='large'}}</pre>
 
 <div class="output">
   {{eui-button label='Save Changes' size='tiny'}}
@@ -76,7 +79,8 @@
   Additional styles can be added via CSS. See <a href="###">Styles &amp; Theming</a>
 </p>
 
-<pre>{{view.exampleStyle}}</pre>
+<pre>\{{eui-button label='Save Changes' style='secondary'}}
+\{{eui-button label='Save Changes' style='primary'}}</pre>
 
 <div class="output">
   {{eui-button label='Save Changes' style='secondary'}}
@@ -96,7 +100,8 @@
   The example uses <a href="http://fontawesome.io/">FontAwesome</a> for its icons.
 </p>
 
-<pre>{{view.exampleIcon}}</pre>
+<pre>\{{eui-button label='Settings' icon='fa fa-cog'}}
+\{{eui-button icon='fa fa-cog'}}</pre>
 
 <div class="output">
   {{eui-button label='Settings' icon='fa fa-cog'}}
@@ -109,8 +114,14 @@
   Disables the button and prevents the action from firing if clicked.
 </p>
 
-<pre>{{view.exampleDisabled_A}}</pre>
-<pre>{{view.exampleDisabled_B}}</pre>
+<pre>\{{eui-button label='Save Changes' disabled=true}}
+\{{eui-button label='Click to Disable' disabledBinding=isDisabled action='switchToDisabled'}}</pre>
+
+<pre>actions: {
+  switchToDisabled: function(controller) {
+    this.get("controller").set('isDisabled', true);
+  }
+}</pre>
 
 <div class="output">
   {{eui-button label='Save Changes' disabled=true}}
@@ -126,8 +137,14 @@
   The button maintains its size during the loading phase. If the button is too small to show all three dots of the loading animation the amount of dots will be reduced until it fits.
 </p>
 
-<pre>{{view.exampleLoading_A}}</pre>
-<pre>{{view.exampleLoading_B}}</pre>
+<pre>\{{eui-button label='Save Changes' loading=true}}
+\{{eui-button label='Click to Load' loadingBinding=isLoading action='switchToLoading'}}</pre>
+
+<pre>actions: {
+  switchToLoading: function(controller) {
+    this.get("controller").set('isLoading', true);
+  }
+}</pre>
 
 <div class="output">
   {{eui-button label='Save Changes' loading=true}}
