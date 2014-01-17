@@ -95,6 +95,7 @@ a {
   line-height: 30px;
   padding-top: 10px;
   color: #acacac;
+  text-shadow: 1px 1px #ffffff;
 
   h6 {
     position: relative;
@@ -126,8 +127,19 @@ a {
 
   ul {
     list-style: none;
-    padding: 0 0 0 25px;
+    padding: 0 40px 0 20px;
     margin: 0;
+  }
+
+  a {
+    display: block;
+    padding: 0 5px;
+    @include transition(background 0.2s, color 0.2s);
+
+    &.active {
+      background: #e6f4fa;
+      @include border-radius(3px);
+    }
   }
 }
 
@@ -162,6 +174,14 @@ a {
   .parameterindex {
     list-style: none;
     padding: 0 0 0 20px;
+
+    .header {
+      margin-top: 22px;
+      text-transform: uppercase;
+      color: #c6c6c6;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
   }
 
   h4 {

@@ -6,7 +6,13 @@ Router.reopen({
 
 Router.map(function() {
   this.resource("documentation", { path: "/documentation" }, function() {
+    this.route('sizingandlayout', { path: '/sizingandlayout' });
+    this.route('stylesandtheming', { path: '/stylesandtheming' });
+    this.route('errorhandling', { path: '/errorhandling' });
+
     this.route('button', { path: '/button' });
+    this.route('input', { path: '/input' });
+    this.route('textarea', { path: '/textarea' });
   });
 });
 
