@@ -104,22 +104,43 @@
 </div>
 
 
-<h4 id="section-disabled">disabled</h4>
+<h4 id="section-disabled">disabled <span>boolean</span></h4>
 <p>
-  The text displayed on top of the button. Don’t assign it if you don’t want a label.
+  Disables the button and prevents the action from firing if clicked.
 </p>
 
-<h4 id="section-loading">loading</h4>
+<pre>{{view.exampleDisabled_A}}</pre>
+<pre>{{view.exampleDisabled_B}}</pre>
+
+<div class="output">
+  {{eui-button label='Save Changes' disabled=true}}
+  {{eui-button label='Click to Disable' disabledBinding=isDisabled action='switchToDisabled'}}
+</div>
+
+
+<h4 id="section-loading">loading <span>boolean</span></h4>
 <p>
-  The text displayed on top of the button. Don’t assign it if you don’t want a label.
+  If <em>loading</em> is set to true the <em>disabled</em> state is automatically activated as well and the loading state is entered. Upong entering the loading state the the button label is faded out and the animation is faded in.
+</p>
+<p>
+  The button maintains its size during the loading phase. If the button is too small to show all three dots of the loading animation the amount of dots will be reduced until it fits.
 </p>
 
-<h4 id="section-action">action</h4>
+<pre>{{view.exampleLoading_A}}</pre>
+<pre>{{view.exampleLoading_B}}</pre>
+
+<div class="output">
+  {{eui-button label='Save Changes' loading=true}}
+  {{eui-button label='Click to Load' loadingBinding=isLoading action='switchToLoading'}}
+</div>
+
+
+<h4 id="section-action">action <span>string | array</span></h4>
 <p>
-  The text displayed on top of the button. Don’t assign it if you don’t want a label.
+  TODO
 </p>
 
-<h4 id="section-errorMessage">errorMessage</h4>
+<h4 id="section-errorMessage">errorMessage <span>string</span></h4>
 <p>
-  The text displayed on top of the button. Don’t assign it if you don’t want a label.
+  TODO
 </p>

@@ -256,6 +256,10 @@ a {
     }
   }
 
+  pre + pre {
+    margin-top: 7px;
+  }
+
   .output {
     border: solid 1px #e6edf3;
     @include border-radius(5px);
