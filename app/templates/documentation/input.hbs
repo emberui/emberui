@@ -10,6 +10,7 @@
   <li class="header">Attributes</li>
   <li><a href="#section-type">type</a></li>
   <li><a href="#section-placeholder">placeholder</a></li>
+  <li><a href="#section-value">value</a></li>
 
   <li class="header">Aesthetic</li>
   <li><a href="#section-style">style</a></li>
@@ -24,9 +25,57 @@
   <li><a href="#section-errorMessage">errorMessage</a></li>
 </ul>
 
+
+<h4 id="section-type">type <span>string</span></h4>
+<p>
+  Type of input desired. Any value entered will be assigned to the type attribute on the input element.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>text (default)</li>
+  <li>password</li>
+</ul>
+
+
+<h4 id="section-placeholder">placeholder <span>string</span></h4>
+<p>
+  Placeholder value for the input. Does not make use of the placeholder attribute, but instead reimplements the behaviour in html.
+</p>
+
+<pre>\{{eui-input placeholder='Email address'}}</pre>
+
+<div class="output">
+  {{eui-input placeholder='Email address'}}
+</div>
+
+
+<h4 id="section-value">value <span>string</span></h4>
+<p>
+  The value of the input.
+</p>
+
+<pre>\{{eui-input value='john@example.com'}}</pre>
+
+<div class="output">
+  {{eui-input value='john@example.com'}}
+</div>
+
+
+<h4 id="section-style">style <span>string</span></h4>
+<p>
+  Aesthetic style of the input.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>default (default)</li>
+</ul>
+
+
 <h4 id="section-size">size <span>string</span></h4>
 <p>
-  Controls the overall size of the input. Width is set via the width parameter.
+  The overall size of the input. Width is set via the <a href="#section-width">width</a> parameter.
 </p>
 
 <h5>Values</h5>
@@ -52,3 +101,115 @@
   {{eui-input size='large'}}
 </div>
 
+
+<h4 id="section-width">width <span>string</span></h4>
+<p>
+  Width of the input. You must pass in a CSS size value with the unit. Input uses the CSS box-sizing to ensure precentage based sizes are actual sizes.
+</p>
+
+<pre>\{{eui-input width='150px' placeholder='150px'}}
+\{{eui-input width='15em' placeholder='15em'}}
+\{{eui-input width='30%' placeholder='30%'}}</pre>
+
+<div class="output">
+  {{eui-input width='150px' placeholder='150px'}}
+  {{eui-input width='15em' placeholder='15em'}}
+  {{eui-input width='30%' placeholder='30%'}}
+</div>
+
+
+<h4 id="section-disabled">disabled <span>boolean</span></h4>
+<p>
+  Disables the input.
+</p>
+
+<pre>\{{eui-input placeholder='Email Address' disabled=true}}
+\{{eui-input value='Email Address' disabled=true}}</pre>
+
+<div class="output">
+  {{eui-input placeholder='Email Address' disabled=true}}
+  {{eui-input value='Email Address' disabled=true}}
+</div>
+
+
+<h4 id="section-haserror">hasError <span>boolean | string</span></h4>
+<p>
+  Responsible for validation and error handling. The logic behind when the error state gets updated has a bit of logic behind it.
+</p>
+<ul>
+  <li>
+    Page load
+    <ul>
+      <li>Input has a value: update error state</li>
+      <li>Input has no value: don't put intput into an error state</li>
+    </ul>
+  </li>
+  <li>
+    Input value change
+    <ul>
+      <li>Not in an error state: don't do anything</li>
+      <li>In an error state: Update error state on each change</li>
+    </ul>
+  </li>
+  <li>
+    Input looses focus
+    <ul>
+      <li>Update error state</li>
+    </ul>
+  </li>
+</ul>
+
+<p>
+  The input is in an error state when it is highlighted in red. To enter the error state simply return true for <em>hasError</em>. Remember, if the input has no value then <em>hasError</em> will not be evaluated on page load.
+</p>
+
+<pre>\{{eui-input value='john@example' hasError=true}}</pre>
+
+<div class="output">
+  {{eui-input value='john@example' hasError=true}}
+</div>
+
+<p>
+  You can also return a string instead of a boolean value in order to show an error message.
+</p>
+
+<pre>\{{eui-input value='dog' hasError="Please enter a valid location"}}</pre>
+
+<div class="output">
+  {{eui-input value='dog' hasError="Please enter a valid location"}}
+</div>
+
+<p>
+  Both of these examples used a hardcoded value so the error state cannot change. If we instead make use of Ember's data bindings we can create a input that checks its error state dynamically.
+</p>
+
+<pre>\{{eui-input value=email hasError=validateEmail}}</pre>
+
+<pre>email: 'john@example',
+
+validateEmail: function() {
+  var emailpat = /^[^@]+@[^@]+\.[^@\.]{2,}$/;
+  var email = this.get('email');
+
+  if (email.match(emailpat)) {
+    return false;
+  } else {
+    return 'We need a valid email address';
+  }
+}.property('email')</pre>
+
+<div class="output">
+  {{eui-input value=email hasError=validateEmail}}
+</div>
+
+<br />
+
+<p>
+  You can use a validation library such as <a href="https://github.com/dockyard/ember-validations">Ember Validations</a> in conjunction with <em>hasError</em> for succinct error handeling.
+</p>
+
+
+<h4 id="section-errormessage">errorMessage <span>string</span></h4>
+<p>
+  TODO: remove this property and figure better way to do the thing that this enables.
+</p>
