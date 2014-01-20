@@ -14,6 +14,7 @@ Router.map(function() {
     this.route('dropbutton', { path: '/dropbutton' });
     this.route('input', { path: '/input' });
     this.route('textarea', { path: '/textarea' });
+    this.route('selectpopup', { path: '/selectpopup' });
   });
 });
 

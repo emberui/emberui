@@ -1,7 +1,19 @@
 export default Ember.ObjectController.extend({
   actionList: [
-    Ember.Object.create({ label: 'Action 1', action: 'action-one'}),
-    Ember.Object.create({ label: 'Action 2', action: 'action-two', disabled: true}),
-    Ember.Object.create({ label: 'Action 3', action: 'action-three'})
+    Ember.Object.create({ label: 'Save', action: 'save' }),
+    Ember.Object.create({ label: 'Delete', action: 'delete' }),
+    Ember.Object.create({ label: 'Edit', action: 'edit' })
+  ],
+
+  actionListNoLabel: [
+    Ember.Object.create({ action: 'save' }),
+    Ember.Object.create({ label: 'Delete', action: 'delete' }),
+    Ember.Object.create({ label: 'Edit', action: 'edit' })
+  ],
+
+  actionListPrimary: [
+    Ember.Object.create({ label: 'Save', action: 'save', primary: true }),
+    Ember.Object.create({ label: 'Delete', action: 'delete' }),
+    Ember.Object.create({ label: 'Edit', action: 'edit' })
   ]
 });

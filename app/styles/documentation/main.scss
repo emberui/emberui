@@ -280,4 +280,8 @@ a {
       text-shadow: 1px 1px #ffffff;
     }
   }
+
+  p + .output {
+    margin-top: 22px;
+  }
 }

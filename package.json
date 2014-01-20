@@ -49,6 +49,7 @@
     "originate": "~0.1.5",
     "loom": "~3.1.2",
     "connect-livereload": "~0.3.1",
-    "grunt-contrib-compass": "~0.7.0"
+    "grunt-contrib-compass": "~0.7.0",
+    "grunt-contrib-coffee": "~0.8.2"
   }
 }

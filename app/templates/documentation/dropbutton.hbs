@@ -1,0 +1,160 @@
+<h1>\{{eui-dropbutton}}</h1>
+
+<div class="intro">
+  Combines the button and select popup components into a dropbutton and splitbutton.
+</div>
+
+<h2>Parameters</h2>
+
+<ul class="parameterindex">
+  <li class="header">Aesthetic</li>
+  <li><a href="#section-label">label</a></li>
+  <li><a href="#section-size">size</a></li>
+  <li><a href="#section-style">style</a></li>
+  <li><a href="#section-icon">icon</a></li>
+
+  <li class="header">States</li>
+  <li><a href="#section-disabled">disabled</a></li>
+  <li><a href="#section-loading">loading</a></li>
+
+  <li class="header">Actions</li>
+  <li><a href="#section-action">action</a></li>
+</ul>
+
+<h4 id="section-label">label <span>string</span></h4>
+<p>
+  The text displayed on the button. If there are is a primary event associated with the button the label for the primary event will be used instead.
+</p>
+
+<pre>\{{eui-dropbutton label='Actions' action=actionList}}
+\{{eui-dropbutton label='Actions' action=actionList}}</pre>
+
+<pre>actionList: [
+  Ember.Object.create({ label: 'Save', action: 'save' }),
+  Ember.Object.create({ label: 'Delete', action: 'delete' }),
+  Ember.Object.create({ label: 'Edit', action: 'edit' })
+],
+
+actionListPrimary: [
+  Ember.Object.create({ label: 'Save', action: 'save', primary: true }),
+  Ember.Object.create({ label: 'Delete', action: 'delete' }),
+  Ember.Object.create({ label: 'Edit', action: 'edit' })
+]</pre>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' action=actionList}}
+  {{eui-dropbutton label='Actions' action=actionListPrimary}}
+</div>
+
+
+<h4 id="section-size">size <span>string</span></h4>
+<p>
+  Controls the size of the button. See {{link-to "button" "documentation.button"}} for usage instructions.
+</p>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' size='small' action=actionList}}
+  {{eui-dropbutton label='Actions' size='small' action=actionListPrimary}}
+</div>
+
+
+<h4 id="section-style">style <span>string</span></h4>
+<p>
+  Controls the aesthetic style of the button. See {{link-to "button" "documentation.button"}} for usage instructions.
+</p>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' style='secondary' action=actionList}}
+  {{eui-dropbutton label='Actions' style='secondary' action=actionListPrimary}}
+  {{eui-dropbutton label='Actions' style='primary' action=actionList}}
+  {{eui-dropbutton label='Actions' style='primary' action=actionListPrimary}}
+</div>
+
+
+<h4 id="section-icon">icon <span>string</span></h4>
+<p>
+  Displays an icon in front of the label. See {{link-to "button" "documentation.button"}} for usage instructions.
+</p>
+
+<p>
+  There is one thing to consider when making use of an icon. Because the dropbutton already makes use of an icon to indicate the popup will open when clicked, it is not recommended that the button have both a label and an icon at the same time.
+</p>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' icon="fa fa-cog" action=actionList}}
+</div>
+
+<p>
+  Framing the label in such a way makes it look awkward. It is better to rely purely on an icon or a label.
+</p>
+
+<div class="output">
+  {{eui-dropbutton icon="fa fa-cog" action=actionListNoLabel}}
+</div>
+
+<p>
+  Because the splitbutton uses a second button as a trigger for the popup it is ok to make use of an icon with the label.
+</p>
+
+<div class="output">
+  {{eui-dropbutton icon="fa fa-cog" action=actionListPrimary}}
+</div>
+
+<h4 id="section-disabled">disabled <span>boolean</span></h4>
+<p>
+  Disables the button. See {{link-to "button" "documentation.button"}} for usage instructions.
+</p>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' disabled=true action=actionList}}
+  {{eui-dropbutton label='Actions' disabled=true action=actionListPrimary}}
+</div>
+
+
+<h4 id="section-loading">loading <span>boolean</span></h4>
+<p>
+  See {{link-to "button" "documentation.button"}} for usage instructions.
+</p>
+
+<p>
+  The dropbutton's loading state is identical to that of a regular button. If a splitbutton is put into a loading state only the left button is put into a loading state and the right one remains intact.
+</p>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' loading=true action=actionList}}
+  {{eui-dropbutton label='Actions' loading=true action=actionListPrimary}}
+</div>
+
+
+<h4 id="section-action">action <span>array</span></h4>
+<p>
+  The dropbutton takes an array of actions.
+</p>
+
+<pre>actionList: [
+    Ember.Object.create({ label: 'Save', action: 'save' }),
+    Ember.Object.create({ label: 'Delete', action: delete' }),
+    Ember.Object.create({ label: 'Edit', action: 'edit' })
+]</pre>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' action=actionList}}
+</div>
+
+<p>
+  Each action should have a label and action associated with it. You may optionally set one of the actions as the primary action and omit its label if you wish to use only an icon. If multiple actions are set as primary the first one will be taken and the rest treated as secondary actions.
+</p>
+
+<pre>actionListPrimary: [
+    Ember.Object.create({ label: 'Save', action: 'save', primary: true }),
+    Ember.Object.create({ label: 'Delete', action: 'delete' }),
+    Ember.Object.create({ label: 'Edit', action: 'edit' })
+]</pre>
+
+<div class="output">
+  {{eui-dropbutton label='Actions' action=actionListPrimary}}
+</div>
+
+<p>
+  If there is a primary action the button will act as a splitbutton, if no primary action is assigned it will behave as a dropbutton.
+</p>
