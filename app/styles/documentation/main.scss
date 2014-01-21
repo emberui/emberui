@@ -284,4 +284,22 @@ a {
   p + .output {
     margin-top: 22px;
   }
+
+  ul {
+    list-style-type: none;
+    padding-left: 15px;
+
+    li {
+      padding-bottom: 11px;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 30px;
+
+      li {
+        padding-bottom: 0px;
+      }
+    }
+  }
 }
