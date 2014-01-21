@@ -1,32 +1,22 @@
 export default Ember.Mixin.create({
-  errorMessage: null,
-
   computedErrorState: null,
   computedErrorMessage: null,
 
   validateField: function(type) {
     var hasError = this.get('hasError');
-    var errorMessage = this.get('errorMessage');
     var required = this.get('required');
     var value = this.get('value');
 
-    if (type === 'onload' && !value && !errorMessage) return;
+    if (type === 'onload' && !value) return;
 
-    // We only ever show one error message at a time
+    // Error validation libraries may return an array of error messages so we only use the first
     if ($.isArray(hasError)) {
       hasError = hasError[0];
     }
 
-    if (hasError || errorMessage || (required && !value)) {
+    if (hasError || (required && !value)) {
       this.set('computedErrorState', true);
-
-      // Because hasError can either be true or contain an error message we need to check which it is
-      if (hasError && typeof(hasError) !== 'boolean' ) {
-        this.set('computedErrorMessage', hasError);
-
-      } else if (errorMessage) {
-        this.set('computedErrorMessage', errorMessage);
-      }
+      this.set('computedErrorMessage', hasError);
 
     } else {
       this.set('computedErrorState', false);
@@ -37,10 +27,6 @@ export default Ember.Mixin.create({
   focusOut: function() {
     this.validateField();
   },
-
-  onErrorMessage: function() {
-    Ember.run.once(this, 'validateField');
-  }.observes('errorMessage'),
 
   onChange: function() {
     if (this.get('computedErrorState')) Ember.run.once(this, 'validateField');
