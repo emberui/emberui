@@ -47,9 +47,11 @@
   To enter the error state simply return true for the <em>hasError</em> property. Remember, if the element has no value then <em>hasError</em> will not be evaluated on page load.
 </p>
 
-<pre>\{{eui-input value='john@example' hasError=true}}</pre>
+<pre>\{{eui-input value='' hasError=true placeholder="Will error on focus out"}}
+\{{eui-input value='john@example' hasError=true}}</pre>
 
 <div class="output">
+  {{eui-input value='' hasError=true placeholder="Will error on focus out"}}
   {{eui-input value='john@example' hasError=true}}
 </div>
 
