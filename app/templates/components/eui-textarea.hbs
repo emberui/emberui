@@ -1,6 +1,6 @@
 <div class="eui-wrapper">
   {{#if placeholderVisible}}
-    <label {{bindAttr for=inputId}}>{{placeholder}}</label>
+    <label {{bind-attr for=inputId}}>{{placeholder}}</label>
   {{/if}}
   {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}
 </div>
