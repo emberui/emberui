@@ -1,13 +1,13 @@
 `import validationSupport from 'appkit/mixins/validation-support'`
 `import textSupport from 'appkit/mixins/text-support'`
 
-textarea = Ember.Component.extend validationSupport, textSupport,
+textarea = Em.Component.extend validationSupport, textSupport,
   classNameBindings: [':eui-textarea']
   attributeBindings: ['computedWidthAndHeight:style']
 
   height: null
 
-  computedWidthAndHeight: Ember.computed ->
+  computedWidthAndHeight: Em.computed ->
     widths =
       tiny: '100px'
       small: '150px'

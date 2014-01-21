@@ -1,4 +1,4 @@
-button = Ember.Component.extend
+button = Em.Component.extend
   tagName: 'button'
   classNameBindings: [':eui-button', 'computedSize', 'computedStyle', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class']
   attributeBindings: ['isDisabled:disabled']
@@ -13,15 +13,15 @@ button = Ember.Component.extend
   action: null
   class: null
 
-  computedSize: Ember.computed ->
+  computedSize: Em.computed ->
     return 'eui-' + (@.get('size') or 'medium')
   .property 'size'
 
-  computedStyle:  Ember.computed ->
+  computedStyle:  Em.computed ->
     return 'eui-' + (@.get('style') or 'secondary')
   .property 'style'
 
-  isDisabled:  Ember.computed ->
+  isDisabled:  Em.computed ->
     if @.get('disabled') or @.get('loading')
       return true
   .property 'disabled', 'loading'

@@ -1,8 +1,8 @@
-dropbutton = Ember.Component.extend
+dropbutton = Em.Component.extend
   tagName: 'div'
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
 
-  primaryAction: Ember.computed ->
+  primaryAction: Em.computed ->
     action = @.get('action').findBy 'primary', true
     return action
   .property 'action'

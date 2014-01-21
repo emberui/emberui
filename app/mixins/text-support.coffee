@@ -1,5 +1,5 @@
 # Shared mixin used by input and textarea
-textsupport = Ember.Mixin.create
+textsupport = Em.Mixin.create
   tagName: 'div'
   classNameBindings: ['computedSize', 'computedStyle', 'class', 'computedErrorState:eui-error']
 
@@ -20,17 +20,17 @@ textsupport = Ember.Mixin.create
   didInsertElement: ->
     @.set('inputId', @.$('input').attr('id') or @.$('textarea').attr('id'))
 
-  computedSize: Ember.computed ->
+  computedSize: Em.computed ->
     size = @.get('size') or 'medium'
     return "eui-#{size}"
   .property 'size'
 
-  computedStyle: Ember.computed ->
+  computedStyle: Em.computed ->
     style = @.get('style') or 'default'
     return "eui-#{style}"
   .property 'style'
 
-  placeholderVisible: Ember.computed ->
+  placeholderVisible: Em.computed ->
     placeholder = @.get('placeholder')
     value = @.get('value')
 

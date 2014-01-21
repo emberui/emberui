@@ -1,4 +1,4 @@
-validationsupport = Ember.Mixin.create
+validationsupport = Em.Mixin.create
   computedErrorState: null
   computedErrorMessage: null
 
