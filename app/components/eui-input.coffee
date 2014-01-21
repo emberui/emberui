@@ -15,6 +15,6 @@ input = Ember.Component.extend validationSupport, textSupport,
       large: '250px'
 
     return 'width: ' + (@.get('width') or widths[@.get('size')] or widths['medium'])
-  .property 'style size width'
+  .property 'style', 'size', 'width'
 
 `export default input`
