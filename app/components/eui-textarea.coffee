@@ -20,8 +20,9 @@ textarea = Ember.Component.extend validationSupport, textSupport,
       medium: '100px'
       large: '125px'
 
-    return 'width: ' + (@.get('width') or widths[@.get('size')] or widths['medium']) + '; ' +
-              'height: ' + (@.get('height') or heights[@.get('size')] or heights['medium']) + ';'
-  .property 'style', 'size', 'width', 'height'
+    width = @.get('width') or widths[@.get('size')] or widths['medium']
+    height = @.get('height') or heights[@.get('size')] or heights['medium']
+    return "width: #{width}; height: #{height};"
+  .property 'size', 'width', 'height'
 
 `export default textarea`
