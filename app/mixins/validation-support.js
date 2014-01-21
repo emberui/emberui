@@ -16,7 +16,10 @@ export default Ember.Mixin.create({
 
     if (hasError || (required && !value)) {
       this.set('computedErrorState', true);
-      this.set('computedErrorMessage', hasError);
+
+      if (hasError && typeof(hasError) !== 'boolean' ) {
+        this.set('computedErrorMessage', hasError);
+      }
 
     } else {
       this.set('computedErrorState', false);
