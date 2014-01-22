@@ -6,7 +6,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
 
   primaryAction: Em.computed ->
-    action = @.get('action').findBy 'primary', true
+    action = @get('action').findBy 'primary', true
     return action
   .property 'action'
 

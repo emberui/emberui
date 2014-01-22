@@ -15,12 +15,12 @@ button = Em.Component.extend styleSupport, sizeSupport,
   class: null
 
   isDisabled:  Em.computed ->
-    if @.get('disabled') or @.get('loading')
+    if @get('disabled') or @get('loading')
       return true
   .property 'disabled', 'loading'
 
   click: (event) ->
     event.preventDefault()
-    @.sendAction('action', this.get('context'))
+    @sendAction('action', @get('context'))
 
 `export default button`

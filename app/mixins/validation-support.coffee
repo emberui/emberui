@@ -3,9 +3,9 @@ validationsupport = Em.Mixin.create
   computedErrorMessage: null
 
   validateField: (type) ->
-    hasError = @.get('hasError')
-    required = @.get('required')
-    value = @.get('value')
+    hasError = @get('hasError')
+    required = @get('required')
+    value = @get('value')
 
     if type is 'onload' and !value
       return
@@ -15,25 +15,24 @@ validationsupport = Em.Mixin.create
       hasError = hasError[0]
 
     if hasError or (required and !value)
-      @.set 'computedErrorState', true
+      @set 'computedErrorState', true
 
       if hasError and typeof(hasError) isnt 'boolean'
-        @.set 'computedErrorMessage', hasError
+        @set 'computedErrorMessage', hasError
 
     else
-      @.set 'computedErrorState', false
-      @.set 'computedErrorMessage', null
+      @set 'computedErrorState', false
+      @set 'computedErrorMessage', null
 
-  focusOut: ->
-    @.validateField()
+  focusOut: -> @validateField()
 
   onChange:  (->
-    if @.get('computedErrorState')
+    if @get('computedErrorState')
       Ember.run.once(@, 'validateField')
   ).observes 'value'
 
   validateOnLoad: (->
-    @.validateField('onload')
+    @validateField('onload')
   ).on 'init'
 
 `export default validationsupport`

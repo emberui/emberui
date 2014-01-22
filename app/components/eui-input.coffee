@@ -16,7 +16,7 @@ input = Em.Component.extend validationSupport, textSupport, styleSupport, sizeSu
       medium: '200px'
       large: '250px'
 
-    width = @.get('width') or widths[@.get('size')] or widths['medium']
+    width = @get('width') or widths[@get('size')] or widths['medium']
     return "width: #{width};"
   .property 'size', 'width'
 

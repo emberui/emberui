@@ -16,11 +16,11 @@ textsupport = Em.Mixin.create
 
   # We need to bind the value of the label to the textarea's id because IE8 and IE9 doesn't support pointer-events: none;
   didInsertElement: ->
-    @.set('inputId', @.$('input').attr('id') or @.$('textarea').attr('id'))
+    @set('inputId', @$('input').attr('id') or @$('textarea').attr('id'))
 
   placeholderVisible: Em.computed ->
-    placeholder = @.get('placeholder')
-    value = @.get('value')
+    placeholder = @get('placeholder')
+    value = @get('value')
 
     if placeholder and !value
       return true
