@@ -26,8 +26,8 @@
   The text displayed on the button. If there are is a primary event associated with the button the label for the primary event will be used instead.
 </p>
 
-<pre>\{{eui-dropbutton label='Actions' action=actionList}}
-\{{eui-dropbutton label='Actions' action=actionList}}</pre>
+<pre>\{{eui-dropbutton label='Actions' actionList=actionList}}
+\{{eui-dropbutton label='Actions' actionList=actionList}}</pre>
 
 <pre>actionList: [
   Ember.Object.create({ label: 'Save', action: 'save' }),
@@ -42,8 +42,8 @@ actionListPrimary: [
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' action=actionList}}
-  {{eui-dropbutton label='Actions' action=actionListPrimary}}
+  {{eui-dropbutton label='Actions' actionList=actionList}}
+  {{eui-dropbutton label='Actions' actionList=actionListPrimary}}
 </div>
 
 
@@ -53,8 +53,8 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' size='small' action=actionList}}
-  {{eui-dropbutton label='Actions' size='small' action=actionListPrimary}}
+  {{eui-dropbutton label='Actions' size='small' actionList=actionList}}
+  {{eui-dropbutton label='Actions' size='small' actionList=actionListPrimary}}
 </div>
 
 
@@ -64,10 +64,10 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' style='default' action=actionList}}
-  {{eui-dropbutton label='Actions' style='default' action=actionListPrimary}}
-  {{eui-dropbutton label='Actions' style='primary' action=actionList}}
-  {{eui-dropbutton label='Actions' style='primary' action=actionListPrimary}}
+  {{eui-dropbutton label='Actions' style='default' actionList=actionList}}
+  {{eui-dropbutton label='Actions' style='default' actionList=actionListPrimary}}
+  {{eui-dropbutton label='Actions' style='primary' actionList=actionList}}
+  {{eui-dropbutton label='Actions' style='primary' actionList=actionListPrimary}}
 </div>
 
 
@@ -81,7 +81,7 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' icon="fa fa-cog" action=actionList}}
+  {{eui-dropbutton label='Actions' icon="fa fa-cog" actionList=actionList}}
 </div>
 
 <p>
@@ -89,7 +89,7 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton icon="fa fa-cog" action=actionListNoLabel}}
+  {{eui-dropbutton icon="fa fa-cog" actionList=actionListNoLabel}}
 </div>
 
 <p>
@@ -97,7 +97,7 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton icon="fa fa-cog" action=actionListPrimary}}
+  {{eui-dropbutton icon="fa fa-cog" actionList=actionListPrimary}}
 </div>
 
 <h4 id="section-disabled">disabled <span>boolean</span></h4>
@@ -106,8 +106,8 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' disabled=true action=actionList}}
-  {{eui-dropbutton label='Actions' disabled=true action=actionListPrimary}}
+  {{eui-dropbutton label='Actions' disabled=true actionList=actionList}}
+  {{eui-dropbutton label='Actions' disabled=true actionList=actionListPrimary}}
 </div>
 
 
@@ -121,8 +121,8 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' loading=true action=actionList}}
-  {{eui-dropbutton label='Actions' loading=true action=actionListPrimary}}
+  {{eui-dropbutton label='Actions' loading=true actionList=actionList}}
+  {{eui-dropbutton label='Actions' loading=true actionList=actionListPrimary}}
 </div>
 
 
@@ -138,7 +138,7 @@ actionListPrimary: [
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' action=actionList}}
+  {{eui-dropbutton label='Actions' actionList=actionList}}
 </div>
 
 <p>
@@ -152,7 +152,7 @@ actionListPrimary: [
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' action=actionListPrimary}}
+  {{eui-dropbutton label='Actions' actionList=actionListPrimary}}
 </div>
 
 <p>

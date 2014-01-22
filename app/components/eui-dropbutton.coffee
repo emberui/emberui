@@ -7,13 +7,14 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
 
   primaryAction: Em.computed ->
-    @get('action').findBy 'primary', true
-  .property 'action'
+    @get('actionList').findBy 'primary', true
+  .property 'actionList'
 
   actions:
     toggleWindow: ->
       popupComponent.show
-        items: @get('action')
+        _parentView: @get('parentView') # note: _parentView/parentView is intensional
+        actionList: @get('actionList')
         origin: @
         style: 'bubble'
 

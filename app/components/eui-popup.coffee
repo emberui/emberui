@@ -9,8 +9,8 @@ popup = Em.Component.extend styleSupport,
     closePopup: ->
       @hide()
 
-    sendAction: (action) ->
-      @sendAction('action')
+    actionThenHide: (action) ->
+      @triggerAction {action: action}
       @hide()
 
   hide: ->

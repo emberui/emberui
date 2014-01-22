@@ -1,9 +1,9 @@
 <div class="eui-window">
   <div class="eui-windowwrapper">
     <ul class="eui-options">
-      {{#each items}}
+      {{#each actionList}}
         {{#unless primary}}
-        <li class="option" {{action 'sendAction' this.action}}>{{label}}</li>
+        <li class="option" {{action 'actionThenHide' this.action}}>{{label}}</li>
         {{/unless}}
       {{/each}}
     </ul>
