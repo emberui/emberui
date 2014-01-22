@@ -10,7 +10,7 @@ popup = Em.Component.extend styleSupport,
       @hide()
 
     actionThenHide: (action) ->
-      @triggerAction {action: action}
+      @triggerAction {action: action, actionContext: @get('parent')}
       @hide()
 
   hide: ->
@@ -22,15 +22,15 @@ popup.reopenClass
     popup = this.create options
     popup.appendTo 'body'
 
-    Ember.run.next this, -> @position(options.origin.$(), popup)
+    Ember.run.next this, -> @position(options.parent.$(), popup)
     popup
 
-  position: (origin, popup) ->
+  position: (parent, popup) ->
     popupContainer = popup.$()
 
     # TODO - Rewrite all this
     # make sure popup is at least as wide as the button
-    popupContainer.find('.eui-windowwrapper').css 'min-width', origin.width()
+    popupContainer.find('.eui-windowwrapper').css 'min-width', parent.width()
 
     # Don't allow the popup window to dominate the entire page
     height = $(window).height() - 100;

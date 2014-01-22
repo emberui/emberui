@@ -1,15 +1,27 @@
 export default Ember.Route.extend({
   actions: {
     save: function() {
-      alert("Saving...");
+      alert("Saving... ");
     },
 
     delete: function() {
-      alert("Deleting...");
+      alert("Deleting... ");
     },
 
     edit: function() {
-      alert("Editing...");
+      alert("Editing... ");
+    },
+
+    saveItem: function(context) {
+      alert("Saving... " + context.item);
+    },
+
+    deleteItem: function(context) {
+      alert("Deleting... " + context.item);
+    },
+
+    editItem: function(context) {
+      alert("Editing... " + context.item);
     }
   }
 });
