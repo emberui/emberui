@@ -97,7 +97,7 @@ button.eui-button::-moz-focus-inner {
   * TYPES
   *
   * Primary: Blue button
-  * Secondary: Gray button
+  * Default: Gray button
   *
   */
 .eui-button {
@@ -138,8 +138,8 @@ button.eui-button::-moz-focus-inner {
     }
   }
 
-  /* Secondary */
-  &.eui-secondary {
+  /* Default */
+  &.eui-default {
     color: #848484;
     text-shadow: 1px 1px #ffffff;
     @include background-image(linear-gradient(top,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%));

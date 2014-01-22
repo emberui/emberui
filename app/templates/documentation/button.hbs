@@ -8,6 +8,7 @@
 
 <ul class="parameterindex">
   <li class="header">Aesthetic</li>
+  <li><a href="#section-class">class</a></li>
   <li><a href="#section-label">label</a></li>
   <li><a href="#section-size">size</a></li>
   <li><a href="#section-style">style</a></li>
@@ -20,6 +21,13 @@
   <li class="header">Actions</li>
   <li><a href="#section-action">action</a></li>
 </ul>
+
+
+<h4 id="section-class">class <span>string</span></h4>
+<p>
+  Assigns a custom CSS class to the button.
+</p>
+
 
 <h4 id="section-label">label <span>string</span></h4>
 <p>
@@ -69,18 +77,18 @@
 
 <h5>Values</h5>
 <ul class="defaults">
-  <li>secondary (default)</li>
+  <li>default (default)</li>
   <li>primary</li>
 </ul>
 <p>
   Additional styles can be added via CSS. See <a href="###">Styles &amp; Theming</a>
 </p>
 
-<pre>\{{eui-button label='Save Changes' style='secondary'}}
+<pre>\{{eui-button label='Save Changes' style='default'}}
 \{{eui-button label='Save Changes' style='primary'}}</pre>
 
 <div class="output">
-  {{eui-button label='Save Changes' style='secondary'}}
+  {{eui-button label='Save Changes' style='default'}}
   {{eui-button label='Save Changes' style='primary'}}
 </div>
 
