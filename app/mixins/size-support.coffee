@@ -1,4 +1,5 @@
 sizesupport = Em.Mixin.create
+  classNameBindings: ['computedSize']
   size: 'medium'
 
   computedSize: Em.computed ->

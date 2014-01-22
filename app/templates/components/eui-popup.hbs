@@ -1,0 +1,13 @@
+<div class="eui-window">
+  <div class="eui-windowwrapper">
+    <ul class="eui-options">
+      {{#each items}}
+        {{#unless primary}}
+        <li class="option" {{action 'sendAction' this.action}}>{{label}}</li>
+        {{/unless}}
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div class="eui-overlay" {{action 'closePopup'}}></div>

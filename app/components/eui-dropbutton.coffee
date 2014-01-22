@@ -1,20 +1,23 @@
 `import styleSupport from 'appkit/mixins/style-support'`
 `import sizeSupport from 'appkit/mixins/size-support'`
+`import popupComponent from 'appkit/components/eui-popup'`
 
 dropbutton = Em.Component.extend styleSupport, sizeSupport,
   tagName: 'div'
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
 
   primaryAction: Em.computed ->
-    action = @get('action').findBy 'primary', true
-    return action
+    @get('action').findBy 'primary', true
   .property 'action'
 
   actions:
     toggleWindow: ->
-      throw "TODO: open window with list of actions"
+      popupComponent.show
+        items: @get('action')
+        origin: @
+        style: 'bubble'
 
     primaryAction: ->
-      @.sendAction 'primaryAction.action'
+      @sendAction 'primaryAction.action'
 
 `export default dropbutton`
