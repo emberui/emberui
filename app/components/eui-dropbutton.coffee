@@ -5,6 +5,7 @@
 dropbutton = Em.Component.extend styleSupport, sizeSupport,
   tagName: 'div'
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
+  popupIsOpen: false
 
   primaryAction: Em.computed ->
     @get('actionList').findBy 'primary', true
@@ -15,6 +16,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
       popupComponent.show
         _parentView: @get('parentView') # note: _parentView/parentView is intentional
         parent: @
+        isOpenBinding: 'parent.popupIsOpen'
         actionList: @get('actionList')
         style: 'bubble'
 

@@ -14,7 +14,11 @@ popup = Em.Component.extend styleSupport,
       @hide()
 
   hide: ->
+    @set('isOpen', false)
     @destroy()
+
+  didInsertElement: ->
+    @set('isOpen', true)
 
 
 popup.reopenClass

@@ -15,7 +15,7 @@
     icon="fa fa-caret-down"
     loading=false
     disabled=view.disabled
-    class="eui-trigger"
+    classBinding=":eui-trigger popupIsOpen:eui-active"
     action="toggleWindow"}}
 
 {{else}}
@@ -27,6 +27,7 @@
     trailingIcon="fa fa-caret-down"
     loading=view.loading
     disabled=view.disabled
+    classBinding="popupIsOpen:eui-active"
     action="toggleWindow"}}
 
 {{/if}}
