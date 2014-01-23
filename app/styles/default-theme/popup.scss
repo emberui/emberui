@@ -13,18 +13,6 @@ $experimental-support-for-svg: true;
     top: 0px;
     left: 0px;
     z-index: 1000001;
-    @include border-radius(3px);
-    padding: 1px;
-    @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
-    box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-name: bounce;
-  }
-
-  .eui-windowwrapper {
-    background: #ffffff;
-    @include border-radius(3px);
-    padding: 5px 0;
   }
 
   .eui-options {
@@ -32,20 +20,9 @@ $experimental-support-for-svg: true;
     padding: 0;
     list-style: none;
     font-size: 13px;
-    line-height: 18px;
+    line-height: 20px;
     font-family: Helvetica, "Helvetica Neue", Arial, Tahoma, sans-serif;
     overflow: hidden;
-
-    .option {
-      padding: 0 7.5px;
-      cursor: pointer;
-
-      &:hover {
-        @include background-image(linear-gradient(top,  #1493dc 0%, #64bcf7 100%));
-        color: #ffffff;
-        text-shadow: 0px 1px rgba(0,0,0,0.35);
-      }
-    }
   }
 
   .eui-overlay {
@@ -57,6 +34,65 @@ $experimental-support-for-svg: true;
     z-index: 1000000;
   }
 }
+
+/*
+  * STYLES
+  *
+  * bubble: for use with dropbutton
+  *
+  */
+.eui-popup {
+  &.eui-bubble {
+    .eui-window {
+      @include border-radius(3px);
+      padding: 1px;
+      @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
+      box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+      -webkit-animation-duration: 0.2s;
+      -webkit-animation-name: bounce;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        right: 10px;
+        border-bottom: solid 5px rgba(0,0,0,0.1);
+        border-right: solid 5px transparent;
+        border-left: solid 5px transparent;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: -4px;
+        right: 10px;
+        border-bottom: solid 5px #ffffff;
+        border-right: solid 5px transparent;
+        border-left: solid 5px transparent;
+      }
+    }
+
+    .eui-windowwrapper {
+      background: #ffffff;
+      @include border-radius(3px);
+      padding: 5px 0;
+    }
+
+    .eui-options {
+      .option {
+        padding: 0 7.5px;
+        cursor: pointer;
+
+        &:hover {
+          @include background-image(linear-gradient(top,  #1493dc 0%, #64bcf7 100%));
+          color: #ffffff;
+          text-shadow: 0px 1px rgba(0,0,0,0.35);
+        }
+      }
+    }
+  }
+}
+
 
 
 /* Bounce Animation */
