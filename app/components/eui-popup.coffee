@@ -16,14 +16,11 @@ popup = Em.Component.extend styleSupport,
   hide: ->
     @set('isOpen', false)
     $(window).unbind('scroll.emberui')
+    $(window).unbind('click.emberui')
     @destroy()
 
   didInsertElement: ->
     @set('isOpen', true)
-    _this = @
-
-    $(window).bind 'scroll.emberui', ->
-      _this.hide()
 
 
 popup.reopenClass
@@ -36,29 +33,37 @@ popup.reopenClass
 
   position: (parent, popup) ->
     element = parent.$()
-    popup = popup.$().find('.eui-window')
+    popupElement = popup.$()
 
     offset = element.offset()
 
     # set a reasonable min-width on the popup before we caclulate its actual size
-    elementWidthMinusPopupPadding = element.width() - parseFloat(popup.css('paddingLeft')) - parseFloat(popup.css('paddingRight'))
-    popup.css('min-width', elementWidthMinusPopupPadding)
+    elementWidthMinusPopupPadding = element.width() - parseFloat(popupElement.css('paddingLeft')) - parseFloat(popupElement.css('paddingRight'))
+    popupElement.css('min-width', elementWidthMinusPopupPadding)
 
     # calculate all the numbers needed to set positioning
     elementPositionTop = offset.top - element.scrollTop()
     elementPositionLeft = offset.left - element.scrollLeft()
     elementHeight = element.height()
     elementWidth = element.width()
-    popupWidth = popup.width()
-    popupHorizontalPadding = parseFloat(popup.css('paddingLeft')) + parseFloat(popup.css('paddingRight'))
+    popupWidth = popupElement.width()
+    popupHorizontalPadding = parseFloat(popupElement.css('paddingLeft')) + parseFloat(popupElement.css('paddingRight'))
     windowScrollTop = $(window).scrollTop()
     windowScrollLeft = $(window).scrollLeft()
 
     popupPositionTop = elementPositionTop + elementHeight  - windowScrollTop
     popupPositionLeft = elementPositionLeft + elementWidth - popupWidth - popupHorizontalPadding - windowScrollLeft
 
-    popup.css('top', popupPositionTop)
-    popup.css('left', popupPositionLeft)
+    popupElement.css('top', popupPositionTop)
+    popupElement.css('left', popupPositionLeft)
+
+    $(window).bind 'scroll.emberui', ->
+      popup.hide()
+
+    $(window).bind 'click.emberui', (event) ->
+      unless $(event.target).parents('.eui-popup').length
+        event.preventDefault()
+        popup.hide()
 
 
 `export default popup`

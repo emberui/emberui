@@ -5,15 +5,7 @@ $experimental-support-for-svg: true;
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 100%;
-  height: 100%;
-
-  .eui-window {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 1000001;
-  }
+  z-index: 1000001;
 
   .eui-options {
     margin: 0;
@@ -43,38 +35,36 @@ $experimental-support-for-svg: true;
   */
 .eui-popup {
   &.eui-bubble {
-    .eui-window {
-      @include border-radius(3px);
-      padding: 1px;
-      margin-top: -2px;
-      @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
-      box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-      -webkit-animation-duration: 0.2s;
-      -webkit-animation-name: bounce;
-      max-height: calc(100% - 100px);
+    @include border-radius(3px);
+    padding: 1px;
+    margin-top: -2px;
+    @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
+    box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+    -webkit-animation-duration: 0.2s;
+    -webkit-animation-name: bounce;
+    max-height: calc(100% - 100px);
 
-      &:before {
-        content: "";
-        position: absolute;
-        top: -5px;
-        right: 10px;
-        border-bottom: solid 5px rgba(0,0,0,0.1);
-        border-right: solid 5px transparent;
-        border-left: solid 5px transparent;
-      }
-
-      &:after {
-        content: "";
-        position: absolute;
-        top: -4px;
-        right: 10px;
-        border-bottom: solid 5px #ffffff;
-        border-right: solid 5px transparent;
-        border-left: solid 5px transparent;
-      }
+    &:before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      right: 10px;
+      border-bottom: solid 5px rgba(0,0,0,0.1);
+      border-right: solid 5px transparent;
+      border-left: solid 5px transparent;
     }
 
-    .eui-windowwrapper {
+    &:after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      right: 10px;
+      border-bottom: solid 5px #ffffff;
+      border-right: solid 5px transparent;
+      border-left: solid 5px transparent;
+    }
+
+    .eui-popupwrapper {
       background: #ffffff;
       @include border-radius(3px);
       padding: 5px 0;
