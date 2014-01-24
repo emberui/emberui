@@ -15,10 +15,15 @@ popup = Em.Component.extend styleSupport,
 
   hide: ->
     @set('isOpen', false)
+    $(window).unbind('scroll.emberui')
     @destroy()
 
   didInsertElement: ->
     @set('isOpen', true)
+    _this = @
+
+    $(window).bind 'scroll.emberui', ->
+      _this.hide()
 
 
 popup.reopenClass
@@ -26,23 +31,34 @@ popup.reopenClass
     popup = this.create options
     popup.appendTo 'body'
 
-    Ember.run.next this, -> @position(options.parent.$(), popup)
+    Ember.run.next this, -> @position(options.parent, popup)
     popup
 
   position: (parent, popup) ->
-    popupContainer = popup.$()
+    element = parent.$()
+    popup = popup.$().find('.eui-window')
 
-    # TODO - Rewrite all this
-    # make sure popup is at least as wide as the button
-    popupContainer.find('.eui-windowwrapper').css 'min-width', parent.width()
+    offset = element.offset()
 
-    # Don't allow the popup window to dominate the entire page
-    height = $(window).height() - 100;
-    popupContainer.find('.eui-windowwrapper').css 'max-height', "#{height}px"
+    # set a reasonable min-width on the popup before we caclulate its actual size
+    elementWidthMinusPopupPadding = element.width() - parseFloat(popup.css('paddingLeft')) - parseFloat(popup.css('paddingRight'))
+    popup.css('min-width', elementWidthMinusPopupPadding)
 
-    # position the popup in the center
-    popupContainer.css 'top', '200px'
-    popupContainer.css 'left', '400px'
+    # calculate all the numbers needed to set positioning
+    elementPositionTop = offset.top - element.scrollTop()
+    elementPositionLeft = offset.left - element.scrollLeft()
+    elementHeight = element.height()
+    elementWidth = element.width()
+    popupWidth = popup.width()
+    popupHorizontalPadding = parseFloat(popup.css('paddingLeft')) + parseFloat(popup.css('paddingRight'))
+    windowScrollTop = $(window).scrollTop()
+    windowScrollLeft = $(window).scrollLeft()
+
+    popupPositionTop = elementPositionTop + elementHeight  - windowScrollTop
+    popupPositionLeft = elementPositionLeft + elementWidth - popupWidth - popupHorizontalPadding - windowScrollLeft
+
+    popup.css('top', popupPositionTop)
+    popup.css('left', popupPositionLeft)
 
 
 `export default popup`
