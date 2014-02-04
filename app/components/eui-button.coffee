@@ -3,7 +3,7 @@
 
 button = Em.Component.extend styleSupport, sizeSupport,
   tagName: 'button'
-  classNameBindings: [':eui-button', 'computedSize', 'computedStyle', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class']
+  classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class']
   attributeBindings: ['isDisabled:disabled']
 
   label: null

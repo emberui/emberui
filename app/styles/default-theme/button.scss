@@ -113,7 +113,8 @@ button.eui-button::-moz-focus-inner {
     }
 
     /* active */
-    &:active {
+    &:active,
+    &.eui-active {
       background: none;
       @include background-image(linear-gradient(top,  rgba(0, 72, 117, 0.7) 0%,  rgba(0, 90, 147, 0.6) 100%));
 
@@ -149,7 +150,8 @@ button.eui-button::-moz-focus-inner {
     }
 
     /* active */
-    &:active {
+    &:active,
+    &.eui-active {
       background: none;
       @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
 
@@ -198,7 +200,8 @@ button.eui-button::-moz-focus-inner {
   }
 
   /* active */
-  &:active {
+  &:active,
+  &.eui-active {
     box-shadow: none;
 
     .eui-wrapper {

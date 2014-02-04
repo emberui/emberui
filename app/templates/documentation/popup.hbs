@@ -1,0 +1,87 @@
+<h1>popup</h1>
+
+<div class="intro">
+  A popup window that presents a list of choices to the user to choose or act upon.
+</div>
+
+<p>
+  This control is meant to be used by other components. The popup needs to get created programatically as needed. This can be done by calling the <em>show()</em> method on the component.
+</p>
+
+<pre>popupComponent.show({
+  _parentView: this.get('parentView'),
+  parent: this,
+  actionList: this.get('actionList'),
+  style: 'bubble'
+});</pre>
+
+<p>
+  This component implementation is still very raw.
+</p>
+
+<h2>Parameters</h2>
+
+<ul class="parameterindex">
+  <li class="header">Requirements</li>
+  <li><a href="#section-parentview">_ParentView</a></li>
+  <li><a href="#section-parent">Parent</a></li>
+
+  <li class="header">Aesthetic</li>
+  <li><a href="#section-style">style</a></li>
+
+  <li class="header">States</li>
+  <li><a href="#section-isopen">isOpen</a></li>
+
+  <li class="header">Actions</li>
+  <li><a href="#section-actionlist">actionList</a></li>
+</ul>
+
+
+<h4 id="section-parentview">_ParentView <span>string</span></h4>
+<p>
+  Required for actions to trigger correctly. Set it equal to <em>this.get('parentView')</em>
+</p>
+
+
+<h4 id="section-parent">Parent <span>string</span></h4>
+<p>
+  Required for the popup to position correctly. Set it equal to <em>this</em>
+</p>
+
+
+<h4 id="section-isopen">style <span>string</span></h4>
+<p>
+  The aesthetic style of the popup.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>bubble</li>
+</ul>
+<p>
+  Additional styles can be added via CSS. See {{link-to "Styles &amp; Theming" "documentation.stylesandtheming"}}
+</p>
+
+
+<h4 id="section-isopen">isOpen <span>boolean</span></h4>
+<p>
+  Passes back knowledge of whether the popup is open. This allows you to create, for example, a button that is styled differently while the popup is open. It also allows you to prevent the popup from being opened while it is already open.
+</p>
+
+<pre>if (!this.get('popupIsOpen')) {
+  popupComponent.show({
+    _parentView: this.get('parentView'),
+    parent: this,
+    isOpenBinding: 'parent.popupIsOpen',
+    actionList: this.get('actionList'),
+    style: 'bubble'
+  });
+}</pre>
+
+
+<h4 id="section-isopen">actionList <span>array</span></h4>
+<p>
+  See the {{link-to "dropbutton" "documentation.dropbutton"}} actions section.
+</p>
+
+

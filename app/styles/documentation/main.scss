@@ -165,6 +165,9 @@ a {
     line-height: 38px;
     font-style: italic;
   }
+    .intro + p {
+      margin-top: 30px;
+    }
 
   h2 {
     font-size: 22px;
@@ -260,6 +263,10 @@ a {
     margin-top: 7px;
   }
 
+  pre + p {
+    margin-top: 22px;
+  }
+
   .output {
     border: solid 1px #e6edf3;
     @include border-radius(5px);
@@ -296,6 +303,7 @@ a {
     ul {
       list-style-type: disc;
       padding-left: 30px;
+      margin-top: 11px;
 
       li {
         padding-bottom: 0px;

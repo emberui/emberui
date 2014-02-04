@@ -1,4 +1,5 @@
 stylesupport = Em.Mixin.create
+  classNameBindings: ['computedStyle']
   style: 'default'
 
   computedStyle:  Em.computed ->
