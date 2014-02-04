@@ -1,11 +1,11 @@
 <h1>popup</h1>
 
 <div class="intro">
-  A popup window that presents a list of choices to the user to choose or act upon.
+  A fixed positioned popup window that presents a list of choices to the user.
 </div>
 
 <p>
-  This control is meant to be used by other components. The popup needs to get created programatically as needed. This can be done by calling the <em>show()</em> method on the component.
+  This component is created programatically and can be done by calling the <em>show()</em> method on the component.
 </p>
 
 <pre>popupComponent.show({
@@ -14,6 +14,10 @@
   actionList: this.get('actionList'),
   style: 'bubble'
 });</pre>
+
+<p>
+  The popup is created on the body element and positioned using fixed positioning. It is sized and positioned according to the window frame, not the page content which allows for a much more native feel. Because of this positioning you can safely use this popup inside elements with <em>overflow: auto;</em> without it getting cut off or causing the element to scroll. The popup automatically closes when the window is scrolled.
+</p>
 
 <p>
   This component implementation is still very raw.
