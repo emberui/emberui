@@ -8,7 +8,9 @@
   This component is created programatically and can be done by calling the <em>show()</em> method on the component.
 </p>
 
-<pre>popupComponent.show({
+<pre>import popupComponent from 'appkit/components/eui-popup'
+
+popupComponent.show({
   _parentView: this.get('parentView'),
   parent: this,
   actionList: this.get('actionList'),
@@ -72,7 +74,9 @@
   Passes back knowledge of whether the popup is open. This allows you to create, for example, a button that is styled differently while the popup is open. It also allows you to prevent the popup from being opened while it is already open.
 </p>
 
-<pre>if (!this.get('popupIsOpen')) {
+<pre>import popupComponent from 'appkit/components/eui-popup'
+
+if (!this.get('popupIsOpen')) {
   popupComponent.show({
     _parentView: this.get('parentView'),
     parent: this,
