@@ -93,6 +93,17 @@ strong {
   }
 }
 
+.scrolled {
+  .docs-navigation {
+    position: fixed;
+    top: 0px;
+  }
+
+  .docs-content {
+    margin-left: 200px;
+  }
+}
+
 .docs-navigation {
   float: left;
   width: 200px;
