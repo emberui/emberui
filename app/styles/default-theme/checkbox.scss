@@ -1,0 +1,115 @@
+@import "compass";
+$experimental-support-for-svg: true;
+
+
+.eui-checkbox {
+  display: block;
+  cursor: pointer;
+}
+
+.eui-checkbox-form {
+  display: inline-block;
+  padding: 1px;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+
+  .eui-wrapper {
+    border-radius: inherit;
+  }
+
+  input {
+    visibility: hidden;
+  }
+}
+
+
+
+/* SIZES */
+.eui-checkbox {
+  &.eui-tiny .eui-checkbox-form {
+    border-radius: 3px;
+    padding: 1px;
+
+    .eui-wrapper {
+      height: 18px;
+      line-height: 18px;
+      padding: 0 5px;
+      min-width: 8px;
+    }
+  }
+
+  &.eui-small .eui-checkbox-form {
+    border-radius: 3px;
+    padding: 1px;
+
+    .eui-wrapper {
+      height: 25px;
+      line-height: 25px;
+      padding: 0 11px;
+      min-width: 1px;
+    }
+  }
+
+  &.eui-medium .eui-checkbox-form {
+    border-radius: 4px;
+    padding: 1px;
+
+    .eui-wrapper {
+      height: 35px;
+      line-height: 35px;
+      padding: 0 15px;
+      min-width: 5px;
+    }
+  }
+
+  &.eui-large .eui-checkbox-form {
+    border-radius: 5px;
+    padding: 1px;
+
+    .eui-wrapper {
+      height: 45px;
+      line-height: 45px;
+      padding: 0 20px;
+      min-width: 5px;
+    }
+  }
+}
+
+
+/*
+  * TYPES
+  *
+  * Default: Gray checkbox
+  *
+  */
+.eui-checkbox {
+  /* Default */
+  &.eui-default .eui-checkbox-form {
+    color: #848484;
+    text-shadow: 1px 1px #ffffff;
+    @include background-image(linear-gradient(top,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%));
+
+    .eui-wrapper {
+      @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,249,1) 50%,rgba(243,243,243,1) 50%,rgba(229,229,229,1) 100%));
+    }
+
+    /* active */
+    &:active,
+    &.eui-active {
+      background: none;
+      @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
+
+      .eui-wrapper {
+        @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%));
+      }
+    }
+
+    /* disabled */
+    &:disabled {
+      .eui-wrapper {
+        background: #f3f3f3;
+        color: #b9b9b9;
+      }
+    }
+  }
+
+}

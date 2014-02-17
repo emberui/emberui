@@ -1,0 +1,17 @@
+<div class="eui-checkbox-form">
+  <div class="eui-wrapper">
+    <input type="checkbox" {{bindAttr value=value}} />
+  </div>
+</div>
+
+{{label}}
+
+{{#if computedErrorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{computedErrorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}
