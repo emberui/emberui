@@ -5,6 +5,10 @@ $experimental-support-for-svg: true;
 .eui-checkbox {
   display: inline-block;
   cursor: pointer;
+
+  &.eui-disabled {
+    cursor: inherit;
+  }
 }
 
 .eui-checkbox-form {
@@ -42,18 +46,22 @@ $experimental-support-for-svg: true;
 
 /* SIZES */
 .eui-checkbox {
-  &.eui-medium .eui-checkbox-form {
-    border-radius: 3px;
-    padding: 1px;
+  &.eui-medium {
+    margin-right: 5px;
 
-    .eui-wrapper {
-      height: 13px;
-      width: 13px;
-      line-height: 13px;
-    }
+    .eui-checkbox-form {
+      border-radius: 3px;
+      padding: 1px;
 
-    .eui-icon:before {
-      font-size: 11px;
+      .eui-wrapper {
+        height: 13px;
+        width: 13px;
+        line-height: 13px;
+      }
+
+      .eui-icon:before {
+        font-size: 11px;
+      }
     }
   }
 }
@@ -80,7 +88,7 @@ $experimental-support-for-svg: true;
     }
 
     /* active */
-    &:active {
+    &.eui-enabled:active {
       background: none;
       @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
 
@@ -90,7 +98,7 @@ $experimental-support-for-svg: true;
     }
 
     /* hover */
-    &:hover {
+    &.eui-enabled:hover {
       background: rgba(0,107,255,0.5);
       box-shadow: 0px 0px 4px #0090ff;
       -webkit-animation: eui-focus-highlight 0.2s 1;
@@ -103,7 +111,7 @@ $experimental-support-for-svg: true;
     }
 
     /* disabled */
-     .eui-checkbox-form:disabled {
+     &.eui-disabled {
       .eui-wrapper {
         background: #f3f3f3;
       }
@@ -128,7 +136,7 @@ $experimental-support-for-svg: true;
     }
 
     /* active */
-    &:active {
+    &.eui-enabled:active {
       background: none;
       @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
 
@@ -138,15 +146,22 @@ $experimental-support-for-svg: true;
     }
 
     /* hover */
-    &:hover {
+    &.eui-enabled:hover {
       background: #5296e5;
       box-shadow: 0px 0px 4px #0090ff;
     }
 
     /* disabled */
-     .eui-checkbox-form:disabled {
+    &.eui-disabled {
+      background: none;
+      @include background-image(linear-gradient(top,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%));
+
       .eui-wrapper {
         background: #f3f3f3;
+      }
+
+      .eui-icon {
+        color: #5e5e5e;
       }
     }
   }
