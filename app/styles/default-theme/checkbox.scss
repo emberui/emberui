@@ -3,7 +3,7 @@ $experimental-support-for-svg: true;
 
 
 .eui-checkbox {
-  display: block;
+  display: inline-block;
   cursor: pointer;
 }
 
@@ -14,6 +14,23 @@ $experimental-support-for-svg: true;
 
   .eui-wrapper {
     border-radius: inherit;
+    position: relative;
+  }
+
+  .eui-icon {
+    opacity: 0;
+    @include transition(opacity 0.1s);
+  }
+
+  .eui-icon:before{
+    content: "\f00c";
+    font-family: "FontAwesome";
+    position: absolute;
+    display: block;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    text-align: center;
   }
 
   input {
@@ -25,51 +42,18 @@ $experimental-support-for-svg: true;
 
 /* SIZES */
 .eui-checkbox {
-  &.eui-tiny .eui-checkbox-form {
-    border-radius: 3px;
-    padding: 1px;
-
-    .eui-wrapper {
-      height: 18px;
-      line-height: 18px;
-      padding: 0 5px;
-      min-width: 8px;
-    }
-  }
-
-  &.eui-small .eui-checkbox-form {
-    border-radius: 3px;
-    padding: 1px;
-
-    .eui-wrapper {
-      height: 25px;
-      line-height: 25px;
-      padding: 0 11px;
-      min-width: 1px;
-    }
-  }
-
   &.eui-medium .eui-checkbox-form {
-    border-radius: 4px;
+    border-radius: 3px;
     padding: 1px;
 
     .eui-wrapper {
-      height: 35px;
-      line-height: 35px;
-      padding: 0 15px;
-      min-width: 5px;
+      height: 13px;
+      width: 13px;
+      line-height: 13px;
     }
-  }
 
-  &.eui-large .eui-checkbox-form {
-    border-radius: 5px;
-    padding: 1px;
-
-    .eui-wrapper {
-      height: 45px;
-      line-height: 45px;
-      padding: 0 20px;
-      min-width: 5px;
+    .eui-icon:before {
+      font-size: 11px;
     }
   }
 }
@@ -82,19 +66,21 @@ $experimental-support-for-svg: true;
   *
   */
 .eui-checkbox {
-  /* Default */
+  /* Default unchecked */
   &.eui-default .eui-checkbox-form {
-    color: #848484;
-    text-shadow: 1px 1px #ffffff;
     @include background-image(linear-gradient(top,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%));
 
     .eui-wrapper {
       @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,249,1) 50%,rgba(243,243,243,1) 50%,rgba(229,229,229,1) 100%));
     }
 
+    .eui-icon {
+      color: #c9c9c9;
+      text-shadow: 1px 1px #ffffff;
+    }
+
     /* active */
-    &:active,
-    &.eui-active {
+    &:active {
       background: none;
       @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
 
@@ -103,13 +89,65 @@ $experimental-support-for-svg: true;
       }
     }
 
+    /* hover */
+    &:hover {
+      background: rgba(0,107,255,0.5);
+      box-shadow: 0px 0px 4px #0090ff;
+      -webkit-animation: eui-focus-highlight 0.2s 1;
+      -moz-animation: eui-focus-highlight 0.2s 1;
+      animation: eui-focus-highlight 0.2s 1;
+
+      .eui-icon {
+        opacity: 1;
+      }
+    }
+
     /* disabled */
-    &:disabled {
+     .eui-checkbox-form:disabled {
       .eui-wrapper {
         background: #f3f3f3;
-        color: #b9b9b9;
       }
     }
   }
+}
 
+  /* Default checked */
+.eui-checkbox.eui-checked {
+  /* Default unchecked */
+  &.eui-default .eui-checkbox-form {
+    background: rgba(0,72,117,0.6);
+
+    .eui-wrapper {
+      @include background-image(linear-gradient(top, rgba(195,250,255,1) 0%,rgba(96,184,255,1) 50%,rgba(195,250,255,1) 100%));
+    }
+
+    .eui-icon {
+      opacity: 1;
+      color: #132533;
+      text-shadow: 1px 1px rgba(255,255,255,0.2);
+    }
+
+    /* active */
+    &:active {
+      background: none;
+      @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
+
+      .eui-wrapper {
+        @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%));
+      }
+    }
+
+    /* hover */
+    &:hover {
+      background: #5296e5;
+      box-shadow: 0px 0px 4px #0090ff;
+    }
+
+    /* disabled */
+     .eui-checkbox-form:disabled {
+      .eui-wrapper {
+        background: #f3f3f3;
+      }
+    }
+  }
 }
