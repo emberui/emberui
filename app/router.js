@@ -6,6 +6,8 @@ Router.reopen({
 
 Router.map(function() {
   this.resource("documentation", { path: "/documentation" }, function() {
+    this.route('designfiles', { path: '/designfiles' });
+
     this.route('layout', { path: '/layout' });
     this.route('theming', { path: '/theming' });
     this.route('errorhandling', { path: '/errorhandling' });
