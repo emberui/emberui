@@ -9,12 +9,18 @@ $experimental-support-for-svg: true;
   &.eui-disabled {
     cursor: inherit;
   }
+
+  input {
+    opacity: 0.001;
+    position: absolute;
+  }
 }
 
 .eui-checkbox-form {
   display: inline-block;
   padding: 1px;
   box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+  margin-bottom: -2px;
 
   .eui-wrapper {
     border-radius: inherit;
@@ -35,10 +41,6 @@ $experimental-support-for-svg: true;
     left: 0px;
     height: 100%;
     text-align: center;
-  }
-
-  input {
-    visibility: hidden;
   }
 }
 
@@ -75,30 +77,40 @@ $experimental-support-for-svg: true;
   */
 .eui-checkbox {
   /* Default unchecked */
-  &.eui-default .eui-checkbox-form {
-    @include background-image(linear-gradient(top,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%));
-
-    .eui-wrapper {
-      @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,249,1) 50%,rgba(243,243,243,1) 50%,rgba(229,229,229,1) 100%));
-    }
-
-    .eui-icon {
-      color: #c9c9c9;
-      text-shadow: 1px 1px #ffffff;
-    }
-
-    /* active */
-    &.eui-enabled:active {
-      background: none;
-      @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
+  &.eui-default {
+    .eui-checkbox-form {
+      @include background-image(linear-gradient(top,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%));
 
       .eui-wrapper {
-        @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%));
+        @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,249,1) 50%,rgba(243,243,243,1) 50%,rgba(229,229,229,1) 100%));
+      }
+
+      .eui-icon {
+        color: #c9c9c9;
+        text-shadow: 1px 1px #ffffff;
+      }
+
+      /* active */
+      &.eui-enabled:active {
+        background: none;
+        @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
+
+        .eui-wrapper {
+          @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%));
+        }
+      }
+
+      /* disabled */
+       &.eui-disabled {
+        .eui-wrapper {
+          background: #f3f3f3;
+        }
       }
     }
 
     /* hover */
-    &.eui-enabled:hover {
+    .eui-enabled:hover,
+    input:focus + .eui-enabled {
       background: rgba(0,107,255,0.5);
       box-shadow: 0px 0px 4px #0090ff;
       -webkit-animation: eui-focus-highlight 0.2s 1;
@@ -107,13 +119,6 @@ $experimental-support-for-svg: true;
 
       .eui-icon {
         opacity: 1;
-      }
-    }
-
-    /* disabled */
-     &.eui-disabled {
-      .eui-wrapper {
-        background: #f3f3f3;
       }
     }
   }
