@@ -1,7 +1,7 @@
 # Shared mixin used by input and textarea
 textsupport = Em.Mixin.create
   tagName: 'div'
-  classNameBindings: ['computedSize', 'computedStyle', 'class', 'computedErrorState:eui-error']
+  classNameBindings: ['computedSize', 'computedStyle', 'class']
 
   width: null
   name: null

@@ -150,6 +150,7 @@ $experimental-support-for-svg: true;
       }
     }
 
+
     /* hover */
     &.eui-enabled:hover {
       background: #5296e5;
@@ -176,4 +177,14 @@ $experimental-support-for-svg: true;
 /* ERROR HANDLING */
 .eui-checkbox .eui-error-message {
   margin-left: -7px;
+}
+
+/* ERROR */
+.eui-checkbox.eui-error .eui-checkbox-form,
+.eui-checkbox.eui-error .eui-checkbox-form:hover {
+  background: #ff7f7f !important;
+  box-shadow: 0px 0px 4px #ff0000 !important;
+  -webkit-animation: eui-error-highlight 0.2s 1;
+  -moz-animation: eui-error-highlight 0.2s 1;
+  animation: eui-error-highlight 0.2s 1;
 }

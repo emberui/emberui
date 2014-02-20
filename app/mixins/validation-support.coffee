@@ -1,4 +1,6 @@
 validationsupport = Em.Mixin.create
+  classNameBindings: ['computedErrorState:eui-error']
+
   computedErrorState: null
   computedErrorMessage: null
 
