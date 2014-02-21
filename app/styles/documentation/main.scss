@@ -146,6 +146,10 @@ strong {
     margin: 0;
   }
 
+  & > ul {
+    margin-top: 25px;
+  }
+
   a {
     display: block;
     padding: 0 5px;
