@@ -18,6 +18,8 @@ Router.map(function() {
 
     this.route('popup', { path: '/popup' });
   });
+
+  this.route('404', { path: '*path' }); // Catch all for all remaining routes
 });
 
 export default Router;
