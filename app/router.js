@@ -11,10 +11,11 @@ Router.map(function() {
     this.route('errorhandling', { path: '/errorhandling' });
 
     this.route('button', { path: '/button' });
+    this.route('checkbox', { path: '/checkbox' });
     this.route('dropbutton', { path: '/dropbutton' });
     this.route('input', { path: '/input' });
+    this.route('modal', { path: '/modal' });
     this.route('textarea', { path: '/textarea' });
-    this.route('checkbox', { path: '/checkbox' });
 
     this.route('popup', { path: '/popup' });
   });
