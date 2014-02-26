@@ -10,7 +10,7 @@ popup = Em.Component.extend styleSupport,
       @hide()
 
     actionThenHide: (action) ->
-      @triggerAction {action: action, actionContext: @get('parent')}
+      @get('targetObject').triggerAction({action})
       @hide()
 
   hide: ->
@@ -25,14 +25,15 @@ popup = Em.Component.extend styleSupport,
 
 popup.reopenClass
   show: (options = {}) ->
-    popup = this.create options
-    popup.appendTo 'body'
+    popup = @.create options
+    popup.container = popup.get('targetObject.container')
+    popup.appendTo '.ember-application'
 
-    Ember.run.next this, -> @position(options.parent, popup)
+    Ember.run.next this, -> @position(options.targetObject, popup)
     popup
 
-  position: (parent, popup) ->
-    element = parent.$()
+  position: (targetObject, popup) ->
+    element = targetObject.$()
     popupElement = popup.$()
 
     offset = element.offset()

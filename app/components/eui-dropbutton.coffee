@@ -15,8 +15,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
     toggleWindow: ->
       unless @get('popupIsOpen')
         popupComponent.show
-          _parentView: @get('parentView') # note: _parentView/parentView is intentional
-          parent: @
+          targetObject: @
           isOpenBinding: 'parent.popupIsOpen'
           actionList: @get('actionList')
           style: 'bubble'
