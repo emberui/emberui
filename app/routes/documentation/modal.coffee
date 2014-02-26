@@ -8,4 +8,10 @@ route = Ember.Route.extend
         contentViewClass: modalContentView
         content: { name: "Jaco" }
 
+    showFullModal: ->
+      modalComponent.show
+        contentViewClass: modalContentView
+        content: { name: "Jaco", message: "(cool people use this style)" }
+        style: 'full'
+
 `export default route`

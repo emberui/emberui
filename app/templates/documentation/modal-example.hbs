@@ -1,13 +1,11 @@
-<div style="height: 300px; width: 500px; padding: 20px; text-align: center;">
-  hello {{content.name}} <br />
+<div style="padding: 50px 100px; text-align: center;">
+  <h1>Hello {{content.name}}!</h1>
 
-  \{{eui-button label="Close"}}<br />
+  <br />
 
-  <br /><br />
-  <br /><br />
-  <br /><br />
-  <br /><br />
-  <br /><br />
+  {{content.message}}
 
-  <a href="" {{action "closeModal"}}>Close</a>
+  <br /><br /><br />
+
+  <a href="" {{action "closeModal"}}>Close Modal</a>
 </div>

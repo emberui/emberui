@@ -7,7 +7,7 @@
 <h2>Using the Modal</h2>
 
 <p>
-  The modal needs to be created programatically.
+  The modal can be created programatically using using the <em>show</em> method on the component.
 </p>
 
 <pre>\{{eui-button label='Open Modal' action='showModal'}}</pre>
@@ -63,10 +63,16 @@ actions: {
 <h5>Values</h5>
 <ul class="defaults">
   <li>default (defaut)</li>
+  <li>full</li>
 </ul>
 <p>
   Additional styles can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
 </p>
+
+<div class="output">
+  {{eui-button label='Default' action='showModal'}}
+  {{eui-button label='Full' action='showFullModal'}}
+</div>
 
 
 <h2>Actions</h2>
