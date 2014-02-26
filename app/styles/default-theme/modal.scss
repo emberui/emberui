@@ -11,15 +11,16 @@ $experimental-support-for-svg: true;
   &.eui-default {
 
     .eui-overlay {
-      @include background-image(radial-gradient(center, ellipse cover, rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.15) 15%,rgba(0,0,0,0.30) 100%));
+      @include background-image(radial-gradient(center, ellipse cover, rgba(0,0,0,0.10) 0%,rgba(0,0,0,0.10) 50%,rgba(0,0,0,0.30) 100%));
       -webkit-animation: modal-fadein 0.4s 1;
       -moz-animation: modal-fadein 0.4s 1;
       animation: modal-fadein 0.4s 1;
     }
 
     .eui-modalobject {
-      @include border-radius(5px);
-      background: #ffffff;
+      @include border-radius(7px);
+      @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.8) 0%,  rgba(0, 0, 0, 0.20) 100%));
+      padding: 1px;
       -webkit-animation: modal-zoom 0.15s 1;
       -moz-animation: modal-zoom 0.15s 1;
       animation: modal-zoom 0.15s 1;
@@ -27,7 +28,8 @@ $experimental-support-for-svg: true;
     }
 
     .eui-modalwrapper {
-      @include border-radius(5px);
+      @include border-radius(7px);
+      background: #ffffff;
     }
   }
 }
