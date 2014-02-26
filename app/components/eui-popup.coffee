@@ -10,8 +10,7 @@ popup = Em.Component.extend styleSupport,
       @hide()
 
     actionThenHide: (action) ->
-      debugger
-      @sendAction 'test'
+      @get('targetObject').triggerAction({action})
       @hide()
 
   hide: ->
