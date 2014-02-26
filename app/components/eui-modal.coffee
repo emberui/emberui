@@ -24,6 +24,7 @@ modal = Em.Component.extend styleSupport,
 modal.reopenClass
   show: (options = {}) ->
     modal = this.create options
+    modal.container = modal.get('targetObject.container')
     modal.appendTo 'body'
     modal
 
