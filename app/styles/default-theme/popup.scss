@@ -41,7 +41,11 @@ $experimental-support-for-svg: true;
     @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
     -webkit-animation-duration: 0.2s;
-    -webkit-animation-name: bounce;
+    -webkit-animation-name: zoomin;
+    -moz-animation-duration: 0.2s;
+    -moz-animation-name: zoomin;
+    animation-duration: 0.2s;
+    animation-name: zoomin;
     max-height: calc(100% - 100px);
 
     &:before {
@@ -82,25 +86,5 @@ $experimental-support-for-svg: true;
         }
       }
     }
-  }
-}
-
-
-
-/* Bounce Animation */
-@-webkit-keyframes bounce {
-  from {
-    opacity: 0;
-    @include scale(0.80);
-  }
-
-  66% {
-    opacity: 1;
-    @include scale(1.10);
-  }
-
-  to {
-    opacity: 1;
-    @include scale(1);
   }
 }
