@@ -185,18 +185,52 @@
 }
 
 
+/* Modal Fade Out */
+@-webkit-keyframes modal-fadeout {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@-moz-keyframes modal-fadeout {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes modal-fadeout {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
 /* Modal Zoom In */
-@-webkit-keyframes modal-zoom {
+@-webkit-keyframes modal-zoomin {
   0% { @include scale(5); opacity: 0; }
   100% { @include scale(1); opacity: 1; }
 }
 
-@-moz-keyframes modal-zoom {
+@-moz-keyframes modal-zoomin {
   0% { @include scale(5); opacity: 0; }
   100% { @include scale(1); opacity: 1; }
 }
 
-@keyframes modal-zoom {
+@keyframes modal-zoomin {
   0% { @include scale(5); opacity: 0; }
   100% { @include scale(1); opacity: 1; }
+}
+
+
+/* Modal Zoom Out */
+@-webkit-keyframes modal-zoomout {
+  0% { @include scale(1); opacity: 1; }
+  100% { @include scale(5); opacity: 0; }
+}
+
+@-moz-keyframes modal-zoomout {
+  0% { @include scale(1); opacity: 1; }
+  100% { @include scale(5); opacity: 0; }
+}
+
+@keyframes modal-zoomout {
+  0% { @include scale(1); opacity: 1; }
+  100% { @include scale(5); opacity: 0; }
 }

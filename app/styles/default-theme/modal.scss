@@ -20,15 +20,31 @@ $experimental-support-for-svg: true;
       @include border-radius(7px);
       @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.08) 0%,  rgba(0, 0, 0, 0.20) 100%));
       padding: 1px;
-      -webkit-animation: modal-zoom 0.15s 1;
-      -moz-animation: modal-zoom 0.15s 1;
-      animation: modal-zoom 0.15s 1;
+      -webkit-animation: modal-zoomin 0.15s 1;
+      -moz-animation: modal-zoomin 0.15s 1;
+      animation: modal-zoomin 0.15s 1;
       box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
     }
 
     .eui-modalwrapper {
       @include border-radius(7px);
       background: #ffffff;
+    }
+
+    &.eui-closing {
+      .eui-overlay {
+        opacity: 0;
+        -webkit-animation: modal-fadeout 0.4s 1 reverse;
+        -moz-animation: modal-fadeout 0.4s 1 reverse;
+        animation: modal-fadeout 0.4s 1 reverse;
+      }
+
+      .eui-modalobject {
+        opacity: 0;
+        -webkit-animation: modal-zoomout 0.15s 1;
+        -moz-animation: modal-zoomout 0.15s 1;
+        animation: modal-zoomout 0.15s 1;
+      }
     }
   }
 
@@ -42,9 +58,25 @@ $experimental-support-for-svg: true;
     }
 
     .eui-modalobject {
-      -webkit-animation: modal-zoom 0.15s 1;
-      -moz-animation: modal-zoom 0.15s 1;
-      animation: modal-zoom 0.15s 1;
+      -webkit-animation: modal-zoomin 0.15s 1;
+      -moz-animation: modal-zoomin 0.15s 1;
+      animation: modal-zoomin 0.15s 1;
+    }
+
+    &.eui-closing {
+      .eui-overlay {
+        opacity: 0;
+        -webkit-animation: modal-fadeout 0.4s 1 reverse;
+        -moz-animation: modal-fadeout 0.4s 1 reverse;
+        animation: modal-fadeout 0.4s 1 reverse;
+      }
+
+      .eui-modalobject {
+        opacity: 0;
+        -webkit-animation: modal-zoomout 0.15s 1;
+        -moz-animation: modal-zoomout 0.15s 1;
+        animation: modal-zoomout 0.15s 1;
+      }
     }
   }
 }

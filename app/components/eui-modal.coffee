@@ -4,10 +4,11 @@
 modal = Em.Component.extend styleSupport,
   layout: modalLayout
   classNames: ['eui-modal']
-  classNameBindings: ['class']
+  classNameBindings: ['class', 'isOpen::eui-closing']
 
   content: null
   class: null
+  isOpen: null
 
   actions:
     closeModal: ->
@@ -15,7 +16,8 @@ modal = Em.Component.extend styleSupport,
 
   hide: ->
     @set('isOpen', false)
-    @destroy()
+    @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
+      @destroy()
 
   didInsertElement: ->
     @set('isOpen', true)
