@@ -12,9 +12,9 @@ rm -rf *                          &&
 git rm *                          &&
 cp -r ../dist/* ./                &&
 git add .                         &&
-git commit -S -am "$COMMIT_MSG"   &&
+git commit -am "$COMMIT_MSG"      &&
 git push origin HEAD --force      &&
 cd ..                             &&
-git commit -S -o website -m "Update website with current changes" &&
+git commit -o website -m "Update website with current changes" &&
 
 echo "Successfully built package"
