@@ -19,7 +19,7 @@ $experimental-support-for-svg: true;
 
     .eui-modalobject {
       @include border-radius(7px);
-      @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.8) 0%,  rgba(0, 0, 0, 0.20) 100%));
+      @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.08) 0%,  rgba(0, 0, 0, 0.20) 100%));
       padding: 1px;
       -webkit-animation: modal-zoom 0.15s 1;
       -moz-animation: modal-zoom 0.15s 1;

@@ -1,8 +1,43 @@
 <h1>modal</h1>
 
 <div class="intro">
-  ...
+  A programatic modal dialog.
 </div>
+
+<h2>Using the Modal</h2>
+
+<p>
+  The modal needs to be created programatically.
+</p>
+
+<pre>\{{eui-button label='Open Modal' action='showModal'}}</pre>
+
+<pre>import modalContentTemplate from 'appkit/templates/documentation/modal-example'
+
+view = Ember.View.extend({
+  template: modalContentTemplate
+})
+</pre>
+
+<pre>import modalComponent from 'appkit/components/eui-modal'
+import modalContentView from 'appkit/views/documentation/modal-example'
+
+actions: {
+  showModal: function() {
+    modalComponent.show({
+      contentViewClass: modalContentView,
+      content: { name: "Jaco" }
+    });
+  }
+}</pre>
+
+<div class="output">
+  {{eui-button label='Open Modal' action='showModal'}}
+</div>
+
+<p>
+  To close the modal you call the action <em>closeModal</em> from within the view.
+</p>
 
 <h2>Parameters</h2>
 
@@ -16,10 +51,31 @@
 
 <h4 id="section-label">class <span>string</span></h4>
 <p>
-  ...
+  Assigns a custom CSS class to the modal.
 </p>
 
-<div class="output">
-  {{eui-button label='Open Modal' action='showModal'}}
-</div>
 
+<h4 id="section-isopen">style <span>string</span></h4>
+<p>
+  The aesthetic style of the modal.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>default (defaut)</li>
+</ul>
+<p>
+  Additional styles can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
+</p>
+
+
+<h2>Actions</h2>
+
+<ul class="parameterindex">
+  <li><a href="#section-closemodal">closeModal</a></li>
+</ul>
+
+<h4 id="section-closemodal">closeModal <span></span></h4>
+<p>
+  Closes the modal and removes it from the DOM.
+</p>

@@ -229,6 +229,13 @@ strong {
 
   p {
     margin: 11px 0;
+
+    em {
+      font-family: Menlo, Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+      font-style: normal;
+      font-size: 13px;
+      color: #777777;
+    }
   }
 
   h4 + p {

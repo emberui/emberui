@@ -4,8 +4,10 @@
 modal = Em.Component.extend styleSupport,
   layout: modalLayout
   classNames: ['eui-modal']
+  classNameBindings: ['class']
 
   content: null
+  class: null
 
   actions:
     closeModal: ->
