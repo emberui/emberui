@@ -2,9 +2,7 @@
 `import sizeSupport from 'appkit/mixins/size-support'`
 
 button = Em.Component.extend styleSupport, sizeSupport,
-  tagName: 'button'
-  classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class']
-  attributeBindings: ['isDisabled:disabled']
+  classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'isDisabled:disabled', 'class']
 
   label: null
   icon: null

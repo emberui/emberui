@@ -3,23 +3,29 @@ $experimental-support-for-svg: true;
 
 .eui-singlebutton,
 .eui-groupbutton {
-  display: inline-block;
-  vertical-align: middle;
+  .eui-button-form {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .eui-button {
-  position: relative;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: #f6f6f6;
   display: inline-block;
   vertical-align: middle;
-  outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: pointer;
+
+  .eui-button-form {
+    position: relative;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: #f6f6f6;
+    outline: none;
+  }
 
   .eui-wrapper {
     position: relative;
@@ -33,15 +39,19 @@ $experimental-support-for-svg: true;
 /* SIZES & ICONS */
 .eui-button {
   &.eui-tiny {
-    padding: 0 5px;
-    line-height: 18px;
-    font-size: 9px;
+    .eui-button-form {
+      padding: 0 5px;
+      line-height: 18px;
+      font-size: 9px;
+    }
   }
 
   &.eui-small {
-    padding: 0 13px;
-    line-height: 25px;
-    font-size: 11px;
+    .eui-button-form {
+      padding: 0 13px;
+      line-height: 25px;
+      font-size: 11px;
+    }
 
     &.eui-no-label .eui-wrapper {
       padding: 0 6px;
@@ -49,9 +59,11 @@ $experimental-support-for-svg: true;
   }
 
   &.eui-medium {
-    padding: 0 25px;
-    line-height: 35px;
-    font-size: 14px;
+    .eui-button-form {
+      padding: 0 25px;
+      line-height: 35px;
+      font-size: 14px;
+    }
 
     &.eui-no-label .eui-wrapper {
       padding: 0 12px;
@@ -59,9 +71,11 @@ $experimental-support-for-svg: true;
   }
 
   &.eui-large {
-    padding: 0 35px;
-    line-height: 45px;
-    font-size: 17px;
+    .eui-button-form {
+      padding: 0 35px;
+      line-height: 45px;
+      font-size: 17px;
+    }
 
     &.eui-no-label .eui-wrapper {
       padding: 0 15px;
@@ -126,4 +140,3 @@ $experimental-support-for-svg: true;
     }
   }
 }
-
