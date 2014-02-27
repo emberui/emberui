@@ -147,14 +147,15 @@ button.eui-button::-moz-focus-inner {
 
     /* active */
     &:active,
-    &.eui-active {
+    &.eui-active,
+    button:active + {
       .eui-button-form {
         background: none;
         @include background-image(linear-gradient(top,  rgba(0, 72, 117, 0.7) 0%,  rgba(0, 90, 147, 0.6) 100%));
-      }
 
-      .eui-wrapper {
-        @include background-image(linear-gradient(top, #4ea5d9 0%, #51b6ee 100%));
+        .eui-wrapper {
+          @include background-image(linear-gradient(top, #4ea5d9 0%, #51b6ee 100%));
+        }
       }
     }
 
@@ -188,14 +189,15 @@ button.eui-button::-moz-focus-inner {
 
     /* active */
     &:active,
-    &.eui-active {
+    &.eui-active,
+    button:active + {
       .eui-button-form {
         background: none;
         @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
-      }
 
-      .eui-wrapper {
-        @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%));
+        .eui-wrapper {
+          @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%));
+        }
       }
     }
 
@@ -244,15 +246,16 @@ button.eui-button::-moz-focus-inner {
 
   /* active */
   &:active,
-  &.eui-active {
+  &.eui-active,
+  button:active + {
     .eui-button-form {
       box-shadow: none;
-    }
 
-    .eui-wrapper {
-      padding-bottom: 0px !important;
-      padding-top: 1px !important;
-      box-shadow: inset 0px 1px 3px rgba(0,0,0,0.15);
+      .eui-wrapper {
+        padding-bottom: 0px !important;
+        padding-top: 1px !important;
+        box-shadow: inset 0px 1px 3px rgba(0,0,0,0.15);
+      }
     }
   }
 }
