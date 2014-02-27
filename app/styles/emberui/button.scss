@@ -34,6 +34,11 @@ $experimental-support-for-svg: true;
   i {
     font-style: normal;
   }
+
+  /* Disabled */
+  &.disabled {
+    pointer-events: none;
+  }
 }
 
 /* SIZES & ICONS */
