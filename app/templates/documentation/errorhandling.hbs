@@ -41,35 +41,35 @@
 </p>
 
 
-<h2>hasError</h2>
+<h2>error</h2>
 
 <p>
-  To enter the error state simply return true for the <em>hasError</em> property. Remember, if the element has no value then <em>hasError</em> will not be evaluated on page load.
+  To enter the error state simply return true for the <em>error</em> property. Remember, if the element has no value then <em>error</em> will not be evaluated on page load.
 </p>
 
-<pre>\{{eui-input value='' hasError=true placeholder="Will error on focus out"}}
-\{{eui-input value='john@example' hasError=true}}</pre>
+<pre>\{{eui-input value='' error=true placeholder="Will error on focus out"}}
+\{{eui-input value='john@example' error=true}}</pre>
 
 <div class="output">
-  {{eui-input value='' hasError=true placeholder="Will error on focus out"}}
-  {{eui-input value='john@example' hasError=true}}
+  {{eui-input value='' error=true placeholder="Will error on focus out"}}
+  {{eui-input value='john@example' error=true}}
 </div>
 
 <p>
   You can also return a string instead of a boolean value in order to show an error message.
 </p>
 
-<pre>\{{eui-input value='dog' hasError="Please enter a valid location"}}</pre>
+<pre>\{{eui-input value='dog' error="Please enter a valid location"}}</pre>
 
 <div class="output">
-  {{eui-input value='dog' hasError="Please enter a valid location"}}
+  {{eui-input value='dog' error="Please enter a valid location"}}
 </div>
 
 <p>
   Both of these examples used a hardcoded value so the error state cannot change. If we instead make use of Ember's data bindings we can create an input that checks its error state dynamically.
 </p>
 
-<pre>\{{eui-input value=email hasError=validateEmail}}</pre>
+<pre>\{{eui-input value=email error=validateEmail}}</pre>
 
 <pre>email: 'john@example',
 
@@ -85,13 +85,13 @@ validateEmail: function() {
 }.property('email')</pre>
 
 <div class="output">
-  {{eui-input value=email hasError=validateEmail}}
+  {{eui-input value=email error=validateEmail}}
 </div>
 
 <br />
 
 <p>
-  You can use a validation library such as <a href="https://github.com/dockyard/ember-validations">Ember Validations</a> in conjunction with <em>hasError</em> for succinct error handeling.
+  You can use a validation library such as <a href="https://github.com/dockyard/ember-validations">Ember Validations</a> in conjunction with <em>error</em> for succinct error handeling.
 </p>
 
 

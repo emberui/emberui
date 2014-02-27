@@ -5,7 +5,7 @@ validationsupport = Em.Mixin.create
   computedErrorMessage: null
 
   validateField: (type) ->
-    hasError = @get('hasError')
+    error = @get('error')
     required = @get('required')
     value = @get('value')
 
@@ -13,14 +13,14 @@ validationsupport = Em.Mixin.create
       return
 
     # Error validation libraries may return an array of error messages so we only use the first
-    if Ember.isArray(hasError)
-      hasError = hasError[0]
+    if Ember.isArray(error)
+      error = error[0]
 
-    if hasError or (required and !value)
+    if error or (required and !value)
       @set 'computedErrorState', true
 
-      if hasError and typeof(hasError) isnt 'boolean'
-        @set 'computedErrorMessage', hasError
+      if error and typeof(error) isnt 'boolean'
+        @set 'computedErrorMessage', error
 
     else
       @set 'computedErrorState', false

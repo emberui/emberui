@@ -11,7 +11,7 @@ textsupport = Em.Mixin.create
   value: null
   class: null
   required: null
-  hasError: null
+  error: null
   inputId: null
 
   # We need to bind the value of the label to the textarea's id because IE8 and IE9 doesn't support pointer-events: none;
