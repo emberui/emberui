@@ -11,8 +11,7 @@
 <pre>import popupComponent from 'appkit/components/eui-popup'
 
 popupComponent.show({
-  _parentView: this.get('parentView'),
-  parent: this,
+  targetObject: this
   actionList: this.get('actionList'),
   style: 'bubble'
 });</pre>
@@ -28,9 +27,8 @@ popupComponent.show({
 <h2>Parameters</h2>
 
 <ul class="parameterindex">
-  <li class="header">Requirements</li>
-  <li><a href="#section-parentview">_ParentView</a></li>
-  <li><a href="#section-parent">Parent</a></li>
+  <li class="header">Required</li>
+  <li><a href="#section-targetobject">targetObject</a></li>
 
   <li class="header">Aesthetic</li>
   <li><a href="#section-style">style</a></li>
@@ -43,15 +41,9 @@ popupComponent.show({
 </ul>
 
 
-<h4 id="section-parentview">_ParentView <span>object</span></h4>
+<h4 id="section-targetobject">targetObject <span>object</span></h4>
 <p>
-  Required for actions to trigger correctly. Set it equal to <em>this.get('parentView')</em>
-</p>
-
-
-<h4 id="section-parent">Parent <span>object</span></h4>
-<p>
-  Required for the popup to position correctly. Set it equal to <em>this</em>
+  Required for Ember to behave correctly. Set it equal to <em>this</em>
 </p>
 
 
@@ -91,5 +83,3 @@ if (!this.get('popupIsOpen')) {
 <p>
   See the {{link-to "dropbutton" "documentation.dropbutton"}} actions section.
 </p>
-
-

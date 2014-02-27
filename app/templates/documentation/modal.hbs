@@ -25,6 +25,7 @@ import modalContentView from 'appkit/views/documentation/modal-example'
 actions: {
   showModal: function() {
     modalComponent.show({
+      targetObject: this
       contentViewClass: modalContentView,
       content: { name: "Jaco" }
     });
@@ -42,11 +43,19 @@ actions: {
 <h2>Parameters</h2>
 
 <ul class="parameterindex">
+  <li class="header">Required</li>
+  <li><a href="#section-targetobject">targetObject</a></li>
+
   <li class="header">Aesthetic</li>
   <li><a href="#section-class">class</a></li>
   <li><a href="#section-style">style</a></li>
 </ul>
 
+
+<h4 id="section-targetobject">targetObject <span>object</span></h4>
+<p>
+  Required for Ember to behave correctly. Set it equal to <em>this</em>
+</p>
 
 
 <h4 id="section-label">class <span>string</span></h4>
