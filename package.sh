@@ -9,13 +9,13 @@ cd $WEBSITE                       &&
 
 
 
-git pull --rebase                 &&
+git pull                          &&
 cp CNAME /tmp/CNAME               &&
 cp 404.html /tmp/404.html         &&
 rm -rf *                          &&
+git rm *                          &&
 cp /tmp/CNAME CNAME               &&
 cp /tmp/404.html 404.html         &&
-git rm *                          &&
 git add CNAME                     &&
 git add 404.html                  &&
 cp -r ../dist/* ./                &&
