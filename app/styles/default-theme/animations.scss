@@ -45,14 +45,14 @@
 
 /* Error Glow */
 @-webkit-keyframes eui-error-highlight {
-  0%   {
-    border: solid 1px transparent;
+  0% {
+    border-color: rgba(0,0,0,0.3);
     box-shadow:
       0px 0px 0px #ff0000,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
   100% {
-    border: solid 1px #ff7f7f;
+    border-color: #ff7f7f;
     box-shadow:
       0px 0px 4px #ff0000,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
@@ -60,14 +60,14 @@
 }
 
 @-moz-keyframes eui-error-highlight {
-  0%   {
-    border: solid 1px transparent;
+  0% {
+    border-color: rgba(0,0,0,0.3);
     box-shadow:
       0px 0px 0px #ff0000,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
   100% {
-    border: solid 1px #ff7f7f;
+    border-color: #ff7f7f;
     box-shadow:
       0px 0px 4px #ff0000,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
@@ -75,14 +75,14 @@
 }
 
 @keyframes eui-error-highlight {
-  0%   {
-    border: solid 1px transparent;
+  0% {
+    border-color: rgba(0,0,0,0.3);
     box-shadow:
       0px 0px 0px #ff0000,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
   100% {
-    border: solid 1px #ff7f7f;
+    border-color: #ff7f7f;
     box-shadow:
       0px 0px 4px #ff0000,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
@@ -92,14 +92,14 @@
 
 /* Focus Glow */
 @-webkit-keyframes eui-focus-highlight {
-  0%   {
-    border: solid 1px transparent;
+  0% {
+    border-color: rgba(0,0,0,0.3);
     box-shadow:
-      0px 0px 0px #0090ff,
+      0px 0px 0px #456da5,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
   100% {
-    border: solid 1px #7fb5ff;
+    border-color: #7fb5ff;
     box-shadow:
       0px 0px 4px #0090ff,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
@@ -107,14 +107,14 @@
 }
 
 @-moz-keyframes eui-focus-highlight {
-  0%   {
-    border: solid 1px transparent;
+  0% {
+    border-color: rgba(0,0,0,0.3);
     box-shadow:
-      0px 0px 0px #0090ff,
+      0px 0px 0px #456da5,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
   100% {
-    border: solid 1px #7fb5ff;
+    border-color: #7fb5ff;
     box-shadow:
       0px 0px 4px #0090ff,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
@@ -122,14 +122,14 @@
 }
 
 @keyframes eui-focus-highlight {
-  0%   {
-    border: solid 1px transparent;
+  0% {
+    border-color: rgba(0,0,0,0.3);
     box-shadow:
-      0px 0px 0px #0090ff,
+      0px 0px 0px #456da5,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
   100% {
-    border: solid 1px #7fb5ff;
+    border-color: #7fb5ff;
     box-shadow:
       0px 0px 4px #0090ff,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
