@@ -41,11 +41,11 @@ $experimental-support-for-svg: true;
     @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
     -webkit-animation-duration: 0.2s;
-    -webkit-animation-name: zoomin;
+    -webkit-animation-name: bouncein;
     -moz-animation-duration: 0.2s;
-    -moz-animation-name: zoomin;
+    -moz-animation-name: bouncein;
     animation-duration: 0.2s;
-    animation-name: zoomin;
+    animation-name: bouncein;
     max-height: calc(100% - 100px);
 
     &:before {
