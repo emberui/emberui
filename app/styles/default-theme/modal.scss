@@ -11,18 +11,18 @@ $experimental-support-for-svg: true;
   &.eui-default {
     .eui-overlay {
       @include background-image(radial-gradient(center, ellipse cover, rgba(0,0,0,0.10) 0%,rgba(0,0,0,0.10) 50%,rgba(0,0,0,0.30) 100%));
-      -webkit-animation: modaloverlay-fadein 0.4s 1;
-      -moz-animation: modaloverlay-fadein 0.4s 1;
-      animation: modaloverlay-fadein 0.4s 1;
+      -webkit-animation: eui-modaloverlay-fadein 0.4s 1;
+      -moz-animation: eui-modaloverlay-fadein 0.4s 1;
+      animation: eui-modaloverlay-fadein 0.4s 1;
     }
 
     .eui-modalobject {
       @include border-radius(7px);
       @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.08) 0%,  rgba(0, 0, 0, 0.20) 100%));
       padding: 1px;
-      -webkit-animation: defaultmodal-zoomin 0.15s 1;
-      -moz-animation: defaultmodal-zoomin 0.15s 1;
-      animation: defaultmodal-zoomin 0.15s 1;
+      -webkit-animation: eui-defaultmodal-zoomin 0.15s 1;
+      -moz-animation: eui-defaultmodal-zoomin 0.15s 1;
+      animation: eui-defaultmodal-zoomin 0.15s 1;
       box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
     }
 
@@ -34,16 +34,16 @@ $experimental-support-for-svg: true;
     &.eui-closing {
       .eui-overlay {
         opacity: 0;
-        -webkit-animation: modaloverlay-fadeout 0.4s 1;
-        -moz-animation: modaloverlay-fadeout 0.4s 1;
-        animation: modaloverlay-fadeout 0.4s 1;
+        -webkit-animation: eui-modaloverlay-fadeout 0.4s 1;
+        -moz-animation: eui-modaloverlay-fadeout 0.4s 1;
+        animation: eui-modaloverlay-fadeout 0.4s 1;
       }
 
       .eui-modalobject {
         opacity: 0;
-        -webkit-animation: defaultmodal-zoomout 0.15s 1;
-        -moz-animation: defaultmodal-zoomout 0.15s 1;
-        animation: defaultmodal-zoomout 0.15s 1;
+        -webkit-animation: eui-defaultmodal-zoomout 0.15s 1;
+        -moz-animation: eui-defaultmodal-zoomout 0.15s 1;
+        animation: eui-defaultmodal-zoomout 0.15s 1;
       }
     }
   }
@@ -52,30 +52,30 @@ $experimental-support-for-svg: true;
     .eui-overlay {
       background: #ffffff;
       @include background-image(radial-gradient(center, ellipse cover, rgba(0,0,0,0.0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.20) 150%));
-      -webkit-animation: modaloverlay-fadein 0.4s 1;
-      -moz-animation: modaloverlay-fadein 0.4s 1;
-      animation: modaloverlay-fadein 0.4s 1;
+      -webkit-animation: eui-modaloverlay-fadein 0.4s 1;
+      -moz-animation: eui-modaloverlay-fadein 0.4s 1;
+      animation: eui-modaloverlay-fadein 0.4s 1;
     }
 
     .eui-modalobject {
-      -webkit-animation: fullmodal-zoomin 0.15s 1;
-      -moz-animation: fullmodal-zoomin 0.15s 1;
-      animation: fullmodal-zoomin 0.15s 1;
+      -webkit-animation: eui-fullmodal-zoomin 0.15s 1;
+      -moz-animation: eui-fullmodal-zoomin 0.15s 1;
+      animation: eui-fullmodal-zoomin 0.15s 1;
     }
 
     &.eui-closing {
       .eui-overlay {
         opacity: 0;
-        -webkit-animation: modaloverlay-fadeout 0.4s 1 reverse;
-        -moz-animation: modaloverlay-fadeout 0.4s 1 reverse;
-        animation: modaloverlay-fadeout 0.4s 1 reverse;
+        -webkit-animation: eui-modaloverlay-fadeout 0.4s 1 reverse;
+        -moz-animation: eui-modaloverlay-fadeout 0.4s 1 reverse;
+        animation: eui-modaloverlay-fadeout 0.4s 1 reverse;
       }
 
       .eui-modalobject {
         opacity: 0;
-        -webkit-animation: fullmodal-zoomout 0.15s 1;
-        -moz-animation: fullmodal-zoomout 0.15s 1;
-        animation: fullmodal-zoomout 0.15s 1;
+        -webkit-animation: eui-fullmodal-zoomout 0.15s 1;
+        -moz-animation: eui-fullmodal-zoomout 0.15s 1;
+        animation: eui-fullmodal-zoomout 0.15s 1;
       }
     }
   }

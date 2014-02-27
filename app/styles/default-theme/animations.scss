@@ -24,19 +24,19 @@
 
 
 /* Bounce In */
-@-webkit-keyframes bouncein {
+@-webkit-keyframes eui-bouncein {
   0% { opacity: 0; -webkit-transform: scale(0.80); }
   66% { opacity: 1; -webkit-transform: scale(1.10); }
   100% { opacity: 1; -webkit-transform: scale(1); }
 }
 
-@-moz-keyframes bouncein {
+@-moz-keyframes eui-bouncein {
   0% { opacity: 0; -moz-transform: scale(0.80); }
   66% { opacity: 1; -moz-transform: scale(1.10); }
   100% { opacity: 1; -moz-transform: scale(1); }
 }
 
-@keyframes bouncein {
+@keyframes eui-bouncein {
   0% { opacity: 0; transform: scale(0.80); }
   66% { opacity: 1; transform: scale(1.10); }
   100% { opacity: 1; transform: scale(1); }
@@ -137,102 +137,102 @@
 }
 
 /* Modal Overlay Fade In */
-@-webkit-keyframes modaloverlay-fadein {
+@-webkit-keyframes eui-modaloverlay-fadein {
   0%   { opacity: 0; }
   100% { opacity: 1; }
 }
 
-@-moz-keyframes modaloverlay-fadein {
+@-moz-keyframes eui-modaloverlay-fadein {
   0%   { opacity: 0; }
   100% { opacity: 1; }
 }
 
-@keyframes modaloverlay-fadein {
+@keyframes eui-modaloverlay-fadein {
   0%   { opacity: 0; }
   100% { opacity: 1; }
 }
 
 
 /* Modal Overlay Fade Out */
-@-webkit-keyframes modaloverlay-fadeout {
+@-webkit-keyframes eui-modaloverlay-fadeout {
   0%   { opacity: 1; }
   100% { opacity: 0; }
 }
 
-@-moz-keyframes modaloverlay-fadeout {
+@-moz-keyframes eui-modaloverlay-fadeout {
   0%   { opacity: 1; }
   100% { opacity: 0; }
 }
 
-@keyframes modaloverlay-fadeout {
+@keyframes eui-modaloverlay-fadeout {
   0%   { opacity: 1; }
   100% { opacity: 0; }
 }
 
 
 /* Full Modal Zoom In */
-@-webkit-keyframes fullmodal-zoomin {
+@-webkit-keyframes eui-fullmodal-zoomin {
   0% { -webkit-transform: scale(5); opacity: 0; }
   100% { -webkit-transform: scale(1); opacity: 1; }
 }
 
-@-moz-keyframes fullmodal-zoomin {
+@-moz-keyframes eui-fullmodal-zoomin {
   0% { -moz-transform: scale(5); opacity: 0; }
   100% { -moz-transform: scale(1); opacity: 1; }
 }
 
-@keyframes fullmodal-zoomin {
+@keyframes eui-fullmodal-zoomin {
   0% { transform: scale(5); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
 
 
 /* Full Modal Zoom Out */
-@-webkit-keyframes fullmodal-zoomout {
+@-webkit-keyframes eui-fullmodal-zoomout {
   0% { -webkit-transform: scale(1); opacity: 1; }
   100% { -webkit-transform: scale(5); opacity: 0; }
 }
 
-@-moz-keyframes fullmodal-zoomout {
+@-moz-keyframes eui-fullmodal-zoomout {
   0% { -moz-transform: scale(1); opacity: 1; }
   100% { -moz-transform: scale(5); opacity: 0; }
 }
 
-@keyframes fullmodal-zoomout {
+@keyframes eui-fullmodal-zoomout {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(5); opacity: 0; }
 }
 
 
 /* Default Modal Zoom In */
-@-webkit-keyframes defaultmodal-zoomin {
+@-webkit-keyframes eui-defaultmodal-zoomin {
   0% { -webkit-transform: scale(0.5); opacity: 0; }
   100% { -webkit-transform: scale(1); opacity: 1; }
 }
 
-@-moz-keyframes defaultmodal-zoomin {
+@-moz-keyframes eui-defaultmodal-zoomin {
   0% { -moz-transform: scale(0.5); opacity: 0; }
   100% { -moz-transform: scale(1); opacity: 1; }
 }
 
-@keyframes defaultmodal-zoomin {
+@keyframes eui-defaultmodal-zoomin {
   0% { transform: scale(0.5); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
 
 
 /* Default Modal Zoom Out */
-@-webkit-keyframes defaultmodal-zoomout {
+@-webkit-keyframes eui-defaultmodal-zoomout {
   0% { -webkit-transform: scale(1); opacity: 1; }
   100% { -webkit-transform: scale(0.5); opacity: 0; }
 }
 
-@-moz-keyframes defaultmodal-zoomout {
+@-moz-keyframes eui-defaultmodal-zoomout {
   0% { -moz-transform: scale(1); opacity: 1; }
   100% { -moz-transform: scale(0.5); opacity: 0; }
 }
 
-@keyframes defaultmodal-zoomout {
+@keyframes eui-defaultmodal-zoomout {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(0.5); opacity: 0; }
 }
