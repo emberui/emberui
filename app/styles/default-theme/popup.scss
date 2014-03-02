@@ -17,6 +17,13 @@ $experimental-support-for-svg: true;
     overflow: hidden;
   }
 
+  .eui-option {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .eui-overlay {
     position: fixed;
     top: 0px;
@@ -74,16 +81,13 @@ $experimental-support-for-svg: true;
       padding: 5px 0;
     }
 
-    .eui-options {
-      .option {
-        padding: 0 7.5px;
-        cursor: pointer;
+    .eui-option {
+      padding: 0 7.5px;
 
-        &:hover {
-          @include background-image(linear-gradient(top,  #1493dc 0%, #64bcf7 100%));
-          color: #ffffff;
-          text-shadow: 0px 1px rgba(0,0,0,0.35);
-        }
+      &:hover {
+        @include background-image(linear-gradient(top,  #1493dc 0%, #64bcf7 100%));
+        color: #ffffff;
+        text-shadow: 0px 1px rgba(0,0,0,0.35);
       }
     }
   }

@@ -1,10 +1,8 @@
 <div class="eui-popupwrapper">
-  <ul class="eui-options">
-    {{#each actionList}}
-      {{#unless primary}}
-      <li class="option" {{action 'actionThenHide' this.action}}>{{label}}</li>
-      {{/unless}}
-    {{/each}}
-  </ul>
+  {{view listView
+    classNames="eui-options"
+    heightBinding="height"
+    rowHeightBinding="rowHeight"
+    contentBinding="filteredActionList"
+  }}
 </div>
-
