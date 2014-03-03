@@ -45,8 +45,7 @@ popup = Em.Component.extend styleSupport,
 
       labelPathDidChange: Ember.observer ->
         labelPath = @get 'labelPath'
-        path = "content.#{labelPath}"
-        Ember.defineProperty(this, 'label', Ember.computed.alias(path))
+        Ember.defineProperty(this, 'label', Ember.computed.alias("content.#{labelPath}"))
         @notifyPropertyChange 'label'
       , 'content', 'labelPath'
 
