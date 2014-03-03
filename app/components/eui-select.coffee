@@ -11,7 +11,7 @@ select = Em.Component.extend styleSupport, sizeSupport,
   selected: null
   labelPath: 'label'
 
-  computedLabel: Em.computed ->
+  label: Em.computed ->
     labelPath = @get('labelPath')
     return @get("selected.#{labelPath}") || @get('placeholder')
   .property('selected', 'placeholder', 'labelPath')
