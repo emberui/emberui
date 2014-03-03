@@ -26,24 +26,24 @@
   The text displayed on the button. If there are is a primary event associated with the button the label for the primary event will be used instead.
 </p>
 
-<pre>\{{eui-dropbutton label='Actions' actionList=actionList}}
-\{{eui-dropbutton label='Actions' actionList=actionList}}</pre>
+<pre>\{{eui-dropbutton label='Actions' options=options}}
+\{{eui-dropbutton label='Actions' options=options}}</pre>
 
-<pre>actionList: [
+<pre>options: [
   Ember.Object.create({ label: 'Save', action: 'save' }),
   Ember.Object.create({ label: 'Delete', action: 'delete' }),
   Ember.Object.create({ label: 'Edit', action: 'edit' })
 ],
 
-actionListPrimary: [
+optionsPrimary: [
   Ember.Object.create({ label: 'Save', action: 'save', primary: true }),
   Ember.Object.create({ label: 'Delete', action: 'delete' }),
   Ember.Object.create({ label: 'Edit', action: 'edit' })
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' actionList=actionList}}
-  {{eui-dropbutton label='Actions' actionList=actionListPrimary}}
+  {{eui-dropbutton label='Actions' options=options}}
+  {{eui-dropbutton label='Actions' options=optionsPrimary}}
 </div>
 
 
@@ -53,8 +53,8 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' size='small' actionList=actionList}}
-  {{eui-dropbutton label='Actions' size='small' actionList=actionListPrimary}}
+  {{eui-dropbutton label='Actions' size='small' options=options}}
+  {{eui-dropbutton label='Actions' size='small' options=optionsPrimary}}
 </div>
 
 
@@ -64,10 +64,10 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' style='default' actionList=actionList}}
-  {{eui-dropbutton label='Actions' style='default' actionList=actionListPrimary}}
-  {{eui-dropbutton label='Actions' style='primary' actionList=actionList}}
-  {{eui-dropbutton label='Actions' style='primary' actionList=actionListPrimary}}
+  {{eui-dropbutton label='Actions' style='default' options=options}}
+  {{eui-dropbutton label='Actions' style='default' options=optionsPrimary}}
+  {{eui-dropbutton label='Actions' style='primary' options=options}}
+  {{eui-dropbutton label='Actions' style='primary' options=optionsPrimary}}
 </div>
 
 
@@ -81,7 +81,7 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' icon="fa fa-cog" actionList=actionList}}
+  {{eui-dropbutton label='Actions' icon="fa fa-cog" options=options}}
 </div>
 
 <p>
@@ -89,7 +89,7 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton icon="fa fa-cog" actionList=actionListNoLabel}}
+  {{eui-dropbutton icon="fa fa-cog" options=optionsNoLabel}}
 </div>
 
 <p>
@@ -97,7 +97,7 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton icon="fa fa-save" actionList=actionListPrimary}}
+  {{eui-dropbutton icon="fa fa-save" options=optionsPrimary}}
 </div>
 
 <h4 id="section-disabled">disabled <span>boolean</span></h4>
@@ -106,8 +106,8 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' disabled=true actionList=actionList}}
-  {{eui-dropbutton label='Actions' disabled=true actionList=actionListPrimary}}
+  {{eui-dropbutton label='Actions' disabled=true options=options}}
+  {{eui-dropbutton label='Actions' disabled=true options=optionsPrimary}}
 </div>
 
 
@@ -121,8 +121,8 @@ actionListPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' loading=true actionList=actionList}}
-  {{eui-dropbutton label='Actions' loading=true actionList=actionListPrimary}}
+  {{eui-dropbutton label='Actions' loading=true options=options}}
+  {{eui-dropbutton label='Actions' loading=true options=optionsPrimary}}
 </div>
 
 
@@ -131,28 +131,28 @@ actionListPrimary: [
   The dropbutton takes an array of actions.
 </p>
 
-<pre>actionList: [
+<pre>options: [
     Ember.Object.create({ label: 'Save', action: 'save' }),
     Ember.Object.create({ label: 'Delete', action: delete' }),
     Ember.Object.create({ label: 'Edit', action: 'edit' })
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' actionList=actionList}}
+  {{eui-dropbutton label='Actions' options=options}}
 </div>
 
 <p>
   Each action should have a label and action associated with it. You may optionally set one of the actions as the primary action and omit its label if you wish to use only an icon. If multiple actions are set as primary the first one will be taken and the rest treated as secondary actions.
 </p>
 
-<pre>actionListPrimary: [
+<pre>optionsPrimary: [
     Ember.Object.create({ label: 'Save', action: 'save', primary: true }),
     Ember.Object.create({ label: 'Delete', action: 'delete' }),
     Ember.Object.create({ label: 'Edit', action: 'edit' })
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' actionList=actionListPrimary}}
+  {{eui-dropbutton label='Actions' options=optionsPrimary}}
 </div>
 
 <p>
@@ -163,14 +163,14 @@ actionListPrimary: [
   The context of the button gets passed through with the click and allows you to pass through information that the action can act on.
 </p>
 
-<pre>\{{eui-dropbutton actionList=actionListPrimary item='item 1'}}</pre>
+<pre>\{{eui-dropbutton options=optionsPrimary item='item 1'}}</pre>
 
-<pre>actionListContext: [
+<pre>optionsContext: [
   Ember.Object.create({ label: 'Save', action: 'saveItem', primary: true }),
   Ember.Object.create({ label: 'Delete', action: 'deleteItem' }),
   Ember.Object.create({ label: 'Edit', action: 'editItem' })
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton actionList=actionListContext item='item 1'}}
+  {{eui-dropbutton options=optionsContext item='item 1'}}
 </div>

@@ -5,10 +5,7 @@ popup = Em.Component.extend styleSupport,
   layout: popupLayout
   classNames: ['eui-popup']
 
-  actionList: null
-
-  height: '60'
-  rowHeight: '20'
+  options: null
 
   actions:
     closePopup: ->
@@ -28,14 +25,13 @@ popup = Em.Component.extend styleSupport,
     @set('isOpen', true)
 
   listView: Ember.ListView.extend
+    height: '60'
+    rowHeight: '20'
+    classNames: ['eui-options']
+
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
-      template: Ember.Handlebars.compile('{{label}}')
-
-  filteredActionList: Em.computed ->
-    # quick hack to get back same functionality as before
-    return @.get('actionList').filterBy('primary', undefined);
-  .property 'actionList'
+      template: Ember.Handlebars.compile('<div {{action actionThenHide action}}>{{label}}</div>')
 
 
 popup.reopenClass

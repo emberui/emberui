@@ -8,8 +8,8 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   popupIsOpen: false
 
   primaryAction: Em.computed ->
-    @get('actionList').findBy 'primary', true
-  .property 'actionList'
+    @get('options').findBy 'primary', true
+  .property 'options'
 
   actions:
     toggleWindow: ->
@@ -17,7 +17,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
         popupComponent.show
           targetObject: @
           isOpenBinding: 'targetObject.popupIsOpen'
-          actionList: @get('actionList')
+          options: @get('options')
           style: 'bubble'
 
     primaryAction: ->

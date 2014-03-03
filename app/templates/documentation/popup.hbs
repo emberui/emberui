@@ -12,7 +12,7 @@
 
 popupComponent.show({
   targetObject: this
-  actionList: this.get('actionList'),
+  options: this.get('options'),
   style: 'bubble'
 });</pre>
 
@@ -37,7 +37,7 @@ popupComponent.show({
   <li><a href="#section-isopen">isOpen</a></li>
 
   <li class="header">Actions</li>
-  <li><a href="#section-actionlist">actionList</a></li>
+  <li><a href="#section-options">options</a></li>
 </ul>
 
 
@@ -73,13 +73,13 @@ if (!this.get('popupIsOpen')) {
     _parentView: this.get('parentView'),
     parent: this,
     isOpenBinding: 'parent.popupIsOpen',
-    actionList: this.get('actionList'),
+    options: this.get('options'),
     style: 'bubble'
   });
 }</pre>
 
 
-<h4 id="section-isopen">actionList <span>array</span></h4>
+<h4 id="section-isopen">options <span>array</span></h4>
 <p>
   See the {{link-to "dropbutton" "documentation.dropbutton"}} actions section.
 </p>
