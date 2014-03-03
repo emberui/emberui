@@ -13,12 +13,12 @@ popup = Em.Component.extend styleSupport,
       @hide()
 
     actionThenHide: (option) ->
-      isSelect = @get('isSelect')
       action = option.get('action')
+      event = @get('event')
 
-      if isSelect
+      if event == 'select'
         @set('selected', option)
-      else
+      else if event == 'action'
         @get('targetObject').triggerAction({action})
 
       @hide()
@@ -58,10 +58,6 @@ popup = Em.Component.extend styleSupport,
         @_super context
         @set 'content', context
 
-
-  isSelect: Em.computed ->
-    return true if @get('selected') != undefined
-  .property 'selected'
 
 popup.reopenClass
   show: (options = {}) ->

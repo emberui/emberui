@@ -7,5 +7,8 @@
 {{eui-dropbutton label='Actions' size='small' options=options}}
 {{eui-dropbutton label='Actions' size='small' options=optionsPrimary}}
 
-{{eui-select placeholder='Select one' labelPath='label' size='small' options=options}}
-{{eui-select placeholder='Select one' labelPath='name' options=bigOptionList style="primary"}}
+{{eui-select placeholder='Select one' selected=testSelectedOne valueBinding='testValueOne' valuePath='action' labelPath='label' size='small' optionsBinding='options'}}
+{{eui-select placeholder='Select one' selected=testSelectedTwo valueBinding='testValueTwo' valuePath='value' labelPath='name' optionsBinding='bigOptionList' style="primary"}}
+
+{{testSelectedOne}}-{{testValueOne}} <br/>
+{{testSelectedTwo}}--{{testValueTwo}}

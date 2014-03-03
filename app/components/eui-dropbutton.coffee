@@ -19,6 +19,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
           isOpenBinding: 'targetObject.popupIsOpen'
           options: @get('options')
           style: 'bubble'
+          event: 'action'
 
     primaryAction: ->
       @sendAction 'primaryAction.action', @

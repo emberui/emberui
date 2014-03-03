@@ -1,4 +1,10 @@
 export default Ember.ObjectController.extend({
+  testValueOne: 'save',
+  testSelectedOne: null,
+
+  testValueTwo: null,
+  testSelectedTwo: null,
+
   options: [
     Ember.Object.create({ label: 'Save', action: 'save' }),
     Ember.Object.create({ label: 'Delete', action: 'delete' }),
@@ -12,20 +18,8 @@ export default Ember.ObjectController.extend({
   ],
 
   bigOptionList: [
-    Ember.Object.create({ name: 'Jaco', action: 'save' }),
-    Ember.Object.create({ name: 'Justin', action: 'delete' }),
-    Ember.Object.create({ name: 'Zach', action: 'edit' }),
-    Ember.Object.create({ name: 'Jaco', action: 'save' }),
-    Ember.Object.create({ name: 'Justin', action: 'delete' }),
-    Ember.Object.create({ name: 'Zach', action: 'edit' }),
-    Ember.Object.create({ name: 'Jaco', action: 'save' }),
-    Ember.Object.create({ name: 'Justin', action: 'delete' }),
-    Ember.Object.create({ name: 'Zach', action: 'edit' }),
-    Ember.Object.create({ name: 'Jaco', action: 'save' }),
-    Ember.Object.create({ name: 'Justin', action: 'delete' }),
-    Ember.Object.create({ name: 'Zach', action: 'edit' }),
-    Ember.Object.create({ name: 'Jaco', action: 'save' }),
-    Ember.Object.create({ name: 'Justin', action: 'delete' }),
-    Ember.Object.create({ name: 'Zach', action: 'edit' })
+    Ember.Object.create({ name: 'Jaco', value: 'jaco' }),
+    Ember.Object.create({ name: 'Justin', value: 'justin' }),
+    Ember.Object.create({ name: 'Zach', value: 'zach' })
   ]
 });
