@@ -11,8 +11,15 @@ popup = Em.Component.extend styleSupport,
     closePopup: ->
       @hide()
 
-    actionThenHide: (action) ->
-      @get('targetObject').triggerAction({action})
+    actionThenHide: (option) ->
+      isSelect = @get('isSelect')
+      action = option.get('action')
+
+      if isSelect
+        @set('selected', option)
+      else
+        @get('targetObject').triggerAction({action})
+
       @hide()
 
   hide: ->
@@ -25,14 +32,17 @@ popup = Em.Component.extend styleSupport,
     @set('isOpen', true)
 
   listView: Ember.ListView.extend
-    height: '60'
+    height: '180'
     rowHeight: '20'
     classNames: ['eui-options']
 
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
-      template: Ember.Handlebars.compile('<div {{action actionThenHide action}}>{{label}}</div>')
+      template: Ember.Handlebars.compile('<div {{action actionThenHide this}}>{{label}}</div>')
 
+  isSelect: Em.computed ->
+    return true if @get('selected') != undefined
+  .property 'selected'
 
 popup.reopenClass
   show: (options = {}) ->
