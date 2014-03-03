@@ -9,10 +9,12 @@ select = Em.Component.extend styleSupport, sizeSupport,
 
   popupIsOpen: false
   selected: null
+  labelPath: 'label'
 
   computedLabel: Em.computed ->
-    return @get('selected.label') || @get('label')
-  .property('selected', 'label')
+    labelPath = @get('labelPath')
+    return @get("selected.#{labelPath}") || @get('placeholder')
+  .property('selected', 'placeholder', 'labelPath')
 
   actions:
     toggleWindow: ->
@@ -23,5 +25,6 @@ select = Em.Component.extend styleSupport, sizeSupport,
           selectedBinding: 'targetObject.selected'
           options: @get('options')
           style: 'bubble'
+          labelPath: @get('labelPath')
 
 `export default select`

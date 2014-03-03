@@ -38,7 +38,26 @@ popup = Em.Component.extend styleSupport,
 
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
-      template: Ember.Handlebars.compile('<div {{action actionThenHide this}}>{{label}}</div>')
+      template: Ember.Handlebars.compile('<div {{action actionThenHide this}}>{{view.label}}</div>')
+
+      labelPath: Ember.computed.alias 'controller.labelPath'
+
+      labelPathDidChange: Ember.observer ->
+        labelPath = @get 'labelPath'
+        path = "content.#{labelPath}"
+        Ember.defineProperty(this, 'label', Ember.computed.alias(path))
+        @notifyPropertyChange 'label'
+      , 'content', 'labelPath'
+
+      initializeLabelPath: (->
+        @labelPathDidChange()
+      ).on 'init'
+
+      # TODO: Unsure why this is not done automatically. Without this @get('content') returns undefined.
+      updateContext: (context) ->
+        @_super context
+        @set 'content', context
+
 
   isSelect: Em.computed ->
     return true if @get('selected') != undefined
