@@ -5,6 +5,7 @@ popup = Em.Component.extend styleSupport,
   layout: popupLayout
   classNames: ['eui-popup']
 
+  labelPath: 'label'
   options: null
 
   actions:
