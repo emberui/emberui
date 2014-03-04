@@ -20,6 +20,8 @@ cd $WEBSITE                       &&
   # Add the Tarball to /tmp/builds
   # Publish the build to npm
 
+git checkout gh-pages
+
 # Update the repo before packaging incase someone 
 # added something to emberui -> master
 git pull                          &&
@@ -52,7 +54,7 @@ git add .                         &&
 git commit -am "$COMMIT_MSG"      &&
 
 # Push the repo to github
-git push origin HEAD --force      &&
+git push origin gh-pages          &&
 
 # leave website/
 cd ..                             &&
