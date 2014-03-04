@@ -29,6 +29,7 @@ popup = Em.Component.extend styleSupport,
 
       labelPath: Ember.computed.alias 'controller.labelPath'
 
+      # creates Label property based on specified labelPath
       labelPathDidChange: Ember.observer ->
         labelPath = @get 'labelPath'
         Ember.defineProperty(this, 'label', Ember.computed.alias("content.#{labelPath}"))
