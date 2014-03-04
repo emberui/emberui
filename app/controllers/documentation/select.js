@@ -18,6 +18,7 @@ export default Ember.ObjectController.extend({
   ],
 
   bigOptionList: [
+    null,
     Ember.Object.create({ name: 'Jaco', value: 'jaco' }),
     Ember.Object.create({ name: 'Justin', value: 'justin' }),
     Ember.Object.create({ name: 'Zach', value: 'zach' }),

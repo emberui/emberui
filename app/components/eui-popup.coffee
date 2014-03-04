@@ -51,12 +51,13 @@ popup = Em.Component.extend styleSupport,
 
       click: ->
         option = @get('content')
-        action = option.get('action')
         event = @get('controller.event')
 
         if event == 'select'
           @set('controller.selection', option)
+
         else if event == 'action'
+          action = option.get('action')
           @get('targetObject').triggerAction({action})
 
         @get('controller').hide()
