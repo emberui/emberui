@@ -23,6 +23,9 @@ $experimental-support-for-svg: true;
     width: 100%;
     height: 20px;
     box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -106,9 +109,6 @@ $experimental-support-for-svg: true;
 
     .eui-option {
       padding: 0 7.5px 0 20px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
 
       &.eui-selected {
         @include background-image(linear-gradient(top, #eeeeee 0%, #f6f6f6 100%));
