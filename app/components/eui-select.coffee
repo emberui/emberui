@@ -11,9 +11,20 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'popupIsOpen:eui-active', 'class']
 
   popupIsOpen: false
+  required: false
   options: []
   labelPath: 'label'
   valuePath: 'value'
+
+  optionsWithBlank: (->
+    options = @get('options')
+    paddedOptions = options[..]
+
+    unless @get('required')
+      paddedOptions.unshift(null)
+
+    return paddedOptions
+  ).property 'options.@each'
 
   label: Em.computed ->
     labelPath = @get('labelPath')
@@ -50,7 +61,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
         targetObject: @
         isOpenBinding: 'targetObject.popupIsOpen'
         selectionBinding: 'targetObject.selection'
-        options: @get('options')
+        options: @get('optionsWithBlank')
         style: 'bubble'
         labelPath: @get('labelPath')
         event: 'select'
