@@ -24,7 +24,7 @@ popup = Em.Component.extend styleSupport,
 
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
-      classNameBindings: ['isHighlighted:eui-hover']
+      classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
       template: Ember.Handlebars.compile('{{view.label}}')
 
       labelPath: Ember.computed.alias 'controller.labelPath'
@@ -48,6 +48,10 @@ popup = Em.Component.extend styleSupport,
       isHighlighted: Ember.computed ->
         @get('controller.highlighted') is @get('content')
       .property 'controller.highlighted', 'content'
+
+      isSelected: Ember.computed ->
+        @get('controller.selection') is @get('content')
+      .property 'controller.selection', 'content'
 
       click: ->
         option = @get('content')

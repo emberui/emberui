@@ -7,7 +7,7 @@ export default Ember.ObjectController.extend({
 
   options: [
     Ember.Object.create({ label: 'Save', action: 'save' }),
-    Ember.Object.create({ label: 'Delete', action: 'delete' }),
+    Ember.Object.create({ label: 'Delete this really long item already', action: 'delete' }),
     Ember.Object.create({ label: 'Edit', action: 'edit' })
   ],
 
