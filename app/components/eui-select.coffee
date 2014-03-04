@@ -1,8 +1,9 @@
 `import styleSupport from 'appkit/mixins/style-support'`
 `import sizeSupport from 'appkit/mixins/size-support'`
 `import popupComponent from 'appkit/components/eui-popup'`
+`import disabledSupport from 'appkit/mixins/disabled-support'`
 
-select = Em.Component.extend styleSupport, sizeSupport,
+select = Em.Component.extend styleSupport, sizeSupport, disabledSupport,
   tagName: 'div'
   classNames: ['eui-select']
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'popupIsOpen:eui-active', 'class']
