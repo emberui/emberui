@@ -33,13 +33,6 @@ $experimental-support-for-svg: true;
 .eui-button {
   position: relative;
 
-  button {
-    position: absolute;
-    opacity: 0.0001;
-    top: 0px;
-    left: -9000px;
-  }
-
   .eui-button-form {
     padding: 1px;
     box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
@@ -56,11 +49,6 @@ $experimental-support-for-svg: true;
   i {
     @include transition(opacity 0.2s);
   }
-}
-
-button.eui-button::-moz-focus-inner {
-    border: 0;
-    padding: 0;
 }
 
 
@@ -125,7 +113,7 @@ button.eui-button::-moz-focus-inner {
 
 
 /*
-  * TYPES
+  * STYLES
   *
   * Primary: Blue button
   * Default: Gray button
@@ -160,7 +148,7 @@ button.eui-button::-moz-focus-inner {
     }
 
     /* disabled */
-    &.disabled {
+    &.eui-disabled {
       .eui-wrapper {
         background: #51b6ee;
         color: #b6ddf7;
@@ -202,7 +190,7 @@ button.eui-button::-moz-focus-inner {
     }
 
     /* disabled */
-    &.disabled {
+    &.eui-disabled {
       .eui-wrapper {
         background: #f3f3f3;
         color: #b9b9b9;

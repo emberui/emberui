@@ -5,7 +5,7 @@
 select = Em.Component.extend styleSupport, sizeSupport,
   tagName: 'div'
   classNames: ['eui-select']
-  classNameBindings: ['selection::eui-placeholder']
+  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'popupIsOpen:eui-active', 'class']
 
   popupIsOpen: false
   options: []
@@ -41,16 +41,15 @@ select = Em.Component.extend styleSupport, sizeSupport,
     @set('selection', value)
   ).on('init')
 
-  actions:
-    toggleWindow: ->
-      unless @get('popupIsOpen')
-        popupComponent.show
-          targetObject: @
-          isOpenBinding: 'targetObject.popupIsOpen'
-          selectionBinding: 'targetObject.selection'
-          options: @get('options')
-          style: 'bubble'
-          labelPath: @get('labelPath')
-          event: 'select'
+  click: ->
+    unless @get('popupIsOpen')
+      popupComponent.show
+        targetObject: @
+        isOpenBinding: 'targetObject.popupIsOpen'
+        selectionBinding: 'targetObject.selection'
+        options: @get('options')
+        style: 'bubble'
+        labelPath: @get('labelPath')
+        event: 'select'
 
 `export default select`

@@ -1,8 +1,8 @@
-{{eui-button
-  label=view.label
-  style=view.style
-  size=view.size
-  trailingIcon="eui-icon"
-  disabled=view.disabled
-  classBinding="popupIsOpen:eui-active"
-  action="toggleWindow"}}
+<button {{bind-attr disabled="isDisabled" }}></button>
+
+<div class="eui-select-form">
+  <div class="eui-wrapper">
+    <i>{{view.label}}</i>
+    <b class="eui-icon"></b>
+  </div>
+</div>

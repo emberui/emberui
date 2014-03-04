@@ -18,6 +18,13 @@ $experimental-support-for-svg: true;
   user-select: none;
   cursor: pointer;
 
+  button {
+    position: absolute;
+    opacity: 0.0001;
+    top: 0px;
+    left: -9000px;
+  }
+
   .eui-button-form {
     position: relative;
     border: none;
@@ -36,7 +43,7 @@ $experimental-support-for-svg: true;
   }
 
   /* Disabled */
-  &.disabled {
+  &.eui-disabled {
     pointer-events: none;
   }
 }
@@ -86,11 +93,6 @@ $experimental-support-for-svg: true;
       padding: 0 15px;
     }
   }
-}
-
-/* DISABLED */
-.eui-button:disabled {
-  pointer-events: none;
 }
 
 /* LOADING */
