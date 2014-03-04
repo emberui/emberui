@@ -17,7 +17,7 @@ popup = Em.Component.extend styleSupport,
       event = @get('event')
 
       if event == 'select'
-        @set('selected', option)
+        @set('selection', option)
       else if event == 'action'
         @get('targetObject').triggerAction({action})
 

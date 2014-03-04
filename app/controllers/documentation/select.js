@@ -1,9 +1,9 @@
 export default Ember.ObjectController.extend({
   testValueOne: 'save',
-  testSelectedOne: null,
+  testselectionOne: null,
 
   testValueTwo: null,
-  testSelectedTwo: null,
+  testselectionTwo: null,
 
   options: [
     Ember.Object.create({ label: 'Save', action: 'save' }),
