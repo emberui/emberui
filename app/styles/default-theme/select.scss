@@ -1,4 +1,28 @@
 .eui-select {
+  i {
+    text-align: left;
+    padding-right: 15px;
+  }
+
+  .eui-icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 15px;
+    height: 100%;
+    display: block;
+
+    &:before {
+      content: "\f0d8\A\f0d7";
+      font-family: "FontAwesome";
+      display: inline-block;
+      line-height: 0.8em;
+      white-space: pre;
+      text-align: center;
+      vertical-align: middle;
+      opacity: 0.8;
+    }
+  }
 
   &.eui-placeholder .eui-button i {
     opacity: 0.7;
