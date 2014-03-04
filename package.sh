@@ -11,20 +11,24 @@ grunt dist                        &&
 WEBSITE="website"                 &&
 cd $WEBSITE                       &&
 
+git checkout gh-pages             &&
+
+# Update the repo before packaging incase someone 
+# added something to emberui -> master
+git pull                          &&
+
+# Copy the builds folder to tmp
+rm -rf /tmp/builds*               &&
+mkdir /tmp/builds                 &&
+cp -r builds/* ./tmp/builds/      &&
+
 # TODOS:
-  # Copy the builds folder to tmp
   # Determine the build number based on last build number
   # Update package.json with the new build number
   # Generate the latest build 
   # Tarball the latest build
   # Add the Tarball to /tmp/builds
   # Publish the build to npm
-
-git checkout gh-pages
-
-# Update the repo before packaging incase someone 
-# added something to emberui -> master
-git pull                          &&
 
 # CNAME isn't generated, save it in /tmp/ for later.
 cp CNAME /tmp/CNAME               &&
@@ -41,6 +45,11 @@ git rm *                          &&
 # in case it does, that change would be in CNAME)
 cp /tmp/CNAME CNAME               &&
 git add CNAME                     &&
+
+# Re-add our builds
+mkdir builds                      &&
+cp -r /tmp/builds/* builds/       &&
+
 
 # Recursibely add the generated website build
 cp -r ../dist/* ./                &&
