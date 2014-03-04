@@ -34,6 +34,7 @@ select = Em.Component.extend styleSupport, sizeSupport,
 
   # Set the initial selected option based on the value of the select
   setInitialSelected: (->
+    return if @get('selected')
     valuePath = @get('valuePath')
     value = @get('value')
     value = @get('options').findProperty(valuePath, value) if valuePath
