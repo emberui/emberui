@@ -8,21 +8,6 @@ popup = Em.Component.extend styleSupport,
   labelPath: 'label'
   options: null
 
-  actions:
-    closePopup: ->
-      @hide()
-
-    actionThenHide: (option) ->
-      action = option.get('action')
-      event = @get('event')
-
-      if event == 'select'
-        @set('selection', option)
-      else if event == 'action'
-        @get('targetObject').triggerAction({action})
-
-      @hide()
-
   hide: ->
     @set('isOpen', false)
     $(window).unbind('scroll.emberui')
@@ -39,7 +24,8 @@ popup = Em.Component.extend styleSupport,
 
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
-      template: Ember.Handlebars.compile('<div {{action actionThenHide this}}>{{view.label}}</div>')
+      classNameBindings: ['isHighlighted:eui-hover']
+      template: Ember.Handlebars.compile('{{view.label}}')
 
       labelPath: Ember.computed.alias 'controller.labelPath'
 
@@ -57,6 +43,28 @@ popup = Em.Component.extend styleSupport,
       updateContext: (context) ->
         @_super context
         @set 'content', context
+
+      isHighlighted: Ember.computed ->
+        @get('controller.highlighted') is @get('content')
+      .property 'controller.highlighted', 'content'
+
+      click: ->
+        option = @get('content')
+        action = option.get('action')
+        event = @get('controller.event')
+
+        if event == 'select'
+          @set('controller.selection', option)
+        else if event == 'action'
+          @get('targetObject').triggerAction({action})
+
+        @get('controller').hide()
+
+      mouseEnter: ->
+        @set 'controller.highlighted', @get('content')
+
+      mouseLeave: ->
+        @set 'controller.highlighted', null
 
 
 popup.reopenClass
