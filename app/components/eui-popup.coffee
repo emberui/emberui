@@ -58,7 +58,7 @@ popup = Em.Component.extend styleSupport,
 
         else if event == 'action'
           action = option.get('action')
-          @get('targetObject').triggerAction({action})
+          @get('controller.targetObject').triggerAction({action})
 
         @get('controller').hide()
 
