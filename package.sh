@@ -19,8 +19,7 @@ git pull                          &&
 
 # Copy the builds folder to tmp
 rm -rf /tmp/builds*               &&
-mkdir /tmp/builds                 &&
-cp -r builds/* ./tmp/builds/      &&
+cp -r builds /tmp/builds          &&
 
 # TODOS:
   # Determine the build number based on last build number
@@ -47,9 +46,7 @@ cp /tmp/CNAME CNAME               &&
 git add CNAME                     &&
 
 # Re-add our builds
-mkdir builds                      &&
-cp -r /tmp/builds/* builds/       &&
-
+cp -r /tmp/builds builds          &&
 
 # Recursibely add the generated website build
 cp -r ../dist/* ./                &&
