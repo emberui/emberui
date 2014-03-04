@@ -66,7 +66,7 @@ popup = Em.Component.extend styleSupport,
         @set 'controller.highlighted', @get('content')
 
       mouseLeave: ->
-        @set 'controller.highlighted', null
+        @set 'controller.highlighted', undefined
 
 
 popup.reopenClass
