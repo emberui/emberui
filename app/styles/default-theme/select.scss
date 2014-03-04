@@ -7,6 +7,7 @@ $experimental-support-for-svg: true;
   .eui-select-form {
     padding: 1px;
     box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+    @include transition(box-shadow 0.2s, background 0.2s);
   }
 
   .eui-wrapper {
@@ -171,4 +172,20 @@ $experimental-support-for-svg: true;
       }
     }
   }
+}
+
+
+/* ERROR */
+.eui-select.eui-error .eui-select-form {
+  background: #ff7f7f !important;
+  box-shadow:
+    0px 0px 4px #ff0000,
+    inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  -webkit-animation: eui-error-highlight 0.2s 1;
+  -moz-animation: eui-error-highlight 0.2s 1;
+  animation: eui-error-highlight 0.2s 1;
+}
+
+.eui-select.eui-error button:focus {
+  background: black;
 }

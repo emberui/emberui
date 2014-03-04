@@ -12,6 +12,7 @@ $experimental-support-for-svg: true;
   -webkit-animation: eui-error 0.2s 1;
   -moz-animation: eui-error 0.2s 1;
   animation: eui-error 0.2s 1;
+  pointer-events: none;
 
   .eui-error-wrapper {
     border-radius: 3px;

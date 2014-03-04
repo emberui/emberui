@@ -6,3 +6,13 @@
     <b class="eui-icon"></b>
   </div>
 </div>
+
+{{#if computedErrorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{computedErrorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}
