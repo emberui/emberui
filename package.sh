@@ -26,10 +26,9 @@ cp -r builds /tmp/builds          &&
 AUTHOR_NUMBER=$(grep -n "$AUTHOR" -m 1 ../AUTHORS | cut -d ":" -f 1)   &&
 AUTHOR_COUNT=$(wc -l ../AUTHORS | cut -d " " -f 1)                &&
 
-# Update package.json with the new build number
-node ../tasks/version.js $AUTHOR_NUMBER $AUTHOR_COUNT  &&
-rm asdf &&
-echo nooo && 
+# TODO: Finish this section:
+# node ../tasks/version.js $AUTHOR_NUMBER $AUTHOR_COUNT  &&
+
 # TODOS:
   # Generate the latest build 
   # Tarball the latest build
