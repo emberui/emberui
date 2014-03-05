@@ -1,0 +1,18 @@
+<button {{bind-attr disabled="isDisabled" }}></button>
+
+<div class="eui-select-form">
+  <div class="eui-wrapper">
+    <i>{{view.label}}</i>
+    <b class="eui-icon"></b>
+  </div>
+</div>
+
+{{#if computedErrorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{computedErrorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}

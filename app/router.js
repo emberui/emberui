@@ -15,6 +15,7 @@ Router.map(function() {
     this.route('dropbutton', { path: '/dropbutton' });
     this.route('input', { path: '/input' });
     this.route('modal', { path: '/modal' });
+    this.route('select', { path: '/select' });
     this.route('textarea', { path: '/textarea' });
 
     this.route('popup', { path: '/popup' });

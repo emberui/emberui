@@ -1,0 +1,33 @@
+<h1>\{{eui-select}}</h1>
+
+<div class="intro">
+  ...
+</div>
+
+<br/>
+<br/>
+
+{{eui-dropbutton label='Actions' size='small' options=options}}
+{{eui-dropbutton label='Actions' size='small' options=optionsPrimary}}
+
+<br/>
+<br/>
+
+{{eui-select placeholder='Select one' required=true selection=testselectionOne valueBinding='testValueOne' valuePath='action' labelPath='label' size='small' optionsBinding='options'}}
+{{eui-select placeholder='Select one' selection=testselectionOne valueBinding='testValueOne' valuePath='action' labelPath='label' size='small' width="100px" optionsBinding='options'}}
+{{eui-select placeholder='Select one' disabled=false selection=testselectionTwo valueBinding='testValueTwo' valuePath='value' labelPath='name' optionsBinding='bigOptionList'}}
+
+{{eui-select placeholder='Select one' selection=testselectionOne valueBinding='testValueOne' error="test error" valuePath='action' labelPath='label' optionsBinding='options'}}
+
+<br/>
+<br/>
+
+{{testselectionOne}}-{{testValueOne}} <br/>
+{{testselectionTwo}}--{{testValueTwo}}
+
+<br/>
+<br/>
+
+{{#each options}}
+  {{eui-input value=label}}
+{{/each}}

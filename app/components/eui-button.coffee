@@ -1,8 +1,9 @@
 `import styleSupport from 'appkit/mixins/style-support'`
 `import sizeSupport from 'appkit/mixins/size-support'`
+`import disabledSupport from 'appkit/mixins/disabled-support'`
 
-button = Em.Component.extend styleSupport, sizeSupport,
-  classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'isDisabled:disabled', 'class']
+button = Em.Component.extend styleSupport, sizeSupport, disabledSupport,
+  classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class']
 
   label: null
   icon: null
@@ -11,11 +12,6 @@ button = Em.Component.extend styleSupport, sizeSupport,
   disabled: null
   action: null
   class: null
-
-  isDisabled:  Em.computed ->
-    if @get('disabled') or @get('loading')
-      return true
-  .property 'disabled', 'loading'
 
   click: (event) ->
     event.preventDefault()
