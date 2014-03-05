@@ -1,7 +1,7 @@
 # Generate the commit message for the website/ submodule
 # it is based off of the latest commit
-COMMIT_MSG=$(git config --list | grep "user.name" | cut -d = -f 2) &&
-COMMIT_MSG=$COMMIT_MSG": "                                         &&
+AUTHOR=$(git config --list | grep "user.name" | cut -d = -f 2) &&
+COMMIT_MSG=$AUTHOR": "                                         &&
 COMMIT_MSG=$COMMIT_MSG$(git log -1 --oneline)                      &&
 echo "About to attempt to package website with this commit:"       &&
 echo $COMMIT_MSG                                                   &&
@@ -21,9 +21,16 @@ git pull                          &&
 rm -rf /tmp/builds*               &&
 cp -r builds /tmp/builds          &&
 
+# Determine the new number based on package.json and 
+# which author is authoring it
+AUTHOR_NUMBER=$(grep -n "$AUTHOR" -m 1 ../AUTHORS | cut -d ":" -f 1)   &&
+AUTHOR_COUNT=$(wc -l ../AUTHORS | cut -d " " -f 1)                &&
+
+# Update package.json with the new build number
+node ../tasks/version.js $AUTHOR_NUMBER $AUTHOR_COUNT  &&
+rm asdf &&
+echo nooo && 
 # TODOS:
-  # Determine the build number based on last build number
-  # Update package.json with the new build number
   # Generate the latest build 
   # Tarball the latest build
   # Add the Tarball to /tmp/builds
