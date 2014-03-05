@@ -1,6 +1,6 @@
 {
-  "name": "EmberUI",
-  "namespace": "emberui",
+  "name": "app-kit",
+  "namespace": "appkit",
   "version": "0.0.0",
   "directories": {
     "doc": "doc",
