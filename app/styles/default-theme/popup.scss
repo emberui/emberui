@@ -43,11 +43,11 @@ $experimental-support-for-svg: true;
     @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
     -webkit-animation-duration: 0.2s;
-    -webkit-animation-name: eui-bouncein;
+    -webkit-animation-name: eui-slidedown;
     -moz-animation-duration: 0.2s;
-    -moz-animation-name: eui-bouncein;
+    -moz-animation-name: eui-slidedown;
     animation-duration: 0.2s;
-    animation-name: eui-bouncein;
+    animation-name: eui-slidedown;
     max-height: calc(100% - 100px);
 
     &:before {
