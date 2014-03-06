@@ -37,6 +37,25 @@ popup = Em.Component.extend styleSupport,
     height: Ember.computed.alias 'controller.listHeight'
     rowHeight: Ember.computed.alias 'controller.listRowHeight'
 
+    didInsertElement: ->
+      @_super()
+
+      # Prevents mouse scroll events from passing through to the div
+      # behind the popup when listView is scrolled to the end. Fixes
+      # the popup closing if you scroll too far down
+      @.$().bind('mousewheel DOMMouseScroll', (e) =>
+        e.preventDefault()
+        scrollTo = @get('scrollTop')
+
+        if e.type == 'mousewheel'
+          scrollTo += (e.originalEvent.wheelDelta * -1)
+
+        else if e.type == 'DOMMouseScroll'
+          scrollTo += 40 * e.originalEvent.detail
+
+        @scrollTo(scrollTo)
+      )
+
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
