@@ -94,7 +94,7 @@ popup.reopenClass
     popup.container = popup.get('targetObject.container')
     popup.appendTo '.ember-application'
 
-    popup.updateHeight()
+    popup.updateListHeight()
 
     Ember.run.next this, -> @position(options.targetObject, popup)
     popup
