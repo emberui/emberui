@@ -7,6 +7,8 @@ popup = Em.Component.extend styleSupport,
 
   labelPath: 'label'
   options: null
+  listHeight: '80'
+  listRowHeight: '20'
 
   hide: ->
     @set('isOpen', false)
@@ -17,10 +19,23 @@ popup = Em.Component.extend styleSupport,
   didInsertElement: ->
     @set('isOpen', true)
 
+  updateHeight: ->
+    optionCount = @get('options.length')
+    rowHeight = @get('listRowHeight')
+
+    if optionCount <= 12
+      @set('listHeight', (optionCount * rowHeight))
+    else
+      @set('listHeight', (10 * rowHeight))
+
+  optionsDidChange: (->
+    @updateHeight()
+  ).observes 'options.length'
+
   listView: Ember.ListView.extend
-    height: '180'
-    rowHeight: '20'
     classNames: ['eui-options']
+    height: Ember.computed.alias 'controller.listHeight'
+    rowHeight: Ember.computed.alias 'controller.listRowHeight'
 
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
@@ -78,6 +93,8 @@ popup.reopenClass
     popup = @.create options
     popup.container = popup.get('targetObject.container')
     popup.appendTo '.ember-application'
+
+    popup.updateHeight()
 
     Ember.run.next this, -> @position(options.targetObject, popup)
     popup
