@@ -66,4 +66,9 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
         labelPath: @get('labelPath')
         event: 'select'
 
+  # Overide validation-support mixin to check validation on change even if no error
+  onChange:  (->
+    Ember.run.once(@, 'validateField')
+  ).observes 'value'
+
 `export default select`
