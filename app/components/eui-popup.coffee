@@ -4,11 +4,17 @@
 popup = Em.Component.extend styleSupport,
   layout: popupLayout
   classNames: ['eui-popup']
+  attributeBindings: ['tabindex']
 
   labelPath: 'label'
   options: null
   listHeight: '80'
   listRowHeight: '20'
+
+  selection: undefined # Option currently selected
+  highlighted: undefined # Option currently highlighted
+
+  action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
   hide: ->
     @set('isOpen', false)
@@ -18,6 +24,9 @@ popup = Em.Component.extend styleSupport,
 
   didInsertElement: ->
     @set('isOpen', true)
+
+    # Bring focus to popup so it can listen to key events
+    @.$().focus()
 
   updateListHeight: ->
     optionCount = @get('options.length')
@@ -31,6 +40,69 @@ popup = Em.Component.extend styleSupport,
   optionsLengthDidChange: (->
     @updateListHeight()
   ).observes 'options.length'
+
+
+  # Keyboard controls
+
+  # set tabindex so that popup responds to key events
+  tabindex: -1
+
+  KEY_MAP:
+    27: 'escapePressed'
+    13: 'enterPressed'
+    38: 'upArrowPressed'
+    40: 'downArrowPressed'
+
+  keyDown: (event) ->
+    keyMap = @get 'KEY_MAP'
+    method = keyMap[event.keyCode]
+    @get(method)?.apply(this, arguments) if method
+
+  escapePressed: (event) ->
+    @hide()
+
+  enterPressed: (event) ->
+    event = @get('event')
+
+    if event == 'select'
+      @set('selection', @get('highlighted'))
+
+    else if event == 'action'
+      action = @get('highlighted.action')
+      @get('targetObject').triggerAction({action})
+
+    @hide()
+
+  downArrowPressed: (event) ->
+    event.preventDefault() # Don't let the page scroll down
+    @adjustHighlight(1)
+
+  upArrowPressed: (event) ->
+    event.preventDefault() # Don't let the page scroll down
+    @adjustHighlight(-1)
+
+  adjustHighlight: (indexAdjustment) ->
+    highlighted = @get('highlighted')
+    options = @get('options')
+
+    newIndex = 0
+
+    for option, index in options
+      if option == highlighted
+        newIndex = index + indexAdjustment
+
+        # Don't let highlighted option get out of bounds
+        if newIndex == options.get('length')
+          newIndex--
+        else if newIndex < 0
+          newIndex = 0
+
+        break
+
+    return @set('highlighted', options[newIndex])
+
+
+  # List View
 
   listView: Ember.ListView.extend
     classNames: ['eui-options']
