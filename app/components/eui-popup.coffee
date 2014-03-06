@@ -19,7 +19,7 @@ popup = Em.Component.extend styleSupport,
   didInsertElement: ->
     @set('isOpen', true)
 
-  updateHeight: ->
+  updateListHeight: ->
     optionCount = @get('options.length')
     rowHeight = @get('listRowHeight')
 
@@ -28,8 +28,8 @@ popup = Em.Component.extend styleSupport,
     else
       @set('listHeight', (10 * rowHeight))
 
-  optionsDidChange: (->
-    @updateHeight()
+  optionsLengthDidChange: (->
+    @updateListHeight()
   ).observes 'options.length'
 
   listView: Ember.ListView.extend
