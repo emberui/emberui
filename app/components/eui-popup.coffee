@@ -25,9 +25,6 @@ popup = Em.Component.extend styleSupport,
   didInsertElement: ->
     @set('isOpen', true)
 
-    # Bring focus to popup so it can listen to key events
-    @.$().focus()
-
   updateListHeight: ->
     optionCount = @get('options.length')
     rowHeight = @get('listRowHeight')
@@ -223,6 +220,10 @@ popup.reopenClass
       unless $(event.target).parents('.eui-popup').length
         event.preventDefault()
         popup.hide()
+
+    # Bring focus to popup so it can listen to key events. Do it after it is
+    # positioned or the page may scroll closing it immediately
+    popupElement.focus()
 
 
 `export default popup`
