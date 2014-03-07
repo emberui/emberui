@@ -1,12 +1,21 @@
 @import "compass";
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   font-size: 16px;
   line-height: 22px;
   color: #303030;
   min-width: 950px;
   font-family: "adelle-sans", sans-serif;
   font-style: normal;
+}
+
+.application-wrapper {
+  height: 100%
 }
 
 .container {
@@ -30,8 +39,7 @@ strong {
 }
 
 .site-navigation {
-  background: url("/assets/images/header.jpg") center top;
-  background-size: cover;
+  @include background-image(linear-gradient(left top, rgba(3,8,30,1) 0%, #115092 100%));
 
   ul {
     height: 45px;
@@ -63,33 +71,52 @@ strong {
 }
 
 .banner {
-  background: no-repeat url("/assets/images/header.jpg") center top;
-  background-size: cover;
-  height: 485px;
+  height: 100%;
   margin-top: -45px;
   min-width: 950px;
   color: #ffffff;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
   line-height: 32px;
+  text-align: center;
+  @include background-image(linear-gradient(153deg, rgba(3,8,30,1) 0%,rgba(21,96,173,1) 60%,rgba(186,217,234,1) 100%));
 
   h1 {
-    margin: 0;
-    padding-top: 145px;
+    margin: 0 0 15px 0;
+    padding-top: 200px;
     text-align: center;
-    font-size: 60px;
+    font-size: 48px;
     font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
   }
 
   h2 {
+    display: inline-block;
     font-size: 30px;
+    line-height: 36px;
     font-style: italic;
     font-weight: normal;
     text-align: center;
     font-weight: 400;
+    background: -webkit-linear-gradient(top left, #bfd6e4 0%, #EDF8FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 60px;
   }
 
-  strong {
-    font-weight: 700;
+  .demo {
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 40px;
+    font-size: 17px;
+    color: #cadfec;
+    background: #08396d;
+    border-radius: 5px;
+    cursor: pointer;
+
+    span {
+      background: -webkit-linear-gradient(left, #cadfec 0%, #e4f3fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 }
 
