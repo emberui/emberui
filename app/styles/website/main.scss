@@ -39,7 +39,10 @@ strong {
 }
 
 .site-navigation {
-  @include background-image(linear-gradient(left top, rgba(3,8,30,1) 0%, #115092 100%));
+  position: relative;
+  z-index: 1;
+  @include background-image(linear-gradient(left top, #05112c 0%, #0f4078 50%, #2a6fb5 100%));
+  text-shadow: 1px 1px rgba(0,0,0,0.2);
 
   ul {
     height: 45px;
@@ -48,7 +51,6 @@ strong {
     margin: 0;
     padding: 0;
     color: #ffffff;
-    text-shadow: 1px 1px rgba(0,0,0,0.2);
   }
 
   li {
@@ -70,55 +72,6 @@ strong {
   }
 }
 
-.banner {
-  height: 100%;
-  margin-top: -45px;
-  min-width: 950px;
-  color: #ffffff;
-  line-height: 32px;
-  text-align: center;
-  @include background-image(linear-gradient(153deg, rgba(3,8,30,1) 0%,rgba(21,96,173,1) 60%,rgba(186,217,234,1) 100%));
-
-  h1 {
-    margin: 0 0 15px 0;
-    padding-top: 200px;
-    text-align: center;
-    font-size: 48px;
-    font-weight: 700;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-  }
-
-  h2 {
-    display: inline-block;
-    font-size: 30px;
-    line-height: 36px;
-    font-style: italic;
-    font-weight: normal;
-    text-align: center;
-    font-weight: 400;
-    background: -webkit-linear-gradient(top left, #bfd6e4 0%, #EDF8FF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 60px;
-  }
-
-  .demo {
-    display: inline-block;
-    padding: 0 20px;
-    line-height: 40px;
-    font-size: 17px;
-    color: #cadfec;
-    background: #08396d;
-    border-radius: 5px;
-    cursor: pointer;
-
-    span {
-      background: -webkit-linear-gradient(left, #cadfec 0%, #e4f3fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  }
-}
 
 .docs-navigation {
   float: left;

@@ -1,0 +1,130 @@
+@import "compass";
+
+.banner {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-top: -45px;
+  min-width: 950px;
+  color: #ffffff;
+  line-height: 32px;
+  text-align: center;
+  z-index: 2;
+
+  .site-navigation {
+    z-index: 1;
+    background: none;
+    @include transition(opacity 3s);
+  }
+
+  &.demo {
+
+    .site-navigation {
+      opacity: 0.7;
+      text-shadow: none;
+
+      a {
+        color: #63808e;
+        text-shadow: 1px 1px rgba(255,255,255,0.7);
+
+        &.active,
+        &:hover {
+          color: #0293de;
+        }
+      }
+    }
+
+    .slide1 {
+      display: none;
+    }
+
+    .slide2 {
+      display: block;
+    }
+
+    .background {
+      left: -100%;
+      top: -100%;
+    }
+  }
+
+  .background {
+    z-index: -1;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 200%;
+    height: 200%;
+    @include background-image(linear-gradient(153deg, rgba(3,8,30,1) 0%, rgba(21,96,173,1) 20%, rgba(186,217,234,1) 45%, #e2eff6 100%));
+    @include transition(left 3.5s, top 3.5s);
+  }
+
+  .slide1 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+
+    h1 {
+      margin: 0 0 15px 0;
+      padding-top: 200px;
+      text-align: center;
+      font-size: 48px;
+      font-weight: 700;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      display: inline-block;
+      font-size: 30px;
+      line-height: 36px;
+      font-style: italic;
+      font-weight: normal;
+      text-align: center;
+      font-weight: 400;
+      background: -webkit-linear-gradient(top left, #bfd6e4 0%, #EDF8FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 60px;
+    }
+
+    .demo {
+      display: inline-block;
+      padding: 0 20px;
+      height: 42px;
+      line-height: 40px;
+      font-size: 17px;
+      color: #cadfec;
+      background: rgba(3,8,30,0.25);
+      border-radius: 5px;
+      cursor: pointer;
+      @include transition(background 0.2s);
+
+      &:hover {
+        background: rgba(3,8,30,0.35)
+      }
+
+      span {
+        background: -webkit-linear-gradient(left, #cadfec 0%, #e4f3fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  }
+
+  .slide2 {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    color: #63808e;
+
+    h1 {
+      padding-top: 50px;
+    }
+  }
+}
