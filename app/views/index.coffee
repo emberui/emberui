@@ -14,11 +14,11 @@ view = Ember.View.extend
     outerRad = Math.sqrt(width*width + height*height)/1.7
     gradient = new DitheredRadialGradient(width,height,0,width/2.0,height/1.3,outerRad)
 
-    gradient.addColorStop(0.00, 226, 239, 247)
-    gradient.addColorStop(0.55, 186,217,234)
-    gradient.addColorStop(0.70, 21,96,173)
-    gradient.addColorStop(0.90, 3,8,30)
-    gradient.addColorStop(1.00, 3,8,30)
+    gradient.addColorStop(0.00, 239, 247, 252)
+    gradient.addColorStop(0.50, 196, 216, 226)
+    gradient.addColorStop(0.70, 21, 96, 173)
+    gradient.addColorStop(0.93, 3, 8, 30)
+    gradient.addColorStop(1.00, 3, 8, 30)
 
     gradient.fillRect(context,0,0,width,height);
 
