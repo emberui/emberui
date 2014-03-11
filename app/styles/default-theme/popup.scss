@@ -35,10 +35,13 @@ $experimental-support-for-svg: true;
     color: #c6c6c6;
   }
 
+  .eui-search-wrapper {
+    border-bottom: solid 1px #d7d7d7;
+  }
+
   .eui-search {
     outline: none;
     border: none;
-    border-bottom: solid 1px #d7d7d7;
     width: 100%;
     box-sizing: border-box;
     padding: 0 5px 5px 5px;

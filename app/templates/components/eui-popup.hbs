@@ -1,6 +1,8 @@
 <div class="eui-popupwrapper">
   {{#if searchString}}
-    {{input class="eui-search" valueBinding="searchString"}}
+    <div class="eui-search-wrapper">
+      {{input class="eui-search" valueBinding="searchString" size="1"}}
+    </div>
   {{/if}}
 
   {{#if hasNoOptions}}
