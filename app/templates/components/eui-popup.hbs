@@ -1,7 +1,11 @@
 <div class="eui-popupwrapper">
+  {{#if searchString}}
+    {{input class="eui-search" valueBinding="searchString"}}
+  {{/if}}
+
   {{#if hasNoOptions}}
     <div class="eui-nooptions">No results found.</div>
   {{else}}
-    {{view listView contentBinding="options"}}
+    {{view listView contentBinding="filteredOptions"}}
   {{/if}}
 </div>

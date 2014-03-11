@@ -16,6 +16,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   labelPath: 'label'
   valuePath: 'value'
 
+
   optionsWithBlank: (->
     options = @get('options')
     paddedOptions = options[..]

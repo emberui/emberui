@@ -10,10 +10,10 @@ popup = Em.Component.extend styleSupport,
   options: null
   listHeight: '80'
   listRowHeight: '20'
+  searchString: ''
 
   selection: undefined # Option currently selected
   highlighted: undefined # Option currently highlighted
-
   action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
   hide: ->
@@ -22,11 +22,19 @@ popup = Em.Component.extend styleSupport,
     $(window).unbind('click.emberui')
     @destroy()
 
+  focusOnSearch: ->
+    @$().find('input:first').focus()
+
+  # refocus on popup if search input is removed so key presses are still caught
+  refocusOnPopup: (->
+    @$().focus() unless @get('searchString')
+  ).observes 'searchString'
+
   didInsertElement: ->
     @set('isOpen', true)
 
   updateListHeight: ->
-    optionCount = @get('options.length')
+    optionCount = @get('filteredOptions.length')
     rowHeight = @get('listRowHeight')
 
     if optionCount <= 12
@@ -36,11 +44,26 @@ popup = Em.Component.extend styleSupport,
 
   optionsLengthDidChange: (->
     @updateListHeight()
-  ).observes 'options.length'
+  ).observes 'filteredOptions.length'
 
   filteredOptions: (->
-    return @get('options')
-  ).property 'options.@each', 'labelPath'
+    options = @get('options')
+    query = @get('searchString')
+
+    return [] unless options
+    return options unless query
+
+    labelPath = @get('labelPath')
+
+    filteredOptions = options.filter (item, index, self) ->
+      return if item == null
+
+      label = item.get(labelPath)
+      regex = new RegExp(query, 'i')
+      regex.test(label)
+
+    return filteredOptions
+  ).property 'options.@each', 'labelPath', 'searchString'
 
   hasNoOptions: Ember.computed.empty 'filteredOptions'
 
@@ -55,11 +78,20 @@ popup = Em.Component.extend styleSupport,
     13: 'enterPressed'
     38: 'upArrowPressed'
     40: 'downArrowPressed'
+    8: 'backspacePressed'
 
   keyDown: (event) ->
     keyMap = @get 'KEY_MAP'
-    method = keyMap[event.keyCode]
+    method = keyMap[event.which]
     @get(method)?.apply(this, arguments) if method
+
+  keyPress: (event) ->
+    key = String.fromCharCode(event.which)
+    searchString = @get('searchString')
+
+    unless searchString
+      @set('searchString', key)
+      Ember.run.next this, -> @focusOnSearch()
 
   escapePressed: (event) ->
     @hide()
@@ -84,9 +116,14 @@ popup = Em.Component.extend styleSupport,
     event.preventDefault() # Don't let the page scroll down
     @adjustHighlight(-1)
 
+  backspacePressed: (event) ->
+    element = event.srcElement || event.target
+    tag = element.tagName.toUpperCase()
+    event.preventDefault() unless tag == 'INPUT'
+
   adjustHighlight: (indexAdjustment) ->
     highlighted = @get('highlighted')
-    options = @get('options')
+    options = @get('filteredOptions')
 
     newIndex = 0
 
