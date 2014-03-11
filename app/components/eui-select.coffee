@@ -16,7 +16,6 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   labelPath: 'label'
   valuePath: 'value'
 
-
   optionsWithBlank: (->
     options = @get('options')
     paddedOptions = options[..]
@@ -53,7 +52,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
     valuePath = @get('valuePath')
     value = @get('value')
     value = @get('options').findProperty(valuePath, value) if valuePath
-    @set('selection', value)
+    @set('selection', value || null)
   ).on('init')
 
   click: ->

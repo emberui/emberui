@@ -12,7 +12,7 @@ popup = Em.Component.extend styleSupport,
   listRowHeight: '20'
   searchString: null
 
-  selection: undefined # Option currently selected
+  selection: null # Option currently selected
   highlighted: undefined # Option currently highlighted
   action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
