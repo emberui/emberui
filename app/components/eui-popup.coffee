@@ -10,7 +10,7 @@ popup = Em.Component.extend styleSupport,
   options: null
   listHeight: '80'
   listRowHeight: '20'
-  searchString: ''
+  searchString: null
 
   selection: undefined # Option currently selected
   highlighted: undefined # Option currently highlighted
@@ -55,11 +55,13 @@ popup = Em.Component.extend styleSupport,
 
     labelPath = @get('labelPath')
 
+    escapedQuery = query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
+    regex = new RegExp(escapedQuery, 'i')
+
     filteredOptions = options.filter (item, index, self) ->
-      return if item == null
+      return true if item == null # TODO: Weird behaviour if null item is filtered out so leaving it in for now.
 
       label = item.get(labelPath)
-      regex = new RegExp(query, 'i')
       regex.test(label)
 
     return filteredOptions
