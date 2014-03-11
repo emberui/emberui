@@ -1,3 +1,7 @@
 <div class="eui-popupwrapper">
-  {{view listView contentBinding="options"}}
+  {{#if hasNoOptions}}
+    <div class="eui-nooptions">No results found.</div>
+  {{else}}
+    {{view listView contentBinding="options"}}
+  {{/if}}
 </div>

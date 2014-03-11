@@ -38,6 +38,12 @@ popup = Em.Component.extend styleSupport,
     @updateListHeight()
   ).observes 'options.length'
 
+  filteredOptions: (->
+    return @get('options')
+  ).property 'options.@each', 'labelPath'
+
+  hasNoOptions: Ember.computed.empty 'filteredOptions'
+
 
   # Keyboard controls
 

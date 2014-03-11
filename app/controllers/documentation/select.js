@@ -51,5 +51,7 @@ export default Ember.ObjectController.extend({
     Ember.Object.create({ name: '31', value: 'jaco' }),
     Ember.Object.create({ name: '32', value: 'justin' }),
     Ember.Object.create({ name: 'END', value: 'zach' })
-  ]
+  ],
+
+  nooptions: []
 });
