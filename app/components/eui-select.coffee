@@ -46,8 +46,12 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
       if valuePath then @get("selection.#{valuePath}") else null
   .property 'selection'
 
-  # Set the initial selection option based on the value of the select
-  setInitialselection: (->
+  initialization: (->
+    # Create observer for the selection's label so we can monitor it for changes
+    labelPath = 'selection.' + @get('labelPath')
+    @addObserver(labelPath, -> @notifyPropertyChange 'label')
+
+    # Set the initial selection based on the value of the select
     return if @get('selection')
     valuePath = @get('valuePath')
     value = @get('value')
