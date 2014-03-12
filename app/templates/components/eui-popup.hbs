@@ -1,9 +1,7 @@
 <div class="eui-popupwrapper">
-  {{#if searchString}}
-    <div class="eui-search-wrapper">
-      {{input class="eui-search" valueBinding="searchString" size="1"}}
-    </div>
-  {{/if}}
+  <div {{bind-attr class=":eui-search-wrapper searchString:eui-active"}}>
+    {{input class="eui-search" valueBinding="searchString" size="1"}}
+  </div>
 
   {{#if hasNoOptions}}
     <div class="eui-nooptions">No results found.</div>

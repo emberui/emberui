@@ -25,13 +25,9 @@ popup = Em.Component.extend styleSupport,
   focusOnSearch: ->
     @$().find('input:first').focus()
 
-  # refocus on popup if search input is removed so key presses are still caught
-  refocusOnPopup: (->
-    @$().focus() unless @get('searchString')
-  ).observes 'searchString'
-
   didInsertElement: ->
     @set('isOpen', true)
+    @focusOnSearch()
 
   updateListHeight: ->
     optionCount = @get('filteredOptions.length')
@@ -86,14 +82,6 @@ popup = Em.Component.extend styleSupport,
     keyMap = @get 'KEY_MAP'
     method = keyMap[event.which]
     @get(method)?.apply(this, arguments) if method
-
-  keyPress: (event) ->
-    key = String.fromCharCode(event.which)
-    searchString = @get('searchString')
-
-    unless searchString
-      @set('searchString', key)
-      Ember.run.next this, -> @focusOnSearch()
 
   escapePressed: (event) ->
     @hide()
@@ -265,10 +253,6 @@ popup.reopenClass
       unless $(event.target).parents('.eui-popup').length
         event.preventDefault()
         popup.hide()
-
-    # Bring focus to popup so it can listen to key events. Do it after it is
-    # positioned or the page may scroll closing it immediately
-    popupElement.focus()
 
 
 `export default popup`
