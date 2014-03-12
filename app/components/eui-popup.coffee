@@ -27,7 +27,7 @@ popup = Em.Component.extend styleSupport,
 
   didInsertElement: ->
     @set('isOpen', true)
-    @focusOnSearch()
+    Ember.run.next this, -> @focusOnSearch()
 
   updateListHeight: ->
     optionCount = @get('filteredOptions.length')

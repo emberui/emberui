@@ -36,13 +36,14 @@ $experimental-support-for-svg: true;
   }
 
   .eui-search-wrapper {
-    border-bottom: solid 1px #d7d7d7;
+    border-bottom: solid 1px transparent;
     height: 0px;
     overflow: hidden;
-    @include transition(height 0.2s);
+    @include transition(height 0.2s, border-color 0.2s);
 
     &.eui-active {
       height: 27px;
+      border-bottom-color: #d7d7d7;
     }
   }
 
