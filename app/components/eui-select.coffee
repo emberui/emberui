@@ -70,6 +70,12 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
         labelPath: @get('labelPath')
         event: 'select'
 
+
+  # Down Arrow Key opens popup
+  keyDown: (event) ->
+    if event.which == 40
+      @click()
+
   # Overide validation-support mixin to check validation on change even if no error
   onChange:  (->
     Ember.run.once(@, 'validateField')
