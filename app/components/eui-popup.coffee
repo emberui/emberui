@@ -134,6 +134,12 @@ popup = Em.Component.extend styleSupport,
   # List View
 
   listView: Ember.ListView.extend
+    css:
+      position: 'relative'
+      overflow: 'auto'
+      '-webkit-overflow-scrolling': 'touch'
+      'overflow-scrolling': 'touch'
+
     classNames: ['eui-options']
     height: Ember.computed.alias 'controller.listHeight'
     rowHeight: Ember.computed.alias 'controller.listRowHeight'
