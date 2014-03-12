@@ -1,11 +1,11 @@
 route = Ember.Route.extend
   actions:
     generateOptions: ->
-      options = @get('controller.bigOptionList')
+      newOptions = []
 
-      for num in [5..1]
-        options.push(Ember.Object.create({name: num, value: num}))
+      for num in [5000..1]
+        newOptions.push(Ember.Object.create({name: num, value: num}))
 
-      return
+      @set('controller.bigOptionList', newOptions)
 
 `export default route`

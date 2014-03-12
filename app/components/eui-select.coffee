@@ -16,7 +16,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   labelPath: 'label'
   valuePath: 'value'
 
-  optionsWithBlank: (->
+  optionsWithBlank: Em.computed ->
     options = @get('options')
     paddedOptions = options[..]
 
@@ -24,7 +24,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
       paddedOptions.unshift(null)
 
     return paddedOptions
-  ).property 'options.@each'
+  .property 'options.@each required'
 
   label: Em.computed ->
     labelPath = @get('labelPath')
