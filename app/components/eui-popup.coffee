@@ -16,7 +16,7 @@ popup = Em.Component.extend styleSupport,
   highlighted: undefined # Option currently highlighted
   action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
-  previousFocus: null # Where the user's focus was before the popup was launched
+  previousFocus: null # Where the user's focus was before the popup was opened (only for keyboard nav)
 
   hide: ->
     @set('isOpen', false)
