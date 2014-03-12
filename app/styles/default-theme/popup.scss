@@ -56,6 +56,10 @@ $experimental-support-for-svg: true;
     padding: 0 5px 5px 5px;
     font-size: 13px;
   }
+
+  &.eui-closing {
+    opacity: 0;
+  }
 }
 
 /*
@@ -114,6 +118,12 @@ $experimental-support-for-svg: true;
         text-shadow: 0px 1px rgba(0,0,0,0.35);
       }
     }
+
+    &.eui-closing {
+      -webkit-animation: eui-slidezerodown 0.2s 1;
+      -moz-animation: eui-slidezerodown 0.2s 1;
+      animation: eui-slidezerodown 0.2s 1;
+    }
   }
 
   &.eui-flyin {
@@ -166,6 +176,12 @@ $experimental-support-for-svg: true;
           color: #aed4f3;
         }
       }
+    }
+
+    &.eui-closing {
+      -webkit-animation: eui-zoomupandin 0.2s 1;
+      -moz-animation: eui-zoomupandin 0.2s 1;
+      animation: eui-zoomupandin 0.2s 1;
     }
   }
 }

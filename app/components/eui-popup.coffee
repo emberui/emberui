@@ -4,6 +4,7 @@
 popup = Em.Component.extend styleSupport,
   layout: popupLayout
   classNames: ['eui-popup']
+  classNameBindings: ['isOpen::eui-closing']
   attributeBindings: ['tabindex']
 
   labelPath: 'label'
@@ -23,7 +24,9 @@ popup = Em.Component.extend styleSupport,
     $(window).unbind('scroll.emberui')
     $(window).unbind('click.emberui')
     @get('previousFocus').focus()
-    @destroy()
+
+    @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
+      @destroy()
 
   focusOnSearch: ->
     @$().find('input:first').focus()
