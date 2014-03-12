@@ -68,15 +68,11 @@ popup = Em.Component.extend styleSupport,
 
   # Keyboard controls
 
-  # set tabindex so that popup responds to key events
-  tabindex: -1
-
   KEY_MAP:
     27: 'escapePressed'
     13: 'enterPressed'
     38: 'upArrowPressed'
     40: 'downArrowPressed'
-    8: 'backspacePressed'
 
   keyDown: (event) ->
     keyMap = @get 'KEY_MAP'
@@ -105,11 +101,6 @@ popup = Em.Component.extend styleSupport,
   upArrowPressed: (event) ->
     event.preventDefault() # Don't let the page scroll down
     @adjustHighlight(-1)
-
-  backspacePressed: (event) ->
-    element = event.srcElement || event.target
-    tag = element.tagName.toUpperCase()
-    event.preventDefault() unless tag == 'INPUT'
 
   adjustHighlight: (indexAdjustment) ->
     highlighted = @get('highlighted')
