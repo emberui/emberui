@@ -9,8 +9,7 @@ checkbox = Em.Component.extend validationSupport, styleSupport, sizeSupport,
   disabled: false
 
   click: ->
-    if !@get('disabled')
-      @set('value', !@get('value'));
+    @toggleProperty('value') unless @get('disabled')
 
 
 `export default checkbox`
