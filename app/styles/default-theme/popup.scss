@@ -16,6 +16,7 @@ $experimental-support-for-svg: true;
     line-height: 20px;
     font-family: Helvetica, "Helvetica Neue", Arial, Tahoma, sans-serif;
     overflow: hidden;
+    @include transition(height 0.2s);
   }
 
   .eui-option {
