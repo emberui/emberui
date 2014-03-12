@@ -61,7 +61,7 @@ popup = Em.Component.extend styleSupport,
     filteredOptions = options.filter (item, index, self) ->
       return true if item == null # TODO: Weird behaviour if null item is filtered out so leaving it in for now.
 
-      label = item.get(labelPath)
+      label = item.get?(labelPath) or item[labelPath]
       regex.test(label)
 
     return filteredOptions

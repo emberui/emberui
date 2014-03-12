@@ -15,11 +15,20 @@
 
 {{eui-select placeholder='Select one' required=true selection=testselectionOne valueBinding='testValueOne' valuePath='action' labelPath='label' size='small' optionsBinding='options'}}
 {{eui-select placeholder='Select one' selection=testselectionOne valueBinding='testValueOne' valuePath='action' labelPath='label' size='small' width="100px" optionsBinding='options'}}
-{{eui-select placeholder='Select one' disabled=false selection=testselectionTwo valueBinding='testValueTwo' valuePath='value' labelPath='name' optionsBinding='bigOptionList'}}
 
 {{eui-select placeholder='Select one' selection=testselectionOne valueBinding='testValueOne' error=testselectionOne.label valuePath='action' labelPath='label' optionsBinding='options'}}
 {{eui-select required=true valuePath='action' labelPath='label' optionsBinding='nooptions'}}
 
+<br/>
+<br/>
+<br/>
+<br/>
+
+{{eui-select placeholder='Select one' valuePath='value' labelPath='name' optionsBinding='bigOptionList'}}
+{{eui-button label="Add 5000 Options" action="generateOptions"}}
+
+<br/>
+<br/>
 <br/>
 <br/>
 
