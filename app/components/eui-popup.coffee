@@ -20,7 +20,7 @@ popup = Em.Component.extend styleSupport,
   previousFocus: null # Where the user's focus was before the popup was opened (only for keyboard nav)
 
   hide: ->
-    @set('isOpen', false)
+    @set('isOpen', false).set('highlighted', undefined)
     $(window).unbind('scroll.emberui')
     $(window).unbind('click.emberui')
     @get('previousFocus').focus()
