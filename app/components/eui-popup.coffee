@@ -16,10 +16,13 @@ popup = Em.Component.extend styleSupport,
   highlighted: undefined # Option currently highlighted
   action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
+  previousFocus: null # Where the user's focus was before the popup was launched
+
   hide: ->
     @set('isOpen', false)
     $(window).unbind('scroll.emberui')
     $(window).unbind('click.emberui')
+    @get('previousFocus').focus()
     @destroy()
 
   focusOnSearch: ->
@@ -27,6 +30,7 @@ popup = Em.Component.extend styleSupport,
 
   didInsertElement: ->
     @set('isOpen', true)
+    @set('previousFocus', $("*:focus"))
     Ember.run.next this, -> @focusOnSearch()
 
   updateListHeight: ->
@@ -83,6 +87,7 @@ popup = Em.Component.extend styleSupport,
     @hide()
 
   enterPressed: (event) ->
+    event.preventDefault()
     event = @get('event')
 
     if event == 'select'
