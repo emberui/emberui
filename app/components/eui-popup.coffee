@@ -62,7 +62,7 @@ popup = Em.Component.extend styleSupport,
     regex = new RegExp(escapedQuery, 'i')
 
     filteredOptions = options.filter (item, index, self) ->
-      return true if item == null # TODO: Weird behaviour if null item is filtered out so leaving it in for now.
+      return if item == null
 
       label = item.get?(labelPath) or item[labelPath]
       regex.test(label)
@@ -209,9 +209,6 @@ popup = Em.Component.extend styleSupport,
 
       mouseEnter: ->
         @set 'controller.highlighted', @get('content')
-
-      mouseLeave: ->
-        @set 'controller.highlighted', undefined
 
 
 popup.reopenClass
