@@ -28,26 +28,13 @@ popup = Em.Component.extend styleSupport,
     @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
       @destroy()
 
-  focusOnSearch: ->
-    @$().find('input:first').focus()
-
   didInsertElement: ->
     @set('isOpen', true)
     @set('previousFocus', $("*:focus"))
     Ember.run.next this, -> @focusOnSearch()
 
-  updateListHeight: ->
-    optionCount = @get('filteredOptions.length')
-    rowHeight = @get('listRowHeight')
-
-    if optionCount <= 12
-      @set('listHeight', (optionCount * rowHeight))
-    else
-      @set('listHeight', (10 * rowHeight))
-
-  optionsLengthDidChange: (->
-    @updateListHeight()
-  ).observes 'filteredOptions.length'
+  focusOnSearch: ->
+    @$().find('input:first').focus()
 
   filteredOptions: (->
     options = @get('options')
@@ -71,6 +58,19 @@ popup = Em.Component.extend styleSupport,
   ).property 'options.@each', 'labelPath', 'searchString'
 
   hasNoOptions: Ember.computed.empty 'filteredOptions'
+
+  optionsLengthDidChange: (->
+    @updateListHeight()
+  ).observes 'filteredOptions.length'
+
+  updateListHeight: ->
+    optionCount = @get('filteredOptions.length')
+    rowHeight = @get('listRowHeight')
+
+    if optionCount <= 12
+      @set('listHeight', (optionCount * rowHeight))
+    else
+      @set('listHeight', (10 * rowHeight))
 
 
   # Keyboard controls
@@ -110,6 +110,7 @@ popup = Em.Component.extend styleSupport,
   upArrowPressed: (event) ->
     event.preventDefault() # Don't let the page scroll down
     @adjustHighlight(-1)
+
 
   adjustHighlight: (indexAdjustment) ->
     highlightedIndex = @get('highlightedIndex')
