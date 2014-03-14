@@ -14,13 +14,13 @@ popup = Em.Component.extend styleSupport,
   searchString: null
 
   selection: null # Option currently selected
-  highlighted: undefined # Option currently highlighted
+  highlightedIndex: -1 # Option currently highlighted
   action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
   previousFocus: null # Where the user's focus was before the popup was opened (only for keyboard nav)
 
   hide: ->
-    @set('isOpen', false).set('highlighted', undefined)
+    @set('isOpen', false).set('highlightedIndex', -1)
     $(window).unbind('scroll.emberui')
     $(window).unbind('click.emberui')
     @get('previousFocus').focus()
@@ -92,12 +92,13 @@ popup = Em.Component.extend styleSupport,
   enterPressed: (event) ->
     event.preventDefault()
     event = @get('event')
+    selection = @get('options')[@get('highlighted')]
 
     if event == 'select'
-      @set('selection', @get('highlighted'))
+      @set('selection', selection)
 
     else if event == 'action'
-      action = @get('highlighted.action')
+      action = selection.get('action')
       @get('targetObject').triggerAction({action})
 
     @hide()
@@ -111,24 +112,28 @@ popup = Em.Component.extend styleSupport,
     @adjustHighlight(-1)
 
   adjustHighlight: (indexAdjustment) ->
-    highlighted = @get('highlighted')
+    highlightedIndex = @get('highlightedIndex')
     options = @get('filteredOptions')
+    optionsLength = options.get('length')
+    newIndex
 
-    newIndex = 0
 
-    for option, index in options
-      if option == highlighted
-        newIndex = index + indexAdjustment
+    # If the current index is out of bounds they searched
+    # so we adjust it back in
+    if highlightedIndex >= optionsLength
+      newIndex = 0 if indexAdjustment == 1
 
-        # Don't let highlighted option get out of bounds
-        if newIndex == options.get('length')
-          newIndex--
-        else if newIndex < 0
-          newIndex = 0
+    else
+      newIndex = highlightedIndex + indexAdjustment
 
-        break
+      # Don't let highlighted option get out of bounds
+      if newIndex >= optionsLength
+        newIndex = optionsLength - 1
 
-    return @set('highlighted', options[newIndex])
+      else if newIndex < 0
+        newIndex = 0
+
+    return @set('highlightedIndex', newIndex)
 
 
   # List View
@@ -187,8 +192,12 @@ popup = Em.Component.extend styleSupport,
         @set 'content', context
 
       isHighlighted: Ember.computed ->
-        @get('controller.highlighted') is @get('content')
-      .property 'controller.highlighted', 'content'
+        options = @get('controller.filteredOptions')
+        index = @get('controller.highlightedIndex')
+        option = options[index]
+
+        option is @get('content')
+      .property 'controller.highlightedIndex', 'content'
 
       isSelected: Ember.computed ->
         @get('controller.selection') is @get('content')
@@ -208,7 +217,13 @@ popup = Em.Component.extend styleSupport,
         @get('controller').hide()
 
       mouseEnter: ->
-        @set 'controller.highlighted', @get('content')
+        options = @get('controller.options')
+        hoveredOption = @get('content')
+
+        for option, index in options
+          if option == hoveredOption
+            @set 'controller.highlightedIndex', index
+            break
 
 
 popup.reopenClass
