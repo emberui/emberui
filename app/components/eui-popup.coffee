@@ -217,7 +217,7 @@ popup = Em.Component.extend styleSupport,
         @get('controller').hide()
 
       mouseEnter: ->
-        options = @get('controller.options')
+        options = @get('controller.filteredOptions')
         hoveredOption = @get('content')
 
         for option, index in options
