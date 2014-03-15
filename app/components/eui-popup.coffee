@@ -186,11 +186,16 @@ popup = Em.Component.extend styleSupport,
         labelPath = @get 'labelPath'
         Ember.defineProperty(this, 'label', Ember.computed.alias("context.#{labelPath}"))
         @notifyPropertyChange 'label'
-      ).observes 'context', 'labelPath'
+      ).observes 'content', 'labelPath'
 
       initializeLabelPath: (->
         @labelPathDidChange()
       ).on 'init'
+
+      # Bindings won't fire if bound to context
+      updateContext: (context) ->
+        @_super context
+        @set 'content', context
 
       isHighlighted: Ember.computed ->
         options = @get('controller.filteredOptions')
@@ -198,11 +203,11 @@ popup = Em.Component.extend styleSupport,
         option = options[index]
 
         option is @get('context')
-      .property 'controller.highlightedIndex', 'context'
+      .property 'controller.highlightedIndex', 'content'
 
       isSelected: Ember.computed ->
         @get('controller.selection') is @get('context')
-      .property 'controller.selection', 'context'
+      .property 'controller.selection', 'content'
 
       click: ->
         option = @get('context')
