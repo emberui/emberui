@@ -26,21 +26,28 @@ popup = Em.Component.extend styleSupport,
     $(window).unbind('click.emberui')
     @get('previousFocus').focus()
 
+    # Wait for any closing animation to finish before we remove it from the DOM
+    # TODO: Remove from DOM event is no closing animation
     @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
       @destroy()
 
   didInsertElement: ->
     @set('isOpen', true)
     @set('previousFocus', $("*:focus"))
+
+    # Focus on search after popup is positioned or the page may scroll
     Ember.run.next this, -> @focusOnSearch()
 
+  # Focus on search input when popup shows so we can catch key input
   focusOnSearch: ->
     @$().find('input:first').focus()
 
+  # Set the selection back to the first option if the users changes the search query
   searchStringDidChange: (->
     @set('highlightedIndex', 0) if @get('searchString')
   ).observes 'searchString'
 
+  # Filter the option list based on the query entered into the search box
   filteredOptions: (->
     options = @get('options')
     query = @get('searchString')
@@ -64,6 +71,7 @@ popup = Em.Component.extend styleSupport,
 
   hasNoOptions: Ember.computed.empty 'filteredOptions'
 
+  # Updates the list-view's height based on the number of options
   optionsLengthDidChange: (->
     @updateListHeight()
   ).observes 'filteredOptions.length'
@@ -145,6 +153,7 @@ popup = Em.Component.extend styleSupport,
   # List View
 
   listView: Ember.ListView.extend
+    # Overriding this temporarily to fix the scrollbars in Firefox
     css:
       position: 'relative'
       overflow: 'auto'
@@ -180,6 +189,10 @@ popup = Em.Component.extend styleSupport,
       template: itemViewClassTemplate
 
       labelPath: Ember.computed.alias 'controller.labelPath'
+      highlightedIndex: Ember.computed.alias 'controller.highlightedIndex'
+      selection: Ember.computed.alias 'controller.selection'
+      filteredOptions: Ember.computed.alias 'controller.filteredOptions'
+      event: Ember.computed.alias 'controller.event'
 
       # creates Label property based on specified labelPath
       labelPathDidChange: (->
@@ -198,23 +211,24 @@ popup = Em.Component.extend styleSupport,
         @set 'content', context
 
       isHighlighted: Ember.computed ->
-        options = @get('controller.filteredOptions')
-        index = @get('controller.highlightedIndex')
+        options = @get('filteredOptions')
+        index = @get('highlightedIndex')
         option = options[index]
 
         option is @get('context')
-      .property 'controller.highlightedIndex', 'content'
+      .property 'highlightedIndex', 'content'
 
       isSelected: Ember.computed ->
-        @get('controller.selection') is @get('context')
-      .property 'controller.selection', 'content'
+        @get('selection') is @get('context')
+      .property 'selection', 'content'
 
+      # Set selection or execute action depending on event type
       click: ->
         option = @get('context')
-        event = @get('controller.event')
+        event = @get('event')
 
         if event == 'select'
-          @set('controller.selection', option)
+          @set('selection', option)
 
         else if event == 'action'
           action = option.get('action')
@@ -223,12 +237,12 @@ popup = Em.Component.extend styleSupport,
         @get('controller').hide()
 
       mouseEnter: ->
-        options = @get('controller.filteredOptions')
+        options = @get('filteredOptions')
         hoveredOption = @get('context')
 
         for option, index in options
           if option == hoveredOption
-            @set 'controller.highlightedIndex', index
+            @set 'highlightedIndex', index
             break
 
 
