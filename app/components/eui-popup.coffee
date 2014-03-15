@@ -36,6 +36,10 @@ popup = Em.Component.extend styleSupport,
   focusOnSearch: ->
     @$().find('input:first').focus()
 
+  searchStringDidChange: (->
+    @set('highlightedIndex', 0) if @get('filteredOptions')
+  ).observes 'searchString'
+
   filteredOptions: (->
     options = @get('options')
     query = @get('searchString')
@@ -92,7 +96,7 @@ popup = Em.Component.extend styleSupport,
   enterPressed: (event) ->
     event.preventDefault()
     event = @get('event')
-    selection = @get('options')[@get('highlighted')]
+    selection = @get('options')[@get('highlightedIndex')]
 
     if event == 'select'
       @set('selection', selection)
