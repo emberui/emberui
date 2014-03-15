@@ -184,33 +184,28 @@ popup = Em.Component.extend styleSupport,
       # creates Label property based on specified labelPath
       labelPathDidChange: (->
         labelPath = @get 'labelPath'
-        Ember.defineProperty(this, 'label', Ember.computed.alias("content.#{labelPath}"))
+        Ember.defineProperty(this, 'label', Ember.computed.alias("context.#{labelPath}"))
         @notifyPropertyChange 'label'
-      ).observes 'content', 'labelPath'
+      ).observes 'context', 'labelPath'
 
       initializeLabelPath: (->
         @labelPathDidChange()
       ).on 'init'
-
-      # TODO: Unsure why this is not done automatically. Without this @get('content') returns undefined.
-      updateContext: (context) ->
-        @_super context
-        @set 'content', context
 
       isHighlighted: Ember.computed ->
         options = @get('controller.filteredOptions')
         index = @get('controller.highlightedIndex')
         option = options[index]
 
-        option is @get('content')
-      .property 'controller.highlightedIndex', 'content'
+        option is @get('context')
+      .property 'controller.highlightedIndex', 'context'
 
       isSelected: Ember.computed ->
-        @get('controller.selection') is @get('content')
-      .property 'controller.selection', 'content'
+        @get('controller.selection') is @get('context')
+      .property 'controller.selection', 'context'
 
       click: ->
-        option = @get('content')
+        option = @get('context')
         event = @get('controller.event')
 
         if event == 'select'
@@ -224,7 +219,7 @@ popup = Em.Component.extend styleSupport,
 
       mouseEnter: ->
         options = @get('controller.filteredOptions')
-        hoveredOption = @get('content')
+        hoveredOption = @get('context')
 
         for option, index in options
           if option == hoveredOption
