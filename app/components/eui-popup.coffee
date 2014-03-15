@@ -38,7 +38,7 @@ popup = Em.Component.extend styleSupport,
     @$().find('input:first').focus()
 
   searchStringDidChange: (->
-    @set('highlightedIndex', 0)
+    @set('highlightedIndex', 0) if @get('searchString')
   ).observes 'searchString'
 
   filteredOptions: (->
