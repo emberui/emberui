@@ -1,5 +1,6 @@
 `import styleSupport from 'appkit/mixins/style-support'`
 `import popupLayout from 'appkit/templates/components/eui-popup'`
+`import itemViewClassTemplate from 'appkit/templates/components/eui-popup-option'`
 
 popup = Em.Component.extend styleSupport,
   layout: popupLayout
@@ -176,7 +177,7 @@ popup = Em.Component.extend styleSupport,
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
-      template: Ember.Handlebars.compile('{{view.label}}')
+      template: itemViewClassTemplate
 
       labelPath: Ember.computed.alias 'controller.labelPath'
 
