@@ -14,7 +14,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   # If the selection changes peform the action
   secondaryAction: (->
     action = @get('selection.action')
-    @.triggerAction({action})
+    @triggerAction({action})
   ).observes 'selection'
 
   actions:
