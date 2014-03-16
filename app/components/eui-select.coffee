@@ -83,8 +83,8 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
         isOpenBinding: 'targetObject.popupIsOpen'
         selectionBinding: 'targetObject.selection'
         options: @get('optionsWithBlank')
+        labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
-        labelPath: @get('labelPath')
         event: 'select'
 
 

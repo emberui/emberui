@@ -133,7 +133,6 @@ popup = Em.Component.extend styleSupport,
     optionsLength = options.get('length')
     newIndex
 
-
     # If the current index is out of bounds they searched
     # so we adjust it back in
     if highlightedIndex >= optionsLength
@@ -256,6 +255,7 @@ popup.reopenClass
     Ember.run.next this, -> @position(options.targetObject, popup)
     popup
 
+  # TODO: Rewrite as reusable position function
   position: (targetObject, popup) ->
     element = targetObject.$()
     popupElement = popup.$()
