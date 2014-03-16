@@ -15,21 +15,39 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   options: []
   labelPath: 'label'
   valuePath: 'value'
+  nullValue: new Object()
 
-  optionsWithBlank: Em.computed ->
+  optionsWithBlank: (->
     options = @get('options')
     paddedOptions = options[..]
 
     unless @get('required')
-      paddedOptions.unshift(null)
+      paddedOptions.unshift(@get('nullValue'))
 
     return paddedOptions
-  .property 'options.@each required'
+  ).property 'options.@each required'
 
-  label: Em.computed ->
+  label: (->
     labelPath = @get('labelPath')
     return @get("selection.#{labelPath}") || @get('placeholder')
-  .property('selection', 'placeholder', 'labelPath')
+  ).property 'selection', 'placeholder', 'labelPath'
+
+  selection: Ember.computed (key, value) ->
+    # setter
+    if arguments.length is 2
+      @set('internalSelection', value)
+      value
+
+    # getter
+    else
+      internalSelection = @get('internalSelection')
+      nullValue = @get('nullValue')
+
+      unless internalSelection is nullValue
+        internalSelection
+      else
+        null
+  .property
 
   value: Ember.computed (key, value) ->
     # setter
@@ -51,13 +69,12 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
     labelPath = 'selection.' + @get('labelPath')
     @addObserver(labelPath, -> @notifyPropertyChange 'label')
 
-    # Set the initial selection based on the value of the select
-    return if @get('selection')
+    # Set the initial selection based on the value
     valuePath = @get('valuePath')
     value = @get('value')
     value = @get('options').findProperty(valuePath, value) if valuePath
-    @set('selection', value || null)
-  ).on('init')
+    @set('selection', value || @get('nullValue'))
+  ).on 'init'
 
   click: ->
     unless @get('popupIsOpen')

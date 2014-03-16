@@ -14,7 +14,6 @@ popup = Em.Component.extend styleSupport,
   listRowHeight: '20'
   searchString: null
 
-  selection: null # Option currently selected
   highlightedIndex: -1 # Option currently highlighted
   action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
@@ -67,10 +66,8 @@ popup = Em.Component.extend styleSupport,
     regex = new RegExp(escapedQuery, 'i')
 
     filteredOptions = options.filter (item, index, self) ->
-      return if item == null
-
       label = item.get?(labelPath) or item[labelPath]
-      regex.test(label)
+      regex.test(label) if label
 
     return filteredOptions
   ).property 'options.@each', 'labelPath', 'searchString'
