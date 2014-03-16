@@ -20,6 +20,12 @@ popup = Em.Component.extend styleSupport,
 
   previousFocus: null # Where the user's focus was before the popup was opened (only for keyboard nav)
 
+  highlightedOption: (->
+    options = @get('filteredOptions')
+    index = @get('highlightedIndex')
+    options[index]
+  ).property 'highlightedIndex', 'filteredOptions'
+
   hide: ->
     @set('isOpen', false).set('highlightedIndex', -1)
     $(window).unbind('scroll.emberui')
@@ -190,6 +196,7 @@ popup = Em.Component.extend styleSupport,
 
       labelPath: Ember.computed.alias 'controller.labelPath'
       highlightedIndex: Ember.computed.alias 'controller.highlightedIndex'
+      highlightedOption: Ember.computed.alias 'controller.highlightedOption'
       selection: Ember.computed.alias 'controller.selection'
       filteredOptions: Ember.computed.alias 'controller.filteredOptions'
       event: Ember.computed.alias 'controller.event'
@@ -211,12 +218,8 @@ popup = Em.Component.extend styleSupport,
         @set 'content', context
 
       isHighlighted: Ember.computed ->
-        options = @get('filteredOptions')
-        index = @get('highlightedIndex')
-        option = options[index]
-
-        option is @get('context')
-      .property 'highlightedIndex', 'content'
+        @get('highlightedOption') is @get('context')
+      .property 'highlightedOption', 'content'
 
       isSelected: Ember.computed ->
         @get('selection') is @get('context')
