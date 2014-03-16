@@ -85,8 +85,6 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
         options: @get('optionsWithBlank')
         labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
-        event: 'select'
-
 
   # Down Arrow Key opens popup
   keyDown: (event) ->

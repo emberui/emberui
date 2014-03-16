@@ -15,7 +15,6 @@ popup = Em.Component.extend styleSupport,
   searchString: null
 
   highlightedIndex: -1 # Option currently highlighted
-  action: undefined # Controls what happens if option is clicked. Select it or perform Action
 
   previousFocus: null # Where the user's focus was before the popup was opened (only for keyboard nav)
 
@@ -107,15 +106,7 @@ popup = Em.Component.extend styleSupport,
 
   enterPressed: (event) ->
     event.preventDefault()
-    event = @get('event')
-
-    if event == 'select'
-      @set('selection', @get('highlightedOption'))
-
-    else if event == 'action'
-      action = @get('highlightedOption.action')
-      @get('targetObject').triggerAction({action})
-
+    @set('selection', @get('highlightedOption'))
     @hide()
 
   downArrowPressed: (event) ->
@@ -222,16 +213,7 @@ popup = Em.Component.extend styleSupport,
 
       # Set selection or execute action depending on event type
       click: ->
-        option = @get('context')
-        event = @get('event')
-
-        if event == 'select'
-          @set('selection', option)
-
-        else if event == 'action'
-          action = option.get('action')
-          @get('controller.targetObject').triggerAction({action})
-
+        @set('selection', @get('context'))
         @get('controller').hide()
 
       mouseEnter: ->
