@@ -111,13 +111,12 @@ popup = Em.Component.extend styleSupport,
   enterPressed: (event) ->
     event.preventDefault()
     event = @get('event')
-    selection = @get('options')[@get('highlightedIndex')]
 
     if event == 'select'
-      @set('selection', selection)
+      @set('selection', @get('highlightedOption'))
 
     else if event == 'action'
-      action = selection.get('action')
+      action = @get('highlightedOption.action')
       @get('targetObject').triggerAction({action})
 
     @hide()
