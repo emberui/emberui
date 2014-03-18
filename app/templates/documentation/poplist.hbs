@@ -74,8 +74,7 @@ poplistComponent.show({
 
 if (!this.get('poplistIsOpen')) {
   poplistComponent.show({
-    _parentView: this.get('parentView'),
-    parent: this,
+    targetObject: this,
     isOpenBinding: 'parent.poplistIsOpen',
     options: this.get('options'),
     style: 'bubble'
