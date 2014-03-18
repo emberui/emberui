@@ -1,6 +1,6 @@
 `import styleSupport from 'appkit/mixins/style-support'`
 `import sizeSupport from 'appkit/mixins/size-support'`
-`import popupComponent from 'appkit/components/eui-popup'`
+`import poplistComponent from 'appkit/components/eui-poplist'`
 `import disabledSupport from 'appkit/mixins/disabled-support'`
 `import widthSupport from 'appkit/mixins/width-support'`
 `import validationSupport from 'appkit/mixins/validation-support'`
@@ -8,9 +8,9 @@
 select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport,
   tagName: 'div'
   classNames: ['eui-select']
-  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'popupIsOpen:eui-active', 'class']
+  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class']
 
-  popupIsOpen: false
+  poplistIsOpen: false
   required: false
   options: []
   labelPath: 'label'
@@ -77,16 +77,16 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   ).on 'init'
 
   click: ->
-    unless @get('popupIsOpen')
-      popupComponent.show
+    unless @get('poplistIsOpen')
+      poplistComponent.show
         targetObject: @
-        isOpenBinding: 'targetObject.popupIsOpen'
+        isOpenBinding: 'targetObject.poplistIsOpen'
         selectionBinding: 'targetObject.selection'
         options: @get('optionsWithBlank')
         labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
 
-  # Down Arrow Key opens popup
+  # Down Arrow Key opens poplist
   keyDown: (event) ->
     if event.which == 40
       @click()

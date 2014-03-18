@@ -1,10 +1,10 @@
 `import styleSupport from 'appkit/mixins/style-support'`
-`import popupLayout from 'appkit/templates/components/eui-popup'`
-`import itemViewClassTemplate from 'appkit/templates/components/eui-popup-option'`
+`import poplistLayout from 'appkit/templates/components/eui-poplist'`
+`import itemViewClassTemplate from 'appkit/templates/components/eui-poplist-option'`
 
-popup = Em.Component.extend styleSupport,
-  layout: popupLayout
-  classNames: ['eui-popup']
+poplist = Em.Component.extend styleSupport,
+  layout: poplistLayout
+  classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing']
   attributeBindings: ['tabindex']
 
@@ -16,7 +16,7 @@ popup = Em.Component.extend styleSupport,
 
   highlightedIndex: -1 # Option currently highlighted
 
-  previousFocus: null # Where the user's focus was before the popup was opened (only for keyboard nav)
+  previousFocus: null # Where the user's focus was before the poplist was opened (only for keyboard nav)
 
   highlightedOption: (->
     options = @get('filteredOptions')
@@ -39,10 +39,10 @@ popup = Em.Component.extend styleSupport,
     @set('isOpen', true)
     @set('previousFocus', $("*:focus"))
 
-    # Focus on search after popup is positioned or the page may scroll
+    # Focus on search after poplist is positioned or the page may scroll
     Ember.run.next this, -> @focusOnSearch()
 
-  # Focus on search input when popup shows so we can catch key input
+  # Focus on search input when poplist shows so we can catch key input
   focusOnSearch: ->
     @$().find('input:first').focus()
 
@@ -160,8 +160,8 @@ popup = Em.Component.extend styleSupport,
       @_super()
 
       # Prevents mouse scroll events from passing through to the div
-      # behind the popup when listView is scrolled to the end. Fixes
-      # the popup closing if you scroll too far down
+      # behind the poplist when listView is scrolled to the end. Fixes
+      # the poplist closing if you scroll too far down
       @.$().bind('mousewheel DOMMouseScroll', (e) =>
         e.preventDefault()
         scrollTo = @get('scrollTop')
@@ -226,51 +226,51 @@ popup = Em.Component.extend styleSupport,
             break
 
 
-popup.reopenClass
+poplist.reopenClass
   show: (options = {}) ->
-    popup = @.create options
-    popup.container = popup.get('targetObject.container')
-    popup.appendTo '.ember-application'
+    poplist = @.create options
+    poplist.container = poplist.get('targetObject.container')
+    poplist.appendTo '.ember-application'
 
-    popup.updateListHeight()
+    poplist.updateListHeight()
 
-    Ember.run.next this, -> @position(options.targetObject, popup)
-    popup
+    Ember.run.next this, -> @position(options.targetObject, poplist)
+    poplist
 
   # TODO: Rewrite as reusable position function
-  position: (targetObject, popup) ->
+  position: (targetObject, poplist) ->
     element = targetObject.$()
-    popupElement = popup.$()
+    poplistElement = poplist.$()
 
     offset = element.offset()
 
-    # set a reasonable min-width on the popup before we caclulate its actual size
-    elementWidthMinusPopupPadding = element.width() - parseFloat(popupElement.css('paddingLeft')) - parseFloat(popupElement.css('paddingRight'))
-    popupElement.css('min-width', elementWidthMinusPopupPadding)
+    # set a reasonable min-width on the poplist before we caclulate its actual size
+    elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'))
+    poplistElement.css('min-width', elementWidthMinuspoplistPadding)
 
     # calculate all the numbers needed to set positioning
     elementPositionTop = offset.top - element.scrollTop()
     elementPositionLeft = offset.left - element.scrollLeft()
     elementHeight = element.height()
     elementWidth = element.width()
-    popupWidth = popupElement.width()
-    popupHorizontalPadding = parseFloat(popupElement.css('paddingLeft')) + parseFloat(popupElement.css('paddingRight'))
+    poplistWidth = poplistElement.width()
+    poplistHorizontalPadding = parseFloat(poplistElement.css('paddingLeft')) + parseFloat(poplistElement.css('paddingRight'))
     windowScrollTop = $(window).scrollTop()
     windowScrollLeft = $(window).scrollLeft()
 
-    popupPositionTop = elementPositionTop + elementHeight  - windowScrollTop
-    popupPositionLeft = elementPositionLeft + elementWidth - popupWidth - popupHorizontalPadding - windowScrollLeft
+    poplistPositionTop = elementPositionTop + elementHeight  - windowScrollTop
+    poplistPositionLeft = elementPositionLeft + elementWidth - poplistWidth - poplistHorizontalPadding - windowScrollLeft
 
-    popupElement.css('top', popupPositionTop)
-    popupElement.css('left', popupPositionLeft)
+    poplistElement.css('top', poplistPositionTop)
+    poplistElement.css('left', poplistPositionLeft)
 
     $(window).bind 'scroll.emberui', ->
-      popup.hide()
+      poplist.hide()
 
     $(window).bind 'click.emberui', (event) ->
-      unless $(event.target).parents('.eui-popup').length
+      unless $(event.target).parents('.eui-poplist').length
         event.preventDefault()
-        popup.hide()
+        poplist.hide()
 
 
-`export default popup`
+`export default poplist`

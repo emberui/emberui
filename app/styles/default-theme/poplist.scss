@@ -1,7 +1,7 @@
 @import "compass";
 $experimental-support-for-svg: true;
 
-.eui-popup {
+.eui-poplist {
   position: fixed;
   top: 0px;
   left: 0px;
@@ -68,7 +68,7 @@ $experimental-support-for-svg: true;
   * bubble: for use with dropbutton
   *
   */
-.eui-popup {
+.eui-poplist {
   &.eui-bubble {
     @include border-radius(3px);
     padding: 1px;
@@ -103,7 +103,7 @@ $experimental-support-for-svg: true;
       border-left: solid 5px transparent;
     }
 
-    .eui-popupwrapper {
+    .eui-poplistwrapper {
       background: #ffffff;
       @include border-radius(3px);
       padding: 5px 0;
@@ -140,7 +140,7 @@ $experimental-support-for-svg: true;
     animation-name: eui-flyin;
     max-height: calc(100% - 100px);
 
-    .eui-popupwrapper {
+    .eui-poplistwrapper {
       background: #ffffff;
       @include border-radius(3px);
       padding: 5px 0;

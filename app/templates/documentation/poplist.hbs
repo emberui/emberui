@@ -1,4 +1,4 @@
-<h1>popup</h1>
+<h1>poplist</h1>
 
 <div class="intro">
   A fixed positioned popup window that presents a list of choices to the user.
@@ -8,16 +8,16 @@
   This component is created programatically and can be done by calling the <em>show()</em> method on the component.
 </p>
 
-<pre>import popupComponent from 'appkit/components/eui-popup'
+<pre>import poplistComponent from 'appkit/components/eui-poplist'
 
-popupComponent.show({
+poplistComponent.show({
   targetObject: this
   options: this.get('options'),
   style: 'bubble'
 });</pre>
 
 <p>
-  The popup is created on the body element and positioned using fixed positioning. It is sized and positioned according to the window frame, not the page content which allows for a much more native feel. Because of this positioning you can safely use this popup inside elements with <em>overflow: auto;</em> without it getting cut off or causing the element to scroll. The popup automatically closes when the window is scrolled.
+  The poplist is created on the body element and positioned using fixed positioning. It is sized and positioned according to the window frame, not the page content which allows for a much more native feel. Because of this positioning you can safely use this poplist inside elements with <em>overflow: auto;</em> without it getting cut off or causing the element to scroll. The poplist automatically closes when the window is scrolled.
 </p>
 
 <p>
@@ -49,7 +49,7 @@ popupComponent.show({
 
 <h4 id="section-isopen">style <span>string</span></h4>
 <p>
-  The aesthetic style of the popup.
+  The aesthetic style of the poplist.
 </p>
 
 <h5>Values</h5>
@@ -63,16 +63,16 @@ popupComponent.show({
 
 <h4 id="section-isopen">isOpen <span>boolean</span></h4>
 <p>
-  Passes back knowledge of whether the popup is open. This allows you to create, for example, a button that is styled differently while the popup is open. It also allows you to prevent the popup from being opened while it is already open.
+  Passes back knowledge of whether the poplist is open. This allows you to create, for example, a button that is styled differently while the poplist is open. It also allows you to prevent the poplist from being opened while it is already open.
 </p>
 
-<pre>import popupComponent from 'appkit/components/eui-popup'
+<pre>import poplistComponent from 'appkit/components/eui-poplist'
 
-if (!this.get('popupIsOpen')) {
-  popupComponent.show({
+if (!this.get('poplistIsOpen')) {
+  poplistComponent.show({
     _parentView: this.get('parentView'),
     parent: this,
-    isOpenBinding: 'parent.popupIsOpen',
+    isOpenBinding: 'parent.poplistIsOpen',
     options: this.get('options'),
     style: 'bubble'
   });

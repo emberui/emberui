@@ -252,7 +252,7 @@
 }
 
 
-/* Popup Flyin */
+/* poplist Flyin */
 @-webkit-keyframes eui-flyin {
   0% { -webkit-transform: scale(0.7); opacity: 0; }
   100% { -webkit-transform: scale(1); opacity: 1; }
@@ -269,7 +269,7 @@
 }
 
 
-/* Popup zoom into top */
+/* poplist zoom into top */
 @-webkit-keyframes eui-zoomupandin {
   0% { opacity: 1; -webkit-transform: translate(0px, 0px) scale(1); }
   100% { opacity: 0; -webkit-transform: translate(0px, -60%) scale(0.3); }

@@ -1,11 +1,11 @@
 `import styleSupport from 'appkit/mixins/style-support'`
 `import sizeSupport from 'appkit/mixins/size-support'`
-`import popupComponent from 'appkit/components/eui-popup'`
+`import poplistComponent from 'appkit/components/eui-poplist'`
 
 dropbutton = Em.Component.extend styleSupport, sizeSupport,
   tagName: 'div'
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
-  popupIsOpen: false
+  poplistIsOpen: false
 
   primaryAction: Em.computed ->
     @get('options').findBy 'primary', true
@@ -20,10 +20,10 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
 
   actions:
     toggleWindow: ->
-      unless @get('popupIsOpen')
-        popupComponent.show
+      unless @get('poplistIsOpen')
+        poplistComponent.show
           targetObject: @
-          isOpenBinding: 'targetObject.popupIsOpen'
+          isOpenBinding: 'targetObject.poplistIsOpen'
           selectionBinding: 'targetObject.selection'
           options: @get('options')
           labelPath: 'label'

@@ -17,7 +17,7 @@ Router.map ->
     this.route 'select'
     this.route 'textarea'
 
-    this.route 'popup'
+    this.route 'poplist'
 
   this.route '404', { path: '*path' } # Catch all for all remaining routes
 
