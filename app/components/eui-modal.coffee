@@ -16,9 +16,25 @@ modal = Em.Component.extend styleSupport,
 
   hide: ->
     @set('isOpen', false)
-    @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
-      @destroy()
 
+    # Figure out if there is a closing animation so we can wait for it to finish
+    # before we remove the view from the DOM. The only gotcha is if you have a
+    # open animation then you must have a closing animation
+    animation = false
+    domPrefixes = ['Webkit', 'Moz', 'O', 'ms']
+
+    # check no-prefix support
+    animation = true if this.$().css('animationName')
+
+    for prefix in domPrefixes
+      animation = true if this.$().css(prefix + 'animationName')
+
+    if animation
+      @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
+        @destroy()
+    else
+      @destroy()
+      
   didInsertElement: ->
     @set('isOpen', true)
 

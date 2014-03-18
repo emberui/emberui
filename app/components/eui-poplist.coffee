@@ -30,9 +30,22 @@ poplist = Em.Component.extend styleSupport,
     $(window).unbind('click.emberui')
     @get('previousFocus').focus()
 
-    # Wait for any closing animation to finish before we remove it from the DOM
-    # TODO: Remove from DOM event is no closing animation
-    @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
+    # Figure out if there is a closing animation so we can wait for it to finish
+    # before we remove the view from the DOM. The only gotcha is if you have a
+    # open animation then you must have a closing animation
+    animation = false
+    domPrefixes = ['Webkit', 'Moz', 'O', 'ms']
+
+    # check no-prefix support
+    animation = true if this.$().css('animationName')
+
+    for prefix in domPrefixes
+      animation = true if this.$().css(prefix + 'animationName')
+
+    if animation
+      @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
+        @destroy()
+    else
       @destroy()
 
   didInsertElement: ->
