@@ -23,6 +23,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
       unless @get('poplistIsOpen')
         poplistComponent.show
           targetObject: @
+          # unsure why bindings have to be created this way and opposed to how it is done for options below
           isOpenBinding: 'targetObject.poplistIsOpen'
           selectionBinding: 'targetObject.selection'
           options: @get('options')
