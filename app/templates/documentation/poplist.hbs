@@ -1,7 +1,7 @@
 <h1>poplist</h1>
 
 <div class="intro">
-  A fixed positioned popup window that presents a list of choices to the user.
+  A fixed positioned popup window that presents a list of choices to the user with keyboard and search support.
 </div>
 
 <p>
@@ -13,6 +13,7 @@
 poplistComponent.show({
   targetObject: this
   options: this.get('options'),
+  labelPath: 'label',
   style: 'bubble'
 });</pre>
 
@@ -36,14 +37,16 @@ poplistComponent.show({
   <li class="header">States</li>
   <li><a href="#section-isopen">isOpen</a></li>
 
-  <li class="header">Actions</li>
+  <li class="header">Functional</li>
   <li><a href="#section-options">options</a></li>
+  <li><a href="#section-selection">selection</a></li>
+  <li><a href="#section-labelPath">labelPath</a></li>
 </ul>
 
 
 <h4 id="section-targetobject">targetObject <span>object</span></h4>
 <p>
-  Required for Ember to behave correctly. Set it equal to <em>this</em>
+  Required property. Set it equal to <em>this</em>
 </p>
 
 
@@ -55,6 +58,7 @@ poplistComponent.show({
 <h5>Values</h5>
 <ul class="defaults">
   <li>bubble</li>
+  <li>flyin</li>
 </ul>
 <p>
   Additional styles can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
@@ -79,7 +83,19 @@ if (!this.get('poplistIsOpen')) {
 }</pre>
 
 
-<h4 id="section-isopen">options <span>array</span></h4>
+<h4 id="section-options">options <span>array</span></h4>
 <p>
-  See the {{link-to "dropbutton" "documentation.dropbutton"}} actions section.
+  .
+</p>
+
+
+<h4 id="section-selection">selection <span>object</span></h4>
+<p>
+  .
+</p>
+
+
+<h4 id="section-isopen">labelPath <span>string</span></h4>
+<p>
+  .
 </p>
