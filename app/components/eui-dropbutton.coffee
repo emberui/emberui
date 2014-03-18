@@ -14,7 +14,8 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   # If the selection changes peform the action
   secondaryAction: (->
     action = @get('selection.action')
-    @triggerAction({action})
+    @triggerAction({action}) if action
+    @set('selection', null)
   ).observes 'selection'
 
   actions:
@@ -25,6 +26,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
           isOpenBinding: 'targetObject.popupIsOpen'
           selectionBinding: 'targetObject.selection'
           options: @get('options')
+          labelPath: 'label'
           style: 'bubble'
 
     primaryAction: ->
