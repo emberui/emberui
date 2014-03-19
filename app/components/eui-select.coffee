@@ -40,14 +40,10 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
 
     # getter
     else
-      internalSelection = @get('internalSelection')
+      selection = @get('internalSelection')
       nullValue = @get('nullValue')
-
-      unless internalSelection is nullValue
-        internalSelection
-      else
-        null
-  .property
+      if selection == nullValue then null else selection
+  .property 'internalSelection'
 
   value: Ember.computed (key, value) ->
     # setter
@@ -78,7 +74,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
     valuePath = @get('valuePath')
     value = @get('value')
     value = @get('options').findProperty(valuePath, value) if valuePath
-    @set('selection', value || @get('nullValue'))
+    @set('internalSelection', value || @get('nullValue'))
   ).on 'init'
 
   click: ->
@@ -86,7 +82,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
       poplistComponent.show
         targetObject: @
         isOpenBinding: 'targetObject.poplistIsOpen'
-        selectionBinding: 'targetObject.selection'
+        selectionBinding: 'targetObject.internalSelection'
         options: @get('optionsWithBlank')
         labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
