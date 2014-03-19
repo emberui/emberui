@@ -55,6 +55,9 @@ poplist = Em.Component.extend styleSupport,
     # Focus on search after poplist is positioned or the page may scroll
     Ember.run.next this, -> @focusOnSearch()
 
+    # Ensure the selected option is visible
+    Ember.run.next this, -> @scrollToSelection @get('selection')
+
   # Focus on search input when poplist shows so we can catch key input
   focusOnSearch: ->
     @$().find('input:first').focus()
@@ -99,6 +102,20 @@ poplist = Em.Component.extend styleSupport,
       @set('listHeight', (optionCount * rowHeight))
     else
       @set('listHeight', (10 * rowHeight))
+
+  # Scroll the list to make sure the given option is visible.
+  scrollToSelection: (option) ->
+    $listView  = @.$('.ember-list-view')
+    listView   = Ember.View.views[$listView.attr('id')]
+    startIndex = listView._startingIndex()
+    numRows    = listView._childViewCount() - 1
+    endIndex   = startIndex + numRows
+    index      = @get('options').indexOf(option)
+
+    if index < startIndex
+      $listView.scrollTop index * @get('listRowHeight')
+    else if index >= endIndex
+      $listView.scrollTop (index - (numRows / 2)) * @get('listRowHeight')
 
 
   # Keyboard controls
@@ -232,11 +249,7 @@ poplist = Em.Component.extend styleSupport,
       mouseEnter: ->
         options = @get('filteredOptions')
         hoveredOption = @get('context')
-
-        for option, index in options
-          if option == hoveredOption
-            @set 'highlightedIndex', index
-            break
+        @set 'highlightedIndex', options.indexOf(hoveredOption)
 
 
 poplist.reopenClass
