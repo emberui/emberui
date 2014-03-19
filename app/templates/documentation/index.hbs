@@ -1,31 +1,55 @@
-<h1>Introduction</h1>
-
-<p>
-  - uses appkit<br />
-  - es6 modules
-</p>
+<h1>Philosophy</h1>
 
 <p>
   Useful for complex HTML5 applications, not just rapid prototyping.
 </p>
 
-<h2>Design Files</h2>
+
+<h1>Technical Details</h1>
+
+<p>
+  EmberUI users EAK for its build process. This will change in the near future to make use of <a href="https://github.com/stefanpenner/ember-cli">ember-cli</a>.  See the <a href="http://iamstef.net/ember-app-kit/guides/getting-started.html">EAK Getting Started</a> guide to get up and running building EmberUI yourself right now.
+</p>
+
+<p>
+  EmberUI makes use of the <a href="https://github.com/square/es6-module-transpiler">ES6 module transpiler</a>. 
+</p>
+
+
+<h2>Dependancies</h2>
+
+<p>
+  We try to stay clear of introducing dependencies other than Ember as much as possible. In the future we would like to eliminate them, but they have made getting to this point much faster.
+</p>
+
+<ul class="dependencies">
+  <li>
+    <a href="fontawesome.io">FontAwesome</a>
+    <p>
+      Icons used by EmberUI such as the <em>select</em> and <em>dropbutton</em>'s arrows make use of FrontAwesome. It is overkill to include an entire icon font just for two icons so in the future we would like to eliminate this need either by creating out own icon font, or making use of svg icons.
+    </p>
+  </li>
+</ul>
+
+
+
+<h1>Design Files</h1>
 
 <p>
   You can use these PSDs to make mocking up layouts with EmberUI super fast. There is one PSD for each form element and it contains the element in all its possible states and variations. EmberUI is under heavy development so not all the possibilities shown in the PSDs may currently be implemented.
 </p>
 
 <ul class="filelist">
-  <li>
-    <a href="/assets/psds/button.psd"><img src="/assets/images/download-button.png" width="230" /></a>
+  <li class="fa fa-download">
+    <a href="/assets/psds/button.psd">Button</a>
   </li>
-  <li>
-    <a href="/assets/psds/button.psd"><img src="/assets/images/download-checkbox.png" width="230" /></a>
+  <li class="fa fa-download">
+    <a href="/assets/psds/checkbox.psd">Checkbox</a>
   </li>
-  <li>
-    <a href="/assets/psds/button.psd"><img src="/assets/images/download-input.png" width="230" /></a>
+  <li class="fa fa-download">
+    <a href="/assets/psds/input.psd">Input</a>
   </li>
-  <li>
-    <a href="/assets/psds/button.psd"><img src="/assets/images/download-select.png" width="230" /></a>
+  <li class="fa fa-download">
+    <a href="/assets/psds/select.psd">Select</a>
   </li>
 </ul>
