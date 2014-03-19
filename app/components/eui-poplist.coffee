@@ -272,6 +272,9 @@ poplist.reopenClass
     offset = element.offset()
 
     # set a reasonable min-width on the poplist before we caclulate its actual size
+    # TODO: Min-width is no longer sufficient because we use list-view which uses
+    # absolute positioning. This means the popup can no longer get pushed wider
+    # by its children. Need a new approach.
     elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'))
     poplistElement.css('min-width', elementWidthMinuspoplistPadding)
 
