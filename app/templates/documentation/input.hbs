@@ -7,11 +7,6 @@
 <h2>Parameters</h2>
 
 <ul class="parameterindex">
-  <li class="header">Attributes</li>
-  <li><a href="#section-type">type</a></li>
-  <li><a href="#section-placeholder">placeholder</a></li>
-  <li><a href="#section-value">value</a></li>
-
   <li class="header">Aesthetic</li>
   <li><a href="#section-style">style</a></li>
   <li><a href="#section-size">size</a></li>
@@ -20,46 +15,15 @@
   <li class="header">States</li>
   <li><a href="#section-disabled">disabled</a></li>
 
+  <li class="header">Attributes</li>
+  <li><a href="#section-type">type</a></li>
+  <li><a href="#section-placeholder">placeholder</a></li>
+  <li><a href="#section-value">value</a></li>
+
   <li class="header">Error Handling</li>
   <li><a href="#section-error">error</a></li>
   <li><a href="#section-required">required</a></li>
 </ul>
-
-
-<h4 id="section-type">type <span>string</span></h4>
-<p>
-  Type of input desired. Any value entered will be assigned to the type attribute on the input element.
-</p>
-
-<h5>Values</h5>
-<ul class="defaults">
-  <li>text (default)</li>
-  <li>password</li>
-</ul>
-
-
-<h4 id="section-placeholder">placeholder <span>string</span></h4>
-<p>
-  Placeholder value for the input. Does not make use of the placeholder attribute, but instead reimplements the behaviour in html.
-</p>
-
-<pre>\{{eui-input placeholder='Email address'}}</pre>
-
-<div class="output">
-  {{eui-input placeholder='Email address'}}
-</div>
-
-
-<h4 id="section-value">value <span>string</span></h4>
-<p>
-  The value of the input.
-</p>
-
-<pre>\{{eui-input value='john@example.com'}}</pre>
-
-<div class="output">
-  {{eui-input value='john@example.com'}}
-</div>
 
 
 <h4 id="section-style">style <span>string</span></h4>
@@ -129,6 +93,42 @@
 <div class="output">
   {{eui-input placeholder='Email Address' disabled=true}}
   {{eui-input value='Email Address' disabled=true}}
+</div>
+
+
+<h4 id="section-type">type <span>string</span></h4>
+<p>
+  Type of input desired. Any value entered will be assigned to the type attribute on the input element.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>text (default)</li>
+  <li>password</li>
+</ul>
+
+
+<h4 id="section-placeholder">placeholder <span>string</span></h4>
+<p>
+  Placeholder value for the input. Does not make use of the placeholder attribute, but instead reimplements the behaviour in html.
+</p>
+
+<pre>\{{eui-input placeholder='Email address'}}</pre>
+
+<div class="output">
+  {{eui-input placeholder='Email address'}}
+</div>
+
+
+<h4 id="section-value">value <span>string</span></h4>
+<p>
+  The value of the input.
+</p>
+
+<pre>\{{eui-input value='john@example.com'}}</pre>
+
+<div class="output">
+  {{eui-input value='john@example.com'}}
 </div>
 
 
