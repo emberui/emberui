@@ -65,6 +65,11 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   .property 'selection'
 
   initialization: (->
+    # Make sure we have options or things will break badly
+    if @get('options') == undefined
+      Ember.Logger.error ('EmberUI: eui-select options paramater has undefined value')
+      return
+
     # Create observer for the selection's label so we can monitor it for changes
     labelPath = 'selection.' + @get('labelPath')
     @addObserver(labelPath, -> @notifyPropertyChange 'label')
