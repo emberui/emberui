@@ -64,6 +64,7 @@ poplist = Em.Component.extend styleSupport,
 
   # Set the selection back to the first option if the users changes the search query
   searchStringDidChange: (->
+    # TODO: This doesn't fire the bindings on the listView correctly and you end up with multiple items highlighted.
     @set('highlightedIndex', 0) if @get('searchString')
   ).observes 'searchString'
 
