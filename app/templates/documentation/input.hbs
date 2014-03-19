@@ -8,8 +8,8 @@
 
 <ul class="parameterindex">
   <li class="header">Aesthetic</li>
-  <li><a href="#section-style">style</a></li>
   <li><a href="#section-size">size</a></li>
+  <li><a href="#section-style">style</a></li>
   <li><a href="#section-width">width</a></li>
 
   <li class="header">States</li>
@@ -23,17 +23,6 @@
   <li class="header">Error Handling</li>
   <li><a href="#section-error">error</a></li>
   <li><a href="#section-required">required</a></li>
-</ul>
-
-
-<h4 id="section-style">style <span>string</span></h4>
-<p>
-  Aesthetic style of the input.
-</p>
-
-<h5>Values</h5>
-<ul class="defaults">
-  <li>default (default)</li>
 </ul>
 
 
@@ -66,9 +55,20 @@
 </div>
 
 
+<h4 id="section-style">style <span>string</span></h4>
+<p>
+  Aesthetic style of the input.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>default (default)</li>
+</ul>
+
+
 <h4 id="section-width">width <span>string</span></h4>
 <p>
-  Width of the input. You must pass in a CSS size value with the unit. Input uses the CSS box-sizing to ensure precentage based sizes are actual sizes.
+  Width of the input. You must pass in a CSS size value with the unit. The input uses the CSS box-sizing to ensure precentage based sizes are actual sizes.
 </p>
 
 <pre>\{{eui-input width='150px' placeholder='150px'}}

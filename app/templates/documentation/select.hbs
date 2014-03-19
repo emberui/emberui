@@ -4,18 +4,36 @@
   A reimplementation of the standard browser select with added support for validation, error handling, and search.
 </div>
 
+<p>
+  The select uses the poplist component to query the user's selection.
+</p>
+<p>
+  The <em>poplist</em> makes use of list-view to hande large amounts of data without performance hickups. To make it easy to navigate for the user search support is provided. Simply start typing while the <em>poplist</em> is open to filter the options.
+</p>
+
+<div class="output">
+  {{eui-select placeholder='Countries' labelPath='name' valuePath='code' optionsBinding='fullCountryList'}}
+</div>
+
+<p>
+  The <em>poplist</em> prevents the page from scrolling while the cursor is over the poplist. Should the page scroll the poplist will be close automatically.
+</p>
+
+
 <h2>Parameters</h2>
 
 <ul class="parameterindex">
   <li class="header">Aesthetic</li>
   <li><a href="#section-size">size</a></li>
   <li><a href="#section-style">style</a></li>
+  <li><a href="#section-width">width</a></li>
 
   <li class="header">States</li>
   <li><a href="#section-disabled">disabled</a></li>
 
   <li class="header">Attributes</li>
   <li><a href="#section-labelpath">labelPath</a></li>
+  <li><a href="#section-options">options</a></li>
   <li><a href="#section-placeholder">placeholder</a></li>
   <li><a href="#section-selection">selection</a></li>
   <li><a href="#section-value">value</a></li>
@@ -28,105 +46,160 @@
 
 <h4 id="section-size">size <span>string</span></h4>
 <p>
-  .
+  The overall size of the select. Width is set via the <a href="#section-width">width</a> parameter. Each size has a associated width it will use unless you override it.
 </p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>tiny</li>
+  <li>small</li>
+  <li>medium (default)</li>
+  <li>large</li>
+</ul>
+<p>
+  Additional sizes can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
+</p>
+
+<pre>\{{eui-select placeholder="Select a country" options=countries size='tiny'}}
+\{{eui-select placeholder="Select a country" options=countries size='small'}}
+\{{eui-select placeholder="Select a country" options=countries size='medium'}}
+\{{eui-select placeholder="Select a country" options=countries size='large'}}</pre>
+
+<div class="output">
+  {{eui-select placeholder="Select a country" options=countries size='tiny'}}
+  {{eui-select placeholder="Select a country" options=countries size='small'}}
+  {{eui-select placeholder="Select a country" options=countries size='medium'}}
+  {{eui-select placeholder="Select a country" options=countries size='large'}}
+</div>
 
 
 <h4 id="section-style">style <span>string</span></h4>
 <p>
-  .
+  Aesthetic style of the select.
 </p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>default (default)</li>
+</ul>
+
+
+<h4 id="section-width">width <span>string</span></h4>
+<p>
+  Width of the select. You must pass in a CSS size value with the unit. The select uses the CSS box-sizing to ensure precentage based sizes are actual sizes.
+</p>
+
+<pre>\{{eui-input width='150px' placeholder='150px'}}
+\{{eui-input width='15em' placeholder='15em'}}
+\{{eui-input width='30%' placeholder='30%'}}</pre>
+
+<div class="output">
+  {{eui-select options=countries width='150px' placeholder='150px'}}
+  {{eui-select options=countries width='15em' placeholder='15em'}}
+  {{eui-select options=countries width='30%' placeholder='30%'}}
+</div>
 
 
 <h4 id="section-disabled">disabled <span>boolean</span></h4>
 <p>
-  .
+  Disables the select.
 </p>
+
+<pre>\{{eui-select options=countries placeholder='Country' disabled=true}}
+\{{eui-select options=countries disabled=true value=1}}</pre>
+
+<div class="output">
+  {{eui-select options=countries placeholder='Select a Country' disabled=true}}
+  {{eui-select options=countries disabled=true value=1}}
+</div>
 
 
 <h4 id="section-labelpath">labelPath <span>string</span></h4>
 <p>
-  .
+  Path to the field you want to use as the label for each of the <em>options</em>. Default path is 'label'.
 </p>
+
+
+<h4 id="section-options">options <span>array</span></h4>
+<p>
+  Pass in an array of options for the user to select from.
+</p>
+
+<pre>countries: [
+  { label: 'Canada', value: 1 }
+  { label: 'United Sates', value: 2 }
+  { label: 'Mexico', value: 3 }
+]</pre>
+
+<pre>users: [
+  Ember.Object.create({
+    name: 'John',
+    email: 'john@gmail.com',
+    value: '1'
+  }), Ember.Object.create({
+    name: 'Mark',
+    email: 'mark@gmail.com',
+    value: '2'
+  }), Ember.Object.create({
+    name: 'Richard',
+    email: 'richard@gmail.com',
+    value: '3'
+  })
+]</pre>
+
+<p>
+  You will need to specify the path to the label and the value via the <em>labelPath</em> and <em>valuePath</em> properties.
+</p>
+
+<pre>\{{eui-select placeholder="Select by name" options=users labelPath='name'}}
+\{{eui-select placeholder="Select by email" options=users labelPath='email'}}</pre>
+
+<div class="output">
+  {{eui-select placeholder="Select by name" options=users labelPath='name'}}
+  {{eui-select placeholder="Select by email" options=users labelPath='email'}}
+</div>
 
 
 <h4 id="section-placeholder">placeholder <span>string</span></h4>
 <p>
-  .
+  Placeholder value for the select.
 </p>
+
+<pre>\{{eui-select placeholder='Select a Country' options=countries}}</pre>
+
+<div class="output">
+  {{eui-select placeholder='Select a Country' options=countries}}
+</div>
 
 
 <h4 id="section-selection">selection <span>object</span></h4>
 <p>
-  .
+  The current option selected. Will return <em>null</em> if the user has selected nothing.
 </p>
 
 
 <h4 id="section-value">value <span>string</span></h4>
 <p>
-  .
+  Uses the <em>valuePath</em> property to look up the value of the current <em>selection</em>.
+</p>
+<p>
+  If you do not specify a <em>selection</em> for the select, then the <em>value</em> and <em>valuePath</em> properties will be used to find the option that corresponds with the value in the list of <em>options</em>. It will then be assigned to the <em>selection</em> as its initial value.
 </p>
 
 
 <h4 id="section-valuepath">valuePath <span>string</span></h4>
 <p>
-  .
+  Path to the field you want to return as the value in each of the <em>options</em>. Default path is 'value'.
 </p>
 
 
-<h4 id="section-error">error <span>string</span></h4>
+<h4 id="section-error">error <span>boolean | string</span></h4>
 <p>
-  .
+  Responsible for validation and error handling. See {{link-to "Error Handling" "documentation.errorhandling"}}
 </p>
 
 
-<h4 id="section-required">required <span>string</span></h4>
+<h4 id="section-required">required <span>boolean</span></h4>
 <p>
-  .
+  If set to true the select requires a value or will not allow the user to select an empty value. If not set the select will automatically add a blank option to the list of provided options.
 </p>
-
-
-
-
-
-
-
-
-
-<br/>
-<br/>
-
-{{eui-dropbutton label='Actions' size='small' options=options}}
-{{eui-dropbutton label='Actions' size='small' options=optionsPrimary}}
-
-<br/>
-<br/>
-
-{{eui-select placeholder='Select one' required=true selection=testselectionOne valueBinding='testValueOne' valuePath='action' labelPath='label' size='small' optionsBinding='options'}}
-{{eui-select placeholder='Select one' selection=testselectionOne valueBinding='testValueOne' valuePath='action' labelPath='label' size='small' width="100px" optionsBinding='options'}}
-
-{{eui-select placeholder='Select one' selection=testselectionOne valueBinding='testValueOne' error=testselectionOne.label valuePath='action' labelPath='label' optionsBinding='options'}}
-{{eui-select required=true valuePath='action' labelPath='label' optionsBinding='nooptions'}}
-
-<br/>
-<br/>
-<br/>
-<br/>
-
-{{eui-select placeholder='Select one' valuePath='value' labelPath='name' optionsBinding='bigOptionList'}}
-{{eui-button label="Add 5000 Options" action="generateOptions"}}
-
-<br/>
-<br/>
-<br/>
-<br/>
-
-{{testselectionOne}}-{{testValueOne}} <br/>
-{{testselectionTwo}}--{{testValueTwo}}
-
-<br/>
-<br/>
-
-{{#each options}}
-  {{eui-input value=label}}
-{{/each}}

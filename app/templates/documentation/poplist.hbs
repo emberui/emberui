@@ -5,7 +5,7 @@
 </div>
 
 <p>
-  This component is created programatically and can be done by calling the <em>show()</em> method on the component.
+  This component is created programatically and can be done by calling the <em>show()</em> method on the component. The  <em>select</em> and <em>dropbutton</em> components makes use of the <em>poplist</em>.
 </p>
 
 <pre>import poplistComponent from 'appkit/components/eui-poplist'
@@ -18,12 +18,16 @@ poplistComponent.show({
 });</pre>
 
 <p>
-  The poplist is created on the body element and positioned using fixed positioning. It is sized and positioned according to the window frame, not the page content which allows for a much more native feel. Because of this positioning you can safely use this poplist inside elements with <em>overflow: auto;</em> without it getting cut off or causing the element to scroll. The poplist automatically closes when the window is scrolled.
+  The poplist is created on the body element and positioned using fixed positioning. It is sized and positioned according to the window frame. Because of this positioning you can safely use this poplist inside elements with <em>overflow: auto;</em> without it getting cut off or causing the element to scroll.
+</p>
+<p>
+  The poplist automatically closes when the window is scrolled, but will prevent the page from scrolling while the cursor is hovered over it.
 </p>
 
 <p>
-  This component implementation is still very raw.
+  The poplist features full keyboard navigation including search. Just start typing while it is open to filter the option list.
 </p>
+
 
 <h2>Parameters</h2>
 
@@ -84,17 +88,43 @@ if (!this.get('poplistIsOpen')) {
 
 <h4 id="section-options">options <span>array</span></h4>
 <p>
-  .
+  Pass in an array of options for the user to select from.
+</p>
+
+<pre>countries: [
+  { label: 'Canada', value: 1 }
+  { label: 'United Sates', value: 2 }
+  { label: 'Mexico', value: 3 }
+]</pre>
+
+<pre>users: [
+  Ember.Object.create({
+    name: 'John',
+    email: 'john@gmail.com',
+    value: '1'
+  }), Ember.Object.create({
+    name: 'Mark',
+    email: 'mark@gmail.com',
+    value: '2'
+  }), Ember.Object.create({
+    name: 'Richard',
+    email: 'richard@gmail.com',
+    value: '3'
+  })
+]</pre>
+
+<p>
+  You also will need to specify the path to the label via the <em>labelPath</em>.
 </p>
 
 
 <h4 id="section-selection">selection <span>object</span></h4>
 <p>
-  .
+  The current option selected.
 </p>
 
 
-<h4 id="section-isopen">labelPath <span>string</span></h4>
+<h4 id="section-labelpath">labelPath <span>string</span></h4>
 <p>
-  .
+  Path to the field you want to use as the label for each of the <em>options</em>. Default path is 'label'.
 </p>
