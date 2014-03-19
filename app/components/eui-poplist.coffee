@@ -105,6 +105,7 @@ poplist = Em.Component.extend styleSupport,
       @set('listHeight', (10 * rowHeight))
 
   # Scroll the list to make sure the given option is visible.
+  # Copied from https://github.com/Addepar/ember-widgets/
   scrollToSelection: (option) ->
     $listView  = @.$('.ember-list-view')
     listView   = Ember.View.views[$listView.attr('id')]
