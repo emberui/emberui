@@ -30,11 +30,11 @@ modal = Em.Component.extend styleSupport,
       animation = true if this.$().css(prefix + 'animationName')
 
     if animation
-      @$().one 'webkitAnimationEnd oanimationend msAnimationEnd animationend', =>
+      @$().one 'webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', =>
         @destroy()
     else
       @destroy()
-      
+
   didInsertElement: ->
     @set('isOpen', true)
 
