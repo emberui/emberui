@@ -109,7 +109,13 @@ $experimental-support-for-svg: true;
     }
 
     /* hover */
-    .eui-enabled:hover,
+    .eui-enabled:hover {
+      .eui-icon {
+        opacity: 1;
+      }
+    }
+
+    /* focus */
     input:focus + .eui-enabled {
       background: rgba(0,107,255,0.5);
       box-shadow: 0px 0px 4px #0090ff;
@@ -150,12 +156,6 @@ $experimental-support-for-svg: true;
       }
     }
 
-
-    /* hover */
-    &.eui-enabled:hover {
-      background: #5296e5;
-      box-shadow: 0px 0px 4px #0090ff;
-    }
 
     /* disabled */
     &.eui-disabled {
