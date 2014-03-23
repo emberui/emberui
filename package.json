@@ -1,5 +1,4 @@
-{
-  "name": "emberui",
+{ "name": "emberui",
   "namespace": "emberui",
   "version": "0.1.0",
   "scripts": {
@@ -12,10 +11,19 @@
   "author": {
     "name": "Jaco Joubert",
     "url": "https://twitter.com/jaco_says",
-    "email": "joubert.jaco@gmail.com",
+    "email": "joubert.jaco@gmail.com"
   },
   "license": "MIT",
+  "dependencies": {
+    "broccoli": "0.4.1",
+    "broccoli-coffee": "0.1.0",
+    "broccoli-template": "0.1.0",
+    "broccoli-es6-concatenator": "0.1.2",
+    "broccoli-sass": "0.1.2",
+    "broccoli-static-compiler": "0.1.2",
+    "broccoli-env": "0.0.1"
+  },
   "devDependencies": {
     "bower":"1.2.8"
-  },
+  }
 }

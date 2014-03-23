@@ -17,64 +17,64 @@ module.exports = function (broccoli) {
     return tree
   }
 
-  var app = broccoli.makeTree('app')
-  app = pickFiles(app, {
-    srcDir: '/',
-    destDir: 'appkit' // move under appkit namespace
+  var components = broccoli.makeTree('lib')
+  components = pickFiles(components, {
+    srcDir: '/components',
+    destDir: 'build' // move under appkit namespace
   })
-  app = preprocess(app)
+  components = preprocess(components)
 
-  var styles = broccoli.makeTree('styles')
+  var mixins = broccoli.makeTree('lib')
+  mixins = pickFiles(mixins, {
+    srcDir: '/mixins',
+    destDir: 'build' // move under appkit namespace
+  })
+  mixins = preprocess(mixins)
+
+  var default_theme_styles = broccoli.makeTree('lib/styles')
+  default_theme_styles = pickFiles(styles, {
+    srcDir: '/default-theme',
+    destDir: 'build'
+  })
+  default_theme_styles = preprocess(default_theme_styles)
+
+  var styles = broccoli.makeTree('lib/styles')
   styles = pickFiles(styles, {
-    srcDir: '/',
-    destDir: 'appkit'
+    srcDir: '/emberui',
+    destDir: 'build'
   })
   styles = preprocess(styles)
 
-  var tests = broccoli.makeTree('tests')
-  tests = pickFiles(tests, {
-    srcDir: '/',
-    destDir: 'appkit/tests'
+  var templates = broccoli.makeTree('lib')
+  templates = pickFiles(templates, {
+    srcDir: '/templates',
+    destDir: 'build'
   })
-  tests = preprocess(tests)
+  templates = preprocess(templates)
 
-  var vendor = broccoli.makeTree('vendor')
+  var sourceTrees = [components,
+                     mixins,
+                     default_theme_styles,
+                     styles,
+                     templates]
 
-  var sourceTrees = [app, styles, vendor]
-  if (env !== 'production') {
-    sourceTrees.push(tests)
-  }
+
   sourceTrees = sourceTrees.concat(broccoli.bowerTrees())
 
   var appAndDependencies = new broccoli.MergedTree(sourceTrees)
 
   var appJs = compileES6(appAndDependencies, {
-    loaderFile: 'loader.js',
     ignoredModules: [
-      'ember/resolver'
     ],
     inputFiles: [
-      'appkit/**/*.js'
     ],
     legacyFilesToAppend: [
-      'jquery.js',
-      'handlebars.js',
-      'ember.js',
-      'ember-data.js',
-      'ember-resolver.js'
     ],
     wrapInEval: env !== 'production',
-    outputFile: '/assets/app.js'
+    outputFile: '/assets/emberui.js'
   })
 
-  var appCss = compileSass(sourceTrees, 'appkit/app.scss', 'assets/app.css')
-
-  if (env === 'production') {
-    appJs = uglifyJavaScript(appJs, {
-      // mangle: false,
-      // compress: false
-    })
-  }
+  var appCss = compileSass(sourceTrees)
 
   var publicFiles = broccoli.makeTree('public')
 
