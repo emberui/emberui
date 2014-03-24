@@ -5,10 +5,10 @@
 </div>
 
 <p>
-  The select uses the poplist component to query the user's selection.
+  The <em>select</em> uses the <em>poplist</em> component to query the user's selection.
 </p>
 <p>
-  The <em>poplist</em> makes use of list-view to hande large amounts of data without performance hickups. To make it easy to navigate for the user search support is provided. Simply start typing while the <em>poplist</em> is open to filter the options.
+  The <em>select</em> makes use of list-view to hande large amounts of data without performance hickups. To make it easy to navigate for the user search support is provided. Simply start typing while the <em>select</em> is open to filter the options.
 </p>
 
 <div class="output">
@@ -16,7 +16,7 @@
 </div>
 
 <p>
-  The <em>poplist</em> prevents the page from scrolling while the cursor is over the poplist. Should the page scroll the poplist will be close automatically.
+  The <em>select</em> prevents the page from scrolling while the cursor is over the select. Should the page scroll the select will be closed automatically.
 </p>
 
 
@@ -46,7 +46,7 @@
 
 <h4 id="section-size">size <span>string</span></h4>
 <p>
-  The overall size of the select. Width is set via the <a href="#section-width">width</a> parameter. Each size has a associated width it will use unless you override it.
+  The overall size of the select. Width is set via the <a href="#section-width">width</a> parameter. Each size has an associated width it will use unless you override it.
 </p>
 
 <h5>Values</h5>
@@ -86,7 +86,7 @@
 
 <h4 id="section-width">width <span>string</span></h4>
 <p>
-  Width of the select. You must pass in a CSS size value with the unit. The select uses the CSS box-sizing to ensure precentage based sizes are actual sizes.
+  Width of the select. You must pass in a CSS size value with the unit. The select uses CSS box-sizing to ensure precentage-based sizes are actual sizes.
 </p>
 
 <pre>\{{eui-input width='150px' placeholder='150px'}}
@@ -116,13 +116,13 @@
 
 <h4 id="section-labelpath">labelPath <span>string</span></h4>
 <p>
-  Path to the field you want to use as the label for each of the <em>options</em>. Default path is 'label'.
+  Path to the label property for each of the <em>options</em>. Default path is 'label'.
 </p>
 
 
 <h4 id="section-options">options <span>array</span></h4>
 <p>
-  Pass in an array of options for the user to select from.
+  An array of options for the user to select from.
 </p>
 
 <pre>countries: [
@@ -148,7 +148,7 @@
 ]</pre>
 
 <p>
-  You will need to specify the path to the label and the value via the <em>labelPath</em> and <em>valuePath</em> properties.
+  You will also need to specify the path to the label property using <em>labelPath</em>.
 </p>
 
 <pre>\{{eui-select placeholder="Select by name" options=users labelPath='name'}}
@@ -174,22 +174,22 @@
 
 <h4 id="section-selection">selection <span>object</span></h4>
 <p>
-  The current option selected. Will return <em>null</em> if the user has selected nothing.
+  The currently selected option. <em>null</em> if nothing is selected.
 </p>
 
 
-<h4 id="section-value">value <span>string</span></h4>
+<h4 id="section-value">value <span>object</span></h4>
 <p>
   Uses the <em>valuePath</em> property to look up the value of the current <em>selection</em>.
 </p>
 <p>
-  If you do not specify a <em>selection</em> for the select, then the <em>value</em> and <em>valuePath</em> properties will be used to find the option that corresponds with the value in the list of <em>options</em>. It will then be assigned to the <em>selection</em> as its initial value.
+  If you do not specify a <em>selection</em> for the select, then the <em>value</em> and <em>valuePath</em> properties will be used to find the option that corresponds with the value in the list of <em>options</em>. The corresponding option will then be assigned to the <em>selection</em> as its initial value.
 </p>
 
 
 <h4 id="section-valuepath">valuePath <span>string</span></h4>
 <p>
-  Path to the field you want to return as the value in each of the <em>options</em>. Default path is 'value'.
+  Path to the value property for each of the <em>options</em>. Default path is 'value'.
 </p>
 
 
@@ -201,5 +201,5 @@
 
 <h4 id="section-required">required <span>boolean</span></h4>
 <p>
-  If set to true the select requires a value or will not allow the user to select an empty value. If not set the select will automatically add a blank option to the list of provided options.
+  If set to <em>true</em> the select will not allow the user to select an empty value. If not set the select will automatically add a blank option to the list.
 </p>

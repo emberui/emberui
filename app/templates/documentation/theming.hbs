@@ -7,11 +7,13 @@
 <h2>Extending the default theme</h2>
 
 <p>
-  Every component has a style attribute. This style value is taken, <em>eui-</em> is prepended to allow for concise scoping by the css, and it is then added as a class to the main container element of the component.
+  Every component has a style attribute. For concise css scoping, this value is prefixed with <em>eui-</em> and added as a class to the main container element of the component.
 </p>
 <p>
-  For example, the button component has two supported style attributes, default and primary. If you specified the primary style then the final markup for the button, minus all the ember markup, would look something like this:
+  For example, the button component has two supported style attributes: <em>default</em> and <em>primary</em>. If you specify the <em>primary</em> style then the final markup for the button, ignoring metamorph tags, would look something like this:
 </p>
+
+<pre>\{{eui-button label="Save Changes" style="primary"}}</pre>
 
 <pre>&lt;button class="eui-button eui-primary eui-medium">
   &lt;div class="eui-wrapper">
@@ -21,13 +23,13 @@
   &lt;/div>
 &lt;/button></pre>
 
-<p>However, you can specify any value you desire and that value would be set as the class prefixed with eui-. If you do not supply a style paramater then the default class will automatically be added.
+<p>However, you can specify any value you like and it will be set as the class prefixed with <em>eui-</em>. If you do not supply a style paramater then the default class will automatically be added.
 </p>
 <p>
-  The same logic applies for the size paramater as well. By default tiny, small, medium (default value), and large is supported. However, say you wanted to add a gigantic size simply specify it:
+  The same logic applies for the size paramater as well. By default <em>tiny</em>, <em>small</em>, <em>medium</em> (default value), and <em>large</em> are supported. However, if you wanted to add a <em>gigantic</em> size simply specify it:
 </p>
 
-<pre>\{{eui-button label="Save Changes size="gigantic"}}</pre>
+<pre>\{{eui-button label="Save Changes" size="gigantic"}}</pre>
 
 <pre>&lt;button class="eui-button eui-default eui-gigantic">
   &lt;div class="eui-wrapper">
@@ -58,13 +60,13 @@
 }</pre>
 
 <p>
-  You should scope your sizes to the component type to avoid style interference. Creating additional styles can be quite involved if you want to suppose the full range of features, but will pay off in the long run.
+  You should scope your sizes to the component type to avoid style interference. Creating additional styles can be quite involved if you want to suppose the full range of features, but it will pay off in the long run.
 </p>
 
 <h2>Creating a new theme</h2>
 
 <p>
-  To make creating a completely different theme easy the css for EmberUI has been split into a base and theme file set. The base set is restricted to only the necessary css to support the feature set and provide an easy starting point for styling a new theme.
+  To facilitate creating a completely different theme the css for EmberUI has been split into a base and theme file set. The base set is restricted to only the css necessary to support the feature set and provide an easy starting point for styling a new theme.
 </p>
 <p>
   The default theme set contains some very complex styles to support its visual aesthetic. If you plan to create a lot of custom styles it may be easier to delete the default theme and create your own.

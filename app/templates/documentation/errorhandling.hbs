@@ -26,7 +26,7 @@
     </ul>
   </li>
   <li>
-    <strong>Element looses focus</strong>
+    <strong>Element loses focus</strong>
     <ul>
       <li>Calculate and update error state</li>
     </ul>
@@ -37,7 +37,7 @@
   We do not calculate or enter an error state for inputs that are blank on page load because the user has had no chance to interact with them yet.
 </p>
 <p>
-  This also applies when the user is entering data into an elment not currently in an error state. We don't have to trigger an error as soon as the user starts typing, we need to give them a chance to finish first. Thus the first error check happens when the elment looses focus.
+  This also applies when the user is entering data into an elment not currently in an error state. We don't trigger an error as soon as the user starts typing but give them a chance to finish first. Thus the first error check happens when the element loses focus.
 </p>
 
 
@@ -66,14 +66,14 @@
 </div>
 
 <p>
-  Both of these examples used a hardcoded value so the error state cannot change. If we instead make use of Ember's data bindings we can create an input that checks its error state dynamically.
+  Both of these examples used a fixed value for <em>error</em> so the error state cannot change. If we instead make use of Ember's data bindings we can create an input that updates its error state dynamically:
 </p>
 
-<pre>\{{eui-input value=email error=validateEmail}}</pre>
+<pre>\{{eui-input value=email error=emailValid}}</pre>
 
 <pre>email: 'john@example',
 
-validateEmail: function() {
+emailValid: function() {
   var emailpat = /^[^@]+@[^@]+\.[^@\.]{2,}$/;
   var email = this.get('email');
 
@@ -85,7 +85,7 @@ validateEmail: function() {
 }.property('email')</pre>
 
 <div class="output">
-  {{eui-input value=email error=validateEmail}}
+  {{eui-input value=email error=emailValid}}
 </div>
 
 <br />

@@ -1,7 +1,7 @@
 controller = Ember.ObjectController.extend
   email: 'john@example'
 
-  validateEmail: (->
+  emailValid: (->
     emailpat = /^[^@]+@[^@]+\.[^@\.]{2,}$/
     email = @get('email')
 
