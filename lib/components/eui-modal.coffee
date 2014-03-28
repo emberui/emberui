@@ -1,5 +1,5 @@
-`import styleSupport from 'build/mixins/style-support'`
-`import modalLayout from 'build/templates/eui-modal'`
+`import styleSupport from '../mixins/style-support'`
+`import modalLayout from '../templates/eui-modal'`
 
 modal = Em.Component.extend styleSupport,
   layout: modalLayout

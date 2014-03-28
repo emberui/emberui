@@ -1,79 +1,39 @@
-module.exports = function (broccoli) {
-  var filterCoffeeScript = require('broccoli-coffee')
-  var filterTemplates = require('broccoli-template')
-  var compileES6 = require('broccoli-es6-concatenator')
-  var compileSass = require('broccoli-sass')
-  var pickFiles = require('broccoli-static-compiler')
-  var env = require('broccoli-env').getEnv()
+module.exports = function(broccoli) {
+  var filterCoffeeScript  = require('broccoli-coffee')
+  var filterTemplates     = require('broccoli-template');
+  var vndFilterES6Modules = require('broccoli-dist-es6-module');
+  var compileSass         = require('broccoli-sass');
+  var lib                 = broccoli.makeTree('lib');
+  var styles              = broccoli.makeTree('scss/emberui');
+  var defaultTheme        = broccoli.makeTree('scss/default-theme');
 
-  function preprocess (tree) {
-    tree = filterTemplates(tree, {
-      extensions: ['hbs', 'handlebars'],
-      compileFunction: 'Ember.Handlebars.compile'
-    })
-    tree = filterCoffeeScript(tree, {
-      bare: true
-    })
-    return tree
+  function filterES6Modules(tree, opts) {
+    return new broccoli.MergedTree(vndFilterES6Modules(tree, opts));
   }
 
-  var library = broccoli.makeTree('lib')
+  // Need to figure out compass before we can compile scss
+  // styles = compileSass([scss], 'emberui.scss', 'emberui.css');
+  // defaultTheme = compileSass([scss], 'theme.scss', 'default-theme.css');
 
-  var components = pickFiles(library, {
-    srcDir: '/components',
-    destDir: 'build/components'
-  })
-  components = preprocess(components)
+  lib = filterTemplates(lib, {
+    extensions: ['hbs'],
+    compileFunction: 'Ember.Handlebars.compile'
+  });
 
-  var mixins = pickFiles(library, {
-    srcDir: '/mixins',
-    destDir: 'build/mixins'
-  })
-  mixins = preprocess(mixins)
-
-  var templates = pickFiles(library, {
-    srcDir: '/templates',
-    destDir: 'build/templates'
-  })
-  templates = preprocess(templates)
-
-  var defaultThemeStyles = pickFiles(library, {
-    srcDir: '/styles/default-theme',
-    destDir: 'build/styles/default-theme'
-  })
-  defaultThemeStyles = preprocess(defaultThemeStyles)
-
-  var requiredStyles = pickFiles(library, {
-    srcDir: '/styles/emberui',
-    destDir: 'build/styles/emberui'
-  })
-  requiredStyles = preprocess(requiredStyles)
-
-  var vendor = broccoli.makeTree('vendor')
-
-  var sourceTrees = [components, mixins, templates, defaultThemeStyles, requiredStyles, vendor]
-
-  sourceTrees = sourceTrees.concat(broccoli.bowerTrees())
-
-  var emberui = new broccoli.MergedTree(sourceTrees)
-
-  var appJs = compileES6(emberui, {
-    loaderFile: 'loader.js',
-    ignoredModules: [
-      'ember/resolver'
-    ],
-    inputFiles: [
-      'build/**/*.js'
-    ],
-    wrapInEval: env !== 'production',
-    outputFile: '/emberui.js'
+  lib = filterCoffeeScript(lib, {
+    bare: true
   })
 
-  // Remove until we get compass working
-  // var requiredCss = compileSass(sourceTrees, 'build/emberui.scss', 'build/emberui.css')
-  // var themeCss = compileSass(sourceTrees, 'build/theme.scss', 'build/default-theme.css')
+  lib = filterES6Modules(lib, {
+    global:      'Ember.EmberUi',
+    packageName: 'emberui',
+    main:        'main',
 
-  var publicFiles = broccoli.makeTree('public')
+    shim: {
+      ember:      'Ember',
+      handlebars: 'Handlebars'
+    }
+  });
 
-  return [appJs, publicFiles]
-}
+  return [lib];
+};

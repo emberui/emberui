@@ -1,6 +1,6 @@
-`import styleSupport from 'build/mixins/style-support'`
-`import sizeSupport from 'build/mixins/size-support'`
-`import poplistComponent from 'build/components/eui-poplist'`
+`import styleSupport from '../mixins/style-support'`
+`import sizeSupport from '../mixins/size-support'`
+`import poplistComponent from '../components/eui-poplist'`
 
 dropbutton = Em.Component.extend styleSupport, sizeSupport,
   tagName: 'div'
