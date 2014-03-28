@@ -1,8 +1,8 @@
-`import validationSupport from 'appkit/mixins/validation-support'`
-`import textSupport from 'appkit/mixins/text-support'`
-`import styleSupport from 'appkit/mixins/style-support'`
-`import sizeSupport from 'appkit/mixins/size-support'`
-`import widthSupport from 'appkit/mixins/width-support'`
+`import validationSupport from 'build/mixins/validation-support'`
+`import textSupport from 'build/mixins/text-support'`
+`import styleSupport from 'build/mixins/style-support'`
+`import sizeSupport from 'build/mixins/size-support'`
+`import widthSupport from 'build/mixins/width-support'`
 
 input = Em.Component.extend validationSupport, textSupport, styleSupport, sizeSupport, widthSupport,
   classNameBindings: [':eui-input']

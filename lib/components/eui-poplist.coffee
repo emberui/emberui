@@ -1,6 +1,6 @@
-`import styleSupport from 'appkit/mixins/style-support'`
-`import poplistLayout from 'appkit/templates/components/eui-poplist'`
-`import itemViewClassTemplate from 'appkit/templates/components/eui-poplist-option'`
+`import styleSupport from 'build/mixins/style-support'`
+`import poplistLayout from 'build/templates/eui-poplist'`
+`import itemViewClassTemplate from 'build/templates/eui-poplist-option'`
 
 poplist = Em.Component.extend styleSupport,
   layout: poplistLayout

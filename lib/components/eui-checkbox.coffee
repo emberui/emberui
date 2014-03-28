@@ -1,6 +1,6 @@
-`import validationSupport from 'appkit/mixins/validation-support'`
-`import styleSupport from 'appkit/mixins/style-support'`
-`import sizeSupport from 'appkit/mixins/size-support'`
+`import validationSupport from 'build/mixins/validation-support'`
+`import styleSupport from 'build/mixins/style-support'`
+`import sizeSupport from 'build/mixins/size-support'`
 
 checkbox = Em.Component.extend validationSupport, styleSupport, sizeSupport,
   classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class']

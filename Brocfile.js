@@ -21,31 +21,31 @@ module.exports = function (broccoli) {
 
   var components = pickFiles(library, {
     srcDir: '/components',
-    destDir: 'build'
+    destDir: 'build/components'
   })
   components = preprocess(components)
 
   var mixins = pickFiles(library, {
     srcDir: '/mixins',
-    destDir: 'build'
+    destDir: 'build/mixins'
   })
   mixins = preprocess(mixins)
 
   var templates = pickFiles(library, {
     srcDir: '/templates',
-    destDir: 'build'
+    destDir: 'build/templates'
   })
   templates = preprocess(templates)
 
   var defaultThemeStyles = pickFiles(library, {
     srcDir: '/styles/default-theme',
-    destDir: 'build'
+    destDir: 'build/styles/default-theme'
   })
   defaultThemeStyles = preprocess(defaultThemeStyles)
 
   var requiredStyles = pickFiles(library, {
     srcDir: '/styles/emberui',
-    destDir: 'build'
+    destDir: 'build/styles/emberui'
   })
   requiredStyles = preprocess(requiredStyles)
 
@@ -66,13 +66,14 @@ module.exports = function (broccoli) {
       'build/**/*.js'
     ],
     wrapInEval: env !== 'production',
-    outputFile: '/assets/emberui.js'
+    outputFile: '/emberui.js'
   })
 
-  var requiredCss = compileSass(sourceTrees, 'build/emberui.scss', 'build/emberui.css')
-  var themeCss = compileSass(sourceTrees, 'build/theme.scss', 'build/default-theme.css')
+  // Remove until we get compass working
+  // var requiredCss = compileSass(sourceTrees, 'build/emberui.scss', 'build/emberui.css')
+  // var themeCss = compileSass(sourceTrees, 'build/theme.scss', 'build/default-theme.css')
 
-  var publicFiles = broccoli.makeTree('build')
+  var publicFiles = broccoli.makeTree('public')
 
-  return [appJs, requiredCss, themeCss, publicFiles]
+  return [appJs, publicFiles]
 }

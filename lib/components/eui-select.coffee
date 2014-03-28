@@ -1,9 +1,9 @@
-`import styleSupport from 'appkit/mixins/style-support'`
-`import sizeSupport from 'appkit/mixins/size-support'`
-`import poplistComponent from 'appkit/components/eui-poplist'`
-`import disabledSupport from 'appkit/mixins/disabled-support'`
-`import widthSupport from 'appkit/mixins/width-support'`
-`import validationSupport from 'appkit/mixins/validation-support'`
+`import styleSupport from 'build/mixins/style-support'`
+`import sizeSupport from 'build/mixins/size-support'`
+`import poplistComponent from 'build/components/eui-poplist'`
+`import disabledSupport from 'build/mixins/disabled-support'`
+`import widthSupport from 'build/mixins/width-support'`
+`import validationSupport from 'build/mixins/validation-support'`
 
 select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport,
   tagName: 'div'
