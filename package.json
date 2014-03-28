@@ -1,4 +1,5 @@
-{ "name": "emberui",
+{
+  "name": "emberui",
   "namespace": "emberui",
   "version": "0.1.0",
   "scripts": {
@@ -15,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "broccoli": "0.4.1",
+    "broccoli": "^0.4.1",
     "broccoli-coffee": "0.1.0",
     "broccoli-template": "0.1.0",
     "broccoli-es6-concatenator": "0.1.2",
@@ -24,6 +25,6 @@
     "broccoli-env": "0.0.1"
   },
   "devDependencies": {
-    "bower":"1.2.8"
+    "bower": "1.2.8"
   }
 }

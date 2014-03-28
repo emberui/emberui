@@ -17,66 +17,62 @@ module.exports = function (broccoli) {
     return tree
   }
 
-  var components = broccoli.makeTree('lib')
-  components = pickFiles(components, {
+  var library = broccoli.makeTree('lib')
+
+  var components = pickFiles(library, {
     srcDir: '/components',
-    destDir: 'build' // move under appkit namespace
+    destDir: 'build'
   })
   components = preprocess(components)
 
-  var mixins = broccoli.makeTree('lib')
-  mixins = pickFiles(mixins, {
+  var mixins = pickFiles(library, {
     srcDir: '/mixins',
-    destDir: 'build' // move under appkit namespace
+    destDir: 'build'
   })
   mixins = preprocess(mixins)
 
-  var default_theme_styles = broccoli.makeTree('lib/styles')
-  default_theme_styles = pickFiles(default_theme_styles, {
-    srcDir: '/default-theme',
-    destDir: 'build'
-  })
-  default_theme_styles = preprocess(default_theme_styles)
-
-  var styles = broccoli.makeTree('lib/styles')
-  styles = pickFiles(styles, {
-    srcDir: '/emberui',
-    destDir: 'build'
-  })
-  styles = preprocess(styles)
-
-  var templates = broccoli.makeTree('lib')
-  templates = pickFiles(templates, {
+  var templates = pickFiles(library, {
     srcDir: '/templates',
     destDir: 'build'
   })
   templates = preprocess(templates)
 
-  var sourceTrees = [components,
-                     mixins,
-                     default_theme_styles,
-                     styles,
-                     templates]
+  var defaultThemeStyles = pickFiles(library, {
+    srcDir: '/styles/default-theme',
+    destDir: 'build'
+  })
+  defaultThemeStyles = preprocess(defaultThemeStyles)
 
+  var requiredStyles = pickFiles(library, {
+    srcDir: '/styles/emberui',
+    destDir: 'build'
+  })
+  requiredStyles = preprocess(requiredStyles)
+
+  var vendor = broccoli.makeTree('vendor')
+
+  var sourceTrees = [components, mixins, templates, defaultThemeStyles, requiredStyles, vendor]
 
   sourceTrees = sourceTrees.concat(broccoli.bowerTrees())
 
-  var appAndDependencies = new broccoli.MergedTree(sourceTrees)
+  var emberui = new broccoli.MergedTree(sourceTrees)
 
-  var appJs = compileES6(appAndDependencies, {
+  var appJs = compileES6(emberui, {
+    loaderFile: 'loader.js',
     ignoredModules: [
+      'ember/resolver'
     ],
     inputFiles: [
-    ],
-    legacyFilesToAppend: [
+      'build/**/*.js'
     ],
     wrapInEval: env !== 'production',
     outputFile: '/assets/emberui.js'
   })
 
-  var appCss = compileSass(sourceTrees)
+  var requiredCss = compileSass(sourceTrees, 'build/emberui.scss', 'build/emberui.css')
+  var themeCss = compileSass(sourceTrees, 'build/theme.scss', 'build/default-theme.css')
 
-  var publicFiles = broccoli.makeTree('public')
+  var publicFiles = broccoli.makeTree('build')
 
-  return [appJs, appCss, publicFiles]
+  return [appJs, requiredCss, themeCss, publicFiles]
 }
