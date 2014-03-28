@@ -32,7 +32,7 @@ module.exports = function (broccoli) {
   mixins = preprocess(mixins)
 
   var default_theme_styles = broccoli.makeTree('lib/styles')
-  default_theme_styles = pickFiles(styles, {
+  default_theme_styles = pickFiles(default_theme_styles, {
     srcDir: '/default-theme',
     destDir: 'build'
   })
