@@ -5,7 +5,6 @@ module.exports = function(broccoli) {
   var compileSass         = require('broccoli-sass');
   var lib                 = broccoli.makeTree('lib');
   var scss                = broccoli.makeTree('scss');
-  var defaultTheme        = broccoli.makeTree('scss/default-theme');
 
   function filterES6Modules(tree, opts) {
     return new broccoli.MergedTree(vndFilterES6Modules(tree, opts));
