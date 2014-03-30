@@ -10,7 +10,7 @@
     "node_modules",
     "bower_components"
   ],
-  "dependencies": {
-  
+  "devDependencies": {
+    "compass-mixins": "https://github.com/Igosuki/compass-mixins.git#~1.0.0"
   }
 }

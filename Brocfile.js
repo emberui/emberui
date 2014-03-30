@@ -4,16 +4,15 @@ module.exports = function(broccoli) {
   var vndFilterES6Modules = require('broccoli-dist-es6-module');
   var compileSass         = require('broccoli-sass');
   var lib                 = broccoli.makeTree('lib');
-  var styles              = broccoli.makeTree('scss/emberui');
+  var scss                = broccoli.makeTree('scss');
   var defaultTheme        = broccoli.makeTree('scss/default-theme');
 
   function filterES6Modules(tree, opts) {
     return new broccoli.MergedTree(vndFilterES6Modules(tree, opts));
   }
 
-  // Need to figure out compass before we can compile scss
-  // styles = compileSass([scss], 'emberui.scss', 'emberui.css');
-  // defaultTheme = compileSass([scss], 'theme.scss', 'default-theme.css');
+  styles = compileSass([scss], 'emberui.scss', 'emberui.css');
+  defaultTheme = compileSass([scss], 'default-theme.scss', 'default-theme.css');
 
   lib = filterTemplates(lib, {
     extensions: ['hbs'],
@@ -35,5 +34,5 @@ module.exports = function(broccoli) {
     }
   });
 
-  return [lib];
+  return [lib, styles, defaultTheme];
 };
