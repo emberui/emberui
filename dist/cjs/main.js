@@ -4,33 +4,34 @@ EmberUI (c) 2014 Jaco Joubert
 License: https://github.com/emberui/emberui/blob/master/LICENSE
 */
 
-var EuiButton = require("./components/eui-button")["default"] || require("./components/eui-button");
+var EuiButtonComponent = require("./components/eui-button")["default"] || require("./components/eui-button");
 var EuiButtonTemplate = require("./templates/eui-button")["default"] || require("./templates/eui-button");
 
-var EuiCheckbox = require("./components/eui-checkbox")["default"] || require("./components/eui-checkbox");
+var EuiCheckboxComponent = require("./components/eui-checkbox")["default"] || require("./components/eui-checkbox");
 var EuiCheckboxTemplate = require("./templates/eui-checkbox")["default"] || require("./templates/eui-checkbox");
 
-var EuiDropbutton = require("./components/eui-dropbutton")["default"] || require("./components/eui-dropbutton");
+var EuiDropbuttonComponent = require("./components/eui-dropbutton")["default"] || require("./components/eui-dropbutton");
 var EuiDropbuttonTemplate = require("./templates/eui-dropbutton")["default"] || require("./templates/eui-dropbutton");
 
-var EuiInput = require("./components/eui-input")["default"] || require("./components/eui-input");
+var EuiInputComponent = require("./components/eui-input")["default"] || require("./components/eui-input");
 var EuiInputTemplate = require("./templates/eui-input")["default"] || require("./templates/eui-input");
 
-var EuiModal = require("./components/eui-modal")["default"] || require("./components/eui-modal");
+var EuiModalComponent = require("./components/eui-modal")["default"] || require("./components/eui-modal");
 var EuiModalTemplate = require("./templates/eui-modal")["default"] || require("./templates/eui-modal");
 
-var EuiPoplist = require("./components/eui-poplist")["default"] || require("./components/eui-poplist");
-var EuipoplistTemplate = require("./templates/eui-poplist")["default"] || require("./templates/eui-poplist");
+var EuiPoplistComponent = require("./components/eui-poplist")["default"] || require("./components/eui-poplist");
+var EuiPoplistTemplate = require("./templates/eui-poplist")["default"] || require("./templates/eui-poplist");
+var EuiPoplistOptionTemplate = require("./templates/eui-poplist-option")["default"] || require("./templates/eui-poplist-option");
 
-var EuiSelect = require("./components/eui-select")["default"] || require("./components/eui-select");
+var EuiSelectComponent = require("./components/eui-select")["default"] || require("./components/eui-select");
 var EuiSelectTemplate = require("./templates/eui-select")["default"] || require("./templates/eui-select");
 
-var EuiTextarea = require("./components/eui-textarea")["default"] || require("./components/eui-textarea");
+var EuiTextareaComponent = require("./components/eui-textarea")["default"] || require("./components/eui-textarea");
 var EuiTextareaTemplate = require("./templates/eui-textarea")["default"] || require("./templates/eui-textarea");
 
 
 Application.initializer({
-  name: 'ember-ui',
+  name: 'emberui',
 
   initialize: function(container) {
     container.register('template:components/eui-button', EuiButtonTemplate);
@@ -49,6 +50,7 @@ Application.initializer({
     container.register('component:eui-modal', EuiModalComponent);
 
     container.register('template:components/eui-poplist', EuiPoplistTemplate);
+    container.register('template:components/eui-poplist-opion', EuiPoplistOptionTemplate);
     container.register('component:eui-poplist', EuiPoplistComponent);
 
     container.register('template:components/eui-select', EuiSelectTemplate);

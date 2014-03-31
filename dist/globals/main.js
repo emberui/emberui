@@ -592,33 +592,34 @@ EmberUI (c) 2014 Jaco Joubert
 License: https://github.com/emberui/emberui/blob/master/LICENSE
 */
 
-var EuiButton = _dereq_("./components/eui-button")["default"] || _dereq_("./components/eui-button");
+var EuiButtonComponent = _dereq_("./components/eui-button")["default"] || _dereq_("./components/eui-button");
 var EuiButtonTemplate = _dereq_("./templates/eui-button")["default"] || _dereq_("./templates/eui-button");
 
-var EuiCheckbox = _dereq_("./components/eui-checkbox")["default"] || _dereq_("./components/eui-checkbox");
+var EuiCheckboxComponent = _dereq_("./components/eui-checkbox")["default"] || _dereq_("./components/eui-checkbox");
 var EuiCheckboxTemplate = _dereq_("./templates/eui-checkbox")["default"] || _dereq_("./templates/eui-checkbox");
 
-var EuiDropbutton = _dereq_("./components/eui-dropbutton")["default"] || _dereq_("./components/eui-dropbutton");
+var EuiDropbuttonComponent = _dereq_("./components/eui-dropbutton")["default"] || _dereq_("./components/eui-dropbutton");
 var EuiDropbuttonTemplate = _dereq_("./templates/eui-dropbutton")["default"] || _dereq_("./templates/eui-dropbutton");
 
-var EuiInput = _dereq_("./components/eui-input")["default"] || _dereq_("./components/eui-input");
+var EuiInputComponent = _dereq_("./components/eui-input")["default"] || _dereq_("./components/eui-input");
 var EuiInputTemplate = _dereq_("./templates/eui-input")["default"] || _dereq_("./templates/eui-input");
 
-var EuiModal = _dereq_("./components/eui-modal")["default"] || _dereq_("./components/eui-modal");
+var EuiModalComponent = _dereq_("./components/eui-modal")["default"] || _dereq_("./components/eui-modal");
 var EuiModalTemplate = _dereq_("./templates/eui-modal")["default"] || _dereq_("./templates/eui-modal");
 
-var EuiPoplist = _dereq_("./components/eui-poplist")["default"] || _dereq_("./components/eui-poplist");
-var EuipoplistTemplate = _dereq_("./templates/eui-poplist")["default"] || _dereq_("./templates/eui-poplist");
+var EuiPoplistComponent = _dereq_("./components/eui-poplist")["default"] || _dereq_("./components/eui-poplist");
+var EuiPoplistTemplate = _dereq_("./templates/eui-poplist")["default"] || _dereq_("./templates/eui-poplist");
+var EuiPoplistOptionTemplate = _dereq_("./templates/eui-poplist-option")["default"] || _dereq_("./templates/eui-poplist-option");
 
-var EuiSelect = _dereq_("./components/eui-select")["default"] || _dereq_("./components/eui-select");
+var EuiSelectComponent = _dereq_("./components/eui-select")["default"] || _dereq_("./components/eui-select");
 var EuiSelectTemplate = _dereq_("./templates/eui-select")["default"] || _dereq_("./templates/eui-select");
 
-var EuiTextarea = _dereq_("./components/eui-textarea")["default"] || _dereq_("./components/eui-textarea");
+var EuiTextareaComponent = _dereq_("./components/eui-textarea")["default"] || _dereq_("./components/eui-textarea");
 var EuiTextareaTemplate = _dereq_("./templates/eui-textarea")["default"] || _dereq_("./templates/eui-textarea");
 
 
 Application.initializer({
-  name: 'ember-ui',
+  name: 'emberui',
 
   initialize: function(container) {
     container.register('template:components/eui-button', EuiButtonTemplate);
@@ -637,6 +638,7 @@ Application.initializer({
     container.register('component:eui-modal', EuiModalComponent);
 
     container.register('template:components/eui-poplist', EuiPoplistTemplate);
+    container.register('template:components/eui-poplist-opion', EuiPoplistOptionTemplate);
     container.register('component:eui-poplist', EuiPoplistComponent);
 
     container.register('template:components/eui-select', EuiSelectTemplate);
@@ -655,7 +657,7 @@ exports.EuiModalComponent = EuiModalComponent;
 exports.EuiPoplistComponent = EuiPoplistComponent;
 exports.EuiSelectComponent = EuiSelectComponent;
 exports.EuiTextareaComponent = EuiTextareaComponent;
-},{"./components/eui-button":1,"./components/eui-checkbox":2,"./components/eui-dropbutton":3,"./components/eui-input":4,"./components/eui-modal":5,"./components/eui-poplist":6,"./components/eui-select":7,"./components/eui-textarea":8,"./templates/eui-button":16,"./templates/eui-checkbox":17,"./templates/eui-dropbutton":18,"./templates/eui-input":19,"./templates/eui-modal":20,"./templates/eui-poplist":22,"./templates/eui-select":23,"./templates/eui-textarea":24}],10:[function(_dereq_,module,exports){
+},{"./components/eui-button":1,"./components/eui-checkbox":2,"./components/eui-dropbutton":3,"./components/eui-input":4,"./components/eui-modal":5,"./components/eui-poplist":6,"./components/eui-select":7,"./components/eui-textarea":8,"./templates/eui-button":16,"./templates/eui-checkbox":17,"./templates/eui-dropbutton":18,"./templates/eui-input":19,"./templates/eui-modal":20,"./templates/eui-poplist":22,"./templates/eui-poplist-option":21,"./templates/eui-select":23,"./templates/eui-textarea":24}],10:[function(_dereq_,module,exports){
 "use strict";
 var disabledsupport;
 
