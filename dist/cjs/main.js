@@ -30,7 +30,7 @@ var EuiTextareaComponent = require("./components/eui-textarea")["default"] || re
 var EuiTextareaTemplate = require("./templates/eui-textarea")["default"] || require("./templates/eui-textarea");
 
 
-Application.initializer({
+Ember.Application.initializer({
   name: 'emberui',
 
   initialize: function(container) {

@@ -618,7 +618,7 @@ var EuiTextareaComponent = _dereq_("./components/eui-textarea")["default"] || _d
 var EuiTextareaTemplate = _dereq_("./templates/eui-textarea")["default"] || _dereq_("./templates/eui-textarea");
 
 
-Application.initializer({
+Ember.Application.initializer({
   name: 'emberui',
 
   initialize: function(container) {
