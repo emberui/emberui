@@ -618,7 +618,7 @@ var EuiTextareaComponent = _dereq_("./components/eui-textarea")["default"] || _d
 var EuiTextareaTemplate = _dereq_("./templates/eui-textarea")["default"] || _dereq_("./templates/eui-textarea");
 
 
-Ember.Application.initializer({
+initializer = Ember.Application.initializer({
   name: 'emberui',
 
   initialize: function(container) {
@@ -649,14 +649,7 @@ Ember.Application.initializer({
   }
 });
 
-exports.EuiButtonComponent = EuiButtonComponent;
-exports.EuiCheckboxComponent = EuiCheckboxComponent;
-exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
-exports.EuiInputComponent = EuiInputComponent;
-exports.EuiModalComponent = EuiModalComponent;
-exports.EuiPoplistComponent = EuiPoplistComponent;
-exports.EuiSelectComponent = EuiSelectComponent;
-exports.EuiTextareaComponent = EuiTextareaComponent;
+exports["default"] = initializer;
 },{"./components/eui-button":1,"./components/eui-checkbox":2,"./components/eui-dropbutton":3,"./components/eui-input":4,"./components/eui-modal":5,"./components/eui-poplist":6,"./components/eui-select":7,"./components/eui-textarea":8,"./templates/eui-button":16,"./templates/eui-checkbox":17,"./templates/eui-dropbutton":18,"./templates/eui-input":19,"./templates/eui-modal":20,"./templates/eui-poplist":22,"./templates/eui-poplist-option":21,"./templates/eui-select":23,"./templates/eui-textarea":24}],10:[function(_dereq_,module,exports){
 "use strict";
 var disabledsupport;

@@ -30,7 +30,7 @@ var EuiTextareaComponent = require("./components/eui-textarea")["default"] || re
 var EuiTextareaTemplate = require("./templates/eui-textarea")["default"] || require("./templates/eui-textarea");
 
 
-Ember.Application.initializer({
+initializer = Ember.Application.initializer({
   name: 'emberui',
 
   initialize: function(container) {
@@ -61,11 +61,4 @@ Ember.Application.initializer({
   }
 });
 
-exports.EuiButtonComponent = EuiButtonComponent;
-exports.EuiCheckboxComponent = EuiCheckboxComponent;
-exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
-exports.EuiInputComponent = EuiInputComponent;
-exports.EuiModalComponent = EuiModalComponent;
-exports.EuiPoplistComponent = EuiPoplistComponent;
-exports.EuiSelectComponent = EuiSelectComponent;
-exports.EuiTextareaComponent = EuiTextareaComponent;
+exports["default"] = initializer;

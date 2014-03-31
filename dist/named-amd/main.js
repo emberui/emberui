@@ -636,7 +636,7 @@ define("emberui/components/eui-button",
     var EuiTextareaTemplate = __dependency17__["default"] || __dependency17__;
 
 
-    Ember.Application.initializer({
+    initializer = Ember.Application.initializer({
       name: 'emberui',
 
       initialize: function(container) {
@@ -667,14 +667,7 @@ define("emberui/components/eui-button",
       }
     });
 
-    __exports__.EuiButtonComponent = EuiButtonComponent;
-    __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
-    __exports__.EuiDropbuttonComponent = EuiDropbuttonComponent;
-    __exports__.EuiInputComponent = EuiInputComponent;
-    __exports__.EuiModalComponent = EuiModalComponent;
-    __exports__.EuiPoplistComponent = EuiPoplistComponent;
-    __exports__.EuiSelectComponent = EuiSelectComponent;
-    __exports__.EuiTextareaComponent = EuiTextareaComponent;
+    __exports__["default"] = initializer;
   });define("emberui/mixins/disabled-support",
   ["exports"],
   function(__exports__) {
