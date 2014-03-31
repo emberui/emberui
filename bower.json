@@ -1,6 +1,10 @@
 {
   "name": "emberui",
   "version": "0.1.0",
+  "main": ["dist/emberui.css",
+    "dist/default-theme.css",
+    "dist/globals/main.js"
+  ],
   "authors": [
     "Jaco Joubert <jaco@venn.lc>"
   ],
