@@ -90,6 +90,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   # Down Arrow Key opens poplist
   keyDown: (event) ->
     if event.which == 40
+      event.preventDefault()
       @click()
 
   # Overide validation-support mixin to check validation on change even if no error

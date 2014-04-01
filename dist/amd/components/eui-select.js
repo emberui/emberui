@@ -99,6 +99,7 @@ define(
       },
       keyDown: function(event) {
         if (event.which === 40) {
+          event.preventDefault();
           return this.click();
         }
       },

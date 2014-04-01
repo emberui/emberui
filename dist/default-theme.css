@@ -909,7 +909,8 @@
   .eui-poplist .eui-nooptions {
     padding: 0 7.5px;
     font-size: 13px;
-    color: #c6c6c6; }
+    color: #c6c6c6;
+    line-height: 20px; }
   .eui-poplist .eui-search-wrapper {
     border-bottom: solid 1px transparent;
     height: 0px;
