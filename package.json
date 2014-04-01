@@ -21,7 +21,8 @@
     "broccoli-template": "0.1.0",
     "broccoli-sass": "0.1.2",
     "broccoli-static-compiler": "0.1.2",
-    "broccoli-env": "0.0.1"
+    "broccoli-env": "0.0.1",
+    "broccoli-autoprefixer": "^0.1.0"
   },
   "devDependencies": {
     "bower": "1.2.8",

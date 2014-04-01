@@ -4,7 +4,9 @@
   .eui-select-form {
     padding: 1px;
     box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
-    @include transition(box-shadow 0.2s, background 0.2s);
+    transition:
+      box-shadow 0.2s,
+      background 0.2s;
   }
 
   .eui-wrapper {
@@ -16,7 +18,9 @@
   }
 
   i {
-    @include transition(opacity 0.2s, color 0.2s);
+    transition:
+      opacity 0.2s,
+      color 0.2s;
   }
 }
 
@@ -85,11 +89,11 @@
     .eui-select-form {
       color: #848484;
       text-shadow: 1px 1px #ffffff;
-      @include background-image(linear-gradient(top,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%));
+      background-image: linear-gradient(to bottom,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%);
     }
 
     .eui-wrapper {
-      @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,249,1) 50%,rgba(243,243,243,1) 50%,rgba(229,229,229,1) 100%));
+      background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(249,249,249,1) 50%,rgba(243,243,243,1) 50%,rgba(229,229,229,1) 100%);
     }
 
     .eui-icon {
@@ -102,10 +106,10 @@
     button:active + {
       .eui-select-form {
         background: none;
-        @include background-image(linear-gradient(top,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%));
+        background-image: linear-gradient(to bottom,  rgba(0,0,0,0.30) 0%,rgba(0,0,0,0.15) 100%);
 
         .eui-wrapper {
-          @include background-image(linear-gradient(top, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%));
+          background-image: linear-gradient(to bottom, rgba(241,241,241,1) 0%,rgba(255,255,255,1) 100%);
         }
       }
     }
@@ -137,7 +141,7 @@
     border-radius: inherit;
     background: rgba(255,255,255,0.1);
     opacity: 0;
-    @include transition(opacity 0.2s);
+    transition: opacity 0.2s;
   }
 
   &:hover .eui-wrapper:before {
@@ -178,8 +182,6 @@
   box-shadow:
     0px 0px 4px #ff0000,
     inset 0px 2px 3px rgba(0, 0, 0, 0.1);
-  -webkit-animation: eui-error-highlight 0.2s 1;
-  -moz-animation: eui-error-highlight 0.2s 1;
   animation: eui-error-highlight 0.2s 1;
 }
 

@@ -33,7 +33,7 @@ define(
     var EuiTextareaTemplate = __dependency17__["default"] || __dependency17__;
 
 
-    initializer = Ember.Application.initializer({
+    var initializer = Ember.Application.initializer({
       name: 'emberui',
 
       initialize: function(container) {

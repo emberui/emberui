@@ -1,19 +1,17 @@
 .eui-error-message {
   position: absolute;
-  @include background-image(linear-gradient(top,  rgba(0, 0, 0, 0.1) 0%,  rgba(0, 0, 0, 0.23) 100%));
+  background-image: linear-gradient(to bottom,  rgba(0, 0, 0, 0.1) 0%,  rgba(0, 0, 0, 0.23) 100%);
   box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
   padding: 1px;
   border-radius: 3px;
   z-index: 100;
   margin-top: 1px;
-  -webkit-animation: eui-slidedown 0.2s 1;
-  -moz-animation: eui-slidedown 0.2s 1;
   animation: eui-slidedown 0.2s 1;
   pointer-events: none;
 
   .eui-error-wrapper {
     border-radius: 3px;
-    @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 100%));
+    background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 100%);
     padding: 6px;
     line-height: 14px;
     font-size: 11px;
@@ -63,9 +61,9 @@
       height: 16px;
       text-align: center;
       text-shadow: none;
-      background: -webkit-linear-gradient(top, #f2c23d, #ffe14c);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background: -webkit-linear-gradient(to bottom, #f2c23d, #ffe14c);
+      background-clip: text;
+      text-fill-color: transparent;
     }
   }
 }

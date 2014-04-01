@@ -3,6 +3,8 @@ module.exports = function(broccoli) {
   var filterTemplates     = require('broccoli-template');
   var vndFilterES6Modules = require('broccoli-dist-es6-module');
   var compileSass         = require('broccoli-sass');
+  var autoprefixer        = require('broccoli-autoprefixer');
+
   var lib                 = broccoli.makeTree('lib');
   var scss                = broccoli.makeTree('scss');
 
@@ -11,7 +13,10 @@ module.exports = function(broccoli) {
   }
 
   styles = compileSass([scss], 'emberui.scss', 'emberui.css');
+  styles = autoprefixer(styles);
+
   defaultTheme = compileSass([scss], 'default-theme.scss', 'default-theme.css');
+  defaultTheme = autoprefixer(defaultTheme);
 
   lib = filterTemplates(lib, {
     extensions: ['hbs'],

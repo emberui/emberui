@@ -13,8 +13,5 @@
     "Brocfile.js",
     "node_modules",
     "bower_components"
-  ],
-  "devDependencies": {
-    "compass-mixins": "https://github.com/Igosuki/compass-mixins.git#~1.0.0"
-  }
+  ]
 }

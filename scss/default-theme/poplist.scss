@@ -13,7 +13,7 @@
     line-height: 20px;
     font-family: Helvetica, "Helvetica Neue", Arial, Tahoma, sans-serif;
     overflow: hidden;
-    @include transition(height 0.2s);
+    transition: height 0.2s;
   }
 
   .eui-option {
@@ -21,7 +21,7 @@
     cursor: pointer;
     width: 100%;
     height: 20px;
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -37,7 +37,9 @@
     border-bottom: solid 1px transparent;
     height: 0px;
     overflow: hidden;
-    @include transition(height 0.2s, border-color 0.2s);
+    transition:
+      height 0.2s,
+      border-color 0.2s;
 
     &.eui-active {
       height: 27px;
@@ -49,7 +51,7 @@
     outline: none;
     border: none;
     width: 100%;
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     padding: 0 5px 5px 5px;
     font-size: 13px;
   }
@@ -63,15 +65,11 @@
   */
 .eui-poplist {
   &.eui-bubble {
-    @include border-radius(3px);
+    border-radius: 3px;
     padding: 1px;
     margin-top: -2px;
-    @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
+    background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-    -webkit-animation-duration: 0.2s;
-    -webkit-animation-name: eui-slidedown;
-    -moz-animation-duration: 0.2s;
-    -moz-animation-name: eui-slidedown;
     animation-duration: 0.2s;
     animation-name: eui-slidedown;
     max-height: calc(100% - 100px);
@@ -98,7 +96,7 @@
 
     .eui-poplistwrapper {
       background: #ffffff;
-      @include border-radius(3px);
+      border-radius: 3px;
       padding: 5px 0;
     }
 
@@ -106,36 +104,30 @@
       padding: 0 7.5px;
 
       &.eui-hover {
-        @include background-image(linear-gradient(top,  #1493dc 0%, #64bcf7 100%));
+        background-image: linear-gradient(to bottom,  #1493dc 0%, #64bcf7 100%);
         color: #ffffff;
         text-shadow: 0px 1px rgba(0,0,0,0.35);
       }
     }
 
     &.eui-closing {
-      -webkit-animation: eui-slidezerodown 0.2s 1;
-      -moz-animation: eui-slidezerodown 0.2s 1;
       animation: eui-slidezerodown 0.2s 1;
     }
   }
 
   &.eui-flyin {
-    @include border-radius(3px);
+    border-radius: 3px;
     padding: 1px;
     margin-top: -2px;
-    @include background-image(linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%));
+    background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-    -webkit-animation-duration: 0.1s;
-    -webkit-animation-name: eui-flyin;
-    -moz-animation-duration: 0.1s;
-    -moz-animation-name: eui-flyin;
     animation-duration: 0.1s;
     animation-name: eui-flyin;
     max-height: calc(100% - 100px);
 
     .eui-poplistwrapper {
       background: #ffffff;
-      @include border-radius(3px);
+      border-radius: 3px;
       padding: 5px 0;
     }
 
@@ -143,7 +135,7 @@
       padding: 0 7.5px 0 20px;
 
       &.eui-selected {
-        @include background-image(linear-gradient(top, #eeeeee 0%, #f6f6f6 100%));
+        background-image: linear-gradient(to bottom, #eeeeee 0%, #f6f6f6 100%);
         color: #919191;
 
         &:before {
@@ -161,7 +153,7 @@
       }
 
       &.eui-hover {
-        @include background-image(linear-gradient(top,  #1493dc 0%, #64bcf7 100%));
+        background-image: linear-gradient(to bottom,  #1493dc 0%, #64bcf7 100%);
         color: #ffffff;
         text-shadow: 0px 1px rgba(0,0,0,0.35);
 
@@ -172,8 +164,6 @@
     }
 
     &.eui-closing {
-      -webkit-animation: eui-zoomupandin 0.2s 1;
-      -moz-animation: eui-zoomupandin 0.2s 1;
       animation: eui-zoomupandin 0.2s 1;
     }
   }
