@@ -296,21 +296,27 @@
 @-webkit-keyframes eui-zoomupandin {
   0% {
     opacity: 1;
-    -moz-transform: translate(0px, 0px) scale(1); }
+    -webkit-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1); }
 
   100% {
     opacity: 0;
-    -moz-transform: translate(0px, -60%) scale(0.3); } }
+    -webkit-transform: translate(0px, -60%) scale(0.3);
+    transform: translate(0px, -60%) scale(0.3); } }
 
 /* poplist zoom into top */
 @keyframes eui-zoomupandin {
   0% {
     opacity: 1;
-    -moz-transform: translate(0px, 0px) scale(1); }
+    -webkit-transform: translate(0px, 0px) scale(1);
+    -ms-transform: translate(0px, 0px) scale(1);
+    transform: translate(0px, 0px) scale(1); }
 
   100% {
     opacity: 0;
-    -moz-transform: translate(0px, -60%) scale(0.3); } }
+    -webkit-transform: translate(0px, -60%) scale(0.3);
+    -ms-transform: translate(0px, -60%) scale(0.3);
+    transform: translate(0px, -60%) scale(0.3); } }
 
 .eui-singlebutton, .eui-groupbutton {
   display: inline-block;
