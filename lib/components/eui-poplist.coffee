@@ -16,7 +16,9 @@ poplist = Em.Component.extend styleSupport,
 
   highlightedIndex: -1 # Option currently highlighted
 
-  previousFocus: null # Where the user's focus was before the poplist was opened (only for keyboard nav)
+  # If the poplist is opened using the keyboard then we use this value to restore the
+  # focus where it was after the poplist closes.
+  previousFocus: null
 
   highlightedOption: (->
     options = @get('filteredOptions')
@@ -52,19 +54,20 @@ poplist = Em.Component.extend styleSupport,
     @set('isOpen', true)
     @set('previousFocus', $("*:focus"))
 
-    # Focus on search after poplist is positioned or the page may scroll
+    # Focus on search input to ensure we can catch keyboard input. Do this after the
+    # poplist is positioned to ensure it is visible. Failure to do so will result in
+    # the page scrolling and closing the poplist
     Ember.run.next this, -> @focusOnSearch()
 
     # Ensure the selected option is visible
     Ember.run.next this, -> @scrollToSelection @get('selection')
 
-  # Focus on search input when poplist shows so we can catch key input
   focusOnSearch: ->
     @$().find('input:first').focus()
 
   # Set the selection back to the first option if the users changes the search query
+  # TODO: This doesn't fire the bindings on the listView correctly and you end up with multiple items highlighted.
   searchStringDidChange: (->
-    # TODO: This doesn't fire the bindings on the listView correctly and you end up with multiple items highlighted.
     @set('highlightedIndex', 0) if @get('searchString')
   ).observes 'searchString'
 
