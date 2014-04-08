@@ -20,7 +20,7 @@ poplist = Em.Component.extend styleSupport,
   # focus where it was after the poplist closes.
   previousFocus: null
 
-  highlightedOption: (->
+  highlighted: (->
     options = @get('filteredOptions')
     index = @get('highlightedIndex')
     options[index]
@@ -59,7 +59,7 @@ poplist = Em.Component.extend styleSupport,
     # the page scrolling and closing the poplist
     Ember.run.next this, -> @focusOnSearch()
 
-    # Ensure the selected option is visible and center it 
+    # Ensure the selected option is visible and center it
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get('selection')), true
 
   focusOnSearch: ->
@@ -144,7 +144,7 @@ poplist = Em.Component.extend styleSupport,
 
   enterPressed: (event) ->
     event.preventDefault()
-    @set('selection', @get('highlightedOption'))
+    @set('selection', @get('highlighted'))
     @hide()
 
   downArrowPressed: (event) ->
@@ -224,7 +224,7 @@ poplist = Em.Component.extend styleSupport,
 
       labelPath: Ember.computed.alias 'controller.labelPath'
       highlightedIndex: Ember.computed.alias 'controller.highlightedIndex'
-      highlightedOption: Ember.computed.alias 'controller.highlightedOption'
+      highlighted: Ember.computed.alias 'controller.highlighted'
       selection: Ember.computed.alias 'controller.selection'
       filteredOptions: Ember.computed.alias 'controller.filteredOptions'
       event: Ember.computed.alias 'controller.event'
@@ -246,8 +246,8 @@ poplist = Em.Component.extend styleSupport,
         @set 'content', context
 
       isHighlighted: Ember.computed ->
-        @get('highlightedOption') is @get('context')
-      .property 'highlightedOption', 'content'
+        @get('highlighted') is @get('context')
+      .property 'highlighted', 'content'
 
       isSelected: Ember.computed ->
         @get('selection') is @get('context')
