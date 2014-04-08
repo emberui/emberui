@@ -23,7 +23,7 @@ poplist = Em.Component.extend styleSupport,
 
   # Option that is currently highlighted
   highlighted: Ember.computed (key, value) ->
-    options = @get('filteredOptions')
+    options = @get 'filteredOptions'
 
     # setter
     if arguments.length is 2
@@ -39,7 +39,7 @@ poplist = Em.Component.extend styleSupport,
   .property 'highlightedIndex', 'filteredOptions'
 
   hide: ->
-    @set('isOpen', false).set('highlightedIndex', -1)
+    @setProperties { isOpen: false, highlightedIndex: -1 }
     $(window).unbind('scroll.emberui')
     $(window).unbind('click.emberui')
     @get('previousFocus').focus()
@@ -51,10 +51,10 @@ poplist = Em.Component.extend styleSupport,
     domPrefixes = ['Webkit', 'Moz', 'O', 'ms']
 
     # check no-prefix support
-    animation = true if this.$().css('animationName')
+    animation = true if this.$().css 'animationName'
 
     for prefix in domPrefixes
-      animation = true if this.$().css(prefix + 'animationName')
+      animation = true if this.$().css prefix + 'animationName'
 
     if animation
       @$().one 'webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', =>
@@ -63,8 +63,8 @@ poplist = Em.Component.extend styleSupport,
       @destroy()
 
   didInsertElement: ->
-    @set('isOpen', true)
-    @set('previousFocus', $("*:focus"))
+    @set 'isOpen', true
+    @set 'previousFocus', $("*:focus")
 
     # Focus on search input to ensure we can catch keyboard input. Do this after the
     # poplist is positioned to ensure it is visible. Failure to do so will result in
@@ -72,7 +72,7 @@ poplist = Em.Component.extend styleSupport,
     Ember.run.next this, -> @focusOnSearch()
 
     # Ensure the selected option is visible and center it
-    Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get('selection')), true
+    Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
 
   focusOnSearch: ->
     @$().find('input:first').focus()
@@ -80,18 +80,18 @@ poplist = Em.Component.extend styleSupport,
   # Set the selection back to the first option if the users changes the search query
   # TODO: This doesn't fire the bindings on the listView correctly and you end up with multiple items highlighted.
   searchStringDidChange: (->
-    @set('highlightedIndex', 0) if @get('searchString')
+    @set 'highlightedIndex', 0 if @get 'searchString'
   ).observes 'searchString'
 
   # Filter the option list based on the query entered into the search box
   filteredOptions: (->
-    options = @get('options')
-    query = @get('searchString')
+    options = @get 'options'
+    query = @get 'searchString'
 
     return [] unless options
     return options unless query
 
-    labelPath = @get('labelPath')
+    labelPath = @get 'labelPath'
 
     escapedQuery = query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
     regex = new RegExp(escapedQuery, 'i')
@@ -111,13 +111,13 @@ poplist = Em.Component.extend styleSupport,
   ).observes 'filteredOptions.length'
 
   updateListHeight: ->
-    optionCount = @get('filteredOptions.length')
-    rowHeight = @get('listRowHeight')
+    optionCount = @get 'filteredOptions.length'
+    rowHeight = @get 'listRowHeight'
 
     if optionCount <= 12
-      @set('listHeight', (optionCount * rowHeight))
+      @set 'listHeight', optionCount * rowHeight
     else
-      @set('listHeight', (10 * rowHeight))
+      @set 'listHeight', 10 * rowHeight
 
   # Scroll the list to make sure the given option is visible.
   # Copied from https://github.com/Addepar/ember-widgets/
@@ -131,12 +131,12 @@ poplist = Em.Component.extend styleSupport,
     if index is 0
       $listView.scrollTop 0
     else if index < startIndex
-      $listView.scrollTop index * @get('listRowHeight')
+      $listView.scrollTop index * @get 'listRowHeight'
     else if index >= endIndex
       if center
-        $listView.scrollTop (index - (numRows / 2)) * @get('listRowHeight')
+        $listView.scrollTop (index - (numRows / 2)) * @get 'listRowHeight'
       else
-        $listView.scrollTop (index - numRows + 1) * @get('listRowHeight')
+        $listView.scrollTop (index - numRows + 1) * @get 'listRowHeight'
 
   # Keyboard controls
 
@@ -156,7 +156,7 @@ poplist = Em.Component.extend styleSupport,
 
   enterPressed: (event) ->
     event.preventDefault()
-    @set('selection', @get('highlighted'))
+    @set 'selection', @get 'highlighted'
     @hide()
 
   downArrowPressed: (event) ->
@@ -169,9 +169,9 @@ poplist = Em.Component.extend styleSupport,
 
 
   adjustHighlight: (indexAdjustment) ->
-    highlightedIndex = @get('highlightedIndex')
-    options = @get('filteredOptions')
-    optionsLength = options.get('length')
+    highlightedIndex = @get 'highlightedIndex'
+    options = @get 'filteredOptions'
+    optionsLength = options.get 'length'
     newIndex
 
     # If the current index is out of bounds they searched
@@ -192,7 +192,7 @@ poplist = Em.Component.extend styleSupport,
     # Make sure the current option is visible
     @scrollToSelection(newIndex)
 
-    @set('highlightedIndex', newIndex)
+    @set 'highlightedIndex', newIndex
 
 
   # List View
@@ -218,7 +218,7 @@ poplist = Em.Component.extend styleSupport,
       # the poplist closing if you scroll too far down
       @.$().bind('mousewheel DOMMouseScroll', (e) =>
         e.preventDefault()
-        scrollTo = @get('scrollTop')
+        scrollTo = @get 'scrollTop'
 
         if e.type == 'mousewheel'
           scrollTo += (e.originalEvent.wheelDelta * -1)
@@ -259,19 +259,19 @@ poplist = Em.Component.extend styleSupport,
       .property 'controller.selection', 'content'
 
       click: ->
-        @set('controller.selection', @get('content'))
+        @set 'controller.selection', @get 'content'
         @get('controller').hide()
 
       mouseEnter: ->
-        options = @get('controller.filteredOptions')
-        hoveredOption = @get('content')
+        options = @get 'controller.filteredOptions'
+        hoveredOption = @get 'content'
         @set 'controller.highlighted', hoveredOption
 
 
 poplist.reopenClass
   show: (options = {}) ->
     poplist = @.create options
-    poplist.container = poplist.get('targetObject.container')
+    poplist.container = poplist.get 'targetObject.container'
     poplist.appendTo '.ember-application'
 
     poplist.updateListHeight()
