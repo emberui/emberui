@@ -246,7 +246,6 @@ poplist = Em.Component.extend styleSupport,
         @get('selection') is @get('context')
       .property 'selection', 'content'
 
-      # Set selection or execute action depending on event type
       click: ->
         @set('selection', @get('context'))
         @get('controller').hide()
