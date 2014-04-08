@@ -59,8 +59,8 @@ poplist = Em.Component.extend styleSupport,
     # the page scrolling and closing the poplist
     Ember.run.next this, -> @focusOnSearch()
 
-    # Ensure the selected option is visible
-    Ember.run.next this, -> @scrollToSelection @get('selection')
+    # Ensure the selected option is visible and center it 
+    Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get('selection')), true
 
   focusOnSearch: ->
     @$().find('input:first').focus()
@@ -109,19 +109,22 @@ poplist = Em.Component.extend styleSupport,
 
   # Scroll the list to make sure the given option is visible.
   # Copied from https://github.com/Addepar/ember-widgets/
-  scrollToSelection: (option) ->
+  scrollToSelection: (index, center) ->
     $listView  = @.$('.ember-list-view')
     listView   = Ember.View.views[$listView.attr('id')]
     startIndex = listView._startingIndex()
     numRows    = listView._childViewCount() - 1
     endIndex   = startIndex + numRows
-    index      = @get('options').indexOf(option)
 
-    if index < startIndex
+    if index is 0
+      $listView.scrollTop 0
+    else if index < startIndex
       $listView.scrollTop index * @get('listRowHeight')
     else if index >= endIndex
-      $listView.scrollTop (index - (numRows / 2)) * @get('listRowHeight')
-
+      if center
+        $listView.scrollTop (index - (numRows / 2)) * @get('listRowHeight')
+      else
+        $listView.scrollTop (index - numRows + 1) * @get('listRowHeight')
 
   # Keyboard controls
 
@@ -174,13 +177,17 @@ poplist = Em.Component.extend styleSupport,
       else if newIndex < 0
         newIndex = 0
 
-    return @set('highlightedIndex', newIndex)
+    # Make sure the current option is visible
+    @scrollToSelection(newIndex)
+
+    @set('highlightedIndex', newIndex)
 
 
   # List View
 
   listView: Ember.ListView.extend
     # Overriding this temporarily to fix the scrollbars in Firefox
+    # Remove once https://github.com/emberjs/list-view/pull/113 is integrated
     css:
       position: 'relative'
       overflow: 'auto'
