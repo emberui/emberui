@@ -233,19 +233,12 @@ poplist = Em.Component.extend styleSupport,
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
       template: itemViewClassTemplate
 
-      labelPath: Ember.computed.alias 'controller.labelPath'
-      highlightedIndex: Ember.computed.alias 'controller.highlightedIndex'
-      highlighted: Ember.computed.alias 'controller.highlighted'
-      selection: Ember.computed.alias 'controller.selection'
-      filteredOptions: Ember.computed.alias 'controller.filteredOptions'
-      event: Ember.computed.alias 'controller.event'
-
       # creates Label property based on specified labelPath
       labelPathDidChange: (->
-        labelPath = @get 'labelPath'
-        Ember.defineProperty(this, 'label', Ember.computed.alias("context.#{labelPath}"))
+        labelPath = @get 'controller.labelPath'
+        Ember.defineProperty(this, 'label', Ember.computed.alias("content.#{labelPath}"))
         @notifyPropertyChange 'label'
-      ).observes 'content', 'labelPath'
+      ).observes 'content', 'controller.labelPath'
 
       initializeLabelPath: (->
         @labelPathDidChange()
@@ -257,21 +250,21 @@ poplist = Em.Component.extend styleSupport,
         @set 'content', context
 
       isHighlighted: Ember.computed ->
-        @get('highlighted') is @get('context')
-      .property 'highlighted', 'content'
+        @get('controller.highlighted') is @get('content')
+      .property 'controller.highlighted', 'content'
 
       isSelected: Ember.computed ->
-        @get('selection') is @get('context')
-      .property 'selection', 'content'
+        @get('controller.selection') is @get('content')
+      .property 'controller.selection', 'content'
 
       click: ->
-        @set('selection', @get('context'))
+        @set('controller.selection', @get('content'))
         @get('controller').hide()
 
       mouseEnter: ->
-        options = @get('filteredOptions')
-        hoveredOption = @get('context')
-        @set 'highlighted', hoveredOption
+        options = @get('controller.filteredOptions')
+        hoveredOption = @get('content')
+        @set 'controller.highlighted', hoveredOption
 
 
 poplist.reopenClass
