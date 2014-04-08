@@ -20,11 +20,22 @@ poplist = Em.Component.extend styleSupport,
   # focus where it was after the poplist closes.
   previousFocus: null
 
-  highlighted: (->
+  # Option that is currently highlighted
+  highlighted: Ember.computed (key, value) ->
     options = @get('filteredOptions')
-    index = @get('highlightedIndex')
-    options[index]
-  ).property 'highlightedIndex', 'filteredOptions'
+
+    # setter
+    if arguments.length is 2
+      index = options.indexOf value
+      @set 'highlightedIndex', index
+      value
+
+    # getter
+    else
+      index = @get 'highlightedIndex'
+      options.objectAt index
+
+  .property 'highlightedIndex', 'filteredOptions'
 
   hide: ->
     @set('isOpen', false).set('highlightedIndex', -1)
@@ -260,7 +271,7 @@ poplist = Em.Component.extend styleSupport,
       mouseEnter: ->
         options = @get('filteredOptions')
         hoveredOption = @get('context')
-        @set 'highlightedIndex', options.indexOf(hoveredOption)
+        @set 'highlighted', hoveredOption
 
 
 poplist.reopenClass
