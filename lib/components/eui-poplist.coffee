@@ -14,7 +14,8 @@ poplist = Em.Component.extend styleSupport,
   listRowHeight: '20'
   searchString: null
 
-  highlightedIndex: -1 # Option currently highlighted
+  # Index of option currently highlighted
+  highlightedIndex: -1
 
   # If the poplist is opened using the keyboard then we use this value to restore the
   # focus where it was after the poplist closes.
