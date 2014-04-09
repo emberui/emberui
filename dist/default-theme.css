@@ -746,19 +746,19 @@
   /* Default */
   /* focus */ }
   .eui-input.eui-default, .eui-textarea.eui-default {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.15)));
-    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.25)), to(rgba(0, 0, 0, 0.12)));
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.12) 100%);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.12) 100%);
     /* disabled */ }
     .eui-input.eui-default label, .eui-textarea.eui-default label {
       color: #b9b9b9; }
     .eui-input.eui-default input, .eui-input.eui-default textarea, .eui-textarea.eui-default input, .eui-textarea.eui-default textarea {
       color: #303030;
-      -webkit-box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.1);
-      box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.1);
-      background-image: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#ffffff));
-      background-image: -webkit-linear-gradient(top, #f1f1f1 0%, #ffffff 50%);
-      background-image: linear-gradient(to bottom, #f1f1f1 0%, #ffffff 50%); }
+      -webkit-box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.15);
+      box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.15);
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
+      background-image: -webkit-linear-gradient(top, #f7f7f7 0%, #ffffff 100%);
+      background-image: linear-gradient(to bottom, #f7f7f7 0%, #ffffff 100%); }
     .eui-input.eui-default input:disabled, .eui-input.eui-default textarea:disabled, .eui-textarea.eui-default input:disabled, .eui-textarea.eui-default textarea:disabled {
       background: #f6f6f6;
       color: #777777; }
@@ -769,8 +769,8 @@
     height: -webkit-calc(100% + 2px);
     height: calc(100% + 2px);
     border: solid 1px #7fb5ff;
-    -webkit-box-shadow: 0px 0px 4px #0090ff, inset 0px 2px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 0px 4px #0090ff, inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 4px #0090ff, inset 0px 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 4px #0090ff, inset 0px 1px 2px rgba(0, 0, 0, 0.15);
     outline: none;
     -webkit-animation: eui-focus-highlight 0.2s 1;
     animation: eui-focus-highlight 0.2s 1; }
