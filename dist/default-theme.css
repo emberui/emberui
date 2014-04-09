@@ -677,6 +677,8 @@
 
 .eui-input, .eui-textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif; }
+  .eui-input .eui-wrapper, .eui-textarea .eui-wrapper {
+    border: none; }
   .eui-input input, .eui-input textarea, .eui-textarea input, .eui-textarea textarea {
     font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif; }
 
