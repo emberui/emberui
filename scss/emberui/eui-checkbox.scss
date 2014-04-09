@@ -1,0 +1,68 @@
+.eui-checkbox {
+  display: inline-block;
+  cursor: pointer;
+
+  &.eui-disabled {
+    cursor: inherit;
+  }
+
+  input {
+    opacity: 0.001;
+    position: absolute;
+  }
+
+  .eui-checkbox-form {
+    display: inline-block;
+    background: #f6f6f6;
+
+    .eui-wrapper {
+      position: relative;
+    }
+
+    .eui-icon {
+      opacity: 0;
+      color: #c9c9c9;
+    }
+
+    .eui-icon:before{
+      content: "\f00c";
+      font-family: "FontAwesome";
+      position: absolute;
+      display: block;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+      text-align: center;
+    }
+  }
+
+  /* hover */
+  .eui-enabled:hover {
+    .eui-icon {
+      opacity: 1;
+    }
+  }
+
+  /* checked */
+  &.eui-checked .eui-icon {
+    opacity: 1;
+  }
+}
+
+
+/* SIZES */
+.eui-checkbox {
+  &.eui-medium {
+    margin-right: 5px;
+
+    .eui-wrapper {
+      height: 13px;
+      width: 13px;
+      line-height: 13px;
+    }
+
+    .eui-icon:before {
+      font-size: 11px;
+    }
+  }
+}

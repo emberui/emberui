@@ -19,16 +19,17 @@ define(
         }
       },
       hide: function() {
-        var animation, domPrefixes, prefix, _i, _len;
+        var animation, cssRule, domPrefixes, prefix, _i, _len;
         this.set('isOpen', false);
         animation = false;
         domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-        if (this.$().css('animationName')) {
+        if ((this.$().css('animationName')) !== 'none') {
           animation = true;
         }
         for (_i = 0, _len = domPrefixes.length; _i < _len; _i++) {
           prefix = domPrefixes[_i];
-          if (this.$().css(prefix + 'animationName')) {
+          cssRule = this.$().css(prefix + 'animationName');
+          if (cssRule && cssRule !== 'none') {
             animation = true;
           }
         }

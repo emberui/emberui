@@ -16,6 +16,7 @@ define(
       disabled: null,
       action: null,
       "class": null,
+      type: 'button',
       click: function(event) {
         event.preventDefault();
         return this.sendAction('action', this.get('context'));

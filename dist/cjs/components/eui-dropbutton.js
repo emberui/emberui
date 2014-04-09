@@ -28,7 +28,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
           targetObject: this,
           isOpenBinding: 'targetObject.poplistIsOpen',
           selectionBinding: 'targetObject.selection',
-          options: this.get('options'),
+          optionsBinding: 'targetObject.options',
           labelPath: 'label',
           style: 'bubble'
         });

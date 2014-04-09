@@ -1,44 +1,10 @@
 .eui-input,
 .eui-textarea {
-  display: inline-block;
-  vertical-align: middle;
-  padding: 1px;
   font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
-
-  .eui-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
 
   input,
   textarea {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    border: none;
-    box-sizing: border-box;
     font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
-    resize: none;
-  }
-
-  label {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    cursor: text;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    box-sizing: border-box;
-    text-align: left;
   }
 }
 

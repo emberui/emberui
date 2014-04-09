@@ -1,6 +1,12 @@
-.eui-singlebutton .eui-button-form, .eui-groupbutton .eui-button-form {
+.eui-singlebutton, .eui-groupbutton {
   display: inline-block;
   vertical-align: middle; }
+
+.eui-groupbutton .eui-button.eui-primaryaction {
+  float: left; }
+.eui-groupbutton .eui-button.eui-trigger {
+  float: left;
+  border-left: solid 1px #d4d4d4; }
 
 .eui-button {
   display: inline-block;
@@ -28,7 +34,8 @@
   .eui-button i {
     font-style: normal; }
   .eui-button.eui-disabled {
-    pointer-events: none; }
+    pointer-events: none;
+    color: #ababab; }
 
 /* SIZES & ICONS */
 .eui-button.eui-tiny .eui-button-form {
@@ -39,18 +46,24 @@
   padding: 0 13px;
   line-height: 25px;
   font-size: 11px; }
+.eui-button.eui-small.eui-no-label .eui-button-form {
+  padding: 0px; }
 .eui-button.eui-small.eui-no-label .eui-wrapper {
   padding: 0 6px; }
 .eui-button.eui-medium .eui-button-form {
   padding: 0 25px;
   line-height: 35px;
   font-size: 14px; }
+.eui-button.eui-medium.eui-no-label .eui-button-form {
+  padding: 0px; }
 .eui-button.eui-medium.eui-no-label .eui-wrapper {
   padding: 0 12px; }
 .eui-button.eui-large .eui-button-form {
   padding: 0 35px;
   line-height: 45px;
   font-size: 17px; }
+.eui-button.eui-large.eui-no-label .eui-button-form {
+  padding: 0px; }
 .eui-button.eui-large.eui-no-label .eui-wrapper {
   padding: 0 15px; }
 
@@ -97,6 +110,190 @@
       -webkit-animation-delay: 0.3s;
       animation-delay: 0.3s; }
 
+.eui-checkbox {
+  display: inline-block;
+  cursor: pointer;
+  /* hover */
+  /* checked */ }
+  .eui-checkbox.eui-disabled {
+    cursor: inherit; }
+  .eui-checkbox input {
+    opacity: 0.001;
+    position: absolute; }
+  .eui-checkbox .eui-checkbox-form {
+    display: inline-block;
+    background: #f6f6f6; }
+    .eui-checkbox .eui-checkbox-form .eui-wrapper {
+      position: relative; }
+    .eui-checkbox .eui-checkbox-form .eui-icon {
+      opacity: 0;
+      color: #c9c9c9; }
+    .eui-checkbox .eui-checkbox-form .eui-icon:before {
+      content: "\f00c";
+      font-family: "FontAwesome";
+      position: absolute;
+      display: block;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+      text-align: center; }
+  .eui-checkbox .eui-enabled:hover .eui-icon {
+    opacity: 1; }
+  .eui-checkbox.eui-checked .eui-icon {
+    opacity: 1; }
+
+/* SIZES */
+.eui-checkbox.eui-medium {
+  margin-right: 5px; }
+  .eui-checkbox.eui-medium .eui-wrapper {
+    height: 13px;
+    width: 13px;
+    line-height: 13px; }
+  .eui-checkbox.eui-medium .eui-icon:before {
+    font-size: 11px; }
+
+.eui-poplist {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000001;
+  outline: none;
+  max-height: -webkit-calc(100% - 100px);
+  max-height: calc(100% - 100px);
+  border: solid 1px rgba(0, 0, 0, 0.15); }
+  .eui-poplist .eui-poplistwrapper {
+    background: #ffffff;
+    padding: 5px 0; }
+  .eui-poplist .eui-options {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 20px;
+    overflow: hidden; }
+  .eui-poplist .eui-option {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 7.5px; }
+    .eui-poplist .eui-option.eui-hover {
+      background: #32a2e6;
+      color: #ffffff; }
+  .eui-poplist .eui-nooptions {
+    padding: 0 7.5px;
+    line-height: 20px; }
+  .eui-poplist .eui-search-wrapper {
+    border-bottom: solid 1px transparent;
+    height: 0px;
+    overflow: hidden; }
+    .eui-poplist .eui-search-wrapper.eui-active {
+      height: 27px;
+      border-bottom-color: #d7d7d7; }
+  .eui-poplist .eui-search {
+    outline: none;
+    border: none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 5px 5px 5px; }
+
+.eui-input, .eui-textarea {
+  display: inline-block;
+  vertical-align: middle;
+  /* disabled */ }
+  .eui-input .eui-wrapper, .eui-textarea .eui-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: solid 1px rgba(0, 0, 0, 0.2); }
+  .eui-input input, .eui-input textarea, .eui-textarea input, .eui-textarea textarea {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    border: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    resize: none; }
+  .eui-input label, .eui-textarea label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    cursor: text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: left;
+    color: #c6c6c6; }
+  .eui-input input:disabled, .eui-input textarea:disabled, .eui-textarea input:disabled, .eui-textarea textarea:disabled {
+    background: #f6f6f6;
+    color: #777777; }
+
+/* SIZES */
+.eui-input.eui-tiny, .eui-textarea.eui-tiny {
+  font-size: 9px; }
+  .eui-input.eui-tiny .eui-wrapper, .eui-textarea.eui-tiny .eui-wrapper {
+    height: 18px;
+    line-height: 18px; }
+  .eui-input.eui-tiny input, .eui-input.eui-tiny textarea, .eui-textarea.eui-tiny input, .eui-textarea.eui-tiny textarea {
+    padding: 3px 4px;
+    font-size: inherit; }
+  .eui-input.eui-tiny label, .eui-textarea.eui-tiny label {
+    padding: 0 4px; }
+.eui-input.eui-small, .eui-textarea.eui-small {
+  font-size: 11px; }
+  .eui-input.eui-small .eui-wrapper, .eui-textarea.eui-small .eui-wrapper {
+    height: 25px;
+    line-height: 25px; }
+  .eui-input.eui-small input, .eui-input.eui-small textarea, .eui-textarea.eui-small input, .eui-textarea.eui-small textarea {
+    padding: 6px 5px;
+    font-size: inherit; }
+  .eui-input.eui-small label, .eui-textarea.eui-small label {
+    padding: 0 5px; }
+.eui-input.eui-medium, .eui-textarea.eui-medium {
+  font-size: 14px; }
+  .eui-input.eui-medium .eui-wrapper, .eui-textarea.eui-medium .eui-wrapper {
+    height: 35px;
+    line-height: 35px; }
+  .eui-input.eui-medium input, .eui-input.eui-medium textarea, .eui-textarea.eui-medium input, .eui-textarea.eui-medium textarea {
+    border-radius: 4px;
+    padding: 10px 7px;
+    font-size: inherit; }
+  .eui-input.eui-medium label, .eui-textarea.eui-medium label {
+    padding: 0 7px; }
+.eui-input.eui-large, .eui-textarea.eui-large {
+  font-size: 17px; }
+  .eui-input.eui-large .eui-wrapper, .eui-textarea.eui-large .eui-wrapper {
+    height: 45px;
+    line-height: 45px;
+    font-size: 17px; }
+  .eui-input.eui-large input, .eui-input.eui-large textarea, .eui-textarea.eui-large input, .eui-textarea.eui-large textarea {
+    border-radius: 5px;
+    padding: 12px 9px;
+    font-size: inherit; }
+  .eui-input.eui-large label, .eui-textarea.eui-large label {
+    padding: 0 9px; }
+
+.eui-textarea .eui-wrapper {
+  height: 100% !important; }
+
 .eui-modal {
   display: table;
   position: fixed;
@@ -117,14 +314,16 @@
     width: 100%;
     top: 0px;
     left: 0px;
-    z-index: 1000002; }
+    z-index: 1000002;
+    background: rgba(0, 0, 0, 0.1); }
   .eui-modal .eui-modalobject {
     display: inline-block;
     position: relative;
     margin: auto;
     opacity: 1;
     z-index: 1000003;
-    text-align: left; }
+    text-align: left;
+    background: #ffffff; }
   .eui-modal .eui-modalwrapper {
     height: 100%;
     width: 100%; }

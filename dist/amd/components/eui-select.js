@@ -91,7 +91,7 @@ define(
             targetObject: this,
             isOpenBinding: 'targetObject.poplistIsOpen',
             selectionBinding: 'targetObject.internalSelection',
-            options: this.get('optionsWithBlank'),
+            optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
             style: 'flyin'
           });

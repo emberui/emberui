@@ -16,6 +16,7 @@ define("emberui/components/eui-button",
       disabled: null,
       action: null,
       "class": null,
+      type: 'button',
       click: function(event) {
         event.preventDefault();
         return this.sendAction('action', this.get('context'));
@@ -77,7 +78,7 @@ define("emberui/components/eui-button",
               targetObject: this,
               isOpenBinding: 'targetObject.poplistIsOpen',
               selectionBinding: 'targetObject.selection',
-              options: this.get('options'),
+              optionsBinding: 'targetObject.options',
               labelPath: 'label',
               style: 'bubble'
             });
@@ -128,16 +129,17 @@ define("emberui/components/eui-button",
         }
       },
       hide: function() {
-        var animation, domPrefixes, prefix, _i, _len;
+        var animation, cssRule, domPrefixes, prefix, _i, _len;
         this.set('isOpen', false);
         animation = false;
         domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-        if (this.$().css('animationName')) {
+        if ((this.$().css('animationName')) !== 'none') {
           animation = true;
         }
         for (_i = 0, _len = domPrefixes.length; _i < _len; _i++) {
           prefix = domPrefixes[_i];
-          if (this.$().css(prefix + 'animationName')) {
+          cssRule = this.$().css(prefix + 'animationName');
+          if (cssRule && cssRule !== 'none') {
             animation = true;
           }
         }
@@ -190,26 +192,36 @@ define("emberui/components/eui-button",
       searchString: null,
       highlightedIndex: -1,
       previousFocus: null,
-      highlightedOption: (function() {
+      highlighted: Ember.computed(function(key, value) {
         var index, options;
         options = this.get('filteredOptions');
-        index = this.get('highlightedIndex');
-        return options[index];
+        if (arguments.length === 2) {
+          index = options.indexOf(value);
+          this.set('highlightedIndex', index);
+          return value;
+        } else {
+          index = this.get('highlightedIndex');
+          return options.objectAt(index);
+        }
       }).property('highlightedIndex', 'filteredOptions'),
       hide: function() {
-        var animation, domPrefixes, prefix, _i, _len;
-        this.set('isOpen', false).set('highlightedIndex', -1);
+        var animation, cssRule, domPrefixes, prefix, _i, _len;
+        this.setProperties({
+          isOpen: false,
+          highlightedIndex: -1
+        });
         $(window).unbind('scroll.emberui');
         $(window).unbind('click.emberui');
         this.get('previousFocus').focus();
         animation = false;
         domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-        if (this.$().css('animationName')) {
+        if ((this.$().css('animationName')) !== 'none') {
           animation = true;
         }
         for (_i = 0, _len = domPrefixes.length; _i < _len; _i++) {
           prefix = domPrefixes[_i];
-          if (this.$().css(prefix + 'animationName')) {
+          cssRule = this.$().css(prefix + 'animationName');
+          if (cssRule && cssRule !== 'none') {
             animation = true;
           }
         }
@@ -230,7 +242,7 @@ define("emberui/components/eui-button",
           return this.focusOnSearch();
         });
         return Ember.run.next(this, function() {
-          return this.scrollToSelection(this.get('selection'));
+          return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
       },
       focusOnSearch: function() {
@@ -277,18 +289,23 @@ define("emberui/components/eui-button",
           return this.set('listHeight', 10 * rowHeight);
         }
       },
-      scrollToSelection: function(option) {
-        var $listView, endIndex, index, listView, numRows, startIndex;
+      scrollToSelection: function(index, center) {
+        var $listView, endIndex, listView, numRows, startIndex;
         $listView = this.$('.ember-list-view');
         listView = Ember.View.views[$listView.attr('id')];
         startIndex = listView._startingIndex();
         numRows = listView._childViewCount() - 1;
         endIndex = startIndex + numRows;
-        index = this.get('options').indexOf(option);
-        if (index < startIndex) {
+        if (index === 0) {
+          return $listView.scrollTop(0);
+        } else if (index < startIndex) {
           return $listView.scrollTop(index * this.get('listRowHeight'));
         } else if (index >= endIndex) {
-          return $listView.scrollTop((index - (numRows / 2)) * this.get('listRowHeight'));
+          if (center) {
+            return $listView.scrollTop((index - (numRows / 2)) * this.get('listRowHeight'));
+          } else {
+            return $listView.scrollTop((index - numRows + 1) * this.get('listRowHeight'));
+          }
         }
       },
       KEY_MAP: {
@@ -310,7 +327,7 @@ define("emberui/components/eui-button",
       },
       enterPressed: function(event) {
         event.preventDefault();
-        this.set('selection', this.get('highlightedOption'));
+        this.set('selection', this.get('highlighted'));
         return this.hide();
       },
       downArrowPressed: function(event) {
@@ -339,6 +356,7 @@ define("emberui/components/eui-button",
             newIndex = 0;
           }
         }
+        this.scrollToSelection(newIndex);
         return this.set('highlightedIndex', newIndex);
       },
       listView: Ember.ListView.extend({
@@ -371,18 +389,12 @@ define("emberui/components/eui-button",
           classNames: ['eui-option'],
           classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected'],
           template: itemViewClassTemplate,
-          labelPath: Ember.computed.alias('controller.labelPath'),
-          highlightedIndex: Ember.computed.alias('controller.highlightedIndex'),
-          highlightedOption: Ember.computed.alias('controller.highlightedOption'),
-          selection: Ember.computed.alias('controller.selection'),
-          filteredOptions: Ember.computed.alias('controller.filteredOptions'),
-          event: Ember.computed.alias('controller.event'),
           labelPathDidChange: (function() {
             var labelPath;
-            labelPath = this.get('labelPath');
-            Ember.defineProperty(this, 'label', Ember.computed.alias("context." + labelPath));
+            labelPath = this.get('controller.labelPath');
+            Ember.defineProperty(this, 'label', Ember.computed.alias("content." + labelPath));
             return this.notifyPropertyChange('label');
-          }).observes('content', 'labelPath'),
+          }).observes('content', 'controller.labelPath'),
           initializeLabelPath: (function() {
             return this.labelPathDidChange();
           }).on('init'),
@@ -391,20 +403,20 @@ define("emberui/components/eui-button",
             return this.set('content', context);
           },
           isHighlighted: Ember.computed(function() {
-            return this.get('highlightedOption') === this.get('context');
-          }).property('highlightedOption', 'content'),
+            return this.get('controller.highlighted') === this.get('content');
+          }).property('controller.highlighted', 'content'),
           isSelected: Ember.computed(function() {
-            return this.get('selection') === this.get('context');
-          }).property('selection', 'content'),
+            return this.get('controller.selection') === this.get('content');
+          }).property('controller.selection', 'content'),
           click: function() {
-            this.set('selection', this.get('context'));
+            this.set('controller.selection', this.get('content'));
             return this.get('controller').hide();
           },
           mouseEnter: function() {
             var hoveredOption, options;
-            options = this.get('filteredOptions');
-            hoveredOption = this.get('context');
-            return this.set('highlightedIndex', options.indexOf(hoveredOption));
+            options = this.get('controller.filteredOptions');
+            hoveredOption = this.get('content');
+            return this.set('controller.highlighted', hoveredOption);
           }
         })
       })
@@ -549,7 +561,7 @@ define("emberui/components/eui-button",
             targetObject: this,
             isOpenBinding: 'targetObject.poplistIsOpen',
             selectionBinding: 'targetObject.internalSelection',
-            options: this.get('optionsWithBlank'),
+            optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
             style: 'flyin'
           });
@@ -820,12 +832,12 @@ define("emberui/components/eui-button",
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" }}></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      {{#if icon}}\n        <b {{bind-attr class=\'icon\'}}></b>\n      {{/if}}\n\n      {{label}}\n\n      {{#if trailingIcon}}\n        <b {{bind-attr class=\'trailingIcon\'}}></b>\n      {{/if}}\n    </i>\n\n    {{#if loading}}\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    {{/if}}\n  </div>\n</div>\n");
+    __exports__["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" type=\"type\" }}></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      {{#if icon}}\n        <b {{bind-attr class=\'icon\'}}></b>\n      {{/if}}\n\n      {{label}}\n\n      {{#if trailingIcon}}\n        <b {{bind-attr class=\'trailingIcon\'}}></b>\n      {{/if}}\n    </i>\n\n    {{#if loading}}\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    {{/if}}\n  </div>\n</div>\n");
   });define("emberui/templates/eui-checkbox",
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<input type=\"checkbox\" {{bind-attr value=value disabled=disabled}} />\n\n<div {{bind-attr class=\":eui-checkbox-form disabled:eui-disabled:eui-enabled\"}}>\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n{{label}}\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    __exports__["default"] = Ember.Handlebars.compile("<input type=\"checkbox\" {{bind-attr checked=value disabled=disabled}} />\n\n<div {{bind-attr class=\":eui-checkbox-form disabled:eui-disabled:eui-enabled\"}}>\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n{{label}}\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
   });define("emberui/templates/eui-dropbutton",
   ["exports"],
   function(__exports__) {

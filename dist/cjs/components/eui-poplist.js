@@ -16,26 +16,36 @@ poplist = Em.Component.extend(styleSupport, {
   searchString: null,
   highlightedIndex: -1,
   previousFocus: null,
-  highlightedOption: (function() {
+  highlighted: Ember.computed(function(key, value) {
     var index, options;
     options = this.get('filteredOptions');
-    index = this.get('highlightedIndex');
-    return options[index];
+    if (arguments.length === 2) {
+      index = options.indexOf(value);
+      this.set('highlightedIndex', index);
+      return value;
+    } else {
+      index = this.get('highlightedIndex');
+      return options.objectAt(index);
+    }
   }).property('highlightedIndex', 'filteredOptions'),
   hide: function() {
-    var animation, domPrefixes, prefix, _i, _len;
-    this.set('isOpen', false).set('highlightedIndex', -1);
+    var animation, cssRule, domPrefixes, prefix, _i, _len;
+    this.setProperties({
+      isOpen: false,
+      highlightedIndex: -1
+    });
     $(window).unbind('scroll.emberui');
     $(window).unbind('click.emberui');
     this.get('previousFocus').focus();
     animation = false;
     domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-    if (this.$().css('animationName')) {
+    if ((this.$().css('animationName')) !== 'none') {
       animation = true;
     }
     for (_i = 0, _len = domPrefixes.length; _i < _len; _i++) {
       prefix = domPrefixes[_i];
-      if (this.$().css(prefix + 'animationName')) {
+      cssRule = this.$().css(prefix + 'animationName');
+      if (cssRule && cssRule !== 'none') {
         animation = true;
       }
     }
@@ -56,7 +66,7 @@ poplist = Em.Component.extend(styleSupport, {
       return this.focusOnSearch();
     });
     return Ember.run.next(this, function() {
-      return this.scrollToSelection(this.get('selection'));
+      return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
     });
   },
   focusOnSearch: function() {
@@ -103,18 +113,23 @@ poplist = Em.Component.extend(styleSupport, {
       return this.set('listHeight', 10 * rowHeight);
     }
   },
-  scrollToSelection: function(option) {
-    var $listView, endIndex, index, listView, numRows, startIndex;
+  scrollToSelection: function(index, center) {
+    var $listView, endIndex, listView, numRows, startIndex;
     $listView = this.$('.ember-list-view');
     listView = Ember.View.views[$listView.attr('id')];
     startIndex = listView._startingIndex();
     numRows = listView._childViewCount() - 1;
     endIndex = startIndex + numRows;
-    index = this.get('options').indexOf(option);
-    if (index < startIndex) {
+    if (index === 0) {
+      return $listView.scrollTop(0);
+    } else if (index < startIndex) {
       return $listView.scrollTop(index * this.get('listRowHeight'));
     } else if (index >= endIndex) {
-      return $listView.scrollTop((index - (numRows / 2)) * this.get('listRowHeight'));
+      if (center) {
+        return $listView.scrollTop((index - (numRows / 2)) * this.get('listRowHeight'));
+      } else {
+        return $listView.scrollTop((index - numRows + 1) * this.get('listRowHeight'));
+      }
     }
   },
   KEY_MAP: {
@@ -136,7 +151,7 @@ poplist = Em.Component.extend(styleSupport, {
   },
   enterPressed: function(event) {
     event.preventDefault();
-    this.set('selection', this.get('highlightedOption'));
+    this.set('selection', this.get('highlighted'));
     return this.hide();
   },
   downArrowPressed: function(event) {
@@ -165,6 +180,7 @@ poplist = Em.Component.extend(styleSupport, {
         newIndex = 0;
       }
     }
+    this.scrollToSelection(newIndex);
     return this.set('highlightedIndex', newIndex);
   },
   listView: Ember.ListView.extend({
@@ -197,18 +213,12 @@ poplist = Em.Component.extend(styleSupport, {
       classNames: ['eui-option'],
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected'],
       template: itemViewClassTemplate,
-      labelPath: Ember.computed.alias('controller.labelPath'),
-      highlightedIndex: Ember.computed.alias('controller.highlightedIndex'),
-      highlightedOption: Ember.computed.alias('controller.highlightedOption'),
-      selection: Ember.computed.alias('controller.selection'),
-      filteredOptions: Ember.computed.alias('controller.filteredOptions'),
-      event: Ember.computed.alias('controller.event'),
       labelPathDidChange: (function() {
         var labelPath;
-        labelPath = this.get('labelPath');
-        Ember.defineProperty(this, 'label', Ember.computed.alias("context." + labelPath));
+        labelPath = this.get('controller.labelPath');
+        Ember.defineProperty(this, 'label', Ember.computed.alias("content." + labelPath));
         return this.notifyPropertyChange('label');
-      }).observes('content', 'labelPath'),
+      }).observes('content', 'controller.labelPath'),
       initializeLabelPath: (function() {
         return this.labelPathDidChange();
       }).on('init'),
@@ -217,20 +227,20 @@ poplist = Em.Component.extend(styleSupport, {
         return this.set('content', context);
       },
       isHighlighted: Ember.computed(function() {
-        return this.get('highlightedOption') === this.get('context');
-      }).property('highlightedOption', 'content'),
+        return this.get('controller.highlighted') === this.get('content');
+      }).property('controller.highlighted', 'content'),
       isSelected: Ember.computed(function() {
-        return this.get('selection') === this.get('context');
-      }).property('selection', 'content'),
+        return this.get('controller.selection') === this.get('content');
+      }).property('controller.selection', 'content'),
       click: function() {
-        this.set('selection', this.get('context'));
+        this.set('controller.selection', this.get('content'));
         return this.get('controller').hide();
       },
       mouseEnter: function() {
         var hoveredOption, options;
-        options = this.get('filteredOptions');
-        hoveredOption = this.get('context');
-        return this.set('highlightedIndex', options.indexOf(hoveredOption));
+        options = this.get('controller.filteredOptions');
+        hoveredOption = this.get('content');
+        return this.set('controller.highlighted', hoveredOption);
       }
     })
   })

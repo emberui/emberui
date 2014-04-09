@@ -1,58 +1,30 @@
 .eui-poplist {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 1000001;
-  outline: none;
+  border: none;
 
   .eui-options {
-    margin: 0;
-    padding: 0;
-    list-style: none;
     font-size: 13px;
-    line-height: 20px;
     font-family: Helvetica, "Helvetica Neue", Arial, Tahoma, sans-serif;
-    overflow: hidden;
     transition: height 0.2s;
-  }
-
-  .eui-option {
-    position: absolute;
-    cursor: pointer;
-    width: 100%;
-    height: 20px;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .eui-nooptions {
     padding: 0 7.5px;
     font-size: 13px;
     color: #c6c6c6;
-    line-height: 20px;
   }
 
   .eui-search-wrapper {
     border-bottom: solid 1px transparent;
-    height: 0px;
-    overflow: hidden;
     transition:
       height 0.2s,
       border-color 0.2s;
 
     &.eui-active {
-      height: 27px;
       border-bottom-color: #d7d7d7;
     }
   }
 
   .eui-search {
-    outline: none;
-    border: none;
-    width: 100%;
-    box-sizing: border-box;
     padding: 0 5px 5px 5px;
     font-size: 13px;
   }

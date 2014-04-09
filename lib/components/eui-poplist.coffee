@@ -51,10 +51,11 @@ poplist = Em.Component.extend styleSupport,
     domPrefixes = ['Webkit', 'Moz', 'O', 'ms']
 
     # check no-prefix support
-    animation = true if this.$().css 'animationName'
+    animation = true if (this.$().css 'animationName') isnt 'none'
 
     for prefix in domPrefixes
-      animation = true if this.$().css prefix + 'animationName'
+      cssRule = this.$().css prefix + 'animationName'
+      animation = true if cssRule and cssRule isnt 'none'
 
     if animation
       @$().one 'webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', =>
