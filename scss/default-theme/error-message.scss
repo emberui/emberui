@@ -45,7 +45,9 @@
 
   p {
     margin: 0;
-    padding-left: 18px;
+    padding: 0 0 0 18px;
+    line-height: 14px;
+    font-size: 11px;
 
     &:before {
       content: '\f05a';
