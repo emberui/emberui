@@ -655,7 +655,9 @@
       border-bottom: solid 7px #ffffff; }
   .eui-error-message p {
     margin: 0;
-    padding-left: 18px; }
+    padding: 0 0 0 18px;
+    line-height: 14px;
+    font-size: 11px; }
     .eui-error-message p:before {
       content: '\f05a';
       font-family: "FontAwesome";
@@ -829,7 +831,8 @@
   animation: eui-modaloverlay-fadein 0.4s 1; }
 .eui-modal.eui-full .eui-modalobject {
   -webkit-animation: eui-fullmodal-zoomin 0.15s 1;
-  animation: eui-fullmodal-zoomin 0.15s 1; }
+  animation: eui-fullmodal-zoomin 0.15s 1;
+  background: none; }
 .eui-modal.eui-full.eui-closing .eui-overlay {
   opacity: 0;
   -webkit-animation: eui-modaloverlay-fadeout 0.4s 1 reverse;
