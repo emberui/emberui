@@ -11,7 +11,12 @@ modal = Em.Component.extend styleSupport,
   isOpen: null
 
   actions:
-    closeModal: ->
+    cancel: (context) ->
+      @sendAction 'cancel', context
+      @hide()
+
+    accept: (context) ->
+      @sendAction 'accept', context
       @hide()
 
   hide: ->
