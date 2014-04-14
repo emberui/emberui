@@ -88,6 +88,7 @@ modal = Em.Component.extend styleSupport,
     if @get 'programmatic'
       @destroy()
     else
+      @set 'isClosing', false
       @set 'isOpen', false
 
 
