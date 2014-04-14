@@ -36,14 +36,19 @@ modal = Em.Component.extend styleSupport,
   isClosing: false
 
 
-  # Set focus to first tabable element inside the modal and store orignal focus so we
-  # can restore it when the modal is closed
+  # Set focus to modal. didInsertElment is for programmtic creation, and didOpenModel does
+  # it if eui-modal is being used as a block level component.
 
   didInsertElement: ->
     if @get 'programmatic'
+      # Store orignal focus so we can restore it when the modal is closed
       @set 'previousFocus', $("*:focus")
+
       @.$().focus()
 
+  didOpenModal: (->
+    @.$().focus() if @get 'isOpen'
+  ).observes 'isOpen'
 
   # Figure out if there is a closing animation declared in the CSS so we can wait
   # for it to finish before we remove the view from the DOM.
@@ -98,6 +103,25 @@ modal = Em.Component.extend styleSupport,
       @sendAction 'accept', context
       @hide()
 
+
+  # Catch and handle key presses
+
+  keyDown: (event) ->
+    # TAB
+    @constrainTabNavigation(event) if event.keyCode == 9
+
+    # ESC
+    if event.keyCode == 27
+      @sendAction 'cancel'
+      @hide()
+
+
+  # Makes sure the tab focus cannot leave the modal otherwise keyboard controls will
+  # not work and the page may scroll underneath the modal
+
+  constrainTabNavigation: ->
+    # TODO
+    return
 
 modal.reopenClass
   # Creates the modal programmatically and inserts it into the DOM
