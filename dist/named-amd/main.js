@@ -238,10 +238,10 @@ define("emberui/components/eui-button",
       didInsertElement: function() {
         this.set('isOpen', true);
         this.set('previousFocus', $("*:focus"));
-        Ember.run.next(this, function() {
+        (this, function() {
           return this.focusOnSearch();
         });
-        return Ember.run.next(this, function() {
+        return (this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
       },
@@ -431,7 +431,7 @@ define("emberui/components/eui-button",
         poplist.container = poplist.get('targetObject.container');
         poplist.appendTo('.ember-application');
         poplist.updateListHeight();
-        Ember.run.next(this, function() {
+        (this, function() {
           return this.position(options.targetObject, poplist);
         });
         return poplist;

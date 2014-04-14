@@ -1,17 +1,12 @@
 .eui-modal {
-  display: table;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
-  z-index: 1000001;
-  text-align: center;
-
-  .eui-verticalspacer {
-    display: table-cell;
-    height: 100%;
-    vertical-align: middle;
+  .eui-modal-wrapper {
+    display: flex;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000001;
   }
 
   .eui-overlay {
@@ -26,7 +21,6 @@
   }
 
   .eui-modalobject {
-    display: inline-block;
     position: relative;
     margin: auto;
     opacity: 1;
@@ -35,7 +29,7 @@
     background: #ffffff;
   }
 
-  .eui-modalwrapper {
+  .eui-modalobject-wrapper {
     height: 100%;
     width: 100%;
   }

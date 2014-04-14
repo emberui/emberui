@@ -1,9 +1,15 @@
-<div class="eui-verticalspacer">
-  <div class="eui-modalobject">
-    <div class="eui-modalwrapper">
-      {{view contentViewClass contentBinding="content"}}
+{{#if isOpen}}
+  <div class="eui-modal-wrapper">
+    <div class="eui-modalobject">
+      <div class="eui-modalobject-wrapper">
+        {{#if programmatic}}
+          {{view contentViewClass contentBinding="content"}}
+        {{else}}
+          {{yield}}
+        {{/if}}
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="eui-overlay"></div>
+    <div class="eui-overlay"></div>
+  </div>
+{{/if}}
