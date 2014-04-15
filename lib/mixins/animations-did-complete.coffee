@@ -5,7 +5,7 @@ animationsDidComplete = Em.Mixin.create
   animationsDidComplete: ->
     promise = new Ember.RSVP.Promise (resolve, reject) =>
       animation = false
-
+      
       # Check only elements tagged with the eui-animation class
       primaryElement = @.$()
       animatedElements = @.$().find('.eui-animation')

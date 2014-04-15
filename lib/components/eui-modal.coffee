@@ -29,12 +29,39 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
   programmatic: false
 
 
-  # isOpen controls whether the guts of the modal gets rendered into the DOM. IsClosing
-  # is set to true when we want the closing animations to play. Seperating them allows
-  # animations to finish playing before the markup gets removed from the DOM.
+  # Set to true when we want the closing animations to play.
 
-  isOpen: false
   isClosing: false
+
+
+  # Determines if the modal contents should be rendered into the DOM
+
+  renderModal: false
+
+
+  # Proxy for renderModal. Allows us to animate the modal closing by delaying the setting of
+  # renderModal until the animation is done playing
+
+  open: Ember.computed (key, value) ->
+    # setter
+    if arguments.length is 2
+
+      # If we are showing the modal we can do it immediately since it won't bugger animations
+      if value
+        @set 'renderModal', value
+
+      # Enure that the modal is currently in the DOM before we hide it via hide method
+      else
+        @hide() if @get 'renderModal'
+
+      value
+
+    # getter
+    else
+      value = @get 'renderModal'
+      value
+
+  .property 'renderModal'
 
 
   # Set focus to modal. didInsertElment is for programmtic creation, and didOpenModel does
@@ -48,8 +75,8 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       @.$().focus()
 
   didOpenModal: (->
-    @.$().focus() if @get 'isOpen'
-  ).observes 'isOpen'
+    @.$().focus() if @get 'renderModal'
+  ).observes 'renderModal'
 
 
   # Remove the Modal from the DOM
@@ -63,7 +90,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
 
 
   # Restore focus to where it was before the modal was opened and remove the modal from
-  # the DOM via the isOpen flag, or if it was created programattically by destroying it.
+  # the DOM via the renderModal flag, or if it was created programattically by destroying it.
 
   remove: ->
     @get('previousFocus')?.focus()
@@ -71,8 +98,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
     if @get 'programmatic'
       @destroy()
     else
-      @set 'isClosing', false
-      @set 'isOpen', false
+      @setProperties { isClosing: false, renderModal: false }
 
 
   # Actions will not bubble up from the programmatic modal so we need to create
@@ -111,7 +137,7 @@ modal.reopenClass
   # Creates the modal programmatically and inserts it into the DOM
 
   show: (options = {}) ->
-    options.isOpen = true
+    options.renderModal = true
     options.programmatic = true
 
     modal = this.create options
