@@ -1,6 +1,6 @@
 {{#if isOpen}}
   <div class="eui-modal-wrapper">
-    <div class="eui-modalobject">
+    <div class="eui-modalobject eui-animation">
       <div class="eui-modalobject-wrapper">
         {{#if programmatic}}
           {{view contentViewClass contentBinding="content"}}
@@ -10,6 +10,6 @@
       </div>
     </div>
 
-    <div class="eui-overlay"></div>
+    <div class="eui-overlay eui-animation"></div>
   </div>
 {{/if}}

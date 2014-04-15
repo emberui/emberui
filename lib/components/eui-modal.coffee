@@ -1,7 +1,8 @@
 `import styleSupport from '../mixins/style-support'`
+`import animationsDidComplete from '../mixins/animations-did-complete'`
 `import modalLayout from '../templates/eui-modal'`
 
-modal = Em.Component.extend styleSupport,
+modal = Em.Component.extend styleSupport, animationsDidComplete,
   layout: modalLayout
   tagName: 'eui-modal'
   classNames: ['eui-modal']
@@ -50,32 +51,14 @@ modal = Em.Component.extend styleSupport,
     @.$().focus() if @get 'isOpen'
   ).observes 'isOpen'
 
-  # Figure out if there is a closing animation declared in the CSS so we can wait
-  # for it to finish before we remove the view from the DOM.
+
+  # Remove the Modal from the DOM
 
   hide: ->
     # Set isClosing to true so the animation class gets added
     @set 'isClosing', true
 
-    animation = false
-
-    # Check the eui-modalobject element to see if it has a closing animation
-    modal = @.$().find('.eui-modalobject')
-
-    # check no-prefix rule
-    cssRule = modal.css 'animationName'
-    animation = true if cssRule and cssRule isnt 'none'
-
-    # check prefix rules
-    domPrefixes = ['Webkit', 'Moz', 'O', 'ms']
-    for prefix in domPrefixes
-      cssRule = modal.css prefix + 'animationName'
-      animation = true if cssRule and cssRule isnt 'none'
-
-    if animation
-      @$().one 'webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', =>
-        @remove()
-    else
+    @animationsDidComplete().then =>
       @remove()
 
 

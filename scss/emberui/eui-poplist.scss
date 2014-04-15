@@ -7,6 +7,10 @@
   max-height: calc(100% - 100px);
   border: solid 1px rgba(0,0,0,0.15);
 
+  &.eui-closing {
+    opacity: 0;
+  }
+
   .eui-poplistwrapper {
     background: #ffffff;
     padding: 5px 0;

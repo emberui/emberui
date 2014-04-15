@@ -1,10 +1,11 @@
 `import styleSupport from '../mixins/style-support'`
+`import animationsDidComplete from '../mixins/animations-did-complete'`
 `import poplistLayout from '../templates/eui-poplist'`
 `import itemViewClassTemplate from '../templates/eui-poplist-option'`
 
-poplist = Em.Component.extend styleSupport,
+poplist = Em.Component.extend styleSupport, animationsDidComplete,
   layout: poplistLayout
-  classNames: ['eui-poplist']
+  classNames: ['eui-poplist eui-animation']
   classNameBindings: ['isOpen::eui-closing']
   attributeBindings: ['tabindex']
 
@@ -38,30 +39,18 @@ poplist = Em.Component.extend styleSupport,
 
   .property 'highlightedIndex', 'filteredOptions'
 
+
+  # Reset and remove Poplist from the DOM and unbind events bound during initialization.
+
   hide: ->
     @setProperties { isOpen: false, highlightedIndex: -1 }
     $(window).unbind('scroll.emberui')
     $(window).unbind('click.emberui')
     @get('previousFocus').focus()
 
-    # Figure out if there is a closing animation so we can wait for it to finish
-    # before we remove the view from the DOM. The only gotcha is if you have a
-    # open animation then you must have a closing animation
-    animation = false
-    domPrefixes = ['Webkit', 'Moz', 'O', 'ms']
-
-    # check no-prefix support
-    animation = true if (this.$().css 'animationName') isnt 'none'
-
-    for prefix in domPrefixes
-      cssRule = this.$().css prefix + 'animationName'
-      animation = true if cssRule and cssRule isnt 'none'
-
-    if animation
-      @$().one 'webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', =>
-        @destroy()
-    else
+    @animationsDidComplete().then =>
       @destroy()
+
 
   didInsertElement: ->
     @set 'isOpen', true
