@@ -64,17 +64,27 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
   .property 'renderModal'
 
 
-  # Set focus to modal. didInsertElment is for programmtic creation, and didOpenModel does
-  # it if eui-modal is being used as a block level component.
+  # Initial setup when modal is shown programatically
 
   didInsertElement: ->
     if @get 'programmatic'
       # Store orignal focus so we can restore it when the modal is closed
       @set 'previousFocus', $("*:focus")
 
+      # Disable page scrolling
+      @preventPageScroll()
+
+      # Focus on modal so we can catch key events
       @.$().focus()
 
+
+  # Initial setup when modal is used as a block component
+
   didOpenModal: (->
+    # Disable page scrolling
+    @preventPageScroll()
+
+    # Focus on modal so we can catch key events
     @.$().focus() if @get 'renderModal'
   ).observes 'renderModal'
 
@@ -94,6 +104,9 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
 
   remove: ->
     @get('previousFocus')?.focus()
+
+    # unbind scroll events
+    @.$().unbind('.emberui')
 
     if @get 'programmatic'
       @destroy()
@@ -125,6 +138,42 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       @sendAction 'cancel'
       @hide()
 
+
+  # Prevents the user from scrolling the page behind the modal
+
+  preventPageScroll: ->
+    @.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (e) =>
+      e.stopPropagation()
+
+
+      # Build list of any element that could possible scroll due to event
+      element = $(e.target)
+      elements = []
+
+      while element.parent().prop('tagName') isnt 'EUI-MODAL'
+        elements.pushObject element
+        element = element.parent()
+
+      # Get scroll direction and then check each element to see if it can scroll in
+      # that direction
+
+      canScroll = false
+
+      # scrolling up
+      if e.originalEvent.wheelDelta >= 0
+        for element in elements
+          if element.scrollTop() isnt 0
+            canScroll = true
+
+      # scrolling down
+      else
+        for element in elements
+          if (element.scrollTop() + element.innerHeight()) < element.prop('scrollHeight')
+            canScroll = true
+            break
+
+      e.preventDefault() unless canScroll
+    )
 
   # Makes sure the tab focus cannot leave the modal otherwise keyboard controls will
   # not work and the page may scroll underneath the modal
