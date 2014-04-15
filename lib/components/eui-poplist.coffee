@@ -44,8 +44,9 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
 
   hide: ->
     @setProperties { isOpen: false, highlightedIndex: -1 }
-    $(window).unbind('scroll.emberui')
-    $(window).unbind('click.emberui')
+    $(window).unbind('.emberui')
+    @.$().unbind('.emberui')
+
     @get('previousFocus').focus()
 
     @animationsDidComplete().then =>
@@ -206,7 +207,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
       # Prevents mouse scroll events from passing through to the div
       # behind the poplist when listView is scrolled to the end. Fixes
       # the poplist closing if you scroll too far down
-      @.$().bind('mousewheel DOMMouseScroll', (e) =>
+      @.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (e) =>
         e.preventDefault()
         scrollTo = @get 'scrollTop'
 
