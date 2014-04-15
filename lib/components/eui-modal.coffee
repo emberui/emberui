@@ -72,7 +72,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       @set 'previousFocus', $("*:focus")
 
       # Disable page scrolling
-      @preventPageScroll()
+      @constrainScrollEventsToModal()
 
       # Focus on modal so we can catch key events
       @.$().focus()
@@ -82,7 +82,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
 
   didOpenModal: (->
     # Disable page scrolling
-    @preventPageScroll()
+    @constrainScrollEventsToModal()
 
     # Focus on modal so we can catch key events
     @.$().focus() if @get 'renderModal'
@@ -139,9 +139,10 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       @hide()
 
 
-  # Prevents the user from scrolling the page behind the modal
+  # Don't let scroll events bubble up past the modal. This prevents the page from scrolling
+  # behind the modal
 
-  preventPageScroll: ->
+  constrainScrollEventsToModal: ->
     @.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (e) =>
       e.stopPropagation()
 
