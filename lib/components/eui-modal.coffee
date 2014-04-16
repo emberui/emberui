@@ -69,7 +69,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
   didInsertElement: ->
     if @get 'programmatic'
       # Store orignal focus so we can restore it when the modal is closed
-      @set 'previousFocus', $("*:focus")
+      @set 'previousFocus', $(document.activeElement)
 
       # Disable page scrolling
       @constrainScrollEventsToModal()
@@ -176,12 +176,14 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       e.preventDefault() unless canScroll
     )
 
+
   # Makes sure the tab focus cannot leave the modal otherwise keyboard controls will
   # not work and the page may scroll underneath the modal
 
   constrainTabNavigation: ->
     # TODO
     return
+
 
 modal.reopenClass
   # Creates the modal programmatically and inserts it into the DOM

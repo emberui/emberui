@@ -55,7 +55,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
 
   didInsertElement: ->
     @set 'isOpen', true
-    @set 'previousFocus', $("*:focus")
+    @set 'previousFocus', $(document.activeElement)
 
     # Focus on search input to ensure we can catch keyboard input. Do this after the
     # poplist is positioned to ensure it is visible. Failure to do so will result in
