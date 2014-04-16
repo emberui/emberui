@@ -1,12 +1,24 @@
 .eui-modal {
   .eui-modal-wrapper {
-    display: flex;
     position: fixed;
     top: 0px;
     left: 0px;
     height: 100vh;
     width: 100vw;
     z-index: 1000001;
+  }
+
+  .eui-modal-table {
+    display: table;
+    width: 100%;
+    height: 100%;
+  }
+
+  .eui-modal-cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
   }
 
   .eui-overlay {
@@ -22,7 +34,7 @@
 
   .eui-modalobject {
     position: relative;
-    margin: auto;
+    display: inline-block;
     opacity: 1;
     z-index: 1000003;
     text-align: left;
