@@ -29,7 +29,7 @@ var EuiSelectTemplate = require("./templates/eui-select")["default"] || require(
 var EuiTextareaComponent = require("./components/eui-textarea")["default"] || require("./components/eui-textarea");
 var EuiTextareaTemplate = require("./templates/eui-textarea")["default"] || require("./templates/eui-textarea");
 
-
+require("./utilities/tabbable-selector");
 var initializer = Ember.Application.initializer({
   name: 'emberui',
 

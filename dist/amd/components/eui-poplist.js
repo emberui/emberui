@@ -48,7 +48,7 @@ define(
       },
       didInsertElement: function() {
         this.set('isOpen', true);
-        this.set('previousFocus', $("*:focus"));
+        this.set('previousFocus', $(document.activeElement));
         Ember.run.next(this, function() {
           return this.focusOnSearch();
         });

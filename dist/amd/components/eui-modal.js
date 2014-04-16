@@ -15,7 +15,7 @@ define(
       attributeBindings: ['tabindex'],
       "class": null,
       previousFocus: null,
-      tabindex: -1,
+      tabindex: 0,
       programmatic: false,
       isClosing: false,
       renderModal: false,
@@ -36,7 +36,7 @@ define(
       }).property('renderModal'),
       didInsertElement: function() {
         if (this.get('programmatic')) {
-          this.set('previousFocus', $("*:focus"));
+          this.set('previousFocus', $(document.activeElement));
           this.constrainScrollEventsToModal();
           return this.$().focus();
         }
@@ -82,12 +82,24 @@ define(
       },
       keyDown: function(event) {
         if (event.keyCode === 9) {
-          this.constrainTabNavigation(event);
+          this.constrainTabNavigationToModal(event);
         }
         if (event.keyCode === 27) {
           this.sendAction('cancel');
           return this.hide();
         }
+      },
+      constrainTabNavigationToModal: function(event) {
+        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+        activeElement = document.activeElement;
+        tabbable = this.$(':tabbable');
+        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
+        if (!leavingFinalTabbable) {
+          return;
+        }
+        event.preventDefault();
+        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
       },
       constrainScrollEventsToModal: function() {
         return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
@@ -122,8 +134,7 @@ define(
             }
           };
         })(this));
-      },
-      constrainTabNavigation: function() {}
+      }
     });
 
     modal.reopenClass({

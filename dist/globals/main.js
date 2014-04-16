@@ -115,7 +115,7 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
   attributeBindings: ['tabindex'],
   "class": null,
   previousFocus: null,
-  tabindex: -1,
+  tabindex: 0,
   programmatic: false,
   isClosing: false,
   renderModal: false,
@@ -136,7 +136,7 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
   }).property('renderModal'),
   didInsertElement: function() {
     if (this.get('programmatic')) {
-      this.set('previousFocus', $("*:focus"));
+      this.set('previousFocus', $(document.activeElement));
       this.constrainScrollEventsToModal();
       return this.$().focus();
     }
@@ -182,12 +182,24 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
   },
   keyDown: function(event) {
     if (event.keyCode === 9) {
-      this.constrainTabNavigation(event);
+      this.constrainTabNavigationToModal(event);
     }
     if (event.keyCode === 27) {
       this.sendAction('cancel');
       return this.hide();
     }
+  },
+  constrainTabNavigationToModal: function(event) {
+    var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+    activeElement = document.activeElement;
+    tabbable = this.$(':tabbable');
+    finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+    leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
+    if (!leavingFinalTabbable) {
+      return;
+    }
+    event.preventDefault();
+    return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
   },
   constrainScrollEventsToModal: function() {
     return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
@@ -222,8 +234,7 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
         }
       };
     })(this));
-  },
-  constrainTabNavigation: function() {}
+  }
 });
 
 modal.reopenClass({
@@ -289,7 +300,7 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
   },
   didInsertElement: function() {
     this.set('isOpen', true);
-    this.set('previousFocus', $("*:focus"));
+    this.set('previousFocus', $(document.activeElement));
     Ember.run.next(this, function() {
       return this.focusOnSearch();
     });
@@ -694,7 +705,7 @@ var EuiSelectTemplate = _dereq_("./templates/eui-select")["default"] || _dereq_(
 var EuiTextareaComponent = _dereq_("./components/eui-textarea")["default"] || _dereq_("./components/eui-textarea");
 var EuiTextareaTemplate = _dereq_("./templates/eui-textarea")["default"] || _dereq_("./templates/eui-textarea");
 
-
+_dereq_("./utilities/tabbable-selector");
 var initializer = Ember.Application.initializer({
   name: 'emberui',
 
@@ -727,7 +738,7 @@ var initializer = Ember.Application.initializer({
 });
 
 exports["default"] = initializer;
-},{"./components/eui-button":1,"./components/eui-checkbox":2,"./components/eui-dropbutton":3,"./components/eui-input":4,"./components/eui-modal":5,"./components/eui-poplist":6,"./components/eui-select":7,"./components/eui-textarea":8,"./templates/eui-button":17,"./templates/eui-checkbox":18,"./templates/eui-dropbutton":19,"./templates/eui-input":20,"./templates/eui-modal":21,"./templates/eui-poplist":23,"./templates/eui-poplist-option":22,"./templates/eui-select":24,"./templates/eui-textarea":25}],10:[function(_dereq_,module,exports){
+},{"./components/eui-button":1,"./components/eui-checkbox":2,"./components/eui-dropbutton":3,"./components/eui-input":4,"./components/eui-modal":5,"./components/eui-poplist":6,"./components/eui-select":7,"./components/eui-textarea":8,"./templates/eui-button":17,"./templates/eui-checkbox":18,"./templates/eui-dropbutton":19,"./templates/eui-input":20,"./templates/eui-modal":21,"./templates/eui-poplist":23,"./templates/eui-poplist-option":22,"./templates/eui-select":24,"./templates/eui-textarea":25,"./utilities/tabbable-selector":26}],10:[function(_dereq_,module,exports){
 "use strict";
 var animationsDidComplete;
 
@@ -934,6 +945,46 @@ exports["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"is
 },{}],25:[function(_dereq_,module,exports){
 "use strict";
 exports["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+},{}],26:[function(_dereq_,module,exports){
+"use strict";
+/*!
+ * Copied from ic-modal which is adapted from jQuery UI core
+ *
+ * http://jqueryui.com
+ * https://github.com/instructure/ic-modal/tree/gh-pages
+ *
+ * Copyright 2014 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/category/ui-core/
+ */
+
+var $ = Ember.$;
+
+function focusable( element, isTabIndexNotNaN ) {
+  var nodeName = element.nodeName.toLowerCase();
+  return ( /input|select|textarea|button|object/.test( nodeName ) ?
+    !element.disabled :
+    "a" === nodeName ?
+      element.href || isTabIndexNotNaN :
+      isTabIndexNotNaN) && visible( element );
+}
+
+function visible( element ) {
+  return $.expr.filters.visible( element ) &&
+    !$( element ).parents().addBack().filter(function() {
+      return $.css( this, "visibility" ) === "hidden";
+    }).length;
+}
+
+if (!$.expr[':'].tabbable) {
+  $.expr[':'].tabbable = function( element ) {
+    var tabIndex = $.attr( element, "tabindex" ),
+      isTabIndexNaN = isNaN( tabIndex );
+    return ( isTabIndexNaN || tabIndex >= 0 ) && focusable( element, !isTabIndexNaN );
+  }
+};
 },{}]},{},[9])
 (9)
 });

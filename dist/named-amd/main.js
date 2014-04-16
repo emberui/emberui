@@ -125,7 +125,7 @@ define("emberui/components/eui-button",
       attributeBindings: ['tabindex'],
       "class": null,
       previousFocus: null,
-      tabindex: -1,
+      tabindex: 0,
       programmatic: false,
       isClosing: false,
       renderModal: false,
@@ -146,7 +146,7 @@ define("emberui/components/eui-button",
       }).property('renderModal'),
       didInsertElement: function() {
         if (this.get('programmatic')) {
-          this.set('previousFocus', $("*:focus"));
+          this.set('previousFocus', $(document.activeElement));
           this.constrainScrollEventsToModal();
           return this.$().focus();
         }
@@ -192,12 +192,24 @@ define("emberui/components/eui-button",
       },
       keyDown: function(event) {
         if (event.keyCode === 9) {
-          this.constrainTabNavigation(event);
+          this.constrainTabNavigationToModal(event);
         }
         if (event.keyCode === 27) {
           this.sendAction('cancel');
           return this.hide();
         }
+      },
+      constrainTabNavigationToModal: function(event) {
+        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+        activeElement = document.activeElement;
+        tabbable = this.$(':tabbable');
+        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
+        if (!leavingFinalTabbable) {
+          return;
+        }
+        event.preventDefault();
+        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
       },
       constrainScrollEventsToModal: function() {
         return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
@@ -232,8 +244,7 @@ define("emberui/components/eui-button",
             }
           };
         })(this));
-      },
-      constrainTabNavigation: function() {}
+      }
     });
 
     modal.reopenClass({
@@ -301,7 +312,7 @@ define("emberui/components/eui-button",
       },
       didInsertElement: function() {
         this.set('isOpen', true);
-        this.set('previousFocus', $("*:focus"));
+        this.set('previousFocus', $(document.activeElement));
         Ember.run.next(this, function() {
           return this.focusOnSearch();
         });
@@ -679,8 +690,8 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = textarea;
   });define("emberui",
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","./utilities/tabbable-selector","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -984,4 +995,46 @@ define("emberui/components/eui-button",
   function(__exports__) {
     "use strict";
     __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+  });define("emberui/utilities/tabbable-selector",
+  [],
+  function() {
+    "use strict";
+    /*!
+     * Copied from ic-modal which is adapted from jQuery UI core
+     *
+     * http://jqueryui.com
+     * https://github.com/instructure/ic-modal/tree/gh-pages
+     *
+     * Copyright 2014 jQuery Foundation and other contributors
+     * Released under the MIT license.
+     * http://jquery.org/license
+     *
+     * http://api.jqueryui.com/category/ui-core/
+     */
+
+    var $ = Ember.$;
+
+    function focusable( element, isTabIndexNotNaN ) {
+      var nodeName = element.nodeName.toLowerCase();
+      return ( /input|select|textarea|button|object/.test( nodeName ) ?
+        !element.disabled :
+        "a" === nodeName ?
+          element.href || isTabIndexNotNaN :
+          isTabIndexNotNaN) && visible( element );
+    }
+
+    function visible( element ) {
+      return $.expr.filters.visible( element ) &&
+        !$( element ).parents().addBack().filter(function() {
+          return $.css( this, "visibility" ) === "hidden";
+        }).length;
+    }
+
+    if (!$.expr[':'].tabbable) {
+      $.expr[':'].tabbable = function( element ) {
+        var tabIndex = $.attr( element, "tabindex" ),
+          isTabIndexNaN = isNaN( tabIndex );
+        return ( isTabIndexNaN || tabIndex >= 0 ) && focusable( element, !isTabIndexNaN );
+      }
+    };
   });
