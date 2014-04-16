@@ -1,15 +1,16 @@
 define(
-  ["../mixins/style-support","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var poplistLayout = __dependency2__["default"] || __dependency2__;
-    var itemViewClassTemplate = __dependency3__["default"] || __dependency3__;
+    var animationsDidComplete = __dependency2__["default"] || __dependency2__;
+    var poplistLayout = __dependency3__["default"] || __dependency3__;
+    var itemViewClassTemplate = __dependency4__["default"] || __dependency4__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, {
+    poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
       layout: poplistLayout,
-      classNames: ['eui-poplist'],
+      classNames: ['eui-poplist eui-animation'],
       classNameBindings: ['isOpen::eui-closing'],
       attributeBindings: ['tabindex'],
       labelPath: 'label',
@@ -32,43 +33,26 @@ define(
         }
       }).property('highlightedIndex', 'filteredOptions'),
       hide: function() {
-        var animation, cssRule, domPrefixes, prefix, _i, _len;
         this.setProperties({
           isOpen: false,
           highlightedIndex: -1
         });
-        $(window).unbind('scroll.emberui');
-        $(window).unbind('click.emberui');
+        $(window).unbind('.emberui');
+        this.$().unbind('.emberui');
         this.get('previousFocus').focus();
-        animation = false;
-        domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-        if ((this.$().css('animationName')) !== 'none') {
-          animation = true;
-        }
-        for (_i = 0, _len = domPrefixes.length; _i < _len; _i++) {
-          prefix = domPrefixes[_i];
-          cssRule = this.$().css(prefix + 'animationName');
-          if (cssRule && cssRule !== 'none') {
-            animation = true;
-          }
-        }
-        if (animation) {
-          return this.$().one('webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', (function(_this) {
-            return function() {
-              return _this.destroy();
-            };
-          })(this));
-        } else {
-          return this.destroy();
-        }
+        return this.animationsDidComplete().then((function(_this) {
+          return function() {
+            return _this.destroy();
+          };
+        })(this));
       },
       didInsertElement: function() {
         this.set('isOpen', true);
         this.set('previousFocus', $("*:focus"));
-        (this, function() {
+        Ember.run.next(this, function() {
           return this.focusOnSearch();
         });
-        return (this, function() {
+        return Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
       },
@@ -198,7 +182,7 @@ define(
         rowHeight: Ember.computed.alias('controller.listRowHeight'),
         didInsertElement: function() {
           this._super();
-          return this.$().bind('mousewheel DOMMouseScroll', (function(_this) {
+          return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
             return function(e) {
               var scrollTo;
               e.preventDefault();
@@ -258,7 +242,7 @@ define(
         poplist.container = poplist.get('targetObject.container');
         poplist.appendTo('.ember-application');
         poplist.updateListHeight();
-        (this, function() {
+        Ember.run.next(this, function() {
           return this.position(options.targetObject, poplist);
         });
         return poplist;

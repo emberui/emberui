@@ -109,53 +109,131 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = input;
   });define("emberui/components/eui-modal",
-  ["../mixins/style-support","../templates/eui-modal","exports"],
-  function(__dependency1__, __dependency2__, __exports__) {
+  ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-modal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var modalLayout = __dependency2__["default"] || __dependency2__;
+    var animationsDidComplete = __dependency2__["default"] || __dependency2__;
+    var modalLayout = __dependency3__["default"] || __dependency3__;
     var modal;
 
-    modal = Em.Component.extend(styleSupport, {
+    modal = Em.Component.extend(styleSupport, animationsDidComplete, {
       layout: modalLayout,
+      tagName: 'eui-modal',
       classNames: ['eui-modal'],
-      classNameBindings: ['class', 'isOpen::eui-closing'],
-      content: null,
+      classNameBindings: ['class', 'isClosing:eui-closing'],
+      attributeBindings: ['tabindex'],
       "class": null,
-      isOpen: null,
+      previousFocus: null,
+      tabindex: -1,
+      programmatic: false,
+      isClosing: false,
+      renderModal: false,
+      open: Ember.computed(function(key, value) {
+        if (arguments.length === 2) {
+          if (value) {
+            this.set('renderModal', value);
+          } else {
+            if (this.get('renderModal')) {
+              this.hide();
+            }
+          }
+          return value;
+        } else {
+          value = this.get('renderModal');
+          return value;
+        }
+      }).property('renderModal'),
+      didInsertElement: function() {
+        if (this.get('programmatic')) {
+          this.set('previousFocus', $("*:focus"));
+          this.constrainScrollEventsToModal();
+          return this.$().focus();
+        }
+      },
+      didOpenModal: (function() {
+        this.constrainScrollEventsToModal();
+        if (this.get('renderModal')) {
+          return this.$().focus();
+        }
+      }).observes('renderModal'),
+      hide: function() {
+        this.set('isClosing', true);
+        return this.animationsDidComplete().then((function(_this) {
+          return function() {
+            return _this.remove();
+          };
+        })(this));
+      },
+      remove: function() {
+        var _ref;
+        if ((_ref = this.get('previousFocus')) != null) {
+          _ref.focus();
+        }
+        this.$().unbind('.emberui');
+        if (this.get('programmatic')) {
+          return this.destroy();
+        } else {
+          return this.setProperties({
+            isClosing: false,
+            renderModal: false
+          });
+        }
+      },
       actions: {
-        closeModal: function() {
+        cancel: function(context) {
+          this.sendAction('cancel', context);
+          return this.hide();
+        },
+        accept: function(context) {
+          this.sendAction('accept', context);
           return this.hide();
         }
       },
-      hide: function() {
-        var animation, cssRule, domPrefixes, prefix, _i, _len;
-        this.set('isOpen', false);
-        animation = false;
-        domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-        if ((this.$().css('animationName')) !== 'none') {
-          animation = true;
+      keyDown: function(event) {
+        if (event.keyCode === 9) {
+          this.constrainTabNavigation(event);
         }
-        for (_i = 0, _len = domPrefixes.length; _i < _len; _i++) {
-          prefix = domPrefixes[_i];
-          cssRule = this.$().css(prefix + 'animationName');
-          if (cssRule && cssRule !== 'none') {
-            animation = true;
-          }
-        }
-        if (animation) {
-          return this.$().one('webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', (function(_this) {
-            return function() {
-              return _this.destroy();
-            };
-          })(this));
-        } else {
-          return this.destroy();
+        if (event.keyCode === 27) {
+          this.sendAction('cancel');
+          return this.hide();
         }
       },
-      didInsertElement: function() {
-        return this.set('isOpen', true);
-      }
+      constrainScrollEventsToModal: function() {
+        return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
+          return function(e) {
+            var canScroll, element, elements, _i, _j, _len, _len1;
+            e.stopPropagation();
+            element = $(e.target);
+            elements = [];
+            while (element.parent().prop('tagName') !== 'EUI-MODAL') {
+              elements.pushObject(element);
+              element = element.parent();
+            }
+            canScroll = false;
+            if (e.originalEvent.wheelDelta >= 0) {
+              for (_i = 0, _len = elements.length; _i < _len; _i++) {
+                element = elements[_i];
+                if (element.scrollTop() !== 0) {
+                  canScroll = true;
+                }
+              }
+            } else {
+              for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
+                element = elements[_j];
+                if ((element.scrollTop() + element.innerHeight()) < element.prop('scrollHeight')) {
+                  canScroll = true;
+                  break;
+                }
+              }
+            }
+            if (!canScroll) {
+              return e.preventDefault();
+            }
+          };
+        })(this));
+      },
+      constrainTabNavigation: function() {}
     });
 
     modal.reopenClass({
@@ -163,6 +241,8 @@ define("emberui/components/eui-button",
         if (options == null) {
           options = {};
         }
+        options.renderModal = true;
+        options.programmatic = true;
         modal = this.create(options);
         modal.container = modal.get('targetObject.container');
         modal.appendTo('body');
@@ -172,17 +252,18 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = modal;
   });define("emberui/components/eui-poplist",
-  ["../mixins/style-support","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var poplistLayout = __dependency2__["default"] || __dependency2__;
-    var itemViewClassTemplate = __dependency3__["default"] || __dependency3__;
+    var animationsDidComplete = __dependency2__["default"] || __dependency2__;
+    var poplistLayout = __dependency3__["default"] || __dependency3__;
+    var itemViewClassTemplate = __dependency4__["default"] || __dependency4__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, {
+    poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
       layout: poplistLayout,
-      classNames: ['eui-poplist'],
+      classNames: ['eui-poplist eui-animation'],
       classNameBindings: ['isOpen::eui-closing'],
       attributeBindings: ['tabindex'],
       labelPath: 'label',
@@ -205,43 +286,26 @@ define("emberui/components/eui-button",
         }
       }).property('highlightedIndex', 'filteredOptions'),
       hide: function() {
-        var animation, cssRule, domPrefixes, prefix, _i, _len;
         this.setProperties({
           isOpen: false,
           highlightedIndex: -1
         });
-        $(window).unbind('scroll.emberui');
-        $(window).unbind('click.emberui');
+        $(window).unbind('.emberui');
+        this.$().unbind('.emberui');
         this.get('previousFocus').focus();
-        animation = false;
-        domPrefixes = ['Webkit', 'Moz', 'O', 'ms'];
-        if ((this.$().css('animationName')) !== 'none') {
-          animation = true;
-        }
-        for (_i = 0, _len = domPrefixes.length; _i < _len; _i++) {
-          prefix = domPrefixes[_i];
-          cssRule = this.$().css(prefix + 'animationName');
-          if (cssRule && cssRule !== 'none') {
-            animation = true;
-          }
-        }
-        if (animation) {
-          return this.$().one('webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', (function(_this) {
-            return function() {
-              return _this.destroy();
-            };
-          })(this));
-        } else {
-          return this.destroy();
-        }
+        return this.animationsDidComplete().then((function(_this) {
+          return function() {
+            return _this.destroy();
+          };
+        })(this));
       },
       didInsertElement: function() {
         this.set('isOpen', true);
         this.set('previousFocus', $("*:focus"));
-        (this, function() {
+        Ember.run.next(this, function() {
           return this.focusOnSearch();
         });
-        return (this, function() {
+        return Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
       },
@@ -371,7 +435,7 @@ define("emberui/components/eui-button",
         rowHeight: Ember.computed.alias('controller.listRowHeight'),
         didInsertElement: function() {
           this._super();
-          return this.$().bind('mousewheel DOMMouseScroll', (function(_this) {
+          return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
             return function(e) {
               var scrollTo;
               e.preventDefault();
@@ -431,7 +495,7 @@ define("emberui/components/eui-button",
         poplist.container = poplist.get('targetObject.container');
         poplist.appendTo('.ember-application');
         poplist.updateListHeight();
-        (this, function() {
+        Ember.run.next(this, function() {
           return this.position(options.targetObject, poplist);
         });
         return poplist;
@@ -681,6 +745,53 @@ define("emberui/components/eui-button",
     });
 
     __exports__["default"] = initializer;
+  });define("emberui/mixins/animations-did-complete",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var animationsDidComplete;
+
+    animationsDidComplete = Em.Mixin.create({
+      animationsDidComplete: function() {
+        var promise;
+        promise = new Ember.RSVP.Promise((function(_this) {
+          return function(resolve, reject) {
+            var animatedElements, animation, cssRule, domPrefixes, element, elements, prefix, primaryElement, _i, _j, _len, _len1;
+            animation = false;
+            primaryElement = _this.$();
+            animatedElements = _this.$().find('.eui-animation');
+            elements = $.merge(primaryElement, animatedElements);
+            domPrefixes = ['', 'Webkit', 'Moz', 'O', 'ms'];
+            for (_i = 0, _len = elements.length; _i < _len; _i++) {
+              element = elements[_i];
+              if (animation) {
+                break;
+              }
+              for (_j = 0, _len1 = domPrefixes.length; _j < _len1; _j++) {
+                prefix = domPrefixes[_j];
+                cssRule = $(element).css(prefix + 'animationName');
+                if (cssRule && cssRule !== 'none') {
+                  animation = true;
+                }
+                if (animation) {
+                  break;
+                }
+              }
+            }
+            if (animation) {
+              return _this.$().one('webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', function() {
+                return resolve(_this);
+              });
+            } else {
+              return resolve(_this);
+            }
+          };
+        })(this));
+        return promise;
+      }
+    });
+
+    __exports__["default"] = animationsDidComplete;
   });define("emberui/mixins/disabled-support",
   ["exports"],
   function(__exports__) {
@@ -852,7 +963,7 @@ define("emberui/components/eui-button",
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-verticalspacer\">\n  <div class=\"eui-modalobject\">\n    <div class=\"eui-modalwrapper\">\n      {{view contentViewClass contentBinding=\"content\"}}\n    </div>\n  </div>\n</div>\n\n<div class=\"eui-overlay\"></div>\n");
+    __exports__["default"] = Ember.Handlebars.compile("{{#if renderModal}}\n  <div class=\"eui-modal-wrapper\">\n    <div class=\"eui-modalobject eui-animation\">\n      <div class=\"eui-modalobject-wrapper\">\n        {{#if programmatic}}\n          {{view contentViewClass contentBinding=\"content\"}}\n        {{else}}\n          {{yield}}\n        {{/if}}\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n{{/if}}\n");
   });define("emberui/templates/eui-poplist-option",
   ["exports"],
   function(__exports__) {

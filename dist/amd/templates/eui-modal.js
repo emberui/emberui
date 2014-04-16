@@ -2,5 +2,5 @@ define(
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-verticalspacer\">\n  <div class=\"eui-modalobject\">\n    <div class=\"eui-modalwrapper\">\n      {{view contentViewClass contentBinding=\"content\"}}\n    </div>\n  </div>\n</div>\n\n<div class=\"eui-overlay\"></div>\n");
+    __exports__["default"] = Ember.Handlebars.compile("{{#if renderModal}}\n  <div class=\"eui-modal-wrapper\">\n    <div class=\"eui-modalobject eui-animation\">\n      <div class=\"eui-modalobject-wrapper\">\n        {{#if programmatic}}\n          {{view contentViewClass contentBinding=\"content\"}}\n        {{else}}\n          {{yield}}\n        {{/if}}\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n{{/if}}\n");
   });

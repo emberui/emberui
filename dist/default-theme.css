@@ -812,7 +812,7 @@
   animation: eui-defaultmodal-zoomin 0.15s 1;
   -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2); }
-.eui-modal.eui-default .eui-modalwrapper {
+.eui-modal.eui-default .eui-modalobject-wrapper {
   border-radius: 7px;
   background: #ffffff; }
 .eui-modal.eui-default.eui-closing .eui-overlay {
