@@ -144,10 +144,11 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
   # Adapted from ic-modal (https://github.com/instructure/ic-modal)
 
   constrainTabNavigationToModal: (event) ->
+    activeElement = document.activeElement
     tabbable = @.$(':tabbable')
     finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0]
 
-    leavingFinalTabbable = finalTabbable is document.activeElement || @get('element') is document.activeElement
+    leavingFinalTabbable = finalTabbable is activeElement || @get('element') is activeElement
 
     return unless leavingFinalTabbable
 
