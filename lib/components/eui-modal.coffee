@@ -20,7 +20,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
   # We don't really want to modal to be focusable, but we do need it to catch all key
   # presses so we can scope the tab key to only tab the modal contents.
 
-  tabindex: -1
+  tabindex: 0
 
 
   # If the dialog was created programatically we set this to true which renders the
@@ -131,12 +131,28 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
 
   keyDown: (event) ->
     # TAB
-    @constrainTabNavigation(event) if event.keyCode == 9
+    @constrainTabNavigationToModal(event) if event.keyCode == 9
 
     # ESC
     if event.keyCode == 27
       @sendAction 'cancel'
       @hide()
+
+
+  # Makes sure the tab focus cannot leave the modal since all user action is scoped to
+  # this modal and there is no need to leave it
+  # Adapted from ic-modal (https://github.com/instructure/ic-modal)
+
+  constrainTabNavigationToModal: (event) ->
+    tabbable = @.$(':tabbable')
+    finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0]
+
+    leavingFinalTabbable = finalTabbable is document.activeElement || @get('element') is document.activeElement
+
+    return unless leavingFinalTabbable
+
+    event.preventDefault()
+    tabbable[event.shiftKey && 'last' || 'first']()[0].focus()
 
 
   # Don't let scroll events bubble up past the modal. This prevents the page from scrolling
@@ -175,14 +191,6 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
 
       e.preventDefault() unless canScroll
     )
-
-
-  # Makes sure the tab focus cannot leave the modal otherwise keyboard controls will
-  # not work and the page may scroll underneath the modal
-
-  constrainTabNavigation: ->
-    # TODO
-    return
 
 
 modal.reopenClass
