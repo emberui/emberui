@@ -11,22 +11,32 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
     @get('options').findBy 'primary', true
   .property 'options'
 
-  # If the selection changes peform the action
-  secondaryAction: (->
-    action = @get('selection.action')
-    @triggerAction({action}) if action
-    @set('selection', null)
+
+  # If the selection changes peform the action and reset it so it can get triggered
+  # again if same option is selected
+
+  peformSecondaryAction: (->
+    action = @get 'selection.action'
+    @triggerAction { action } if action
+    @set 'selection', null
   ).observes 'selection'
+
+
+  # List of options without any primary actions
+
+  optionsWithoutPrimaryAction: Ember.computed.filter('options', (option) ->
+    return not option.primary
+  ).property "options"
+
 
   actions:
     toggleWindow: ->
       unless @get('poplistIsOpen')
         poplistComponent.show
           targetObject: @
-          # unsure why bindings have to be created this way and opposed to how it is done for options below
           isOpenBinding: 'targetObject.poplistIsOpen'
           selectionBinding: 'targetObject.selection'
-          optionsBinding: 'targetObject.options'
+          optionsBinding: 'targetObject.optionsWithoutPrimaryAction'
           labelPath: 'label'
           style: 'bubble'
 
