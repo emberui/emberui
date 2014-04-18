@@ -77,19 +77,26 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       # Focus on modal so we can catch key events
       @.$().focus()
 
+      # Add a class to the body element of the page so we can disable page scrolling on mobile
+      $('body').addClass('eui-modal-open')
+
 
   # Initial setup when modal is used as a block component
 
   didOpenModal: (->
-    # Disable page scrolling
-    @constrainScrollEventsToModal()
+    if @get 'renderModal'
+      # Disable page scrolling
+      @constrainScrollEventsToModal()
 
-    # Focus on modal so we can catch key events
-    @.$().focus() if @get 'renderModal'
+      # Focus on modal so we can catch key events
+      @.$().focus()
+
+      # Add a class to the body element of the page so we can disable page scrolling on mobile
+      $('body').addClass('eui-modal-open')
   ).observes 'renderModal'
 
 
-  # Remove the Modal from the DOM
+  # Method to call to hide the Modal
 
   hide: ->
     # Set isClosing to true so the animation class gets added
@@ -99,14 +106,17 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       @remove()
 
 
-  # Restore focus to where it was before the modal was opened and remove the modal from
-  # the DOM via the renderModal flag, or if it was created programattically by destroying it.
+  # Removes the Modal from the DOM
 
   remove: ->
+    # Restore focus to where it was before the modal was open
     @get('previousFocus')?.focus()
 
     # unbind scroll events
     @.$().unbind('.emberui')
+
+    # Remove class set on body to disable mobile scrolling
+    $('body').removeClass('eui-modal-open')
 
     if @get 'programmatic'
       @destroy()
