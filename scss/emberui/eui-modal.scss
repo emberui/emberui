@@ -50,7 +50,6 @@
 // Disables page scrolling for mobile
 @media (min-device-width : 320px) and (max-device-width : 480px) {
   .eui-modal-open {
-    position: fixed;
     overflow: hidden;
   }
 }
