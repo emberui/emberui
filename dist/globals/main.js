@@ -55,7 +55,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
   primaryAction: Em.computed(function() {
     return this.get('options').findBy('primary', true);
   }).property('options'),
-  secondaryAction: (function() {
+  peformSecondaryAction: (function() {
     var action;
     action = this.get('selection.action');
     if (action) {
@@ -65,6 +65,9 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
     }
     return this.set('selection', null);
   }).observes('selection'),
+  optionsWithoutPrimaryAction: Ember.computed.filter('options', function(option) {
+    return !option.primary;
+  }).property("options"),
   actions: {
     toggleWindow: function() {
       if (!this.get('poplistIsOpen')) {
@@ -72,7 +75,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
           targetObject: this,
           isOpenBinding: 'targetObject.poplistIsOpen',
           selectionBinding: 'targetObject.selection',
-          optionsBinding: 'targetObject.options',
+          optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
           labelPath: 'label',
           style: 'bubble'
         });
@@ -138,13 +141,15 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
     if (this.get('programmatic')) {
       this.set('previousFocus', $(document.activeElement));
       this.constrainScrollEventsToModal();
-      return this.$().focus();
+      this.$().focus();
+      return $('body').addClass('eui-modal-open');
     }
   },
   didOpenModal: (function() {
-    this.constrainScrollEventsToModal();
     if (this.get('renderModal')) {
-      return this.$().focus();
+      this.constrainScrollEventsToModal();
+      this.$().focus();
+      return $('body').addClass('eui-modal-open');
     }
   }).observes('renderModal'),
   hide: function() {
@@ -161,6 +166,7 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
       _ref.focus();
     }
     this.$().unbind('.emberui');
+    $('body').removeClass('eui-modal-open');
     if (this.get('programmatic')) {
       return this.destroy();
     } else {
@@ -559,7 +565,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
       paddedOptions.unshift(this.get('nullValue'));
     }
     return paddedOptions;
-  }).property('options.@each required'),
+  }).property('options.@each', 'required'),
   label: (function() {
     var labelPath;
     labelPath = this.get('labelPath');
@@ -584,11 +590,10 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
     var selection, valuePath;
     if (arguments.length === 2) {
       valuePath = this.get('valuePath');
-      selection = value;
       if (valuePath) {
         selection = this.get('options').findProperty(valuePath, value);
       }
-      this.set('selection', selection);
+      this.set('selection', selection || value);
       return value;
     } else {
       valuePath = this.get('valuePath');
@@ -598,7 +603,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
         return null;
       }
     }
-  }).property('selection'),
+  }).property('selection', 'valuePath'),
   initialization: (function() {
     var labelPath, value, valuePath;
     if (this.get('options') === void 0) {

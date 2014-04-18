@@ -11,7 +11,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
   primaryAction: Em.computed(function() {
     return this.get('options').findBy('primary', true);
   }).property('options'),
-  secondaryAction: (function() {
+  peformSecondaryAction: (function() {
     var action;
     action = this.get('selection.action');
     if (action) {
@@ -21,6 +21,9 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
     }
     return this.set('selection', null);
   }).observes('selection'),
+  optionsWithoutPrimaryAction: Ember.computed.filter('options', function(option) {
+    return !option.primary;
+  }).property("options"),
   actions: {
     toggleWindow: function() {
       if (!this.get('poplistIsOpen')) {
@@ -28,7 +31,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
           targetObject: this,
           isOpenBinding: 'targetObject.poplistIsOpen',
           selectionBinding: 'targetObject.selection',
-          optionsBinding: 'targetObject.options',
+          optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
           labelPath: 'label',
           style: 'bubble'
         });

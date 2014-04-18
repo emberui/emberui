@@ -38,13 +38,15 @@ define(
         if (this.get('programmatic')) {
           this.set('previousFocus', $(document.activeElement));
           this.constrainScrollEventsToModal();
-          return this.$().focus();
+          this.$().focus();
+          return $('body').addClass('eui-modal-open');
         }
       },
       didOpenModal: (function() {
-        this.constrainScrollEventsToModal();
         if (this.get('renderModal')) {
-          return this.$().focus();
+          this.constrainScrollEventsToModal();
+          this.$().focus();
+          return $('body').addClass('eui-modal-open');
         }
       }).observes('renderModal'),
       hide: function() {
@@ -61,6 +63,7 @@ define(
           _ref.focus();
         }
         this.$().unbind('.emberui');
+        $('body').removeClass('eui-modal-open');
         if (this.get('programmatic')) {
           return this.destroy();
         } else {

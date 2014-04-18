@@ -28,7 +28,7 @@ define(
           paddedOptions.unshift(this.get('nullValue'));
         }
         return paddedOptions;
-      }).property('options.@each required'),
+      }).property('options.@each', 'required'),
       label: (function() {
         var labelPath;
         labelPath = this.get('labelPath');
@@ -53,11 +53,10 @@ define(
         var selection, valuePath;
         if (arguments.length === 2) {
           valuePath = this.get('valuePath');
-          selection = value;
           if (valuePath) {
             selection = this.get('options').findProperty(valuePath, value);
           }
-          this.set('selection', selection);
+          this.set('selection', selection || value);
           return value;
         } else {
           valuePath = this.get('valuePath');
@@ -67,7 +66,7 @@ define(
             return null;
           }
         }
-      }).property('selection'),
+      }).property('selection', 'valuePath'),
       initialization: (function() {
         var labelPath, value, valuePath;
         if (this.get('options') === void 0) {

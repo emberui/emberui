@@ -333,6 +333,10 @@
   height: 100%;
   width: 100%; }
 
+@media (min-device-width: 320px) and (max-device-width: 480px) {
+  .eui-modal-open {
+    overflow: hidden; } }
+
 .eui-select {
   display: inline-block;
   vertical-align: middle;

@@ -61,7 +61,7 @@ define("emberui/components/eui-button",
       primaryAction: Em.computed(function() {
         return this.get('options').findBy('primary', true);
       }).property('options'),
-      secondaryAction: (function() {
+      peformSecondaryAction: (function() {
         var action;
         action = this.get('selection.action');
         if (action) {
@@ -71,6 +71,9 @@ define("emberui/components/eui-button",
         }
         return this.set('selection', null);
       }).observes('selection'),
+      optionsWithoutPrimaryAction: Ember.computed.filter('options', function(option) {
+        return !option.primary;
+      }).property("options"),
       actions: {
         toggleWindow: function() {
           if (!this.get('poplistIsOpen')) {
@@ -78,7 +81,7 @@ define("emberui/components/eui-button",
               targetObject: this,
               isOpenBinding: 'targetObject.poplistIsOpen',
               selectionBinding: 'targetObject.selection',
-              optionsBinding: 'targetObject.options',
+              optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
               labelPath: 'label',
               style: 'bubble'
             });
@@ -148,13 +151,15 @@ define("emberui/components/eui-button",
         if (this.get('programmatic')) {
           this.set('previousFocus', $(document.activeElement));
           this.constrainScrollEventsToModal();
-          return this.$().focus();
+          this.$().focus();
+          return $('body').addClass('eui-modal-open');
         }
       },
       didOpenModal: (function() {
-        this.constrainScrollEventsToModal();
         if (this.get('renderModal')) {
-          return this.$().focus();
+          this.constrainScrollEventsToModal();
+          this.$().focus();
+          return $('body').addClass('eui-modal-open');
         }
       }).observes('renderModal'),
       hide: function() {
@@ -171,6 +176,7 @@ define("emberui/components/eui-button",
           _ref.focus();
         }
         this.$().unbind('.emberui');
+        $('body').removeClass('eui-modal-open');
         if (this.get('programmatic')) {
           return this.destroy();
         } else {
@@ -573,7 +579,7 @@ define("emberui/components/eui-button",
           paddedOptions.unshift(this.get('nullValue'));
         }
         return paddedOptions;
-      }).property('options.@each required'),
+      }).property('options.@each', 'required'),
       label: (function() {
         var labelPath;
         labelPath = this.get('labelPath');
@@ -598,11 +604,10 @@ define("emberui/components/eui-button",
         var selection, valuePath;
         if (arguments.length === 2) {
           valuePath = this.get('valuePath');
-          selection = value;
           if (valuePath) {
             selection = this.get('options').findProperty(valuePath, value);
           }
-          this.set('selection', selection);
+          this.set('selection', selection || value);
           return value;
         } else {
           valuePath = this.get('valuePath');
@@ -612,7 +617,7 @@ define("emberui/components/eui-button",
             return null;
           }
         }
-      }).property('selection'),
+      }).property('selection', 'valuePath'),
       initialization: (function() {
         var labelPath, value, valuePath;
         if (this.get('options') === void 0) {
