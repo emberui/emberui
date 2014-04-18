@@ -71,13 +71,10 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
       # Store orignal focus so we can restore it when the modal is closed
       @set 'previousFocus', $(document.activeElement)
 
-      # Disable page scrolling
-      @constrainScrollEventsToModal()
-
       # Focus on modal so we can catch key events
       @.$().focus()
 
-      # Add a class to the body element of the page so we can disable page scrolling on mobile
+      # Add a class to the body element of the page so we can disable page scrolling
       $('body').addClass('eui-modal-open')
 
 
@@ -85,13 +82,10 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
 
   didOpenModal: (->
     if @get 'renderModal'
-      # Disable page scrolling
-      @constrainScrollEventsToModal()
-
       # Focus on modal so we can catch key events
       @.$().focus()
 
-      # Add a class to the body element of the page so we can disable page scrolling on mobile
+      # Add a class to the body element of the page so we can disable page scrolling
       $('body').addClass('eui-modal-open')
   ).observes 'renderModal'
 
@@ -112,10 +106,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
     # Restore focus to where it was before the modal was open
     @get('previousFocus')?.focus()
 
-    # unbind scroll events
-    @.$().unbind('.emberui')
-
-    # Remove class set on body to disable mobile scrolling
+    # Remove class set on body to disable page scrolling
     $('body').removeClass('eui-modal-open')
 
     if @get 'programmatic'
@@ -165,43 +156,6 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
     event.preventDefault()
     tabbable[event.shiftKey && 'last' || 'first']()[0].focus()
 
-
-  # Don't let scroll events bubble up past the modal. This prevents the page from scrolling
-  # behind the modal
-
-  constrainScrollEventsToModal: ->
-    @.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (e) =>
-      e.stopPropagation()
-
-
-      # Build list of any element that could possible scroll due to event
-      element = $(e.target)
-      elements = []
-
-      while element.parent().prop('tagName') isnt 'EUI-MODAL'
-        elements.pushObject element
-        element = element.parent()
-
-      # Get scroll direction and then check each element to see if it can scroll in
-      # that direction
-
-      canScroll = false
-
-      # scrolling up
-      if e.originalEvent.wheelDelta >= 0
-        for element in elements
-          if element.scrollTop() isnt 0
-            canScroll = true
-
-      # scrolling down
-      else
-        for element in elements
-          if (element.scrollTop() + element.innerHeight()) < element.prop('scrollHeight')
-            canScroll = true
-            break
-
-      e.preventDefault() unless canScroll
-    )
 
 
 modal.reopenClass

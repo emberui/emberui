@@ -49,6 +49,9 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
 
     @get('previousFocus').focus()
 
+    # Remove class set on body to disable mobile scrolling
+    $('body').removeClass('eui-poplist-open')
+
     @animationsDidComplete().then =>
       @destroy()
 
@@ -64,6 +67,9 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
 
     # Ensure the selected option is visible and center it
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
+
+    # Add a class to the body element of the page so we can disable page scrolling on mobile
+    $('body').addClass('eui-poplist-open')
 
   focusOnSearch: ->
     @$().find('input:first').focus()

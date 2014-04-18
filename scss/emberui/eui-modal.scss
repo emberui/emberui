@@ -47,9 +47,7 @@
   }
 }
 
-// Disables page scrolling for mobile
-@media (min-device-width : 320px) and (max-device-width : 480px) {
-  .eui-modal-open {
-    overflow: hidden;
-  }
+// Disables page scrolling
+.eui-modal-open {
+  overflow: hidden;
 }
