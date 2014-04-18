@@ -150,14 +150,12 @@ define("emberui/components/eui-button",
       didInsertElement: function() {
         if (this.get('programmatic')) {
           this.set('previousFocus', $(document.activeElement));
-          this.constrainScrollEventsToModal();
           this.$().focus();
           return $('body').addClass('eui-modal-open');
         }
       },
       didOpenModal: (function() {
         if (this.get('renderModal')) {
-          this.constrainScrollEventsToModal();
           this.$().focus();
           return $('body').addClass('eui-modal-open');
         }
@@ -175,7 +173,6 @@ define("emberui/components/eui-button",
         if ((_ref = this.get('previousFocus')) != null) {
           _ref.focus();
         }
-        this.$().unbind('.emberui');
         $('body').removeClass('eui-modal-open');
         if (this.get('programmatic')) {
           return this.destroy();
@@ -216,40 +213,6 @@ define("emberui/components/eui-button",
         }
         event.preventDefault();
         return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
-      },
-      constrainScrollEventsToModal: function() {
-        return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
-          return function(e) {
-            var canScroll, element, elements, _i, _j, _len, _len1;
-            e.stopPropagation();
-            element = $(e.target);
-            elements = [];
-            while (element.parent().prop('tagName') !== 'EUI-MODAL') {
-              elements.pushObject(element);
-              element = element.parent();
-            }
-            canScroll = false;
-            if (e.originalEvent.wheelDelta >= 0) {
-              for (_i = 0, _len = elements.length; _i < _len; _i++) {
-                element = elements[_i];
-                if (element.scrollTop() !== 0) {
-                  canScroll = true;
-                }
-              }
-            } else {
-              for (_j = 0, _len1 = elements.length; _j < _len1; _j++) {
-                element = elements[_j];
-                if ((element.scrollTop() + element.innerHeight()) < element.prop('scrollHeight')) {
-                  canScroll = true;
-                  break;
-                }
-              }
-            }
-            if (!canScroll) {
-              return e.preventDefault();
-            }
-          };
-        })(this));
       }
     });
 
@@ -310,6 +273,7 @@ define("emberui/components/eui-button",
         $(window).unbind('.emberui');
         this.$().unbind('.emberui');
         this.get('previousFocus').focus();
+        $('body').removeClass('eui-poplist-open');
         return this.animationsDidComplete().then((function(_this) {
           return function() {
             return _this.destroy();
@@ -322,9 +286,10 @@ define("emberui/components/eui-button",
         Ember.run.next(this, function() {
           return this.focusOnSearch();
         });
-        return Ember.run.next(this, function() {
+        Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
+        return $('body').addClass('eui-poplist-open');
       },
       focusOnSearch: function() {
         return this.$().find('input:first').focus();

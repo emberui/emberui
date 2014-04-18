@@ -37,6 +37,7 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
     $(window).unbind('.emberui');
     this.$().unbind('.emberui');
     this.get('previousFocus').focus();
+    $('body').removeClass('eui-poplist-open');
     return this.animationsDidComplete().then((function(_this) {
       return function() {
         return _this.destroy();
@@ -49,9 +50,10 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
     Ember.run.next(this, function() {
       return this.focusOnSearch();
     });
-    return Ember.run.next(this, function() {
+    Ember.run.next(this, function() {
       return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
     });
+    return $('body').addClass('eui-poplist-open');
   },
   focusOnSearch: function() {
     return this.$().find('input:first').focus();

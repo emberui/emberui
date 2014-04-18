@@ -1,3 +1,8 @@
+@media (min-device-width: 320px) and (max-device-width: 480px) {
+  .ember-application > .ember-view:first-of-type {
+    height: 100%;
+    overflow: scroll; } }
+
 .eui-singlebutton, .eui-groupbutton {
   display: inline-block;
   vertical-align: middle; }
@@ -206,6 +211,11 @@
     box-sizing: border-box;
     padding: 0 5px 5px 5px; }
 
+.eui-poplist-open {
+  overflow: hidden; }
+  .eui-poplist-open.ember-application > .ember-view:first-of-type, .eui-poplist-open .ember-application > .ember-view:first-of-type {
+    overflow: hidden; }
+
 .eui-input, .eui-textarea {
   padding: 1px;
   display: inline-block;
@@ -333,9 +343,10 @@
   height: 100%;
   width: 100%; }
 
-@media (min-device-width: 320px) and (max-device-width: 480px) {
-  .eui-modal-open {
-    overflow: hidden; } }
+.eui-modal-open {
+  overflow: hidden; }
+  .eui-modal-open.ember-application > .ember-view:first-of-type, .eui-modal-open .ember-application > .ember-view:first-of-type {
+    overflow: hidden; }
 
 .eui-select {
   display: inline-block;

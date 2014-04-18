@@ -50,4 +50,10 @@
 // Disables page scrolling
 .eui-modal-open {
   overflow: hidden;
+
+  // Required for mobile
+  &.ember-application > .ember-view:first-of-type,
+  .ember-application > .ember-view:first-of-type {
+    overflow: hidden;
+  }
 }

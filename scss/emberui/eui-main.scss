@@ -1,0 +1,7 @@
+@media (min-device-width : 320px) and (max-device-width : 480px) {
+  // Help prevents page scrolling on mobile when modal or poplist is open
+  .ember-application > .ember-view:first-of-type {
+    height: 100%;
+    overflow: scroll;
+  }
+}
