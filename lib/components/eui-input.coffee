@@ -6,6 +6,7 @@
 
 input = Em.Component.extend validationSupport, textSupport, styleSupport, sizeSupport, widthSupport,
   classNameBindings: [':eui-input']
+  tagName: 'eui-input'
 
   maxlength: null
 

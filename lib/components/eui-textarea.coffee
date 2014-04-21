@@ -6,6 +6,7 @@
 textarea = Em.Component.extend validationSupport, textSupport, styleSupport, sizeSupport,
   classNameBindings: [':eui-textarea']
   attributeBindings: ['computedWidthAndHeight:style']
+  tagName: 'eui-textarea'
 
   height: null
 

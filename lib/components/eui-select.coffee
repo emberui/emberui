@@ -6,7 +6,7 @@
 `import validationSupport from '../mixins/validation-support'`
 
 select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport,
-  tagName: 'div'
+  tagName: 'eui-select'
   classNames: ['eui-select']
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class']
 

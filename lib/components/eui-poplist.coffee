@@ -8,6 +8,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
   classNames: ['eui-poplist eui-animation']
   classNameBindings: ['isOpen::eui-closing']
   attributeBindings: ['tabindex']
+  tagName: 'eui-poplist'
 
   labelPath: 'label'
   options: null

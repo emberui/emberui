@@ -3,7 +3,7 @@
 `import poplistComponent from '../components/eui-poplist'`
 
 dropbutton = Em.Component.extend styleSupport, sizeSupport,
-  tagName: 'div'
+  tagName: 'eui-dropbutton'
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
   poplistIsOpen: false
 
