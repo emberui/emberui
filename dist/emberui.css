@@ -35,7 +35,8 @@
     background: #f6f6f6;
     outline: none; }
   .eui-button .eui-wrapper {
-    position: relative; }
+    position: relative;
+    text-align: center; }
   .eui-button i {
     font-style: normal; }
   .eui-button.eui-disabled {
