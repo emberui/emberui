@@ -8,9 +8,10 @@ define(
     var dropbutton;
 
     dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
-      tagName: 'div',
+      tagName: 'eui-dropbutton',
       classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton'],
       poplistIsOpen: false,
+      listWidth: 'auto',
       primaryAction: Em.computed(function() {
         return this.get('options').findBy('primary', true);
       }).property('options'),
@@ -36,7 +37,8 @@ define(
               selectionBinding: 'targetObject.selection',
               optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
               labelPath: 'label',
-              style: 'bubble'
+              style: 'bubble',
+              listWidth: this.get('listWidth')
             });
           }
         },

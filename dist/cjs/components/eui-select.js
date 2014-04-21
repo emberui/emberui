@@ -8,7 +8,7 @@ var validationSupport = require("../mixins/validation-support")["default"] || re
 var select;
 
 select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport, {
-  tagName: 'div',
+  tagName: 'eui-select',
   classNames: ['eui-select'],
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class'],
   poplistIsOpen: false,
@@ -16,6 +16,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
   options: [],
   labelPath: 'label',
   valuePath: 'value',
+  listWidth: 'auto',
   nullValue: new Object(),
   optionsWithBlank: (function() {
     var options, paddedOptions;
@@ -89,7 +90,8 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
         selectionBinding: 'targetObject.internalSelection',
         optionsBinding: 'targetObject.optionsWithBlank',
         labelPathBinding: 'targetObject.labelPath',
-        style: 'flyin'
+        style: 'flyin',
+        listWidth: this.get('listWidth')
       });
     }
   },

@@ -7,6 +7,7 @@ var button;
 
 button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, {
   classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+  tagName: 'eui-button',
   label: null,
   icon: null,
   trailingIcon: null,
@@ -31,6 +32,7 @@ var checkbox;
 
 checkbox = Em.Component.extend(validationSupport, styleSupport, sizeSupport, {
   classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class'],
+  tagName: 'eui-checkbox',
   value: false,
   disabled: false,
   click: function() {
@@ -49,9 +51,10 @@ var poplistComponent = _dereq_("../components/eui-poplist")["default"] || _dereq
 var dropbutton;
 
 dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
-  tagName: 'div',
+  tagName: 'eui-dropbutton',
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton'],
   poplistIsOpen: false,
+  listWidth: 'auto',
   primaryAction: Em.computed(function() {
     return this.get('options').findBy('primary', true);
   }).property('options'),
@@ -77,7 +80,8 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
           selectionBinding: 'targetObject.selection',
           optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
           labelPath: 'label',
-          style: 'bubble'
+          style: 'bubble',
+          listWidth: this.get('listWidth')
         });
       }
     },
@@ -99,6 +103,7 @@ var input;
 
 input = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
   classNameBindings: [':eui-input'],
+  tagName: 'eui-input',
   maxlength: null
 });
 
@@ -234,10 +239,12 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
   classNames: ['eui-poplist eui-animation'],
   classNameBindings: ['isOpen::eui-closing'],
   attributeBindings: ['tabindex'],
-  labelPath: 'label',
-  options: null,
+  tagName: 'eui-poplist',
+  listWidth: null,
   listHeight: '80',
   listRowHeight: '20',
+  labelPath: 'label',
+  options: null,
   searchString: null,
   highlightedIndex: -1,
   previousFocus: null,
@@ -274,6 +281,7 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
     Ember.run.next(this, function() {
       return this.focusOnSearch();
     });
+    this.updateListWidthCss();
     Ember.run.next(this, function() {
       return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
     });
@@ -281,6 +289,11 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
   },
   focusOnSearch: function() {
     return this.$().find('input:first').focus();
+  },
+  updateListWidthCss: function() {
+    var listWidth;
+    listWidth = this.get('listWidth');
+    return this.$().css('width', listWidth);
   },
   searchStringDidChange: (function() {
     if (this.get('searchString')) {
@@ -513,7 +526,7 @@ var validationSupport = _dereq_("../mixins/validation-support")["default"] || _d
 var select;
 
 select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport, {
-  tagName: 'div',
+  tagName: 'eui-select',
   classNames: ['eui-select'],
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class'],
   poplistIsOpen: false,
@@ -521,6 +534,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
   options: [],
   labelPath: 'label',
   valuePath: 'value',
+  listWidth: 'auto',
   nullValue: new Object(),
   optionsWithBlank: (function() {
     var options, paddedOptions;
@@ -594,7 +608,8 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
         selectionBinding: 'targetObject.internalSelection',
         optionsBinding: 'targetObject.optionsWithBlank',
         labelPathBinding: 'targetObject.labelPath',
-        style: 'flyin'
+        style: 'flyin',
+        listWidth: this.get('listWidth')
       });
     }
   },
@@ -621,6 +636,7 @@ var textarea;
 textarea = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, {
   classNameBindings: [':eui-textarea'],
   attributeBindings: ['computedWidthAndHeight:style'],
+  tagName: 'eui-textarea',
   height: null,
   computedWidthAndHeight: Em.computed(function() {
     var height, heights, width, widths;

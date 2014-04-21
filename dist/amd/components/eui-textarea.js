@@ -11,6 +11,7 @@ define(
     textarea = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, {
       classNameBindings: [':eui-textarea'],
       attributeBindings: ['computedWidthAndHeight:style'],
+      tagName: 'eui-textarea',
       height: null,
       computedWidthAndHeight: Em.computed(function() {
         var height, heights, width, widths;

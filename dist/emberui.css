@@ -158,6 +158,7 @@
     font-size: 11px; }
 
 .eui-poplist {
+  display: block;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -307,41 +308,43 @@
 .eui-textarea .eui-wrapper {
   height: 100% !important; }
 
-.eui-modal .eui-modal-wrapper {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 100vh;
-  width: 100vw;
-  z-index: 1000001; }
-.eui-modal .eui-modal-table {
-  display: table;
-  width: 100%;
-  height: 100%; }
-.eui-modal .eui-modal-cell {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  height: 100%; }
-.eui-modal .eui-overlay {
-  position: absolute;
-  opacity: 1;
-  height: 100%;
-  width: 100%;
-  top: 0px;
-  left: 0px;
-  z-index: 1000002;
-  background: rgba(0, 0, 0, 0.1); }
-.eui-modal .eui-modalobject {
-  position: relative;
-  display: inline-block;
-  opacity: 1;
-  z-index: 1000003;
-  text-align: left;
-  background: #ffffff; }
-.eui-modal .eui-modalobject-wrapper {
-  height: 100%;
-  width: 100%; }
+.eui-modal {
+  display: inline; }
+  .eui-modal .eui-modal-wrapper {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000001; }
+  .eui-modal .eui-modal-table {
+    display: table;
+    width: 100%;
+    height: 100%; }
+  .eui-modal .eui-modal-cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%; }
+  .eui-modal .eui-overlay {
+    position: absolute;
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1000002;
+    background: rgba(0, 0, 0, 0.1); }
+  .eui-modal .eui-modalobject {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+    z-index: 1000003;
+    text-align: left;
+    background: #ffffff; }
+  .eui-modal .eui-modalobject-wrapper {
+    height: 100%;
+    width: 100%; }
 
 .eui-modal-open {
   overflow: hidden; }

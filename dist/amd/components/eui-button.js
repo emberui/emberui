@@ -9,6 +9,7 @@ define(
 
     button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, {
       classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+      tagName: 'eui-button',
       label: null,
       icon: null,
       trailingIcon: null,

@@ -9,6 +9,7 @@ define("emberui/components/eui-button",
 
     button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, {
       classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+      tagName: 'eui-button',
       label: null,
       icon: null,
       trailingIcon: null,
@@ -35,6 +36,7 @@ define("emberui/components/eui-button",
 
     checkbox = Em.Component.extend(validationSupport, styleSupport, sizeSupport, {
       classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class'],
+      tagName: 'eui-checkbox',
       value: false,
       disabled: false,
       click: function() {
@@ -55,9 +57,10 @@ define("emberui/components/eui-button",
     var dropbutton;
 
     dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
-      tagName: 'div',
+      tagName: 'eui-dropbutton',
       classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton'],
       poplistIsOpen: false,
+      listWidth: 'auto',
       primaryAction: Em.computed(function() {
         return this.get('options').findBy('primary', true);
       }).property('options'),
@@ -83,7 +86,8 @@ define("emberui/components/eui-button",
               selectionBinding: 'targetObject.selection',
               optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
               labelPath: 'label',
-              style: 'bubble'
+              style: 'bubble',
+              listWidth: this.get('listWidth')
             });
           }
         },
@@ -107,6 +111,7 @@ define("emberui/components/eui-button",
 
     input = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
       classNameBindings: [':eui-input'],
+      tagName: 'eui-input',
       maxlength: null
     });
 
@@ -246,10 +251,12 @@ define("emberui/components/eui-button",
       classNames: ['eui-poplist eui-animation'],
       classNameBindings: ['isOpen::eui-closing'],
       attributeBindings: ['tabindex'],
-      labelPath: 'label',
-      options: null,
+      tagName: 'eui-poplist',
+      listWidth: null,
       listHeight: '80',
       listRowHeight: '20',
+      labelPath: 'label',
+      options: null,
       searchString: null,
       highlightedIndex: -1,
       previousFocus: null,
@@ -286,6 +293,7 @@ define("emberui/components/eui-button",
         Ember.run.next(this, function() {
           return this.focusOnSearch();
         });
+        this.updateListWidthCss();
         Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
@@ -293,6 +301,11 @@ define("emberui/components/eui-button",
       },
       focusOnSearch: function() {
         return this.$().find('input:first').focus();
+      },
+      updateListWidthCss: function() {
+        var listWidth;
+        listWidth = this.get('listWidth');
+        return this.$().css('width', listWidth);
       },
       searchStringDidChange: (function() {
         if (this.get('searchString')) {
@@ -527,7 +540,7 @@ define("emberui/components/eui-button",
     var select;
 
     select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport, {
-      tagName: 'div',
+      tagName: 'eui-select',
       classNames: ['eui-select'],
       classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class'],
       poplistIsOpen: false,
@@ -535,6 +548,7 @@ define("emberui/components/eui-button",
       options: [],
       labelPath: 'label',
       valuePath: 'value',
+      listWidth: 'auto',
       nullValue: new Object(),
       optionsWithBlank: (function() {
         var options, paddedOptions;
@@ -608,7 +622,8 @@ define("emberui/components/eui-button",
             selectionBinding: 'targetObject.internalSelection',
             optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
-            style: 'flyin'
+            style: 'flyin',
+            listWidth: this.get('listWidth')
           });
         }
       },
@@ -637,6 +652,7 @@ define("emberui/components/eui-button",
     textarea = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, {
       classNameBindings: [':eui-textarea'],
       attributeBindings: ['computedWidthAndHeight:style'],
+      tagName: 'eui-textarea',
       height: null,
       computedWidthAndHeight: Em.computed(function() {
         var height, heights, width, widths;

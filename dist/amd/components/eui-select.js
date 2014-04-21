@@ -11,7 +11,7 @@ define(
     var select;
 
     select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport, {
-      tagName: 'div',
+      tagName: 'eui-select',
       classNames: ['eui-select'],
       classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class'],
       poplistIsOpen: false,
@@ -19,6 +19,7 @@ define(
       options: [],
       labelPath: 'label',
       valuePath: 'value',
+      listWidth: 'auto',
       nullValue: new Object(),
       optionsWithBlank: (function() {
         var options, paddedOptions;
@@ -92,7 +93,8 @@ define(
             selectionBinding: 'targetObject.internalSelection',
             optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
-            style: 'flyin'
+            style: 'flyin',
+            listWidth: this.get('listWidth')
           });
         }
       },

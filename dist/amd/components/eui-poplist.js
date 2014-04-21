@@ -13,10 +13,12 @@ define(
       classNames: ['eui-poplist eui-animation'],
       classNameBindings: ['isOpen::eui-closing'],
       attributeBindings: ['tabindex'],
-      labelPath: 'label',
-      options: null,
+      tagName: 'eui-poplist',
+      listWidth: null,
       listHeight: '80',
       listRowHeight: '20',
+      labelPath: 'label',
+      options: null,
       searchString: null,
       highlightedIndex: -1,
       previousFocus: null,
@@ -53,6 +55,7 @@ define(
         Ember.run.next(this, function() {
           return this.focusOnSearch();
         });
+        this.updateListWidthCss();
         Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
@@ -60,6 +63,11 @@ define(
       },
       focusOnSearch: function() {
         return this.$().find('input:first').focus();
+      },
+      updateListWidthCss: function() {
+        var listWidth;
+        listWidth = this.get('listWidth');
+        return this.$().css('width', listWidth);
       },
       searchStringDidChange: (function() {
         if (this.get('searchString')) {

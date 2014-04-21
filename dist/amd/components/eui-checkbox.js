@@ -9,6 +9,7 @@ define(
 
     checkbox = Em.Component.extend(validationSupport, styleSupport, sizeSupport, {
       classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class'],
+      tagName: 'eui-checkbox',
       value: false,
       disabled: false,
       click: function() {
