@@ -7,6 +7,14 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton']
   poplistIsOpen: false
 
+
+  # Width of the poplist
+
+  listWidth: 'auto'
+
+
+  # Action for the left button
+
   primaryAction: Em.computed ->
     @get('options').findBy 'primary', true
   .property 'options'
@@ -39,6 +47,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
           optionsBinding: 'targetObject.optionsWithoutPrimaryAction'
           labelPath: 'label'
           style: 'bubble'
+          listWidth: @get 'listWidth'
 
     primaryAction: ->
       @sendAction 'primaryAction.action', @

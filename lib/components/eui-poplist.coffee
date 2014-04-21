@@ -10,20 +10,47 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
   attributeBindings: ['tabindex']
   tagName: 'eui-poplist'
 
-  labelPath: 'label'
-  options: null
+
+  # Width of the poplist. Because list-view uses absolute positioning we can not rely
+  # on the content to push the poplist wider so the user needs a way to specify it
+
+  listWidth: null
+
+
+  # Controls the vertical height and row height for the list-view component
+
   listHeight: '80'
   listRowHeight: '20'
+
+
+  # Path to the string that should be used as the label
+
+  labelPath: 'label'
+
+
+  # Options user should select from
+
+  options: null
+
+
+  # String the user wants to filter by
+
   searchString: null
 
+
   # Index of option currently highlighted
+
   highlightedIndex: -1
+
 
   # If the poplist is opened using the keyboard then we use this value to restore the
   # focus where it was after the poplist closes.
+
   previousFocus: null
 
+
   # Option that is currently highlighted
+
   highlighted: Ember.computed (key, value) ->
     options = @get 'filteredOptions'
 
@@ -66,22 +93,40 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     # the page scrolling and closing the poplist
     Ember.run.next this, -> @focusOnSearch()
 
+    # Set poplist width
+    @updateListWidthCss()
+
     # Ensure the selected option is visible and center it
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
 
     # Add a class to the body element of the page so we can disable page scrolling on mobile
     $('body').addClass('eui-poplist-open')
 
+
+  # Focuses on search input so we can catch key input
+
   focusOnSearch: ->
     @$().find('input:first').focus()
 
+
+  # Because we are manually setting other css on the element we can't use bindings to
+  # update it automatically and have to do so manually
+
+  updateListWidthCss: ->
+    listWidth = @get 'listWidth'
+    @.$().css 'width', listWidth
+
+
   # Set the selection back to the first option if the users changes the search query
   # TODO: This doesn't fire the bindings on the listView correctly and you end up with multiple items highlighted.
+
   searchStringDidChange: (->
     @set 'highlightedIndex', 0 if @get 'searchString'
   ).observes 'searchString'
 
+
   # Filter the option list based on the query entered into the search box
+
   filteredOptions: (->
     options = @get 'options'
     query = @get 'searchString'
@@ -101,12 +146,16 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     return filteredOptions
   ).property 'options.@each', 'labelPath', 'searchString'
 
+
   hasNoOptions: Ember.computed.empty 'filteredOptions'
 
+
   # Updates the list-view's height based on the number of options
+
   optionsLengthDidChange: (->
     @updateListHeight()
   ).observes 'filteredOptions.length'
+
 
   updateListHeight: ->
     optionCount = @get 'filteredOptions.length'
@@ -117,8 +166,10 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     else
       @set 'listHeight', 10 * rowHeight
 
+
   # Scroll the list to make sure the given option is visible.
   # Copied from https://github.com/Addepar/ember-widgets/
+
   scrollToSelection: (index, center) ->
     $listView  = @.$('.ember-list-view')
     listView   = Ember.View.views[$listView.attr('id')]
@@ -136,6 +187,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
       else
         $listView.scrollTop (index - numRows + 1) * @get 'listRowHeight'
 
+
   # Keyboard controls
 
   KEY_MAP:
@@ -144,27 +196,35 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     38: 'upArrowPressed'
     40: 'downArrowPressed'
 
+
   keyDown: (event) ->
     keyMap = @get 'KEY_MAP'
     method = keyMap[event.which]
     @get(method)?.apply(this, arguments) if method
 
+
   escapePressed: (event) ->
     @hide()
+
 
   enterPressed: (event) ->
     event.preventDefault()
     @set 'selection', @get 'highlighted'
     @hide()
 
+
   downArrowPressed: (event) ->
     event.preventDefault() # Don't let the page scroll down
     @adjustHighlight(1)
+
 
   upArrowPressed: (event) ->
     event.preventDefault() # Don't let the page scroll down
     @adjustHighlight(-1)
 
+
+  # Method to highlight the next or previous item in the list. It will ensure
+  # that at least one item remains highlighted
 
   adjustHighlight: (indexAdjustment) ->
     highlightedIndex = @get 'highlightedIndex'
@@ -208,6 +268,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     height: Ember.computed.alias 'controller.listHeight'
     rowHeight: Ember.computed.alias 'controller.listRowHeight'
 
+
     didInsertElement: ->
       @_super()
 
@@ -227,38 +288,48 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
         @scrollTo(scrollTo)
       )
 
+
     itemViewClass: Ember.ListItemView.extend
       classNames: ['eui-option']
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
       template: itemViewClassTemplate
 
+
       # creates Label property based on specified labelPath
+
       labelPathDidChange: (->
         labelPath = @get 'controller.labelPath'
         Ember.defineProperty(this, 'label', Ember.computed.alias("content.#{labelPath}"))
         @notifyPropertyChange 'label'
       ).observes 'content', 'controller.labelPath'
 
+
       initializeLabelPath: (->
         @labelPathDidChange()
       ).on 'init'
 
+
       # Bindings won't fire if bound to context
+
       updateContext: (context) ->
         @_super context
         @set 'content', context
+
 
       isHighlighted: Ember.computed ->
         @get('controller.highlighted') is @get('content')
       .property 'controller.highlighted', 'content'
 
+
       isSelected: Ember.computed ->
         @get('controller.selection') is @get('content')
       .property 'controller.selection', 'content'
 
+
       click: ->
         @set 'controller.selection', @get 'content'
         @get('controller').hide()
+
 
       mouseEnter: ->
         options = @get 'controller.filteredOptions'
@@ -277,19 +348,22 @@ poplist.reopenClass
     Ember.run.next this, -> @position(options.targetObject, poplist)
     poplist
 
+
   # TODO: Rewrite as reusable position function
+
   position: (targetObject, poplist) ->
     element = targetObject.$()
     poplistElement = poplist.$()
 
     offset = element.offset()
 
-    # set a reasonable min-width on the poplist before we caclulate its actual size
-    # TODO: Min-width is no longer sufficient because we use list-view which uses
-    # absolute positioning. This means the popup can no longer get pushed wider
-    # by its children. Need a new approach.
+
+    # Set a reasonable min-width on the poplist before we caclulate its actual size. This handles the
+    # case where no width is specified for the poplist
+
     elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'))
     poplistElement.css('min-width', elementWidthMinuspoplistPadding)
+
 
     # calculate all the numbers needed to set positioning
     elementPositionTop = offset.top - element.scrollTop()

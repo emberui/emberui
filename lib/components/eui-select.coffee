@@ -16,6 +16,12 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   labelPath: 'label'
   valuePath: 'value'
 
+
+  # Width of the poplist
+
+  listWidth: 'auto'
+
+
   # Stores a object that we will consider to be null. If this object is selected we
   # will return null instead
 
@@ -108,6 +114,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
         optionsBinding: 'targetObject.optionsWithBlank'
         labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
+        listWidth: @get 'listWidth'
 
 
   # Down Arrow Key opens poplist
