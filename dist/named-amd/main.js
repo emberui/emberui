@@ -876,38 +876,42 @@ define("emberui/components/eui-button",
     var validationsupport;
 
     validationsupport = Em.Mixin.create({
-      classNameBindings: ['computedErrorState:eui-error'],
-      computedErrorState: null,
-      computedErrorMessage: null,
+      classNameBindings: ['errorState:eui-error'],
+      errorState: null,
+      errorMessage: null,
+      forceValidate: false,
       validateField: function(type) {
-        var error, required, value;
+        var error, forceValidate, value;
         error = this.get('error');
-        required = this.get('required');
         value = this.get('value');
-        if (type === 'onload' && !value) {
+        forceValidate = this.get('forceValidate');
+        if (type === 'onload' && !value && !forceValidate) {
           return;
         }
         if (Ember.isArray(error)) {
           error = error[0];
         }
-        if (error || (required && !value)) {
-          this.set('computedErrorState', true);
+        if (error) {
+          this.set('errorState', true);
           if (error && typeof error !== 'boolean') {
-            return this.set('computedErrorMessage', error);
+            return this.set('errorMessage', error);
           }
         } else {
-          this.set('computedErrorState', false);
-          return this.set('computedErrorMessage', null);
+          this.set('errorState', false);
+          return this.set('errorMessage', null);
         }
       },
       focusOut: function() {
         return this.validateField();
       },
       onChange: (function() {
-        if (this.get('computedErrorState')) {
+        if (this.get('errorState')) {
           return Ember.run.once(this, 'validateField');
         }
       }).observes('value'),
+      forceValidation: (function() {
+        return this.validateField();
+      }).observes('forceValidate'),
       validateOnLoad: (function() {
         return this.validateField('onload');
       }).on('init')
@@ -945,7 +949,7 @@ define("emberui/components/eui-button",
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<input type=\"checkbox\" {{bind-attr checked=value disabled=disabled}} />\n\n<div {{bind-attr class=\":eui-checkbox-form disabled:eui-disabled:eui-enabled\"}}>\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n{{label}}\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    __exports__["default"] = Ember.Handlebars.compile("<input type=\"checkbox\" {{bind-attr checked=value disabled=disabled}} />\n\n<div {{bind-attr class=\":eui-checkbox-form disabled:eui-disabled:eui-enabled\"}}>\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n{{label}}\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
   });define("emberui/templates/eui-dropbutton",
   ["exports"],
   function(__exports__) {
@@ -955,7 +959,7 @@ define("emberui/components/eui-button",
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{input type=type value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{input type=type value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
   });define("emberui/templates/eui-modal",
   ["exports"],
   function(__exports__) {
@@ -975,12 +979,12 @@ define("emberui/components/eui-button",
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" }}></button>\n\n<div class=\"eui-select-form\">\n  <div class=\"eui-wrapper\">\n    <i>{{view.label}}</i>\n    <b class=\"eui-icon\"></b>\n  </div>\n</div>\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    __exports__["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" }}></button>\n\n<div class=\"eui-select-form\">\n  <div class=\"eui-wrapper\">\n    <i>{{view.label}}</i>\n    <b class=\"eui-icon\"></b>\n  </div>\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
   });define("emberui/templates/eui-textarea",
   ["exports"],
   function(__exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if computedErrorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{computedErrorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
   });define("emberui/utilities/tabbable-selector",
   [],
   function() {

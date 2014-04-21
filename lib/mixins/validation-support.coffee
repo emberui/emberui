@@ -1,40 +1,45 @@
 validationsupport = Em.Mixin.create
-  classNameBindings: ['computedErrorState:eui-error']
+  classNameBindings: ['errorState:eui-error']
 
-  computedErrorState: null
-  computedErrorMessage: null
+  errorState: null
+  errorMessage: null
+  forceValidate: false
 
   validateField: (type) ->
-    error = @get('error')
-    required = @get('required')
-    value = @get('value')
+    error = @get 'error'
+    value = @get 'value'
+    forceValidate = @get 'forceValidate'
 
-    if type is 'onload' and !value
+    if type is 'onload' and !value and !forceValidate
       return
 
     # Error validation libraries may return an array of error messages so we only use the first
     if Ember.isArray(error)
       error = error[0]
 
-    if error or (required and !value)
-      @set 'computedErrorState', true
+    if error
+      @set 'errorState', true
 
       if error and typeof(error) isnt 'boolean'
-        @set 'computedErrorMessage', error
+        @set 'errorMessage', error
 
     else
-      @set 'computedErrorState', false
-      @set 'computedErrorMessage', null
+      @set 'errorState', false
+      @set 'errorMessage', null
 
   focusOut: -> @validateField()
 
   onChange:  (->
-    if @get('computedErrorState')
-      Ember.run.once(@, 'validateField')
+    if @get 'errorState'
+      Ember.run.once @, 'validateField'
   ).observes 'value'
 
+  forceValidation: (->
+    @validateField()
+  ).observes 'forceValidate'
+
   validateOnLoad: (->
-    @validateField('onload')
+    @validateField 'onload'
   ).on 'init'
 
 `export default validationsupport`

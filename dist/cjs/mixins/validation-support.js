@@ -2,38 +2,42 @@
 var validationsupport;
 
 validationsupport = Em.Mixin.create({
-  classNameBindings: ['computedErrorState:eui-error'],
-  computedErrorState: null,
-  computedErrorMessage: null,
+  classNameBindings: ['errorState:eui-error'],
+  errorState: null,
+  errorMessage: null,
+  forceValidate: false,
   validateField: function(type) {
-    var error, required, value;
+    var error, forceValidate, value;
     error = this.get('error');
-    required = this.get('required');
     value = this.get('value');
-    if (type === 'onload' && !value) {
+    forceValidate = this.get('forceValidate');
+    if (type === 'onload' && !value && !forceValidate) {
       return;
     }
     if (Ember.isArray(error)) {
       error = error[0];
     }
-    if (error || (required && !value)) {
-      this.set('computedErrorState', true);
+    if (error) {
+      this.set('errorState', true);
       if (error && typeof error !== 'boolean') {
-        return this.set('computedErrorMessage', error);
+        return this.set('errorMessage', error);
       }
     } else {
-      this.set('computedErrorState', false);
-      return this.set('computedErrorMessage', null);
+      this.set('errorState', false);
+      return this.set('errorMessage', null);
     }
   },
   focusOut: function() {
     return this.validateField();
   },
   onChange: (function() {
-    if (this.get('computedErrorState')) {
+    if (this.get('errorState')) {
       return Ember.run.once(this, 'validateField');
     }
   }).observes('value'),
+  forceValidation: (function() {
+    return this.validateField();
+  }).observes('forceValidate'),
   validateOnLoad: (function() {
     return this.validateField('onload');
   }).on('init')
