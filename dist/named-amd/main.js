@@ -25,6 +25,207 @@ define("emberui/components/eui-button",
     });
 
     __exports__["default"] = button;
+  });define("emberui/components/eui-calendar",
+  ["../mixins/style-support","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var styleSupport = __dependency1__["default"] || __dependency1__;
+    var calendar, cpFormatMoment;
+
+    cpFormatMoment = function(key, format) {
+      return Em.computed(function() {
+        var date;
+        date = this.get(key);
+        if (date) {
+          return date.format(format);
+        } else {
+          return null;
+        }
+      }).property(key);
+    };
+
+    calendar = Em.Component.extend(styleSupport, {
+      tagName: 'eui-calendar',
+      classNames: 'eui-calendar',
+      showNextMonth: true,
+      showPrevMonth: false,
+      multiple: false,
+      disablePast: null,
+      disableFuture: null,
+      disableManipulation: null,
+      maxPastDate: null,
+      maxFutureDate: null,
+      month: null,
+      disabledDates: null,
+      selectedDates: null,
+      selectedDate: null,
+      init: function() {
+        var firstSelectedDate;
+        this._super();
+        if (!this.get('selectedDates')) {
+          this.set('selectedDates', []);
+        } else {
+          this.set('multiple', true);
+        }
+        if (this.get('selectedDate')) {
+          this.get('selectedDates').addObject(this.get('selectedDate'));
+        }
+        firstSelectedDate = this.get('selectedDates.firstObject');
+        if (!this.get('month') && firstSelectedDate) {
+          this.set('month', firstSelectedDate.clone().startOf('month'));
+        }
+        if (!this.get('month')) {
+          return this.set('month', moment().startOf('month'));
+        }
+      },
+      actions: {
+        dateSelected: function(date) {
+          this.sendAction('select', date);
+          if (this.get('disableManipulation')) {
+            return;
+          }
+          if (this.get('multiple')) {
+            if (this.hasDate(date)) {
+              return this.removeDate(date);
+            } else {
+              return this.addDate(date);
+            }
+          } else {
+            if (this.hasDate(date)) {
+              return this.set('selectedDate', null);
+            } else {
+              return this.set('selectedDate', date);
+            }
+          }
+        },
+        prev: function() {
+          var month;
+          month = this.get('month');
+          if (!month || this.get('isPrevDisabled')) {
+            return;
+          }
+          return this.set('month', month.clone().subtract('months', 1));
+        },
+        next: function() {
+          var month;
+          month = this.get('month');
+          if (!month || this.get('isNextDisabled')) {
+            return;
+          }
+          return this.set('month', month.clone().add('months', 1));
+        }
+      },
+      hasDate: function(date) {
+        return this.get('selectedDates').any(function(d) {
+          return d.isSame(date);
+        });
+      },
+      removeDate: function(date) {
+        var dates, removeDates;
+        dates = this.get('selectedDates');
+        removeDates = dates.filter(function(d) {
+          return d.isSame(date);
+        });
+        return dates.removeObjects(removeDates);
+      },
+      addDate: function(date) {
+        this.removeDate(date);
+        return this.get('selectedDates').pushObject(date);
+      },
+      selectedDateWillChange: (function() {
+        return this.removeDate(this.get('selectedDate'));
+      }).observesBefore('selectedDate'),
+      selectedDateDidChange: (function() {
+        var date;
+        date = this.get('selectedDate');
+        if (!date) {
+          return;
+        }
+        return this.addDate(this.get('selectedDate'));
+      }).observes('selectedDate'),
+      now: (function() {
+        return moment();
+      }).property(),
+      prevMonth: (function() {
+        var month;
+        month = this.get('month');
+        if (month) {
+          return month.clone().subtract('months', 1);
+        } else {
+          return null;
+        }
+      }).property('month'),
+      nextMonth: (function() {
+        var month;
+        month = this.get('month');
+        if (month) {
+          return month.clone().add('months', 1);
+        } else {
+          return null;
+        }
+      }).property('month'),
+      isNextMonthInFuture: (function() {
+        var nextMonth, now;
+        nextMonth = this.get('nextMonth');
+        now = this.get('now');
+        if (nextMonth) {
+          return nextMonth.isAfter(now, 'month');
+        } else {
+          return false;
+        }
+      }).property('nextMonth', 'now'),
+      isPrevMonthInPast: (function() {
+        var now, prevMonth;
+        prevMonth = this.get('prevMonth');
+        now = this.get('now');
+        if (prevMonth) {
+          return prevMonth.isBefore(now, 'month');
+        } else {
+          return false;
+        }
+      }).property('prevMonth', 'now'),
+      isPrevMonthBeyondMax: (function() {
+        var maxPastDate, prevMonth;
+        prevMonth = this.get('prevMonth');
+        maxPastDate = this.get('maxPastDate');
+        if (!prevMonth || !maxPastDate) {
+          return false;
+        }
+        return prevMonth.isBefore(maxPastDate, 'month');
+      }).property('prevMonth', 'maxPastDate'),
+      isNextMonthBeyondMax: (function() {
+        var maxFutureDate, nextMonth;
+        nextMonth = this.get('nextMonth');
+        maxFutureDate = this.get('maxFutureDate');
+        if (!nextMonth || !maxFutureDate) {
+          return false;
+        }
+        return nextMonth.isAfter(maxFutureDate, 'month');
+      }).property('nextMonth', 'maxFutureDate'),
+      isPrevDisabled: (function() {
+        if (this.get('isPrevMonthBeyondMax')) {
+          return true;
+        }
+        if (this.get('disablePast') && this.get('isPrevMonthInPast')) {
+          return true;
+        }
+        return false;
+      }).property('isPrevMonthBeyondMax', 'isPrevMonthInPast', 'disablePast'),
+      isNextDisabled: (function() {
+        if (this.get('isNextMonthBeyondMax')) {
+          return true;
+        }
+        if (this.get('disableFuture') && this.get('isNextMonthInFuture')) {
+          return true;
+        }
+        return false;
+      }).property('isNextMonthBeyondMax', 'isNextMonthInFuture', 'disableFuture'),
+      prevMonthLabel: cpFormatMoment('prevMonth', 'MMMM YYYY'),
+      nextMonthLabel: cpFormatMoment('nextMonth', 'MMMM YYYY'),
+      monthLabel: cpFormatMoment('month', 'MMMM YYYY')
+    });
+
+     __exports__["default"] = calendar;
   });define("emberui/components/eui-checkbox",
   ["../mixins/validation-support","../mixins/style-support","../mixins/size-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
@@ -236,6 +437,145 @@ define("emberui/components/eui-button",
     });
 
     __exports__["default"] = modal;
+  });define("emberui/components/eui-month",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var DATE_SLOT_HBS, containsDate, forEachSlot, month;
+
+    DATE_SLOT_HBS = Handlebars.compile('<li class="{{classNames}}" data-date="{{jsonDate}}">' + '{{date}}' + '</li>');
+
+    containsDate = function(dates, date) {
+      if (!dates || !Em.get(dates, 'length')) {
+        return false;
+      }
+      return dates.any(function(d) {
+        return date.isSame(d, 'day');
+      });
+    };
+
+    forEachSlot = function(month, iter) {
+      var currentDay, day, firstDay, popCurrentDay, totalDays, week, _i, _j, _results;
+      totalDays = month.daysInMonth();
+      firstDay = month.clone().startOf('month').weekday();
+      currentDay = 1;
+      popCurrentDay = function() {
+        if (currentDay > totalDays) {
+          return null;
+        } else {
+          return moment([month.year(), month.month(), currentDay++]);
+        }
+      };
+      _results = [];
+      for (week = _i = 0; _i <= 6; week = ++_i) {
+        for (day = _j = 0; _j <= 6; day = ++_j) {
+          if (week === 0) {
+            iter(day < firstDay ? null : popCurrentDay());
+          } else {
+            iter(currentDay <= totalDays ? popCurrentDay() : null);
+          }
+        }
+        if (currentDay > totalDays) {
+          break;
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    };
+
+    month = Em.Component.extend({
+      tagName: 'ol',
+      classNames: 'eui-month',
+      month: null,
+      selectedDates: null,
+      disabledDates: null,
+      init: function() {
+        this._super();
+        if (!this.get('selectedDates')) {
+          throw 'you must provide selectedDates to eui-month';
+        }
+      },
+      click: function(event) {
+        var $target;
+        $target = $(event.target);
+        if ($target.is('.eui-disabled')) {
+          return;
+        }
+        if ($target.is('[data-date]')) {
+          return this.sendAction('select', moment($target.data('date'), 'YYYY-MM-DD'));
+        }
+      },
+      monthDidChange: (function() {
+        return Em.run.scheduleOnce('afterRender', this, 'rerender');
+      }).observes('month'),
+      selectedDatesDidChange: (function() {
+        return Em.run.scheduleOnce('afterRender', this, 'setSelectedDates');
+      }).observes('selectedDates.@each'),
+      setSelectedDates: function() {
+        var date, dates, json, view, _i, _len, _results;
+        dates = this.get('selectedDates');
+        view = this;
+        json;
+        if (this.state === !'inDOM') {
+          return;
+        }
+        this.$('li').removeClass('eui-selected');
+        _results = [];
+        for (_i = 0, _len = dates.length; _i < _len; _i++) {
+          date = dates[_i];
+          json = date.format('YYYY-MM-DD');
+          _results.push(view.$('[data-date="' + json + '"]').addClass('eui-selected'));
+        }
+        return _results;
+      },
+      didInsertElement: function() {
+        return this.setSelectedDates();
+      },
+      render: function(buff) {
+        var renderSlot, view;
+        month = this.get('month');
+        view = this;
+        if (!month) {
+          return;
+        }
+        renderSlot = function(slot) {
+          attrs;
+          var attrs;
+          if (slot) {
+            attrs = {
+              date: slot.format('D'),
+              jsonDate: slot.format('YYYY-MM-DD'),
+              classNames: ['eui-slot', 'eui-day']
+            };
+            view.applyOptionsForDate(attrs, slot);
+            attrs.classNames = attrs.classNames.join(' ');
+            return buff.push(DATE_SLOT_HBS(attrs));
+          } else {
+            return buff.push('<li class="eui-slot eui-empty"></li>');
+          }
+        };
+        return forEachSlot(month, function(slot) {
+          return renderSlot(slot);
+        });
+      },
+      applyOptionsForDate: function(options, date) {
+        var disabledDates, selectedDates;
+        disabledDates = this.get('disabledDates');
+        selectedDates = this.get('selectedDates');
+        if (moment().isSame(date, 'day')) {
+          options.classNames.push('eui-today');
+        }
+        if (disabledDates && containsDate(disabledDates, date)) {
+          options.classNames.push('eui-disabled');
+        }
+        if (selectedDates && containsDate(selectedDates, date)) {
+          return options.classNames.push('eui-selected');
+        }
+      }
+    });
+
+    __exports__["default"] = month;
   });define("emberui/components/eui-poplist",
   ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
@@ -676,8 +1016,8 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = textarea;
   });define("emberui",
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","./utilities/tabbable-selector","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -709,6 +1049,11 @@ define("emberui/components/eui-button",
     var EuiTextareaComponent = __dependency16__["default"] || __dependency16__;
     var EuiTextareaTemplate = __dependency17__["default"] || __dependency17__;
 
+    var EuiMonthComponent = __dependency18__["default"] || __dependency18__;
+
+    var EuiCalendarComponent = __dependency19__["default"] || __dependency19__;
+    var EuiCalendarTemplate = __dependency20__["default"] || __dependency20__;
+
 
     var initializer = Ember.Application.initializer({
       name: 'emberui',
@@ -738,6 +1083,11 @@ define("emberui/components/eui-button",
 
         container.register('template:components/eui-textarea', EuiTextareaTemplate);
         container.register('component:eui-textarea', EuiTextareaComponent);
+
+        container.register('component:eui-month', EuiMonthComponent);
+
+        container.register('template:components/eui-calendar', EuiCalendarTemplate);
+        container.register('component:eui-calendar', EuiCalendarComponent);
       }
     });
 
@@ -945,6 +1295,11 @@ define("emberui/components/eui-button",
   function(__exports__) {
     "use strict";
     __exports__["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" type=\"type\" }}></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      {{#if icon}}\n        <b {{bind-attr class=\'icon\'}}></b>\n      {{/if}}\n\n      {{label}}\n\n      {{#if trailingIcon}}\n        <b {{bind-attr class=\'trailingIcon\'}}></b>\n      {{/if}}\n    </i>\n\n    {{#if loading}}\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    {{/if}}\n  </div>\n</div>\n");
+  });define("emberui/templates/eui-calendar",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-calendar-wrapper\">\n  <button {{action \"prev\"}} {{bind-attr disabled=\"isPrevDisabled\"}} class=\"eui-previous\"></button>\n  <button {{action \"next\"}} {{bind-attr disabled=\"isNextDisabled\"}} class=\"eui-next\"></button>\n\n  {{#if showPrevMonth}}\n    <div class=\"eui-month-container\">\n      <header>\n        {{prevMonthLabel}}\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        {{eui-month\n          month=prevMonth\n          selectedDates=selectedDates\n          disabledDates=disabledDates\n          select=\"dateSelected\"}}\n      </div>\n    </div>\n  {{/if}}\n\n  <div class=\"eui-month-container\">\n    <header>\n      {{monthLabel}}\n    </header>\n    <div class=\"eui-month-frame\">\n      <ol class=\"eui-daysofweek\">\n        <li class=\"eui-nameofday\">Sun</li>\n        <li class=\"eui-nameofday\">Mon</li>\n        <li class=\"eui-nameofday\">Tue</li>\n        <li class=\"eui-nameofday\">Wed</li>\n        <li class=\"eui-nameofday\">Thu</li>\n        <li class=\"eui-nameofday\">Fri</li>\n        <li class=\"eui-nameofday\">Sat</li>\n      </ol>\n      {{eui-month\n        month=month\n        selectedDates=selectedDates\n        disabledDates=disabledDates\n        select=\"dateSelected\"}}\n    </div>\n  </div>\n\n  {{#if showNextMonth}}\n    <div class=\"eui-month-container\">\n      <header>\n        {{nextMonthLabel}}\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        {{eui-month\n          month=nextMonth\n          selectedDates=selectedDates\n          disabledDates=disabledDates\n          select=\"dateSelected\"}}\n      </div>\n    </div>\n  {{/if}}\n</div>\n");
   });define("emberui/templates/eui-checkbox",
   ["exports"],
   function(__exports__) {

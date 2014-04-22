@@ -29,6 +29,11 @@ var EuiSelectTemplate = require("./templates/eui-select")["default"] || require(
 var EuiTextareaComponent = require("./components/eui-textarea")["default"] || require("./components/eui-textarea");
 var EuiTextareaTemplate = require("./templates/eui-textarea")["default"] || require("./templates/eui-textarea");
 
+var EuiMonthComponent = require("./components/eui-month")["default"] || require("./components/eui-month");
+
+var EuiCalendarComponent = require("./components/eui-calendar")["default"] || require("./components/eui-calendar");
+var EuiCalendarTemplate = require("./templates/eui-calendar")["default"] || require("./templates/eui-calendar");
+
 require("./utilities/tabbable-selector");
 var initializer = Ember.Application.initializer({
   name: 'emberui',
@@ -58,6 +63,11 @@ var initializer = Ember.Application.initializer({
 
     container.register('template:components/eui-textarea', EuiTextareaTemplate);
     container.register('component:eui-textarea', EuiTextareaComponent);
+
+    container.register('component:eui-month', EuiMonthComponent);
+
+    container.register('template:components/eui-calendar', EuiCalendarTemplate);
+    container.register('component:eui-calendar', EuiCalendarComponent);
   }
 });
 

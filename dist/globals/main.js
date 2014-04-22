@@ -23,7 +23,206 @@ button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, {
 });
 
 exports["default"] = button;
-},{"../mixins/disabled-support":11,"../mixins/size-support":12,"../mixins/style-support":13}],2:[function(_dereq_,module,exports){
+},{"../mixins/disabled-support":13,"../mixins/size-support":14,"../mixins/style-support":15}],2:[function(_dereq_,module,exports){
+"use strict";
+var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
+var calendar, cpFormatMoment;
+
+cpFormatMoment = function(key, format) {
+  return Em.computed(function() {
+    var date;
+    date = this.get(key);
+    if (date) {
+      return date.format(format);
+    } else {
+      return null;
+    }
+  }).property(key);
+};
+
+calendar = Em.Component.extend(styleSupport, {
+  tagName: 'eui-calendar',
+  classNames: 'eui-calendar',
+  showNextMonth: true,
+  showPrevMonth: false,
+  multiple: false,
+  disablePast: null,
+  disableFuture: null,
+  disableManipulation: null,
+  maxPastDate: null,
+  maxFutureDate: null,
+  month: null,
+  disabledDates: null,
+  selectedDates: null,
+  selectedDate: null,
+  init: function() {
+    var firstSelectedDate;
+    this._super();
+    if (!this.get('selectedDates')) {
+      this.set('selectedDates', []);
+    } else {
+      this.set('multiple', true);
+    }
+    if (this.get('selectedDate')) {
+      this.get('selectedDates').addObject(this.get('selectedDate'));
+    }
+    firstSelectedDate = this.get('selectedDates.firstObject');
+    if (!this.get('month') && firstSelectedDate) {
+      this.set('month', firstSelectedDate.clone().startOf('month'));
+    }
+    if (!this.get('month')) {
+      return this.set('month', moment().startOf('month'));
+    }
+  },
+  actions: {
+    dateSelected: function(date) {
+      this.sendAction('select', date);
+      if (this.get('disableManipulation')) {
+        return;
+      }
+      if (this.get('multiple')) {
+        if (this.hasDate(date)) {
+          return this.removeDate(date);
+        } else {
+          return this.addDate(date);
+        }
+      } else {
+        if (this.hasDate(date)) {
+          return this.set('selectedDate', null);
+        } else {
+          return this.set('selectedDate', date);
+        }
+      }
+    },
+    prev: function() {
+      var month;
+      month = this.get('month');
+      if (!month || this.get('isPrevDisabled')) {
+        return;
+      }
+      return this.set('month', month.clone().subtract('months', 1));
+    },
+    next: function() {
+      var month;
+      month = this.get('month');
+      if (!month || this.get('isNextDisabled')) {
+        return;
+      }
+      return this.set('month', month.clone().add('months', 1));
+    }
+  },
+  hasDate: function(date) {
+    return this.get('selectedDates').any(function(d) {
+      return d.isSame(date);
+    });
+  },
+  removeDate: function(date) {
+    var dates, removeDates;
+    dates = this.get('selectedDates');
+    removeDates = dates.filter(function(d) {
+      return d.isSame(date);
+    });
+    return dates.removeObjects(removeDates);
+  },
+  addDate: function(date) {
+    this.removeDate(date);
+    return this.get('selectedDates').pushObject(date);
+  },
+  selectedDateWillChange: (function() {
+    return this.removeDate(this.get('selectedDate'));
+  }).observesBefore('selectedDate'),
+  selectedDateDidChange: (function() {
+    var date;
+    date = this.get('selectedDate');
+    if (!date) {
+      return;
+    }
+    return this.addDate(this.get('selectedDate'));
+  }).observes('selectedDate'),
+  now: (function() {
+    return moment();
+  }).property(),
+  prevMonth: (function() {
+    var month;
+    month = this.get('month');
+    if (month) {
+      return month.clone().subtract('months', 1);
+    } else {
+      return null;
+    }
+  }).property('month'),
+  nextMonth: (function() {
+    var month;
+    month = this.get('month');
+    if (month) {
+      return month.clone().add('months', 1);
+    } else {
+      return null;
+    }
+  }).property('month'),
+  isNextMonthInFuture: (function() {
+    var nextMonth, now;
+    nextMonth = this.get('nextMonth');
+    now = this.get('now');
+    if (nextMonth) {
+      return nextMonth.isAfter(now, 'month');
+    } else {
+      return false;
+    }
+  }).property('nextMonth', 'now'),
+  isPrevMonthInPast: (function() {
+    var now, prevMonth;
+    prevMonth = this.get('prevMonth');
+    now = this.get('now');
+    if (prevMonth) {
+      return prevMonth.isBefore(now, 'month');
+    } else {
+      return false;
+    }
+  }).property('prevMonth', 'now'),
+  isPrevMonthBeyondMax: (function() {
+    var maxPastDate, prevMonth;
+    prevMonth = this.get('prevMonth');
+    maxPastDate = this.get('maxPastDate');
+    if (!prevMonth || !maxPastDate) {
+      return false;
+    }
+    return prevMonth.isBefore(maxPastDate, 'month');
+  }).property('prevMonth', 'maxPastDate'),
+  isNextMonthBeyondMax: (function() {
+    var maxFutureDate, nextMonth;
+    nextMonth = this.get('nextMonth');
+    maxFutureDate = this.get('maxFutureDate');
+    if (!nextMonth || !maxFutureDate) {
+      return false;
+    }
+    return nextMonth.isAfter(maxFutureDate, 'month');
+  }).property('nextMonth', 'maxFutureDate'),
+  isPrevDisabled: (function() {
+    if (this.get('isPrevMonthBeyondMax')) {
+      return true;
+    }
+    if (this.get('disablePast') && this.get('isPrevMonthInPast')) {
+      return true;
+    }
+    return false;
+  }).property('isPrevMonthBeyondMax', 'isPrevMonthInPast', 'disablePast'),
+  isNextDisabled: (function() {
+    if (this.get('isNextMonthBeyondMax')) {
+      return true;
+    }
+    if (this.get('disableFuture') && this.get('isNextMonthInFuture')) {
+      return true;
+    }
+    return false;
+  }).property('isNextMonthBeyondMax', 'isNextMonthInFuture', 'disableFuture'),
+  prevMonthLabel: cpFormatMoment('prevMonth', 'MMMM YYYY'),
+  nextMonthLabel: cpFormatMoment('nextMonth', 'MMMM YYYY'),
+  monthLabel: cpFormatMoment('month', 'MMMM YYYY')
+});
+
+ exports["default"] = calendar;
+},{"../mixins/style-support":15}],3:[function(_dereq_,module,exports){
 "use strict";
 var validationSupport = _dereq_("../mixins/validation-support")["default"] || _dereq_("../mixins/validation-support");
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
@@ -43,7 +242,7 @@ checkbox = Em.Component.extend(validationSupport, styleSupport, sizeSupport, {
 });
 
 exports["default"] = checkbox;
-},{"../mixins/size-support":12,"../mixins/style-support":13,"../mixins/validation-support":15}],3:[function(_dereq_,module,exports){
+},{"../mixins/size-support":14,"../mixins/style-support":15,"../mixins/validation-support":17}],4:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -92,7 +291,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
 });
 
 exports["default"] = dropbutton;
-},{"../components/eui-poplist":6,"../mixins/size-support":12,"../mixins/style-support":13}],4:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":8,"../mixins/size-support":14,"../mixins/style-support":15}],5:[function(_dereq_,module,exports){
 "use strict";
 var validationSupport = _dereq_("../mixins/validation-support")["default"] || _dereq_("../mixins/validation-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -108,7 +307,7 @@ input = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSu
 });
 
 exports["default"] = input;
-},{"../mixins/size-support":12,"../mixins/style-support":13,"../mixins/text-support":14,"../mixins/validation-support":15,"../mixins/width-support":16}],5:[function(_dereq_,module,exports){
+},{"../mixins/size-support":14,"../mixins/style-support":15,"../mixins/text-support":16,"../mixins/validation-support":17,"../mixins/width-support":18}],6:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationsDidComplete = _dereq_("../mixins/animations-did-complete")["default"] || _dereq_("../mixins/animations-did-complete");
@@ -226,7 +425,144 @@ modal.reopenClass({
 });
 
 exports["default"] = modal;
-},{"../mixins/animations-did-complete":10,"../mixins/style-support":13,"../templates/eui-modal":21}],6:[function(_dereq_,module,exports){
+},{"../mixins/animations-did-complete":12,"../mixins/style-support":15,"../templates/eui-modal":24}],7:[function(_dereq_,module,exports){
+"use strict";
+var DATE_SLOT_HBS, containsDate, forEachSlot, month;
+
+DATE_SLOT_HBS = Handlebars.compile('<li class="{{classNames}}" data-date="{{jsonDate}}">' + '{{date}}' + '</li>');
+
+containsDate = function(dates, date) {
+  if (!dates || !Em.get(dates, 'length')) {
+    return false;
+  }
+  return dates.any(function(d) {
+    return date.isSame(d, 'day');
+  });
+};
+
+forEachSlot = function(month, iter) {
+  var currentDay, day, firstDay, popCurrentDay, totalDays, week, _i, _j, _results;
+  totalDays = month.daysInMonth();
+  firstDay = month.clone().startOf('month').weekday();
+  currentDay = 1;
+  popCurrentDay = function() {
+    if (currentDay > totalDays) {
+      return null;
+    } else {
+      return moment([month.year(), month.month(), currentDay++]);
+    }
+  };
+  _results = [];
+  for (week = _i = 0; _i <= 6; week = ++_i) {
+    for (day = _j = 0; _j <= 6; day = ++_j) {
+      if (week === 0) {
+        iter(day < firstDay ? null : popCurrentDay());
+      } else {
+        iter(currentDay <= totalDays ? popCurrentDay() : null);
+      }
+    }
+    if (currentDay > totalDays) {
+      break;
+    } else {
+      _results.push(void 0);
+    }
+  }
+  return _results;
+};
+
+month = Em.Component.extend({
+  tagName: 'ol',
+  classNames: 'eui-month',
+  month: null,
+  selectedDates: null,
+  disabledDates: null,
+  init: function() {
+    this._super();
+    if (!this.get('selectedDates')) {
+      throw 'you must provide selectedDates to eui-month';
+    }
+  },
+  click: function(event) {
+    var $target;
+    $target = $(event.target);
+    if ($target.is('.eui-disabled')) {
+      return;
+    }
+    if ($target.is('[data-date]')) {
+      return this.sendAction('select', moment($target.data('date'), 'YYYY-MM-DD'));
+    }
+  },
+  monthDidChange: (function() {
+    return Em.run.scheduleOnce('afterRender', this, 'rerender');
+  }).observes('month'),
+  selectedDatesDidChange: (function() {
+    return Em.run.scheduleOnce('afterRender', this, 'setSelectedDates');
+  }).observes('selectedDates.@each'),
+  setSelectedDates: function() {
+    var date, dates, json, view, _i, _len, _results;
+    dates = this.get('selectedDates');
+    view = this;
+    json;
+    if (this.state === !'inDOM') {
+      return;
+    }
+    this.$('li').removeClass('eui-selected');
+    _results = [];
+    for (_i = 0, _len = dates.length; _i < _len; _i++) {
+      date = dates[_i];
+      json = date.format('YYYY-MM-DD');
+      _results.push(view.$('[data-date="' + json + '"]').addClass('eui-selected'));
+    }
+    return _results;
+  },
+  didInsertElement: function() {
+    return this.setSelectedDates();
+  },
+  render: function(buff) {
+    var renderSlot, view;
+    month = this.get('month');
+    view = this;
+    if (!month) {
+      return;
+    }
+    renderSlot = function(slot) {
+      attrs;
+      var attrs;
+      if (slot) {
+        attrs = {
+          date: slot.format('D'),
+          jsonDate: slot.format('YYYY-MM-DD'),
+          classNames: ['eui-slot', 'eui-day']
+        };
+        view.applyOptionsForDate(attrs, slot);
+        attrs.classNames = attrs.classNames.join(' ');
+        return buff.push(DATE_SLOT_HBS(attrs));
+      } else {
+        return buff.push('<li class="eui-slot eui-empty"></li>');
+      }
+    };
+    return forEachSlot(month, function(slot) {
+      return renderSlot(slot);
+    });
+  },
+  applyOptionsForDate: function(options, date) {
+    var disabledDates, selectedDates;
+    disabledDates = this.get('disabledDates');
+    selectedDates = this.get('selectedDates');
+    if (moment().isSame(date, 'day')) {
+      options.classNames.push('eui-today');
+    }
+    if (disabledDates && containsDate(disabledDates, date)) {
+      options.classNames.push('eui-disabled');
+    }
+    if (selectedDates && containsDate(selectedDates, date)) {
+      return options.classNames.push('eui-selected');
+    }
+  }
+});
+
+exports["default"] = month;
+},{}],8:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationsDidComplete = _dereq_("../mixins/animations-did-complete")["default"] || _dereq_("../mixins/animations-did-complete");
@@ -515,7 +851,7 @@ poplist.reopenClass({
 });
 
 exports["default"] = poplist;
-},{"../mixins/animations-did-complete":10,"../mixins/style-support":13,"../templates/eui-poplist":23,"../templates/eui-poplist-option":22}],7:[function(_dereq_,module,exports){
+},{"../mixins/animations-did-complete":12,"../mixins/style-support":15,"../templates/eui-poplist":26,"../templates/eui-poplist-option":25}],9:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -625,7 +961,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
 });
 
 exports["default"] = select;
-},{"../components/eui-poplist":6,"../mixins/disabled-support":11,"../mixins/size-support":12,"../mixins/style-support":13,"../mixins/validation-support":15,"../mixins/width-support":16}],8:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":8,"../mixins/disabled-support":13,"../mixins/size-support":14,"../mixins/style-support":15,"../mixins/validation-support":17,"../mixins/width-support":18}],10:[function(_dereq_,module,exports){
 "use strict";
 var validationSupport = _dereq_("../mixins/validation-support")["default"] || _dereq_("../mixins/validation-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -659,7 +995,7 @@ textarea = Em.Component.extend(validationSupport, textSupport, styleSupport, siz
 });
 
 exports["default"] = textarea;
-},{"../mixins/size-support":12,"../mixins/style-support":13,"../mixins/text-support":14,"../mixins/validation-support":15}],9:[function(_dereq_,module,exports){
+},{"../mixins/size-support":14,"../mixins/style-support":15,"../mixins/text-support":16,"../mixins/validation-support":17}],11:[function(_dereq_,module,exports){
 "use strict";
 /*!
 EmberUI (c) 2014 Jaco Joubert
@@ -691,6 +1027,11 @@ var EuiSelectTemplate = _dereq_("./templates/eui-select")["default"] || _dereq_(
 var EuiTextareaComponent = _dereq_("./components/eui-textarea")["default"] || _dereq_("./components/eui-textarea");
 var EuiTextareaTemplate = _dereq_("./templates/eui-textarea")["default"] || _dereq_("./templates/eui-textarea");
 
+var EuiMonthComponent = _dereq_("./components/eui-month")["default"] || _dereq_("./components/eui-month");
+
+var EuiCalendarComponent = _dereq_("./components/eui-calendar")["default"] || _dereq_("./components/eui-calendar");
+var EuiCalendarTemplate = _dereq_("./templates/eui-calendar")["default"] || _dereq_("./templates/eui-calendar");
+
 _dereq_("./utilities/tabbable-selector");
 var initializer = Ember.Application.initializer({
   name: 'emberui',
@@ -720,11 +1061,16 @@ var initializer = Ember.Application.initializer({
 
     container.register('template:components/eui-textarea', EuiTextareaTemplate);
     container.register('component:eui-textarea', EuiTextareaComponent);
+
+    container.register('component:eui-month', EuiMonthComponent);
+
+    container.register('template:components/eui-calendar', EuiCalendarTemplate);
+    container.register('component:eui-calendar', EuiCalendarComponent);
   }
 });
 
 exports["default"] = initializer;
-},{"./components/eui-button":1,"./components/eui-checkbox":2,"./components/eui-dropbutton":3,"./components/eui-input":4,"./components/eui-modal":5,"./components/eui-poplist":6,"./components/eui-select":7,"./components/eui-textarea":8,"./templates/eui-button":17,"./templates/eui-checkbox":18,"./templates/eui-dropbutton":19,"./templates/eui-input":20,"./templates/eui-modal":21,"./templates/eui-poplist":23,"./templates/eui-poplist-option":22,"./templates/eui-select":24,"./templates/eui-textarea":25,"./utilities/tabbable-selector":26}],10:[function(_dereq_,module,exports){
+},{"./components/eui-button":1,"./components/eui-calendar":2,"./components/eui-checkbox":3,"./components/eui-dropbutton":4,"./components/eui-input":5,"./components/eui-modal":6,"./components/eui-month":7,"./components/eui-poplist":8,"./components/eui-select":9,"./components/eui-textarea":10,"./templates/eui-button":19,"./templates/eui-calendar":20,"./templates/eui-checkbox":21,"./templates/eui-dropbutton":22,"./templates/eui-input":23,"./templates/eui-modal":24,"./templates/eui-poplist":26,"./templates/eui-poplist-option":25,"./templates/eui-select":27,"./templates/eui-textarea":28,"./utilities/tabbable-selector":29}],12:[function(_dereq_,module,exports){
 "use strict";
 var animationsDidComplete;
 
@@ -769,7 +1115,7 @@ animationsDidComplete = Em.Mixin.create({
 });
 
 exports["default"] = animationsDidComplete;
-},{}],11:[function(_dereq_,module,exports){
+},{}],13:[function(_dereq_,module,exports){
 "use strict";
 var disabledsupport;
 
@@ -784,7 +1130,7 @@ disabledsupport = Em.Mixin.create({
 });
 
 exports["default"] = disabledsupport;
-},{}],12:[function(_dereq_,module,exports){
+},{}],14:[function(_dereq_,module,exports){
 "use strict";
 var sizesupport;
 
@@ -797,7 +1143,7 @@ sizesupport = Em.Mixin.create({
 });
 
 exports["default"] = sizesupport;
-},{}],13:[function(_dereq_,module,exports){
+},{}],15:[function(_dereq_,module,exports){
 "use strict";
 var stylesupport;
 
@@ -810,7 +1156,7 @@ stylesupport = Em.Mixin.create({
 });
 
 exports["default"] = stylesupport;
-},{}],14:[function(_dereq_,module,exports){
+},{}],16:[function(_dereq_,module,exports){
 "use strict";
 var textsupport;
 
@@ -841,7 +1187,7 @@ textsupport = Em.Mixin.create({
 });
 
 exports["default"] = textsupport;
-},{}],15:[function(_dereq_,module,exports){
+},{}],17:[function(_dereq_,module,exports){
 "use strict";
 var validationsupport;
 
@@ -888,7 +1234,7 @@ validationsupport = Em.Mixin.create({
 });
 
 exports["default"] = validationsupport;
-},{}],16:[function(_dereq_,module,exports){
+},{}],18:[function(_dereq_,module,exports){
 "use strict";
 var widthsupport;
 
@@ -908,34 +1254,37 @@ widthsupport = Em.Mixin.create({
 });
 
 exports["default"] = widthsupport;
-},{}],17:[function(_dereq_,module,exports){
-"use strict";
-exports["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" type=\"type\" }}></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      {{#if icon}}\n        <b {{bind-attr class=\'icon\'}}></b>\n      {{/if}}\n\n      {{label}}\n\n      {{#if trailingIcon}}\n        <b {{bind-attr class=\'trailingIcon\'}}></b>\n      {{/if}}\n    </i>\n\n    {{#if loading}}\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    {{/if}}\n  </div>\n</div>\n");
-},{}],18:[function(_dereq_,module,exports){
-"use strict";
-exports["default"] = Ember.Handlebars.compile("<input type=\"checkbox\" {{bind-attr checked=value disabled=disabled}} />\n\n<div {{bind-attr class=\":eui-checkbox-form disabled:eui-disabled:eui-enabled\"}}>\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n{{label}}\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
 },{}],19:[function(_dereq_,module,exports){
 "use strict";
-exports["default"] = Ember.Handlebars.compile("{{#if primaryAction}}\n  {{eui-button\n    label=primaryAction.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    loading=view.loading\n    disabled=view.disabled\n    class=\"eui-primaryaction\"\n    action=\"primaryAction\"}}\n\n  {{eui-button\n    style=view.style\n    size=view.size\n    icon=\"fa fa-caret-down\"\n    loading=false\n    disabled=view.disabled\n    classBinding=\":eui-trigger poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{else}}\n  {{eui-button\n    label=view.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    trailingIcon=\"fa fa-caret-down\"\n    loading=view.loading\n    disabled=view.disabled\n    classBinding=\"poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{/if}}\n");
+exports["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" type=\"type\" }}></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      {{#if icon}}\n        <b {{bind-attr class=\'icon\'}}></b>\n      {{/if}}\n\n      {{label}}\n\n      {{#if trailingIcon}}\n        <b {{bind-attr class=\'trailingIcon\'}}></b>\n      {{/if}}\n    </i>\n\n    {{#if loading}}\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    {{/if}}\n  </div>\n</div>\n");
 },{}],20:[function(_dereq_,module,exports){
 "use strict";
-exports["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{input type=type value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+exports["default"] = Ember.Handlebars.compile("<div class=\"eui-calendar-wrapper\">\n  <button {{action \"prev\"}} {{bind-attr disabled=\"isPrevDisabled\"}} class=\"eui-previous\"></button>\n  <button {{action \"next\"}} {{bind-attr disabled=\"isNextDisabled\"}} class=\"eui-next\"></button>\n\n  {{#if showPrevMonth}}\n    <div class=\"eui-month-container\">\n      <header>\n        {{prevMonthLabel}}\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        {{eui-month\n          month=prevMonth\n          selectedDates=selectedDates\n          disabledDates=disabledDates\n          select=\"dateSelected\"}}\n      </div>\n    </div>\n  {{/if}}\n\n  <div class=\"eui-month-container\">\n    <header>\n      {{monthLabel}}\n    </header>\n    <div class=\"eui-month-frame\">\n      <ol class=\"eui-daysofweek\">\n        <li class=\"eui-nameofday\">Sun</li>\n        <li class=\"eui-nameofday\">Mon</li>\n        <li class=\"eui-nameofday\">Tue</li>\n        <li class=\"eui-nameofday\">Wed</li>\n        <li class=\"eui-nameofday\">Thu</li>\n        <li class=\"eui-nameofday\">Fri</li>\n        <li class=\"eui-nameofday\">Sat</li>\n      </ol>\n      {{eui-month\n        month=month\n        selectedDates=selectedDates\n        disabledDates=disabledDates\n        select=\"dateSelected\"}}\n    </div>\n  </div>\n\n  {{#if showNextMonth}}\n    <div class=\"eui-month-container\">\n      <header>\n        {{nextMonthLabel}}\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        {{eui-month\n          month=nextMonth\n          selectedDates=selectedDates\n          disabledDates=disabledDates\n          select=\"dateSelected\"}}\n      </div>\n    </div>\n  {{/if}}\n</div>\n");
 },{}],21:[function(_dereq_,module,exports){
 "use strict";
-exports["default"] = Ember.Handlebars.compile("{{#if renderModal}}\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject eui-animation\">\n          <div class=\"eui-modalobject-wrapper\">\n            {{#if programmatic}}\n              {{view contentViewClass contentBinding=\"content\"}}\n            {{else}}\n              {{yield}}\n            {{/if}}\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n{{/if}}\n");
+exports["default"] = Ember.Handlebars.compile("<input type=\"checkbox\" {{bind-attr checked=value disabled=disabled}} />\n\n<div {{bind-attr class=\":eui-checkbox-form disabled:eui-disabled:eui-enabled\"}}>\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n{{label}}\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
 },{}],22:[function(_dereq_,module,exports){
 "use strict";
-exports["default"] = Ember.Handlebars.compile("{{view.label}}\n");
+exports["default"] = Ember.Handlebars.compile("{{#if primaryAction}}\n  {{eui-button\n    label=primaryAction.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    loading=view.loading\n    disabled=view.disabled\n    class=\"eui-primaryaction\"\n    action=\"primaryAction\"}}\n\n  {{eui-button\n    style=view.style\n    size=view.size\n    icon=\"fa fa-caret-down\"\n    loading=false\n    disabled=view.disabled\n    classBinding=\":eui-trigger poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{else}}\n  {{eui-button\n    label=view.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    trailingIcon=\"fa fa-caret-down\"\n    loading=view.loading\n    disabled=view.disabled\n    classBinding=\"poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{/if}}\n");
 },{}],23:[function(_dereq_,module,exports){
 "use strict";
-exports["default"] = Ember.Handlebars.compile("<div class=\"eui-poplistwrapper\">\n  <div {{bind-attr class=\":eui-search-wrapper searchString:eui-active\"}}>\n    {{input class=\"eui-search\" valueBinding=\"searchString\" size=\"1\"}}\n  </div>\n\n  {{#if hasNoOptions}}\n    <div class=\"eui-nooptions\">No results found.</div>\n  {{else}}\n    {{view listView contentBinding=\"filteredOptions\"}}\n  {{/if}}\n</div>\n");
+exports["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{input type=type value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
 },{}],24:[function(_dereq_,module,exports){
 "use strict";
-exports["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" }}></button>\n\n<div class=\"eui-select-form\">\n  <div class=\"eui-wrapper\">\n    <i>{{view.label}}</i>\n    <b class=\"eui-icon\"></b>\n  </div>\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+exports["default"] = Ember.Handlebars.compile("{{#if renderModal}}\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject eui-animation\">\n          <div class=\"eui-modalobject-wrapper\">\n            {{#if programmatic}}\n              {{view contentViewClass contentBinding=\"content\"}}\n            {{else}}\n              {{yield}}\n            {{/if}}\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n{{/if}}\n");
 },{}],25:[function(_dereq_,module,exports){
 "use strict";
-exports["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+exports["default"] = Ember.Handlebars.compile("{{view.label}}\n");
 },{}],26:[function(_dereq_,module,exports){
+"use strict";
+exports["default"] = Ember.Handlebars.compile("<div class=\"eui-poplistwrapper\">\n  <div {{bind-attr class=\":eui-search-wrapper searchString:eui-active\"}}>\n    {{input class=\"eui-search\" valueBinding=\"searchString\" size=\"1\"}}\n  </div>\n\n  {{#if hasNoOptions}}\n    <div class=\"eui-nooptions\">No results found.</div>\n  {{else}}\n    {{view listView contentBinding=\"filteredOptions\"}}\n  {{/if}}\n</div>\n");
+},{}],27:[function(_dereq_,module,exports){
+"use strict";
+exports["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" }}></button>\n\n<div class=\"eui-select-form\">\n  <div class=\"eui-wrapper\">\n    <i>{{view.label}}</i>\n    <b class=\"eui-icon\"></b>\n  </div>\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+},{}],28:[function(_dereq_,module,exports){
+"use strict";
+exports["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+},{}],29:[function(_dereq_,module,exports){
 "use strict";
 /*!
  * Copied from ic-modal which is adapted from jQuery UI core
@@ -975,6 +1324,6 @@ if (!$.expr[':'].tabbable) {
     return ( isTabIndexNaN || tabIndex >= 0 ) && focusable( element, !isTabIndexNaN );
   }
 };
-},{}]},{},[9])
-(9)
+},{}]},{},[11])
+(11)
 });

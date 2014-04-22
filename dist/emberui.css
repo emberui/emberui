@@ -417,3 +417,112 @@
 .eui-select.eui-large {
   line-height: 45px;
   font-size: 17px; }
+
+.eui-month {
+  width: 259px;
+  height: 222px;
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  color: #474747;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .eui-month .eui-slot {
+    float: left;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    margin: 1px; }
+  .eui-month .eui-day {
+    cursor: pointer;
+    border-radius: 3px;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s; }
+    .eui-month .eui-day:hover {
+      color: #39a6e9; }
+  .eui-month .eui-today {
+    font-weight: bold;
+    color: #f00000; }
+  .eui-month .eui-disabled {
+    pointer-events: none;
+    color: #d4d4d4; }
+  .eui-month .eui-selected {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1493dc), to(#64bcf7));
+    background-image: -webkit-linear-gradient(top, #1493dc 0%, #64bcf7 100%);
+    background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
+    color: #ffffff;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: inset 0px 1px 4px rgba(0, 64, 98, 0.4);
+    box-shadow: inset 0px 1px 4px rgba(0, 64, 98, 0.4);
+    -webkit-transition: none;
+    transition: none; }
+    .eui-month .eui-selected:hover {
+      color: #ffffff; }
+
+.eui-calendar {
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .eui-calendar .eui-calendar-wrapper {
+    position: relative;
+    background: #ffffff;
+    overflow: hidden;
+    border: solid 1px #e5e5e5; }
+  .eui-calendar .eui-previous, .eui-calendar .eui-next {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: none;
+    outline: none;
+    color: #39a6e9; }
+    .eui-calendar .eui-previous:before, .eui-calendar .eui-next:before {
+      content: "\f053";
+      font-family: "FontAwesome";
+      display: block;
+      text-align: center;
+      line-height: 50px; }
+    .eui-calendar .eui-previous:disabled, .eui-calendar .eui-next:disabled {
+      color: #e2e2e2;
+      pointer-events: none; }
+  .eui-calendar .eui-next {
+    left: auto;
+    right: 0px; }
+    .eui-calendar .eui-next:before {
+      content: "\f054"; }
+  .eui-calendar .eui-month-container {
+    float: left; }
+    .eui-calendar .eui-month-container .eui-month-frame {
+      border-right: solid 1px #e5e5e5; }
+    .eui-calendar .eui-month-container:last-of-type .eui-month-frame {
+      border-right: 0px; }
+    .eui-calendar .eui-month-container header {
+      display: block;
+      text-align: center;
+      font-size: 18px;
+      color: #262626;
+      font-weight: 600;
+      line-height: 50px; }
+    .eui-calendar .eui-month-container .eui-daysofweek {
+      list-style: none;
+      margin: 0px;
+      padding: 0;
+      background: #f7f7f7;
+      height: 30px;
+      line-height: 30px;
+      color: #9e9e9e;
+      font-size: 13px;
+      text-align: center; }
+      .eui-calendar .eui-month-container .eui-daysofweek .eui-nameofday {
+        width: -webkit-calc(100% / 7);
+        width: calc(100% / 7);
+        float: left; }

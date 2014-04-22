@@ -1,6 +1,6 @@
 define(
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","./utilities/tabbable-selector","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -32,6 +32,11 @@ define(
     var EuiTextareaComponent = __dependency16__["default"] || __dependency16__;
     var EuiTextareaTemplate = __dependency17__["default"] || __dependency17__;
 
+    var EuiMonthComponent = __dependency18__["default"] || __dependency18__;
+
+    var EuiCalendarComponent = __dependency19__["default"] || __dependency19__;
+    var EuiCalendarTemplate = __dependency20__["default"] || __dependency20__;
+
 
     var initializer = Ember.Application.initializer({
       name: 'emberui',
@@ -61,6 +66,11 @@ define(
 
         container.register('template:components/eui-textarea', EuiTextareaTemplate);
         container.register('component:eui-textarea', EuiTextareaComponent);
+
+        container.register('component:eui-month', EuiMonthComponent);
+
+        container.register('template:components/eui-calendar', EuiCalendarTemplate);
+        container.register('component:eui-calendar', EuiCalendarComponent);
       }
     });
 
