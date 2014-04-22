@@ -1,0 +1,92 @@
+.eui-popcal {
+  position: absolute;
+  display: block;
+  border-radius: 3px;
+  padding: 1px;
+  background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
+  box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+  animation-duration: 0.1s;
+  animation-name: eui-flyin;
+
+  .eui-popcal-wrapper {
+    position: relative;
+    background: #ffffff;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .eui-previous,
+  .eui-next {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: none;
+    outline: none;
+    color: #39a6e9;
+    transition: color 0.2s;
+
+    &:before {
+      content: "\f053";
+      font-family: "FontAwesome";
+      display: block;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    &:hover {
+      color: #1288d1;
+    }
+  }
+
+  .eui-next {
+    left: auto;
+    right: 0px;
+
+    &:before {
+      content: "\f054";
+    }
+  }
+
+  .eui-month-container {
+    float: left;
+
+    .eui-month-frame {
+      padding: 0 5px;
+      border-right: solid 1px #e5e5e5;
+    }
+
+    &:last-of-type  .eui-month-frame {
+      border-right: 0px;
+    }
+
+    header {
+      display: block;
+      text-align: center;
+      font-size: 18px;
+      color: #262626;
+      font-weight: 600;
+      line-height: 50px;
+    }
+
+    .eui-daysofweek {
+      list-style: none;
+      padding: 0px 5px;
+      margin: 0px;
+      background: #f7f7f7;
+      height: 30px;
+      line-height: 30px;
+      color: #9e9e9e;
+      font-size: 13px;
+      margin: 0 -5px;
+      text-align: center;
+
+      .eui-nameofday {
+        width: calc(100% / 7);
+        float: left;
+      }
+    }
+  }
+}
