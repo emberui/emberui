@@ -1,0 +1,105 @@
+/*
+  * STYLES
+  *
+  * Default
+  * Popup
+  *
+  */
+
+.eui-calendar.eui-default {
+  border-radius: 3px;
+  border: solid 1px #e5e5e5;
+
+  .eui-calendar-wrapper {
+    background: #ffffff;
+    border-radius: 3px;
+    border: none;
+  }
+
+  .eui-previous,
+  .eui-next {
+    color: #39a6e9;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #1288d1;
+    }
+
+    &:disabled {
+      color: #e2e2e2;
+    }
+  }
+
+  .eui-month-container {
+
+    .eui-month-frame {
+      padding: 0 5px;
+      border-right: solid 1px #e5e5e5;
+    }
+
+    &:last-of-type  .eui-month-frame {
+      border-right: 0px;
+    }
+
+    .eui-daysofweek {
+      padding: 0px 5px;
+      margin: 0 -5px;
+
+      .eui-nameofday {
+        width: calc(100% / 7);
+        float: left;
+      }
+    }
+  }
+}
+
+.eui-calendar.eui-popup {
+  border-radius: 3px;
+  padding: 1px;
+  background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
+  box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+  animation-duration: 0.1s;
+  animation-name: eui-flyin;
+
+  .eui-calendar-wrapper {
+    background: #ffffff;
+    border-radius: 3px;
+    border: none;
+  }
+
+  .eui-previous,
+  .eui-next {
+    color: #39a6e9;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #1288d1;
+    }
+
+    &:disabled {
+      color: #e2e2e2;
+    }
+  }
+
+  .eui-month-container {
+
+    .eui-month-frame {
+      padding: 0 5px;
+      border-right: solid 1px #e5e5e5;
+    }
+
+    &:last-of-type  .eui-month-frame {
+      border-right: 0px;
+    }
+
+    .eui-daysofweek {
+      padding: 0px 5px;
+      margin: 0 -5px;
+
+      .eui-nameofday {
+        width: calc(100% / 7);
+        float: left;
+      }
+    }
+  }
+}

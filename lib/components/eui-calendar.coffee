@@ -1,3 +1,5 @@
+`import styleSupport from '../mixins/style-support'`
+
 cpFormatMoment = (key, format) ->
   return Em.computed( ->
     date = @get(key)
@@ -5,7 +7,7 @@ cpFormatMoment = (key, format) ->
   ).property(key)
 
 
-calendar = Em.Component.extend
+calendar = Em.Component.extend styleSupport,
   tagName: 'eui-calendar'
   classNames: 'eui-calendar'
 
