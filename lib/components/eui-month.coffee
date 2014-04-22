@@ -23,8 +23,8 @@ forEachSlot = (month, iter) ->
     else
       return moment([month.year(), month.month(), currentDay++])
 
-  for week in [1..6]
-    for day in [1..6]
+  for week in [0..6]
+    for day in [0..6]
       if week is 0
         iter( if day < firstDay then null else popCurrentDay() )
       else
