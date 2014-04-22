@@ -5,12 +5,12 @@ cpFormatMoment = (key, format) ->
   ).property(key)
 
 
-popcal = Em.Component.extend
-  tagName: 'eui-popcal'
-  classNames: 'eui-popcal'
+calendar = Em.Component.extend
+  tagName: 'eui-calendar'
+  classNames: 'eui-calendar'
 
   showNextMonth:       true
-  showPrevMonth:       true
+  showPrevMonth:       false
   multiple:            false
   disablePast:         null
   disableFuture:       null
@@ -196,4 +196,4 @@ popcal = Em.Component.extend
   monthLabel:     cpFormatMoment('month', 'MMMM YYYY')
 
 
-` export default popcal`
+` export default calendar`
