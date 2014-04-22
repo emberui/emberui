@@ -117,7 +117,7 @@ calendar = Em.Component.extend
   # TODO: Add timer to invalidate this
   now: (->
     return moment()
-  ).property
+  ).property()
 
 
   prevMonth: (->

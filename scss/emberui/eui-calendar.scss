@@ -39,6 +39,11 @@
     &:hover {
       color: #1288d1;
     }
+
+    &:disabled {
+      color: #e2e2e2;
+      pointer-events: none;
+    }
   }
 
   .eui-next {
