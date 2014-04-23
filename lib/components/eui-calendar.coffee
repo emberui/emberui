@@ -31,7 +31,7 @@ calendar = Em.Component.extend styleSupport,
     @_super()
 
     Ember.warn(
-      'EUI-CALENDAR: You have passed in allowMultiple dates without allowing for mulitple date _selection',
+      'EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection',
       !(@get('_selection.length') > 1 && !@get('allowMultiple'))
     )
 
