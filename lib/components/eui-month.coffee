@@ -38,14 +38,14 @@ month = Em.Component.extend
   tagName:      'ol'
   classNames:   'eui-month'
   month:         null
-  selectedDates: null
+  selection:     null
   disabledDates: null
 
   init: ->
     @_super()
 
-    unless @get 'selectedDates'
-      throw 'you must provide selectedDates to eui-month'
+    unless @get 'selection'
+      throw 'you must provide selection to eui-month'
 
   click: (event) ->
     $target = $(event.target)
@@ -62,13 +62,13 @@ month = Em.Component.extend
   ).observes 'month'
 
 
-  selectedDatesDidChange: (->
-    Em.run.scheduleOnce 'afterRender', @, 'setSelectedDates'
-  ).observes 'selectedDates.@each'
+  selectionDidChange: (->
+    Em.run.scheduleOnce 'afterRender', @, 'setSelection'
+  ).observes 'selection.@each'
 
 
-  setSelectedDates: ->
-    dates = @get 'selectedDates'
+  setSelection: ->
+    dates = @get 'selection'
     view  = @
     json
 
@@ -83,7 +83,7 @@ month = Em.Component.extend
 
 
   didInsertElement: ->
-    @setSelectedDates()
+    @setSelection()
 
 
   render: (buff) ->
@@ -117,7 +117,7 @@ month = Em.Component.extend
 
   applyOptionsForDate: (options, date) ->
     disabledDates = @get 'disabledDates'
-    selectedDates = @get 'selectedDates'
+    selection = @get 'selection'
 
     if moment().isSame(date, 'day')
       options.classNames.push('eui-today')
@@ -125,7 +125,7 @@ month = Em.Component.extend
     if disabledDates && containsDate(disabledDates, date)
       options.classNames.push('eui-disabled')
 
-    if selectedDates && containsDate(selectedDates, date)
+    if selection && containsDate(selection, date)
       options.classNames.push('eui-selected')
 
 
