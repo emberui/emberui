@@ -57,7 +57,7 @@ calendar = Em.Component.extend(styleSupport, {
   init: function() {
     var firstSelectedDate;
     this._super();
-    Ember.warn('EUI-CALENDAR: You have passed in allowMultiple dates without allowing for mulitple date _selection', !(this.get('_selection.length') > 1 && !this.get('allowMultiple')));
+    Ember.warn('EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection', !(this.get('_selection.length') > 1 && !this.get('allowMultiple')));
     firstSelectedDate = this.get('_selection.firstObject');
     if (!this.get('month') && firstSelectedDate) {
       this.set('month', firstSelectedDate.clone().startOf('month'));
@@ -68,7 +68,7 @@ calendar = Em.Component.extend(styleSupport, {
   },
   actions: {
     dateSelected: function(date) {
-      this.sendAction('select', date);
+      this.sendAction('selectAction', date);
       if (this.get('disableManipulation')) {
         return;
       }
@@ -80,7 +80,7 @@ calendar = Em.Component.extend(styleSupport, {
         }
       } else {
         if (this.hasDate(date)) {
-          return this.set('_selection', [null]);
+          return this.set('_selection', []);
         } else {
           return this.set('_selection', [date]);
         }
