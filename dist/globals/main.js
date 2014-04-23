@@ -1,4 +1,4 @@
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),(f.Ember||(f.Ember={})).EmberUi=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.eui=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -57,7 +57,7 @@ calendar = Em.Component.extend(styleSupport, {
   init: function() {
     var firstSelectedDate;
     this._super();
-    Ember.warn('EUI-CALENDAR: You have passed in allowMultiple dates without allowing for mulitple date _selection', !(this.get('_selection.length') > 1 && !this.get('allowMultiple')));
+    Ember.warn('EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection', !(this.get('_selection.length') > 1 && !this.get('allowMultiple')));
     firstSelectedDate = this.get('_selection.firstObject');
     if (!this.get('month') && firstSelectedDate) {
       this.set('month', firstSelectedDate.clone().startOf('month'));
@@ -68,7 +68,7 @@ calendar = Em.Component.extend(styleSupport, {
   },
   actions: {
     dateSelected: function(date) {
-      this.sendAction('select', date);
+      this.sendAction('selectAction', date);
       if (this.get('disableManipulation')) {
         return;
       }

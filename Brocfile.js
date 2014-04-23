@@ -29,7 +29,7 @@ lib = filterCoffeeScript(lib, {
 })
 
 lib = filterES6Modules(lib, {
-  global:      'Ember.EmberUi',
+  global:      'eui',
   packageName: 'emberui',
   main:        'main',
 
