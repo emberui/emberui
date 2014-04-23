@@ -21,21 +21,21 @@ calendar = Em.Component.extend styleSupport,
   maxFutureDate:       null
   month:               null
   disabledDates:       null
-  selectedDates:       null
+  selection:           null
   selectedDate:        null
 
   init: ->
     @_super()
 
-    unless this.get('selectedDates')
-      @set 'selectedDates', []
+    unless this.get('selection')
+      @set 'selection', []
     else
       @set 'multiple', true
 
     if @get 'selectedDate'
-      @get('selectedDates').addObject(@get 'selectedDate')
+      @get('selection').addObject(@get 'selectedDate')
 
-    firstSelectedDate = @get 'selectedDates.firstObject'
+    firstSelectedDate = @get 'selection.firstObject'
 
     if not @get('month') and firstSelectedDate
       @set 'month', firstSelectedDate.clone().startOf('month')
@@ -83,12 +83,12 @@ calendar = Em.Component.extend styleSupport,
 
 
   hasDate: (date) ->
-    return @get('selectedDates').any (d) ->
+    return @get('selection').any (d) ->
       return d.isSame(date)
 
 
   removeDate: (date) ->
-    dates = @get 'selectedDates'
+    dates = @get 'selection'
 
     removeDates = dates.filter (d) ->
       return d.isSame(date)
@@ -98,7 +98,7 @@ calendar = Em.Component.extend styleSupport,
 
   addDate: (date) ->
     @removeDate date
-    @get('selectedDates').pushObject(date)
+    @get('selection').pushObject(date)
 
 
   selectedDateWillChange: (->
