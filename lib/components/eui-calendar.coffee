@@ -25,17 +25,17 @@ calendar = Em.Component.extend styleSupport,
   month:               null
 
   multiple:            false
-  selection:           []
+  _selection:           []
 
   init: ->
     @_super()
 
     Ember.warn(
-      'EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date selection',
-      !(@get('selection.length') > 1 && !@get('multiple'))
+      'EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection',
+      !(@get('_selection.length') > 1 && !@get('multiple'))
     )
 
-    firstSelectedDate = @get 'selection.firstObject'
+    firstSelectedDate = @get '_selection.firstObject'
 
     if not @get('month') and firstSelectedDate
       @set 'month', firstSelectedDate.clone().startOf('month')
@@ -59,9 +59,9 @@ calendar = Em.Component.extend styleSupport,
 
       else
         if @.hasDate(date)
-          @set 'selection', [null]
+          @set '_selection', [null]
         else
-          @set 'selection', [date]
+          @set '_selection', [date]
 
 
     prev: ->
@@ -82,13 +82,37 @@ calendar = Em.Component.extend styleSupport,
       @set 'month', month.clone().add('months', 1)
 
 
+  selection: Ember.computed (key, value) ->
+    # setter
+    if arguments.length is 2
+      if @get 'multiple'
+        if Ember.isArray(value)
+          @set '_selection', value
+
+        else
+          @set '_selection', [value]
+
+      value
+
+    # getter
+    else
+      selection = @get('_selection')
+
+      if @get 'multiple'
+        return selection
+
+      else
+        return selection.get('firstObject')
+  .property '_selection'
+
+  
   hasDate: (date) ->
-    return @get('selection').any (d) ->
+    return @get('_selection').any (d) ->
       return d.isSame(date)
 
 
   removeDate: (date) ->
-    dates = @get 'selection'
+    dates = @get '_selection'
 
     removeDates = dates.filter (d) ->
       return d.isSame(date)
@@ -98,7 +122,7 @@ calendar = Em.Component.extend styleSupport,
 
   addDate: (date) ->
     @removeDate date
-    @get('selection').pushObject(date)
+    @get('_selection').pushObject(date)
 
 
   # TODO: Add timer to invalidate this
