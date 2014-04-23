@@ -24,15 +24,15 @@ calendar = Em.Component.extend styleSupport,
 
   month:               null
 
-  multiple:            false
-  _selection:           []
+  allowMultiple:       false
+  _selection:          []
 
   init: ->
     @_super()
 
     Ember.warn(
-      'EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection',
-      !(@get('_selection.length') > 1 && !@get('multiple'))
+      'EUI-CALENDAR: You have passed in allowMultiple dates without allowing for mulitple date _selection',
+      !(@get('_selection.length') > 1 && !@get('allowMultiple'))
     )
 
     firstSelectedDate = @get '_selection.firstObject'
@@ -51,7 +51,7 @@ calendar = Em.Component.extend styleSupport,
       if @get 'disableManipulation'
         return
 
-      if @get 'multiple'
+      if @get 'allowMultiple'
         if @hasDate(date)
           @removeDate(date)
         else
@@ -85,7 +85,7 @@ calendar = Em.Component.extend styleSupport,
   selection: Ember.computed (key, value) ->
     # setter
     if arguments.length is 2
-      if @get 'multiple'
+      if @get 'allowMultiple'
         if Ember.isArray(value)
           @set '_selection', value
 
@@ -98,14 +98,14 @@ calendar = Em.Component.extend styleSupport,
     else
       selection = @get('_selection')
 
-      if @get 'multiple'
+      if @get 'allowMultiple'
         return selection
 
       else
         return selection.get('firstObject')
   .property '_selection'
 
-  
+
   hasDate: (date) ->
     return @get('_selection').any (d) ->
       return d.isSame(date)
