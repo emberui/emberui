@@ -22,28 +22,20 @@ define(
       classNames: 'eui-calendar',
       showNextMonth: true,
       showPrevMonth: false,
-      multiple: false,
+      disabledDates: null,
       disablePast: null,
       disableFuture: null,
       disableManipulation: null,
       maxPastDate: null,
       maxFutureDate: null,
       month: null,
-      disabledDates: null,
-      selectedDates: null,
-      selectedDate: null,
+      allowMultiple: false,
+      _selection: [],
       init: function() {
         var firstSelectedDate;
         this._super();
-        if (!this.get('selectedDates')) {
-          this.set('selectedDates', []);
-        } else {
-          this.set('multiple', true);
-        }
-        if (this.get('selectedDate')) {
-          this.get('selectedDates').addObject(this.get('selectedDate'));
-        }
-        firstSelectedDate = this.get('selectedDates.firstObject');
+        Ember.warn('EUI-CALENDAR: You have passed in allowMultiple dates without allowing for mulitple date _selection', !(this.get('_selection.length') > 1 && !this.get('allowMultiple')));
+        firstSelectedDate = this.get('_selection.firstObject');
         if (!this.get('month') && firstSelectedDate) {
           this.set('month', firstSelectedDate.clone().startOf('month'));
         }
@@ -57,7 +49,7 @@ define(
           if (this.get('disableManipulation')) {
             return;
           }
-          if (this.get('multiple')) {
+          if (this.get('allowMultiple')) {
             if (this.hasDate(date)) {
               return this.removeDate(date);
             } else {
@@ -65,9 +57,9 @@ define(
             }
           } else {
             if (this.hasDate(date)) {
-              return this.set('selectedDate', null);
+              return this.set('_selection', [null]);
             } else {
-              return this.set('selectedDate', date);
+              return this.set('_selection', [date]);
             }
           }
         },
@@ -88,14 +80,34 @@ define(
           return this.set('month', month.clone().add('months', 1));
         }
       },
+      selection: Ember.computed(function(key, value) {
+        var selection;
+        if (arguments.length === 2) {
+          if (this.get('allowMultiple')) {
+            if (Ember.isArray(value)) {
+              this.set('_selection', value);
+            } else {
+              this.set('_selection', [value]);
+            }
+          }
+          return value;
+        } else {
+          selection = this.get('_selection');
+          if (this.get('allowMultiple')) {
+            return selection;
+          } else {
+            return selection.get('firstObject');
+          }
+        }
+      }).property('_selection'),
       hasDate: function(date) {
-        return this.get('selectedDates').any(function(d) {
+        return this.get('_selection').any(function(d) {
           return d.isSame(date);
         });
       },
       removeDate: function(date) {
         var dates, removeDates;
-        dates = this.get('selectedDates');
+        dates = this.get('_selection');
         removeDates = dates.filter(function(d) {
           return d.isSame(date);
         });
@@ -103,19 +115,8 @@ define(
       },
       addDate: function(date) {
         this.removeDate(date);
-        return this.get('selectedDates').pushObject(date);
+        return this.get('_selection').pushObject(date);
       },
-      selectedDateWillChange: (function() {
-        return this.removeDate(this.get('selectedDate'));
-      }).observesBefore('selectedDate'),
-      selectedDateDidChange: (function() {
-        var date;
-        date = this.get('selectedDate');
-        if (!date) {
-          return;
-        }
-        return this.addDate(this.get('selectedDate'));
-      }).observes('selectedDate'),
       now: (function() {
         return moment();
       }).property(),

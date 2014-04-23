@@ -46,12 +46,12 @@ month = Em.Component.extend({
   tagName: 'ol',
   classNames: 'eui-month',
   month: null,
-  selectedDates: null,
+  selection: null,
   disabledDates: null,
   init: function() {
     this._super();
-    if (!this.get('selectedDates')) {
-      throw 'you must provide selectedDates to eui-month';
+    if (!this.get('selection')) {
+      throw 'you must provide selection to eui-month';
     }
   },
   click: function(event) {
@@ -67,12 +67,12 @@ month = Em.Component.extend({
   monthDidChange: (function() {
     return Em.run.scheduleOnce('afterRender', this, 'rerender');
   }).observes('month'),
-  selectedDatesDidChange: (function() {
-    return Em.run.scheduleOnce('afterRender', this, 'setSelectedDates');
-  }).observes('selectedDates.@each'),
-  setSelectedDates: function() {
+  selectionDidChange: (function() {
+    return Em.run.scheduleOnce('afterRender', this, 'setSelection');
+  }).observes('selection.@each'),
+  setSelection: function() {
     var date, dates, json, view, _i, _len, _results;
-    dates = this.get('selectedDates');
+    dates = this.get('selection');
     view = this;
     json;
     if (this.state === !'inDOM') {
@@ -88,7 +88,7 @@ month = Em.Component.extend({
     return _results;
   },
   didInsertElement: function() {
-    return this.setSelectedDates();
+    return this.setSelection();
   },
   render: function(buff) {
     var renderSlot, view;
@@ -118,16 +118,16 @@ month = Em.Component.extend({
     });
   },
   applyOptionsForDate: function(options, date) {
-    var disabledDates, selectedDates;
+    var disabledDates, selection;
     disabledDates = this.get('disabledDates');
-    selectedDates = this.get('selectedDates');
+    selection = this.get('selection');
     if (moment().isSame(date, 'day')) {
       options.classNames.push('eui-today');
     }
     if (disabledDates && containsDate(disabledDates, date)) {
       options.classNames.push('eui-disabled');
     }
-    if (selectedDates && containsDate(selectedDates, date)) {
+    if (selection && containsDate(selection, date)) {
       return options.classNames.push('eui-selected');
     }
   }

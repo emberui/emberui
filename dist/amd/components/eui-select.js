@@ -19,6 +19,7 @@ define(
       options: [],
       labelPath: 'label',
       valuePath: 'value',
+      _selection: null,
       listWidth: 'auto',
       nullValue: new Object(),
       optionsWithBlank: (function() {
@@ -38,10 +39,10 @@ define(
       selection: Ember.computed(function(key, value) {
         var nullValue, selection;
         if (arguments.length === 2) {
-          this.set('internalSelection', value);
+          this.set('_selection', value);
           return value;
         } else {
-          selection = this.get('internalSelection');
+          selection = this.get('_selection');
           nullValue = this.get('nullValue');
           if (selection === nullValue) {
             return null;
@@ -49,7 +50,7 @@ define(
             return selection;
           }
         }
-      }).property('internalSelection'),
+      }).property('_selection'),
       value: Ember.computed(function(key, value) {
         var selection, valuePath;
         if (arguments.length === 2) {
@@ -83,14 +84,14 @@ define(
         if (valuePath) {
           value = this.get('options').findProperty(valuePath, value);
         }
-        return this.set('internalSelection', value || this.get('nullValue'));
+        return this.set('_selection', value || this.get('nullValue'));
       }).on('init'),
       click: function() {
         if (!this.get('poplistIsOpen')) {
           return poplistComponent.show({
             targetObject: this,
             isOpenBinding: 'targetObject.poplistIsOpen',
-            selectionBinding: 'targetObject.internalSelection',
+            selectionBinding: 'targetObject._selection',
             optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
             style: 'flyin',
