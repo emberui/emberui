@@ -59,7 +59,7 @@ calendar = Em.Component.extend styleSupport,
 
       else
         if @.hasDate(date)
-          @set '_selection', [null]
+          @set '_selection', []
         else
           @set '_selection', [date]
 

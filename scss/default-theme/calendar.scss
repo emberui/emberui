@@ -18,16 +18,29 @@
 
   .eui-previous,
   .eui-next {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    top: 7.5px;
+    left: 7.5px;
     color: #39a6e9;
-    transition: color 0.2s;
+    border-radius: 3px;
+    font-size: 18px;
+    transition: background 0.2s;
+    text-shadow: 1px 1px rgba(255,255,255,0.7);
 
     &:hover {
-      color: #1288d1;
+      background: #ebf6fd;
     }
 
     &:disabled {
       color: #e2e2e2;
     }
+  }
+
+  .eui-next {
+    left: auto;
+    right: 7.5px;
   }
 
   .eui-month-container {
@@ -69,16 +82,29 @@
 
   .eui-previous,
   .eui-next {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    top: 7.5px;
+    left: 7.5px;
     color: #39a6e9;
-    transition: color 0.2s;
+    border-radius: 3px;
+    font-size: 18px;
+    transition: background 0.2s;
+    text-shadow: 1px 1px rgba(255,255,255,0.7);
 
     &:hover {
-      color: #1288d1;
+      background: #ebf6fd;
     }
 
     &:disabled {
       color: #e2e2e2;
     }
+  }
+
+  .eui-next {
+    left: auto;
+    right: 7.5px;
   }
 
   .eui-month-container {

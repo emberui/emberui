@@ -21,10 +21,10 @@
   .eui-day {
     cursor: pointer;
     border-radius: 3px;
-    transition: color 0.2s;
 
     &:hover {
       color: #39a6e9;
+      background: #ebf6fd;
     }
   }
 
@@ -43,10 +43,10 @@
     color: #ffffff;
     text-shadow: 0px 1px rgba(0,0,0,0.35);
     box-shadow: inset 0px 1px 4px rgba(0,64,98,0.4);
-    transition: none;
 
     &:hover {
       color: #ffffff;
+      background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
     }
   }
 }
