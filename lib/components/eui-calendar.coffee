@@ -13,27 +13,27 @@ calendar = Em.Component.extend styleSupport,
 
   showNextMonth:       true
   showPrevMonth:       false
-  multiple:            false
+
+  disabledDates:       null
   disablePast:         null
   disableFuture:       null
   disableManipulation: null
+
   maxPastDate:         null
   maxFutureDate:       null
+
   month:               null
-  disabledDates:       null
-  selection:           null
-  selectedDate:        null
+
+  multiple:            false
+  selection:           []
 
   init: ->
     @_super()
 
-    unless this.get('selection')
-      @set 'selection', []
-    else
-      @set 'multiple', true
-
-    if @get 'selectedDate'
-      @get('selection').addObject(@get 'selectedDate')
+    Ember.warn(
+      'EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date selection',
+      !(@get('selection.length') > 1 && !@get('multiple'))
+    )
 
     firstSelectedDate = @get 'selection.firstObject'
 
@@ -59,9 +59,9 @@ calendar = Em.Component.extend styleSupport,
 
       else
         if @.hasDate(date)
-          @set 'selectedDate', null
+          @set 'selection', [null]
         else
-          @set 'selectedDate', date
+          @set 'selection', [date]
 
 
     prev: ->
@@ -99,21 +99,6 @@ calendar = Em.Component.extend styleSupport,
   addDate: (date) ->
     @removeDate date
     @get('selection').pushObject(date)
-
-
-  selectedDateWillChange: (->
-    @removeDate @get 'selectedDate'
-  ).observesBefore 'selectedDate'
-
-
-  selectedDateDidChange: (->
-    date = @get 'selectedDate'
-
-    unless date
-      return
-
-    @addDate @get 'selectedDate'
-  ).observes 'selectedDate'
 
 
   # TODO: Add timer to invalidate this
