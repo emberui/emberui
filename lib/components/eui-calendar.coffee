@@ -46,7 +46,7 @@ calendar = Em.Component.extend styleSupport,
 
   actions:
     dateSelected: (date) ->
-      @sendAction 'select', date
+      @sendAction 'selectAction', date
 
       if @get 'disableManipulation'
         return
