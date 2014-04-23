@@ -16,6 +16,8 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   labelPath: 'label'
   valuePath: 'value'
 
+  _selection: null
+
 
   # Width of the poplist
 
@@ -50,22 +52,22 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   ).property 'selection', 'placeholder', 'labelPath'
 
 
-  # Current option the user has selected. It is a wrapper around internalSelection
+  # Current option the user has selected. It is a wrapper around _selection
   # which the poplist binds to. It allows us to return null when the user selects
   # the nullValue object we inserted.
 
   selection: Ember.computed (key, value) ->
     # setter
     if arguments.length is 2
-      @set 'internalSelection', value
+      @set '_selection', value
       value
 
     # getter
     else
-      selection = @get 'internalSelection'
+      selection = @get '_selection'
       nullValue = @get 'nullValue'
       if selection == nullValue then null else selection
-  .property 'internalSelection'
+  .property '_selection'
 
 
   # Computes the value of the selection based on the valuePath specified by the user.
@@ -101,7 +103,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
     valuePath = @get 'valuePath'
     value = @get 'value'
     value = @get('options').findProperty(valuePath, value) if valuePath
-    @set('internalSelection', value || @get 'nullValue')
+    @set('_selection', value || @get 'nullValue')
   ).on 'init'
 
 
@@ -110,7 +112,7 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
       poplistComponent.show
         targetObject: @
         isOpenBinding: 'targetObject.poplistIsOpen'
-        selectionBinding: 'targetObject.internalSelection'
+        selectionBinding: 'targetObject._selection'
         optionsBinding: 'targetObject.optionsWithBlank'
         labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
