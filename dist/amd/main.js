@@ -38,7 +38,7 @@ define(
     var EuiCalendarTemplate = __dependency20__["default"] || __dependency20__;
 
 
-    var initializer = Ember.Application.initializer({
+    Ember.Application.initializer({
       name: 'emberui',
 
       initialize: function(container) {
@@ -74,5 +74,14 @@ define(
       }
     });
 
-    __exports__["default"] = initializer;
+    __exports__.EuiButtonComponent = EuiButtonComponent;
+    __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
+    __exports__.EuiDropbuttonComponent = EuiDropbuttonComponent;
+    __exports__.EuiInputComponent = EuiInputComponent;
+    __exports__.EuiModalComponent = EuiModalComponent;
+    __exports__.EuiPoplistComponent = EuiPoplistComponent;
+    __exports__.EuiSelectComponent = EuiSelectComponent;
+    __exports__.EuiTextareaComponent = EuiTextareaComponent;
+    __exports__.EuiMonthComponent = EuiMonthComponent;
+    __exports__.EuiCalendarComponent = EuiCalendarComponent;
   });

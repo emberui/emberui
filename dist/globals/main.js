@@ -1,4 +1,4 @@
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),(f.Ember||(f.Ember={})).EmberUi=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.eui=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -1035,7 +1035,7 @@ var EuiCalendarComponent = _dereq_("./components/eui-calendar")["default"] || _d
 var EuiCalendarTemplate = _dereq_("./templates/eui-calendar")["default"] || _dereq_("./templates/eui-calendar");
 
 _dereq_("./utilities/tabbable-selector");
-var initializer = Ember.Application.initializer({
+Ember.Application.initializer({
   name: 'emberui',
 
   initialize: function(container) {
@@ -1071,7 +1071,16 @@ var initializer = Ember.Application.initializer({
   }
 });
 
-exports["default"] = initializer;
+exports.EuiButtonComponent = EuiButtonComponent;
+exports.EuiCheckboxComponent = EuiCheckboxComponent;
+exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
+exports.EuiInputComponent = EuiInputComponent;
+exports.EuiModalComponent = EuiModalComponent;
+exports.EuiPoplistComponent = EuiPoplistComponent;
+exports.EuiSelectComponent = EuiSelectComponent;
+exports.EuiTextareaComponent = EuiTextareaComponent;
+exports.EuiMonthComponent = EuiMonthComponent;
+exports.EuiCalendarComponent = EuiCalendarComponent;
 },{"./components/eui-button":1,"./components/eui-calendar":2,"./components/eui-checkbox":3,"./components/eui-dropbutton":4,"./components/eui-input":5,"./components/eui-modal":6,"./components/eui-month":7,"./components/eui-poplist":8,"./components/eui-select":9,"./components/eui-textarea":10,"./templates/eui-button":19,"./templates/eui-calendar":20,"./templates/eui-checkbox":21,"./templates/eui-dropbutton":22,"./templates/eui-input":23,"./templates/eui-modal":24,"./templates/eui-poplist":26,"./templates/eui-poplist-option":25,"./templates/eui-select":27,"./templates/eui-textarea":28,"./utilities/tabbable-selector":29}],12:[function(_dereq_,module,exports){
 "use strict";
 var animationsDidComplete;

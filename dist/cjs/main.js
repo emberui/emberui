@@ -35,7 +35,7 @@ var EuiCalendarComponent = require("./components/eui-calendar")["default"] || re
 var EuiCalendarTemplate = require("./templates/eui-calendar")["default"] || require("./templates/eui-calendar");
 
 require("./utilities/tabbable-selector");
-var initializer = Ember.Application.initializer({
+Ember.Application.initializer({
   name: 'emberui',
 
   initialize: function(container) {
@@ -71,4 +71,13 @@ var initializer = Ember.Application.initializer({
   }
 });
 
-exports["default"] = initializer;
+exports.EuiButtonComponent = EuiButtonComponent;
+exports.EuiCheckboxComponent = EuiCheckboxComponent;
+exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
+exports.EuiInputComponent = EuiInputComponent;
+exports.EuiModalComponent = EuiModalComponent;
+exports.EuiPoplistComponent = EuiPoplistComponent;
+exports.EuiSelectComponent = EuiSelectComponent;
+exports.EuiTextareaComponent = EuiTextareaComponent;
+exports.EuiMonthComponent = EuiMonthComponent;
+exports.EuiCalendarComponent = EuiCalendarComponent;
