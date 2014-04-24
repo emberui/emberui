@@ -35,11 +35,10 @@ test('element value change: errorState not updated when not starting in errorSta
   var factory = this.factory();
   var factoryWithError = factory.extend({
     error: Ember.computed('value', function() {
-      return this.get('value.length') === 5;
+      return this.get('value.length') !== 5;
     })
   });
-  var input = this.subject({}, factoryWithError);
-  this.append();
+  var input = factoryWithError.create();
   ok(!input.get('errorState'));
   Em.run(function() {
     input.set('value', 'bonk');
