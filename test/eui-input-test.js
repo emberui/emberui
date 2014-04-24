@@ -1,4 +1,13 @@
-moduleForComponent('eui-input');
+moduleForComponent('eui-input', 'eui input test', {
+  subject: function(options, factory, container){
+    var f;
+    if (options && (f = options['factory'])){
+      delete options.factory;
+      factory = f;
+    }
+    return factory.create(options);
+  }
+});
 
 test('starts with errorState null', function() {
   expect(1);
@@ -49,9 +58,8 @@ test('element value change: errorState not updated when starting in errorState',
       ok(true);
     }.on('init')
   });
-  var input = factoryWithError.create({value: '1234'});
+  var input = this.subject({value: '1234', factory: factoryWithError})
 
-  this.append();
   ok(input.get('errorState'), 'component starts in error state');
   Em.run(function() {
     input.set('value', '12345');
