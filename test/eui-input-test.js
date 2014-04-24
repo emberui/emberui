@@ -39,7 +39,7 @@ test('element value change: errorState not updated when not starting in errorSta
 });
 
 test('element value change: errorState not updated when starting in errorState', function() {
-  expect(1);
+  expect(2);
   var factory = this.factory();
   var factoryWithError = factory.extend({
     error: Ember.computed('value', function() {
@@ -50,10 +50,11 @@ test('element value change: errorState not updated when starting in errorState',
     }.on('init')
   });
   var input = this.subject({value: '1234'}, factoryWithError);
+
   this.append();
-//  ok(input.get('errorState'), 'component starts in error state');
+  ok(input.get('errorState'), 'component starts in error state');
   Em.run(function() {
     input.set('value', '12345');
   });
-//  ok(!input.get('errorState'));
+  ok(!input.get('errorState'));
 });
