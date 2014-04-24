@@ -57,7 +57,12 @@ calendar = Em.Component.extend styleSupport,
 
           # User is finishing a selection
           if @get('_selection.length') is 1
-            @addDateRange @get('_selection.firstObject'), date
+
+            # If user clicked same date as the first one they probably mean to restart their selection
+            if date.isSame @get '_selection.firstObject'
+              @set '_selection', []
+            else
+              @addDateRange @get('_selection.firstObject'), date
 
           # User is starting a new selection
           else
