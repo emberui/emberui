@@ -423,7 +423,7 @@
   height: 222px;
   overflow: auto;
   list-style: none;
-  padding: 0;
+  padding: 0 2px;
   margin: 0;
   font-size: 16px;
   color: #474747;
@@ -433,20 +433,26 @@
   user-select: none; }
   .eui-month .eui-slot {
     float: left;
-    width: 35px;
+    width: 41px;
     height: 35px;
     text-align: center;
     line-height: 35px;
-    margin: 1px; }
+    margin: 1px -2px; }
   .eui-month .eui-day {
     cursor: pointer;
     border-radius: 3px; }
     .eui-month .eui-day:hover {
       color: #39a6e9;
       background: #ebf6fd; }
+  .eui-month .eui-selected + .eui-day:hover:not(.eui-selected) {
+    width: 33px;
+    padding-right: 4px;
+    margin-left: 2px; }
   .eui-month .eui-today {
     font-weight: bold;
-    color: #f00000; }
+    color: #f00000 !important; }
+    .eui-month .eui-today.eui-selected {
+      color: #fffebc !important; }
   .eui-month .eui-disabled {
     pointer-events: none;
     color: #d4d4d4; }
@@ -456,8 +462,8 @@
     background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
     color: #ffffff;
     text-shadow: 0px 1px rgba(0, 0, 0, 0.35);
-    -webkit-box-shadow: inset 0px 1px 4px rgba(0, 64, 98, 0.4);
-    box-shadow: inset 0px 1px 4px rgba(0, 64, 98, 0.4); }
+    -webkit-box-shadow: inset -1px 1px 1px rgba(0, 64, 98, 0.4);
+    box-shadow: inset -1px 1px 1px rgba(0, 64, 98, 0.4); }
     .eui-month .eui-selected:hover {
       color: #ffffff;
       background-image: -webkit-gradient(linear, left top, left bottom, from(#1493dc), to(#64bcf7));
