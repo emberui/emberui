@@ -475,7 +475,8 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+  cursor: default; }
   .eui-calendar .eui-calendar-wrapper {
     position: relative;
     background: #ffffff;

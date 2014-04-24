@@ -27,6 +27,7 @@ calendar = Em.Component.extend(styleSupport, {
   maxFutureDate: null,
   month: null,
   allowMultiple: false,
+  forceContinuousSelection: true,
   _selection: [],
   init: function() {
     var firstSelectedDate;
@@ -47,10 +48,18 @@ calendar = Em.Component.extend(styleSupport, {
         return;
       }
       if (this.get('allowMultiple')) {
-        if (this.hasDate(date)) {
-          return this.removeDate(date);
+        if (this.get('forceContinuousSelection')) {
+          if (this.get('_selection.length') === 1) {
+            return this.addDateRange(this.get('_selection.firstObject'), date);
+          } else {
+            return this.set('_selection', [date]);
+          }
         } else {
-          return this.addDate(date);
+          if (this.hasDate(date)) {
+            return this.removeDate(date);
+          } else {
+            return this.addDate(date);
+          }
         }
       } else {
         if (this.hasDate(date)) {
@@ -113,6 +122,27 @@ calendar = Em.Component.extend(styleSupport, {
   addDate: function(date) {
     this.removeDate(date);
     return this.get('_selection').pushObject(date);
+  },
+  addDateRange: function(startDate, endDate) {
+    var day, _results, _results1;
+    day = moment(startDate);
+    if (endDate.isBefore(startDate)) {
+      day.subtract('days', 1);
+      _results = [];
+      while (!day.isBefore(endDate)) {
+        this.addDate(moment(day));
+        _results.push(day.subtract('days', 1));
+      }
+      return _results;
+    } else {
+      day.add('days', 1);
+      _results1 = [];
+      while (!day.isAfter(endDate)) {
+        this.addDate(moment(day));
+        _results1.push(day.add('days', 1));
+      }
+      return _results1;
+    }
   },
   now: (function() {
     return moment();
