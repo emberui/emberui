@@ -25,6 +25,7 @@ calendar = Em.Component.extend styleSupport,
   month:               null
 
   allowMultiple:       false
+  forceContinuousSelection: true
   _selection:          []
 
   init: ->
@@ -52,10 +53,21 @@ calendar = Em.Component.extend styleSupport,
         return
 
       if @get 'allowMultiple'
-        if @hasDate(date)
-          @removeDate(date)
+        if @get 'forceContinuousSelection'
+
+          # User is finishing a selection
+          if @get('_selection.length') is 1
+            @addDateRange @get('_selection.firstObject'), date
+
+          # User is starting a new selection
+          else
+            @set '_selection', [date]
+
         else
-          @addDate(date)
+          if @hasDate(date)
+            @removeDate(date)
+          else
+            @addDate(date)
 
       else
         if @hasDate(date)
@@ -124,6 +136,25 @@ calendar = Em.Component.extend styleSupport,
     @removeDate date
     @get('_selection').pushObject(date)
 
+
+  addDateRange: (startDate, endDate) ->
+    day = moment(startDate)
+
+    # User clicked on a day BEFORE the current selected day
+    if endDate.isBefore startDate
+      day.subtract 'days', 1
+
+      while not day.isBefore endDate
+        @addDate(moment day)
+        day.subtract 'days', 1
+
+    # User clicked on a day AFTER the current selected day
+    else
+      day.add 'days', 1
+
+      while not day.isAfter endDate
+        @addDate(moment day)
+        day.add 'days', 1
 
   # TODO: Add timer to invalidate this
   now: (->
