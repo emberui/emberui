@@ -80,7 +80,11 @@ define("emberui/components/eui-button",
           if (this.get('allowMultiple')) {
             if (this.get('forceContinuousSelection')) {
               if (this.get('_selection.length') === 1) {
-                return this.addDateRange(this.get('_selection.firstObject'), date);
+                if (date.isSame(this.get('_selection.firstObject'))) {
+                  return this.set('_selection', []);
+                } else {
+                  return this.addDateRange(this.get('_selection.firstObject'), date);
+                }
               } else {
                 return this.set('_selection', [date]);
               }
