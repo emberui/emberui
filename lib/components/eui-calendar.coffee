@@ -25,7 +25,7 @@ calendar = Em.Component.extend styleSupport,
   month:               null
 
   allowMultiple:       false
-  forceContinuousSelection: true
+  continuousSelection: true
   _selection:          []
 
   init: ->
@@ -53,7 +53,7 @@ calendar = Em.Component.extend styleSupport,
         return
 
       if @get 'allowMultiple'
-        if @get 'forceContinuousSelection'
+        if @get 'continuousSelection'
 
           # User is finishing a selection
           if @get('_selection.length') is 1
