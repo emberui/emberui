@@ -13,24 +13,26 @@ validationsupport = Em.Mixin.create
     Em.run.schedule 'actions', @, ->
       @set("isEntered", true)
 
-  errorState: Em.computed 'isInit', 'isEntered', 'forceValidate', 'error', 'value', (key, value, prevValue) ->
-
+  errorState: Em.computed 'isEntered', 'forceValidate', 'error', 'value', ->
+    previous = @get '_previousErrorState'
+    @set '_previousErrorState', false
     error = @get('error')
 
-    if not (prevValue or @get('isEntered') or @get('forceValidate'))
-      return false
+    switch previous
+      when undefined
+        if Em.isBlank(@get('value')) and not @get('forceValidate')
+          return false
+      when false
+        if not @get('isEntered') and not @get('forceValidate')
+          return false
 
     if error
       if typeof(error) is 'string'
         @set 'errorMessage', error
-      return true
+      @set '_previousErrorState', true
+      true
     else
       @set 'errorMessage', null
-
-  load: ( ->
-    if @get('forceValidate') or @get('value')
-      @get('isInit')
-
-  ).observes('init')
+      false
 
 `export default validationsupport`
