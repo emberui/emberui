@@ -85,3 +85,35 @@ test('force error check: errorState is updated when forceErrorCheck is true', fu
   });
   ok(input.get('errorState'));
 });
+
+test('element focus: errorState updates pause until focusout', function() {
+  expect(4);
+  var input = this.subject({c: fakeController.create(), errorBinding: 'c.error', valueBinding: 'c.value'});
+  this.append();
+
+  Em.run(function() {
+    input.set('value', '1234');
+    input.$().trigger('focusout');
+  });
+
+  ok(input.get('errorState'), 'starts in error state');
+
+  Em.run(function() {
+    input.$().trigger('focusin');
+    input.set('value', '12345');
+  });
+
+  ok(!input.get('errorState'), 'error state updated after starting in error state');
+
+  Em.run(function() {
+    input.set('value', '1234');
+  });
+
+  ok(!input.get('errorState'), 'error state not updated before focusout');
+
+  Em.run(function() {
+    input.$().trigger('focusout');
+  });
+
+  ok(input.get('errorState'), 'error updated on focusout');
+});
