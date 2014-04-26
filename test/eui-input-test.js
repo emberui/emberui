@@ -92,3 +92,35 @@ test('string error property should be presented on errorMessage property', funct
 
   equal(input.get('errorMessage'), "This is broken, please fix it", "errorMessage should be error");
 });
+
+test('element focus: focusin resets error state, function() {
+  expect(4);
+  var input = this.subject({c: fakeController.create(), errorBinding: 'c.error', valueBinding: 'c.value'});
+  this.append();
+
+  Em.run(function() {
+    input.set('value', '1234');
+    input.$().trigger('focusout');
+  });
+
+  ok(input.get('errorState'), 'starts in error state');
+
+  Em.run(function() {
+    input.$().trigger('focusin');
+    input.set('value', '12345');
+  });
+
+  ok(!input.get('errorState'), 'error state updated after starting in error state');
+
+  Em.run(function() {
+    input.set('value', '1234');
+  });
+
+  ok(!input.get('errorState'), 'error state not updated before focusout');
+
+  Em.run(function() {
+    input.$().trigger('focusout');
+  });
+
+  ok(input.get('errorState'), 'error updated on focusout');
+});
