@@ -50,11 +50,11 @@ test('element value change: errorState updated when starting in errorState', fun
   expect(2);
   var input = this.subject({c: fakeController.create({value: '1234'}), errorBinding: 'c.error', valueBinding: 'c.value'});
   this.append();
-  ok(input.get('errorState'));
+  ok(input.get('errorState'), 'starts in error state');
   Em.run(function() {
     input.set('value', '12345');
   });
-  ok(!input.get('errorState'));
+  ok(!input.get('errorState'), 'updated after starting in error state');
 });
 
 // NOTE: see above
@@ -62,15 +62,15 @@ test('element loses focus: errorState updated on focusout', function() {
   expect(3);
   var input = this.subject({c: fakeController.create(), errorBinding: 'c.error', valueBinding: 'c.value'});
   this.append();
-  ok(!input.get('errorState'), '1');
+  ok(!input.get('errorState'), 'does not start in error state');
   Em.run(function() {
     input.set('value', '1234');
   });
-  ok(!input.get('errorState'), '2');
+  ok(!input.get('errorState'), 'error state not updated before focusout');
   Em.run(function() {
     input.$().trigger('focusout');
   });
-  ok(input.get('errorState'), '3');
+  ok(input.get('errorState'), 'error state updated after focusout');
 });
 
 // NOTE: see above
