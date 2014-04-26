@@ -14,11 +14,12 @@ validationsupport = Em.Mixin.create
       @set("isEntered", true)
 
   errorState: Em.computed 'isEntered', 'forceValidate', 'error', 'value', ->
-    previous = @get '_previousErrorState'
-    @set '_previousErrorState', false
-    error = @get('error')
+    errorState = @_errorState()
+    @set '_previousErrorState', errorState
+    errorState
 
-    switch previous
+  _errorState: ->
+    switch @get('_previousErrorState')
       when undefined
         if Em.isBlank(@get('value')) and not @get('forceValidate')
           return false
@@ -26,10 +27,9 @@ validationsupport = Em.Mixin.create
         if not @get('isEntered') and not @get('forceValidate')
           return false
 
-    if error
+    if error = @get('error')
       if typeof(error) is 'string'
         @set 'errorMessage', error
-      @set '_previousErrorState', true
       true
     else
       @set 'errorMessage', null
