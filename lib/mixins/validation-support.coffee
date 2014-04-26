@@ -1,7 +1,7 @@
 validationsupport = Em.Mixin.create
   classNameBindings: ['errorState:eui-error']
 
-  forceValidate: false
+  forceErrorCheck: false
 
   focusOut: ->
     @set("isEntered", true)
@@ -14,7 +14,7 @@ validationsupport = Em.Mixin.create
     else
       null
 
-  errorState: Em.computed 'isEntered', 'forceValidate', 'error', 'value', ->
+  errorState: Em.computed 'isEntered', 'forceErrorCheck', 'error', 'value', ->
     errorState = @_errorState()
     @set '_previousErrorState', errorState
     errorState
@@ -22,10 +22,10 @@ validationsupport = Em.Mixin.create
   _errorState: ->
     switch @get('_previousErrorState')
       when undefined
-        if Em.isBlank(@get('value')) and not @get('forceValidate')
+        if Em.isBlank(@get('value')) and not @get('forceErrorCheck')
           return false
       when false
-        if not @get('isEntered') and not @get('forceValidate')
+        if not @get('isEntered') and not @get('forceErrorCheck')
           return false
 
     !!@get('error')

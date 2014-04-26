@@ -74,14 +74,14 @@ test('element loses focus: errorState updated on focusout', function() {
 });
 
 // NOTE: see above
-test('force error check: errorState is updated when forceValidate is true', function() {
+test('force error check: errorState is updated when forceErrorCheck is true', function() {
   expect(1);
   var input = this.subject({c: fakeController.create(), errorBinding: 'c.error', valueBinding: 'c.value'});
   this.append();
-  // NOTE: we are also going out of our way to set this after the input is created because forceValidate
+  // NOTE: we are also going out of our way to set this after the input is created because forceErrorCheck
   // is *currently* being observed instead of computed. This test should change once that is not longer true
   Em.run(function(){
-    input.set('forceValidate', true);
+    input.set('forceErrorCheck', true);
   });
   ok(input.get('errorState'));
 });
