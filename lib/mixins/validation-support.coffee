@@ -1,12 +1,17 @@
 validationsupport = Em.Mixin.create
   classNameBindings: ['errorState:eui-error']
 
-  errorMessage: null
   forceValidate: false
 
   focusOut: ->
     Em.run.schedule 'actions', @, ->
       @set("isEntered", true)
+
+  errorMessage: Em.computed 'errorState', 'error', ->
+    if @get('errorState') and typeof(error) is 'string'
+      error
+    else
+      null
 
   errorState: Em.computed 'isEntered', 'forceValidate', 'error', 'value', ->
     errorState = @_errorState()
@@ -22,12 +27,6 @@ validationsupport = Em.Mixin.create
         if not @get('isEntered') and not @get('forceValidate')
           return false
 
-    if error = @get('error')
-      if typeof(error) is 'string'
-        @set 'errorMessage', error
-      true
-    else
-      @set 'errorMessage', null
-      false
+    @get('error')
 
 `export default validationsupport`
