@@ -4,11 +4,6 @@ validationsupport = Em.Mixin.create
   errorMessage: null
   forceValidate: false
 
-  focusIn: ->
-    unless @get('errorState')
-      Em.run.schedule 'actions', @, ->
-        @set('isEntered', false)
-
   focusOut: ->
     Em.run.schedule 'actions', @, ->
       @set("isEntered", true)
