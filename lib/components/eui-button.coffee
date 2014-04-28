@@ -15,6 +15,8 @@ button = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   action: null
   class: null
   type: 'button'
+  width: 'auto'
+
 
   click: (event) ->
     event.preventDefault()
