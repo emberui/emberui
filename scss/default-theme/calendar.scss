@@ -67,6 +67,7 @@
 }
 
 .eui-calendar.eui-popup {
+  position: absolute;
   border-radius: 3px;
   padding: 1px;
   background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
@@ -128,4 +129,8 @@
       }
     }
   }
+}
+
+&.eui-closing .eui-calendar.eui-popup {
+  animation: eui-zoomupandin 0.2s 1;
 }

@@ -17,7 +17,6 @@ calendar = Em.Component.extend styleSupport,
   disabledDates:       null
   disablePast:         null
   disableFuture:       null
-  disableManipulation: null
 
   maxPastDate:         null
   maxFutureDate:       null
@@ -47,11 +46,6 @@ calendar = Em.Component.extend styleSupport,
 
   actions:
     dateSelected: (date) ->
-      @sendAction 'selectAction', date
-
-      if @get 'disableManipulation'
-        return
-
       if @get 'allowMultiple'
         if @get 'continuousSelection'
 
@@ -79,6 +73,10 @@ calendar = Em.Component.extend styleSupport,
           @set '_selection', []
         else
           @set '_selection', [date]
+
+      # Delay sending action until after the selection has been updated
+
+      Ember.run.next @, -> @sendAction('selectAction', date)
 
 
     prev: ->
@@ -128,6 +126,11 @@ calendar = Em.Component.extend styleSupport,
       return d.isSame(date)
 
 
+  isDisabledDate: (date) ->
+    return @get('disabledDates').any (d) ->
+      return d.isSame(date)
+
+
   removeDate: (date) ->
     dates = @get '_selection'
 
@@ -150,7 +153,7 @@ calendar = Em.Component.extend styleSupport,
       day.subtract 'days', 1
 
       while not day.isBefore endDate
-        @addDate(moment day)
+        @addDate(moment day) unless @isDisabledDate(moment day)
         day.subtract 'days', 1
 
     # User clicked on a day AFTER the current selected day
@@ -158,7 +161,7 @@ calendar = Em.Component.extend styleSupport,
       day.add 'days', 1
 
       while not day.isAfter endDate
-        @addDate(moment day)
+        @addDate(moment day) unless @isDisabledDate(moment day)
         day.add 'days', 1
 
   # TODO: Add timer to invalidate this
