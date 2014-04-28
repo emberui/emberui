@@ -56,7 +56,7 @@ select = Em.Component.extend disabledSupport, validationSupport,
   # which the poplist binds to. It allows us to return null when the user selects
   # the nullValue object we inserted.
 
-  selection: Ember.computed (key, value) ->
+  selection: Ember.computed '_selection', (key, value) ->
     # setter
     if arguments.length is 2
       @set '_selection', value
@@ -67,14 +67,13 @@ select = Em.Component.extend disabledSupport, validationSupport,
       selection = @get '_selection'
       nullValue = @get 'nullValue'
       if selection == nullValue then null else selection
-  .property '_selection'
 
 
   # Computes the value of the selection based on the valuePath specified by the user.
   # Allows for getting and setting so the user can set the initial value of the select
   # without passing in the full object
 
-  value: Ember.computed (key, value) ->
+  value: Ember.computed 'selection', 'valuePath', (key, value) ->
     # setter
     if arguments.length is 2
       valuePath = @get 'valuePath'
@@ -86,7 +85,6 @@ select = Em.Component.extend disabledSupport, validationSupport,
     else
       valuePath = @get 'valuePath'
       if valuePath then @get("selection.#{valuePath}") else null
-  .property 'selection', 'valuePath'
 
 
   initialization: (->

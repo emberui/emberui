@@ -51,7 +51,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
 
   # Option that is currently highlighted
 
-  highlighted: Ember.computed (key, value) ->
+  highlighted: Ember.computed 'highlightedIndex', 'filteredOptions', (key, value) ->
     options = @get 'filteredOptions'
 
     # setter
@@ -65,7 +65,6 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
       index = @get 'highlightedIndex'
       options.objectAt index
 
-  .property 'highlightedIndex', 'filteredOptions'
 
 
   # Reset and remove Poplist from the DOM and unbind events bound during initialization.
@@ -316,14 +315,12 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
         @set 'content', context
 
 
-      isHighlighted: Ember.computed ->
+      isHighlighted: Ember.computed 'controller.highlighted', 'content', ->
         @get('controller.highlighted') is @get('content')
-      .property 'controller.highlighted', 'content'
 
 
-      isSelected: Ember.computed ->
+      isSelected: Ember.computed 'controller.selection', 'content', ->
         @get('controller.selection') is @get('content')
-      .property 'controller.selection', 'content'
 
 
       click: ->

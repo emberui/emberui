@@ -42,7 +42,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
   # Proxy for renderModal. Allows us to animate the modal closing by delaying the setting of
   # renderModal until the animation is done playing
 
-  open: Ember.computed (key, value) ->
+  open: Ember.computed 'renderModal', (key, value) ->
     # setter
     if arguments.length is 2
 
@@ -60,8 +60,6 @@ modal = Em.Component.extend styleSupport, animationsDidComplete,
     else
       value = @get 'renderModal'
       value
-
-  .property 'renderModal'
 
 
   # Initial setup when modal is shown programatically

@@ -10,7 +10,7 @@ textarea = Em.Component.extend validationSupport, textSupport, styleSupport, siz
 
   height: null
 
-  computedWidthAndHeight: Em.computed ->
+  computedWidthAndHeight: Em.computed 'size', 'width', 'height', ->
     widths =
       tiny: '100px'
       small: '150px'
@@ -26,6 +26,5 @@ textarea = Em.Component.extend validationSupport, textSupport, styleSupport, siz
     width = @get('width') or widths[@get('size')] or widths['medium']
     height = @get('height') or heights[@get('size')] or heights['medium']
     return "width: #{width}; height: #{height};"
-  .property 'size', 'width', 'height'
 
 `export default textarea`

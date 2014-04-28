@@ -1,10 +1,9 @@
 `import styleSupport from '../mixins/style-support'`
 
 cpFormatMoment = (key, format) ->
-  return Em.computed( ->
+  return Em.computed 'key', ->
     date = @get(key)
     return if date then date.format(format) else null
-  ).property(key)
 
 
 calendar = Em.Component.extend styleSupport,
@@ -99,7 +98,7 @@ calendar = Em.Component.extend styleSupport,
       @set 'month', month.clone().add('months', 1)
 
 
-  selection: Ember.computed (key, value) ->
+  selection: Ember.computed '_selection', (key, value) ->
     # setter
     if arguments.length is 2
       if @get 'allowMultiple'
@@ -120,7 +119,6 @@ calendar = Em.Component.extend styleSupport,
 
       else
         return selection.get('firstObject')
-  .property '_selection'
 
 
   hasDate: (date) ->

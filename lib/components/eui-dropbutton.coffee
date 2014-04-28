@@ -15,9 +15,8 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
 
   # Action for the left button
 
-  primaryAction: Em.computed ->
+  primaryAction: Em.computed 'options', ->
     @get('options').findBy 'primary', true
-  .property 'options'
 
 
   # If the selection changes peform the action and reset it so it can get triggered
@@ -32,9 +31,8 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
 
   # List of options without any primary actions
 
-  optionsWithoutPrimaryAction: Ember.computed.filter('options', (option) ->
+  optionsWithoutPrimaryAction: Ember.computed.filter 'options', (option) ->
     return not option.primary
-  ).property "options"
 
 
   actions:

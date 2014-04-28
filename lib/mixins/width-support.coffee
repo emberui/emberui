@@ -1,7 +1,7 @@
 widthsupport = Em.Mixin.create
   attributeBindings: ['computedWidth:style']
 
-  computedWidth: Em.computed ->
+  computedWidth: Em.computed 'size', 'width', ->
     widths =
       tiny: '100px'
       small: '150px'
@@ -10,6 +10,5 @@ widthsupport = Em.Mixin.create
 
     width = @get('width') or widths[@get('size')] or widths['medium']
     return "width: #{width};"
-  .property 'size', 'width'
 
 `export default widthsupport`
