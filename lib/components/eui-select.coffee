@@ -126,13 +126,6 @@ select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
       event.preventDefault()
       @click()
 
-
-  # Overide validation-support mixin to check validation on change even if no error
-  # This is needed because the select will not receive the blur event when the user
-  # select and option
-
-  onChange:  (->
-    Ember.run.once @, 'validateField'
-  ).observes 'value'
+  isEntered: true
 
 `export default select`
