@@ -1,14 +1,14 @@
-`import styleSupport from '../mixins/style-support'`
-`import sizeSupport from '../mixins/size-support'`
 `import poplistComponent from '../components/eui-poplist'`
 `import disabledSupport from '../mixins/disabled-support'`
-`import widthSupport from '../mixins/width-support'`
 `import validationSupport from '../mixins/validation-support'`
 
-select = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport,
+select = Em.Component.extend disabledSupport, validationSupport,
   tagName: 'eui-select'
   classNames: ['eui-select']
-  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class']
+  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
+
+  style: 'default'
+  size: 'medium'
 
   poplistIsOpen: false
   required: false

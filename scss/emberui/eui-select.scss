@@ -4,41 +4,13 @@
   user-select: none;
   cursor: pointer;
 
-  button {
-    position: absolute;
-    opacity: 0.0001;
-    top: 0px;
-    left: -9000px;
-  }
-
-  .eui-select-form {
-    position: relative;
-    border: none;
-    padding: 0;
-    margin: 0;
-    background: #f6f6f6;
-    outline: none;
-  }
-
   .eui-wrapper {
-    width: 100%;
-    padding: 0 7px;
-    position: relative;
-    box-sizing: border-box;
+    text-align: left
   }
 
-  i {
-    display: block;
-    font-style: normal;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-right: 15px;
-  }
-
-  .eui-icon {
+  b.eui-icon {
     position: absolute;
-    right: 7px;
+    right: 8px;
     top: 0px;
     height: 100%;
     padding-left: 7px;
@@ -58,27 +30,55 @@
   &.eui-disabled {
     pointer-events: none;
   }
+
+  &.eui-placeholder {
+    i {
+      opacity: 0.6;
+    }
+  }
+
+  /* Active */
+  .eui-active b.eui-icon {
+    top: 1px;
+  }
 }
 
-/* SIZES */
-.eui-select {
+
+/* SIZES & ICONS */
+.eui-select .eui-button {
   &.eui-tiny {
-    line-height: 18px;
-    font-size: 9px;
+    .eui-wrapper {
+      padding: 0 15px 0 5px;
+    }
+
+    b.eui-icon {
+      right: 5px;
+    }
   }
 
   &.eui-small {
-    line-height: 25px;
-    font-size: 11px;
+    .eui-wrapper {
+      padding: 0 20px 0 10px;
+    }
   }
 
   &.eui-medium {
-    line-height: 35px;
-    font-size: 14px;
+    .eui-wrapper {
+      padding: 0 25px 0 10px;
+    }
+
+    b.eui-icon {
+      right: 9px;
+    }
   }
 
   &.eui-large {
-    line-height: 45px;
-    font-size: 17px;
+    .eui-wrapper {
+      padding: 0 30px 0 10px;
+    }
+
+    b.eui-icon {
+      right: 11px;
+    }
   }
 }

@@ -1,11 +1,10 @@
-<button {{bind-attr disabled="isDisabled" }}></button>
-
-<div class="eui-select-form">
-  <div class="eui-wrapper">
-    <i>{{view.label}}</i>
-    <b class="eui-icon"></b>
-  </div>
-</div>
+{{eui-button
+  label=view.label
+  disabled=disabled
+  style=style size=size
+  width=width
+  classBinding=":eui-select poplistIsOpen:eui-active"
+  icon="eui-icon"}}
 
 {{#if errorMessage}}
   <div class="eui-error-message">
