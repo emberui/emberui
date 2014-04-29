@@ -54,6 +54,18 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
         @hide()
 
 
+  monitorClicks: (->
+    if @get 'open'
+      $(window).bind 'click.emberui', (event) =>
+        unless $(event.target).parents('.eui-selectdate').length
+          event.preventDefault()
+          @send 'closeCalendar'
+
+    else
+      $(window).unbind 'click.emberui'
+
+  ).observes 'open'
+
   # Catch and handle key presses
 
   keyDown: (event) ->
