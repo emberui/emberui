@@ -98,12 +98,8 @@ calendar = Em.Component.extend styleSupport,
   selection: Ember.computed (key, value) ->
     # setter
     if arguments.length is 2
-      if @get 'allowMultiple'
-        if Ember.isArray(value)
-          @set '_selection', value
-        else
-          @set '_selection', [value]
-
+      if Ember.isArray(value)
+        @set '_selection', value
       else
         @set '_selection', [value]
 
