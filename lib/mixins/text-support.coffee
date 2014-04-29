@@ -18,12 +18,11 @@ textsupport = Em.Mixin.create
   didInsertElement: ->
     @set('inputId', @$('input').attr('id') or @$('textarea').attr('id'))
 
-  placeholderVisible: Em.computed ->
+  placeholderVisible: Em.computed 'placeholder', 'value', ->
     placeholder = @get('placeholder')
     value = @get('value')
 
     if placeholder and !value
       return true
-  .property 'placeholder', 'value'
 
 `export default textsupport`
