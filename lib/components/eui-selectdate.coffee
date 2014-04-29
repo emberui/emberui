@@ -46,7 +46,7 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
 
   # Label of the selected date or the placeholder text
 
-  label: (->
+  label: Em.computed 'selection.@each', 'placeholder', ->
     selection = @get 'selection'
     value = null
 
@@ -63,7 +63,6 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
         value = selection
 
     return @formatDate(value) || @get 'placeholder'
-  ).property 'selection.@each', 'placeholder'
 
 
   # Formats a single date or a date range smartly
