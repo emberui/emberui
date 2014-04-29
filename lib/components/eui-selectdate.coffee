@@ -12,7 +12,7 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
   style: 'default'
   size: 'medium'
 
-  allowMultiple: false
+  dateRange: false
 
 
   # Settings used when formatting the date
@@ -44,10 +44,10 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
       @toggleProperty 'open'
 
     closeCalendar: (options) ->
-      allowMultiple = @get 'allowMultiple'
+      dateRange = @get 'dateRange'
       selection = @get 'selection'
 
-      if allowMultiple
+      if dateRange
         if selection and selection.get('length') > 1
           @hide()
         else if selection and selection.get('length') is 1 and options and options.forceClose is true
