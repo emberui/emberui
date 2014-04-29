@@ -66,6 +66,7 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
 
   ).observes 'open'
 
+
   # Catch and handle key presses
 
   keyDown: (event) ->
