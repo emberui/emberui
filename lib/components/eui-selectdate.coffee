@@ -6,12 +6,27 @@
 select = Em.Component.extend disabledSupport, validationSupport, animationsDidComplete, modalBehaviour,
   tagName: 'eui-selectdate'
   classNames: ['eui-selectdate']
-  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
+  classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class']
 
   style: 'default'
   size: 'medium'
 
   allowMultiple: false
+
+
+  # We have to calculate if there is no selection manually because [] will evaluate to true
+  # and prevent a multi select from adding the placeholder class
+
+  isPlaceholder: Em.computed 'selection', ->
+    selection = @get 'selection'
+
+    if selection and Em.isArray(selection) and selection.get('length') is 0
+      return false
+
+    unless selection
+      return false
+
+    return true
 
 
   actions:
