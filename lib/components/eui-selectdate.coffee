@@ -41,49 +41,60 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
 
   actions:
     toggleCalendar: ->
-      @toggleProperty 'open'
+       if @get('open') then @send('closeCalendar') else @send('openCalendar')
+
 
     closeCalendar: (options) ->
       dateRange = @get 'dateRange'
       selection = @get 'selection'
 
+      closeCalendar = false
+
       if dateRange
+        # Close if user has date range selected
         if selection and selection.get('length') > 1
-          @hide()
+          closeCalendar = true
+
+        # Close if part of date range is selected, but user pressed ESC. Reset selection.
         else if selection and selection.get('length') is 1 and options and options.forceClose is true
           @resetSelection()
-          @hide()
+          closeCalendar = true
+
+        # Close if nothing is selected and user presses ESC
         else if selection.get('length') is 0 and options and options.forceClose is true
-          @hide()
+          closeCalendar = true
 
+      # Close if single date mode and they have made a selection
       else if selection
-        @hide()
+        closeCalendar = true
 
+      # Close if we have set forceClose for any reason
       else if options and options.forceClose is true
+        closeCalendar = true
+
+      if closeCalendar
+        $(window).unbind 'click.emberui'
         @hide()
 
 
-  # If user clicks outside the calendar close it
+    openCalendar: ->
+      # Show calendar
+      @set 'open', true
 
-  monitorClicks: (->
-    if @get 'open'
+      # Position calendar
+      Ember.run.next @, -> @positionCalendar()
+
+      # Save current selection
+      @set '_selection', @get 'selection'
+
+      # Bind click so we can close calendar is user clicks outside it
       $(window).bind 'click.emberui', (event) =>
         unless @.$().find($(event.target)).length
           event.preventDefault()
           @send 'closeCalendar', {forceClose: true}
 
-    else
-      $(window).unbind 'click.emberui'
-
-  ).observes 'open'
-
 
   # Positions calendar using fixed positioning
-
-  updatePosition: (->
-    if @get 'open'
-      Ember.run.next @, -> @positionCalendar()
-  ).observes 'open'
 
   positionCalendar: ->
     @.$().find('eui-calendar').position {
@@ -98,11 +109,6 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
 
   resetSelection: ->
     @set 'selection', @get '_selection'
-
-  saveSelection: (->
-    if @get 'open'
-      @set '_selection', @get 'selection'
-  ).observes 'open'
 
 
   # Catch and handle key presses
