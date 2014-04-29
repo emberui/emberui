@@ -89,7 +89,8 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
     @.$().find('eui-calendar').position {
       my: "center top",
       at: "center bottom",
-      of: @.$()
+      of: @.$(),
+      collision: 'flipfit'
     }
 
 
