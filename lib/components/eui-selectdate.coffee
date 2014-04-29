@@ -14,6 +14,15 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
   allowMultiple: false
 
 
+  # Settings used when formatting the date
+
+  formatting: {
+    yearFormat: "YYYY"
+    monthFormat: "MMMM"
+    dayFormat: "D"
+  }
+
+
   # We have to calculate if there is no selection manually because [] will evaluate to true
   # and prevent a multi select from adding the placeholder class
 
@@ -63,35 +72,57 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
 
   label: Em.computed 'selection.@each', 'placeholder', ->
     selection = @get 'selection'
-    value = null
+    label = null
 
     if selection
+      # Date Range
       if Em.isArray(selection)
 
         # If they are in the middle of selecting a date range we want to only show the first date
         if selection.get('length') < 2
-          value = selection.get('firstObject')
+          startDate = selection.get('firstObject')
+
+          label = @formatDateRange startDate
 
         else
-          value = [selection.get('firstObject'), selection.get('lastObject')]
+          startDate = selection.get('firstObject')
+          endDate = selection.get('lastObject')
+
+          label = @formatDateRange startDate, endDate
+
+      # Single Date
       else
-        value = selection
+        label = @formatDate(selection)
 
-    return @formatDate(value) || @get 'placeholder'
+    return label || @get 'placeholder'
 
 
-  # Formats a single date or a date range smartly
+  # Formats a single date
 
-  formatDate: (dates) ->
-    return unless dates
+  formatDate: (date) ->
+    return unless date
+    return date.twix(date, true).format(@get 'formatting')
 
-    if Em.isArray(dates)
-      label = moment(dates.get('firstObject')).format('MMMM Do') + ' to ' + moment(dates.get('lastObject')).format('MMMM Do')
 
-    else
-      label = moment(dates).format('MMMM Do')
+  # Format a date range
 
-    return label
+  formatDateRange: (startDate, endDate) ->
+    return unless startDate
+
+    formatting = @get 'formatting'
+
+    # No end date is selected so show partial date
+    unless endDate
+      return startDate.twix(startDate, true).format(formatting) + ' -'
+
+    # Full date range
+    if startDate and endDate
+
+      if endDate.isBefore startDate
+        return endDate.twix(startDate, true).format formatting
+
+      else
+        return startDate.twix(endDate, true).format formatting
 
 
   # Overide validation-support mixin to check validation on change even if no error
