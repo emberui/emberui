@@ -50,7 +50,7 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
         if selection and selection.get('length') > 1
           @hide()
 
-      else
+      else if selection
         @hide()
 
 
