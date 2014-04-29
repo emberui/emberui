@@ -100,9 +100,11 @@ calendar = Em.Component.extend styleSupport,
     if arguments.length is 2
       if Ember.isArray(value)
         @set '_selection', value
-      else
+      else if value
         @set '_selection', [value]
-
+      else
+        @set '_selection', []
+        
       value
 
     # getter
