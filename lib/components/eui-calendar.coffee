@@ -147,13 +147,14 @@ calendar = Em.Component.extend styleSupport,
 
   addDateRange: (startDate, endDate) ->
     day = moment(startDate)
+    newSelection = [startDate]
 
     # User clicked on a day BEFORE the current selected day
     if endDate.isBefore startDate
       day.subtract 'days', 1
 
       while not day.isBefore endDate
-        @addDate(moment day) unless @isDisabledDate(moment day)
+        newSelection.pushObject(moment day) unless @isDisabledDate(moment day)
         day.subtract 'days', 1
 
     # User clicked on a day AFTER the current selected day
@@ -161,8 +162,10 @@ calendar = Em.Component.extend styleSupport,
       day.add 'days', 1
 
       while not day.isAfter endDate
-        @addDate(moment day) unless @isDisabledDate(moment day)
+        newSelection.pushObject(moment day) unless @isDisabledDate(moment day)
         day.add 'days', 1
+
+    @set 'selection', newSelection
 
   # TODO: Add timer to invalidate this
   now: (->
