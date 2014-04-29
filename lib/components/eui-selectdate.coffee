@@ -43,15 +43,23 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
     toggleCalendar: ->
       @toggleProperty 'open'
 
-    closeCalendar: ->
+    closeCalendar: (options) ->
       allowMultiple = @get 'allowMultiple'
       selection = @get 'selection'
 
       if allowMultiple
         if selection and selection.get('length') > 1
           @hide()
+        else if selection and selection.get('length') is 1 and options and options.forceClose is true
+          @resetSelection()
+          @hide()
+        else if selection.get('length') is 0 and options and options.forceClose is true
+          @hide()
 
       else if selection
+        @hide()
+
+      else if options and options.forceClose is true
         @hide()
 
 
@@ -62,7 +70,7 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
       $(window).bind 'click.emberui', (event) =>
         unless $(event.target).parents('.eui-selectdate').length
           event.preventDefault()
-          @send 'closeCalendar'
+          @send 'closeCalendar', {forceClose: true}
 
     else
       $(window).unbind 'click.emberui'
@@ -85,13 +93,23 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
     }
 
 
+  # Undos changes user made to selection
+
+  resetSelection: ->
+    @set 'selection', @get '_selection'
+
+  saveSelection: (->
+    if @get 'open'
+      @set '_selection', @get 'selection'
+  ).observes 'open'
+
+
   # Catch and handle key presses
 
   keyDown: (event) ->
     # ESC
-    # TODO Reset value to value before
     if event.keyCode == 27
-      @hide()
+      @send 'closeCalendar', {forceClose: true}
 
     # Down Arrow
     if event.which == 40
