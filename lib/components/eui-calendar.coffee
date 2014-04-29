@@ -27,9 +27,7 @@ calendar = Em.Component.extend styleSupport,
   continuousSelection: true
   _selection:          []
 
-  init: ->
-    @_super()
-
+  setup: (->
     Ember.warn(
       'EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection',
       !(@get('_selection.length') > 1 && !@get('allowMultiple'))
@@ -42,7 +40,7 @@ calendar = Em.Component.extend styleSupport,
 
     unless @get 'month'
       @set 'month', moment().startOf('month')
-
+  ).on 'init'
 
   actions:
     dateSelected: (date) ->
@@ -103,9 +101,11 @@ calendar = Em.Component.extend styleSupport,
       if @get 'allowMultiple'
         if Ember.isArray(value)
           @set '_selection', value
-
         else
           @set '_selection', [value]
+
+      else
+        @set '_selection', [value]
 
       value
 
