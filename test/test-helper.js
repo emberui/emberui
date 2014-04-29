@@ -4,7 +4,8 @@ emq.globalize();
 
 setResolver(Ember.DefaultResolver.extend({
   testSubjects: {
-    'component:eui-input': eui.EuiInputComponent
+    'component:eui-input': eui.EuiInputComponent,
+    'template:components/eui-input': eui.EuiInputTemplate
   },
   resolve: function(fullName) {
     return this.testSubjects[fullName] || this._super.apply(this, arguments);
