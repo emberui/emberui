@@ -123,7 +123,11 @@ calendar = Em.Component.extend styleSupport,
 
 
   isDisabledDate: (date) ->
-    return @get('disabledDates').any (d) ->
+    disabledDates = @get 'disabledDates'
+
+    return unless disabledDates
+
+    return disabledDates.any (d) ->
       return d.isSame(date)
 
 
