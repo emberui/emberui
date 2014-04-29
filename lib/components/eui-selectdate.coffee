@@ -1,9 +1,10 @@
 `import disabledSupport from '../mixins/disabled-support'`
+`import widthSupport from '../mixins/width-support'`
 `import validationSupport from '../mixins/validation-support'`
 `import animationsDidComplete from '../mixins/animations-did-complete'`
 `import modalBehaviour from '../mixins/modal-behaviour'`
 
-select = Em.Component.extend disabledSupport, validationSupport, animationsDidComplete, modalBehaviour,
+select = Em.Component.extend disabledSupport, validationSupport, animationsDidComplete, modalBehaviour, widthSupport,
   tagName: 'eui-selectdate'
   classNames: ['eui-selectdate']
   classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class']
