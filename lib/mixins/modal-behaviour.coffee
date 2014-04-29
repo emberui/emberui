@@ -107,6 +107,13 @@ modalBehaviour = Em.Mixin.create
       @setProperties { isClosing: false, renderModal: false }
 
 
+  # Does cleanup if the user navigates to a different page while modal is open
+
+  willDestroy: ->
+    # Remove class set on body to disable page scrolling
+    $('body').removeClass('eui-modal-open')
+
+
   # Makes sure the tab focus cannot leave the modal since all user action is scoped to
   # this modal and there is no need to leave it
   # Adapted from ic-modal (https://github.com/instructure/ic-modal)
