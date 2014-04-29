@@ -68,7 +68,7 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
   monitorClicks: (->
     if @get 'open'
       $(window).bind 'click.emberui', (event) =>
-        unless $(event.target).parents('.eui-selectdate').length
+        unless @.$().find($(event.target)).length
           event.preventDefault()
           @send 'closeCalendar', {forceClose: true}
 
