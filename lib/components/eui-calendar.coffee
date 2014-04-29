@@ -17,7 +17,6 @@ calendar = Em.Component.extend styleSupport,
   disabledDates:       null
   disablePast:         null
   disableFuture:       null
-  disableManipulation: null
 
   maxPastDate:         null
   maxFutureDate:       null
@@ -28,9 +27,7 @@ calendar = Em.Component.extend styleSupport,
   continuousSelection: true
   _selection:          []
 
-  init: ->
-    @_super()
-
+  setup: (->
     Ember.warn(
       'EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection',
       !(@get('_selection.length') > 1 && !@get('allowMultiple'))
@@ -43,15 +40,10 @@ calendar = Em.Component.extend styleSupport,
 
     unless @get 'month'
       @set 'month', moment().startOf('month')
-
+  ).on 'init'
 
   actions:
     dateSelected: (date) ->
-      @sendAction 'selectAction', date
-
-      if @get 'disableManipulation'
-        return
-
       if @get 'allowMultiple'
         if @get 'continuousSelection'
 
@@ -80,6 +72,10 @@ calendar = Em.Component.extend styleSupport,
         else
           @set '_selection', [date]
 
+      # Delay sending action until after the selection has been updated
+
+      Ember.run.next @, -> @sendAction('selectAction', date)
+
 
     prev: ->
       month = @get 'month'
@@ -102,13 +98,13 @@ calendar = Em.Component.extend styleSupport,
   selection: Ember.computed (key, value) ->
     # setter
     if arguments.length is 2
-      if @get 'allowMultiple'
-        if Ember.isArray(value)
-          @set '_selection', value
-
-        else
-          @set '_selection', [value]
-
+      if Ember.isArray(value)
+        @set '_selection', value
+      else if value
+        @set '_selection', [value]
+      else
+        @set '_selection', []
+        
       value
 
     # getter
@@ -128,6 +124,15 @@ calendar = Em.Component.extend styleSupport,
       return d.isSame(date)
 
 
+  isDisabledDate: (date) ->
+    disabledDates = @get 'disabledDates'
+
+    return unless disabledDates
+
+    return disabledDates.any (d) ->
+      return d.isSame(date)
+
+
   removeDate: (date) ->
     dates = @get '_selection'
 
@@ -144,13 +149,14 @@ calendar = Em.Component.extend styleSupport,
 
   addDateRange: (startDate, endDate) ->
     day = moment(startDate)
+    newSelection = [startDate]
 
     # User clicked on a day BEFORE the current selected day
     if endDate.isBefore startDate
       day.subtract 'days', 1
 
       while not day.isBefore endDate
-        @addDate(moment day)
+        newSelection.pushObject(moment day) unless @isDisabledDate(moment day)
         day.subtract 'days', 1
 
     # User clicked on a day AFTER the current selected day
@@ -158,8 +164,10 @@ calendar = Em.Component.extend styleSupport,
       day.add 'days', 1
 
       while not day.isAfter endDate
-        @addDate(moment day)
+        newSelection.pushObject(moment day) unless @isDisabledDate(moment day)
         day.add 'days', 1
+
+    @set 'selection', newSelection
 
   # TODO: Add timer to invalidate this
   now: (->
