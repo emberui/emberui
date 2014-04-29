@@ -24,7 +24,8 @@
     "ember-resolver": "git://github.com/stefanpenner/ember-jj-abrams-resolver.git#master",
     "ic-ajax": "~0.3.0",
     "ember-testing-httpRespond": "~0.1.1",
-    "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js"
+    "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
+    "twix": "~0.4.0"
   },
   "devDependencies": {
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
