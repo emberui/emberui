@@ -54,6 +54,8 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
         @hide()
 
 
+  # If user clicks outside the calendar close it
+
   monitorClicks: (->
     if @get 'open'
       $(window).bind 'click.emberui', (event) =>
@@ -65,6 +67,21 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
       $(window).unbind 'click.emberui'
 
   ).observes 'open'
+
+
+  # Positions calendar using fixed positioning
+
+  updatePosition: (->
+    if @get 'open'
+      Ember.run.next @, -> @positionCalendar()
+  ).observes 'open'
+
+  positionCalendar: ->
+    @.$().find('eui-calendar').position {
+      my: "center top",
+      at: "center bottom",
+      of: @.$()
+    }
 
 
   # Catch and handle key presses

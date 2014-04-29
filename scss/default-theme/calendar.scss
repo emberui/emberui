@@ -67,7 +67,8 @@
 }
 
 .eui-calendar.eui-popup {
-  position: absolute;
+  position: fixed;
+  z-index: 1000005;
   border-radius: 3px;
   padding: 1px;
   background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
