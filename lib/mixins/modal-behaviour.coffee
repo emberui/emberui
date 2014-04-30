@@ -67,7 +67,7 @@ modalBehaviour = Em.Mixin.create
       @.$().focus()
 
       # Add a class to the body element of the page so we can disable page scrolling
-      $('body').addClass('eui-modal-open')
+      $('body').toggleClass('eui-modal-open')
 
 
   # Initial setup when modal is used as a block component
@@ -78,7 +78,7 @@ modalBehaviour = Em.Mixin.create
       @.$().focus()
 
       # Add a class to the body element of the page so we can disable page scrolling
-      $('body').addClass('eui-modal-open')
+      $('body').toggleClass('eui-modal-open')
   ).observes 'renderModal'
 
 
@@ -99,7 +99,7 @@ modalBehaviour = Em.Mixin.create
     @get('previousFocus')?.focus()
 
     # Remove class set on body to disable page scrolling
-    $('body').removeClass('eui-modal-open')
+    $('body').toggleClass('eui-modal-open')
 
     if @get 'programmatic'
       @destroy()
@@ -111,7 +111,7 @@ modalBehaviour = Em.Mixin.create
 
   willDestroy: ->
     # Remove class set on body to disable page scrolling
-    $('body').removeClass('eui-modal-open')
+    $('body').toggleClass('eui-modal-open')
 
 
   # Makes sure the tab focus cannot leave the modal since all user action is scoped to
