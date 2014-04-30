@@ -16,7 +16,7 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
   programmatic: false,
   isClosing: false,
   renderModal: false,
-  open: Ember.computed(function(key, value) {
+  open: Ember.computed('renderModal', function(key, value) {
     if (arguments.length === 2) {
       if (value) {
         this.set('renderModal', value);
@@ -30,7 +30,7 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
       value = this.get('renderModal');
       return value;
     }
-  }).property('renderModal'),
+  }),
   didInsertElement: function() {
     if (this.get('programmatic')) {
       this.set('previousFocus', $(document.activeElement));

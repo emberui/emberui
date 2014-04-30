@@ -1,2 +1,41 @@
 "use strict";
-exports["default"] = Ember.Handlebars.compile("<div class=\"eui-poplistwrapper\">\n  <div {{bind-attr class=\":eui-search-wrapper searchString:eui-active\"}}>\n    {{input class=\"eui-search\" valueBinding=\"searchString\" size=\"1\"}}\n  </div>\n\n  {{#if hasNoOptions}}\n    <div class=\"eui-nooptions\">No results found.</div>\n  {{else}}\n    {{view listView contentBinding=\"filteredOptions\"}}\n  {{/if}}\n</div>\n");
+var Ember = require("ember")["default"] || require("ember");
+exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
+  
+  
+  data.buffer.push("\n    <div class=\"eui-nooptions\">No results found.</div>\n  ");
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n    ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "listView", {hash:{
+    'contentBinding': ("filteredOptions")
+  },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n  ");
+  return buffer;
+  }
+
+  data.buffer.push("<div class=\"eui-poplistwrapper\">\n  <div ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': (":eui-search-wrapper searchString:eui-active")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(">\n    ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'class': ("eui-search"),
+    'valueBinding': ("searchString"),
+    'size': ("1")
+  },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n  </div>\n\n  ");
+  stack1 = helpers['if'].call(depth0, "hasNoOptions", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n</div>\n");
+  return buffer;
+  
+});

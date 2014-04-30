@@ -7,7 +7,7 @@ define(
     animationsDidComplete = Em.Mixin.create({
       animationsDidComplete: function() {
         var promise;
-        promise = new Ember.RSVP.Promise((function(_this) {
+        promise = new Em.RSVP.Promise((function(_this) {
           return function(resolve, reject) {
             var animatedElements, animation, cssRule, domPrefixes, element, elements, prefix, primaryElement, _i, _j, _len, _len1;
             animation = false;

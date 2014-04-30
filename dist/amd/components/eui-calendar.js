@@ -6,7 +6,7 @@ define(
     var calendar, cpFormatMoment;
 
     cpFormatMoment = function(key, format) {
-      return Em.computed(function() {
+      return Em.computed('key', function() {
         var date;
         date = this.get(key);
         if (date) {
@@ -14,7 +14,7 @@ define(
         } else {
           return null;
         }
-      }).property(key);
+      });
     };
 
     calendar = Em.Component.extend(styleSupport, {
@@ -30,7 +30,7 @@ define(
       maxFutureDate: null,
       month: null,
       allowMultiple: false,
-      forceContinuousSelection: true,
+      continuousSelection: true,
       _selection: [],
       init: function() {
         var firstSelectedDate;
@@ -51,7 +51,7 @@ define(
             return;
           }
           if (this.get('allowMultiple')) {
-            if (this.get('forceContinuousSelection')) {
+            if (this.get('continuousSelection')) {
               if (this.get('_selection.length') === 1) {
                 if (date.isSame(this.get('_selection.firstObject'))) {
                   return this.set('_selection', []);
@@ -93,7 +93,7 @@ define(
           return this.set('month', month.clone().add('months', 1));
         }
       },
-      selection: Ember.computed(function(key, value) {
+      selection: Ember.computed('_selection', function(key, value) {
         var selection;
         if (arguments.length === 2) {
           if (this.get('allowMultiple')) {
@@ -112,7 +112,7 @@ define(
             return selection.get('firstObject');
           }
         }
-      }).property('_selection'),
+      }),
       hasDate: function(date) {
         return this.get('_selection').any(function(d) {
           return d.isSame(date);

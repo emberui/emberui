@@ -1,16 +1,16 @@
 "use strict";
-var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
-var sizeSupport = require("../mixins/size-support")["default"] || require("../mixins/size-support");
 var poplistComponent = require("../components/eui-poplist")["default"] || require("../components/eui-poplist");
 var disabledSupport = require("../mixins/disabled-support")["default"] || require("../mixins/disabled-support");
+var errorSupport = require("../mixins/error-support")["default"] || require("../mixins/error-support");
 var widthSupport = require("../mixins/width-support")["default"] || require("../mixins/width-support");
-var validationSupport = require("../mixins/validation-support")["default"] || require("../mixins/validation-support");
 var select;
 
-select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport, {
+select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
   tagName: 'eui-select',
   classNames: ['eui-select'],
-  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class'],
+  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class'],
+  style: 'default',
+  size: 'medium',
   poplistIsOpen: false,
   required: false,
   options: [],
@@ -33,7 +33,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
     labelPath = this.get('labelPath');
     return this.get("selection." + labelPath) || this.get('placeholder');
   }).property('selection', 'placeholder', 'labelPath'),
-  selection: Ember.computed(function(key, value) {
+  selection: Ember.computed('_selection', function(key, value) {
     var nullValue, selection;
     if (arguments.length === 2) {
       this.set('_selection', value);
@@ -47,8 +47,8 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
         return selection;
       }
     }
-  }).property('_selection'),
-  value: Ember.computed(function(key, value) {
+  }),
+  value: Ember.computed('selection', 'valuePath', function(key, value) {
     var selection, valuePath;
     if (arguments.length === 2) {
       valuePath = this.get('valuePath');
@@ -65,7 +65,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
         return null;
       }
     }
-  }).property('selection', 'valuePath'),
+  }),
   initialization: (function() {
     var labelPath, value, valuePath;
     if (this.get('options') === void 0) {
@@ -102,9 +102,7 @@ select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
       return this.click();
     }
   },
-  onChange: (function() {
-    return Ember.run.once(this, 'validateField');
-  }).observes('value')
+  isEntered: true
 });
 
 exports["default"] = select;

@@ -1,16 +1,16 @@
 "use strict";
-var validationSupport = require("../mixins/validation-support")["default"] || require("../mixins/validation-support");
+var errorSupport = require("../mixins/error-support")["default"] || require("../mixins/error-support");
 var textSupport = require("../mixins/text-support")["default"] || require("../mixins/text-support");
 var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
 var sizeSupport = require("../mixins/size-support")["default"] || require("../mixins/size-support");
 var textarea;
 
-textarea = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, {
+textarea = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, {
   classNameBindings: [':eui-textarea'],
   attributeBindings: ['computedWidthAndHeight:style'],
   tagName: 'eui-textarea',
   height: null,
-  computedWidthAndHeight: Em.computed(function() {
+  computedWidthAndHeight: Em.computed('size', 'width', 'height', function() {
     var height, heights, width, widths;
     widths = {
       tiny: '100px',
@@ -27,7 +27,7 @@ textarea = Em.Component.extend(validationSupport, textSupport, styleSupport, siz
     width = this.get('width') || widths[this.get('size')] || widths['medium'];
     height = this.get('height') || heights[this.get('size')] || heights['medium'];
     return "width: " + width + "; height: " + height + ";";
-  }).property('size', 'width', 'height')
+  })
 });
 
 exports["default"] = textarea;

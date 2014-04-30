@@ -1,19 +1,19 @@
 define(
-  ["../mixins/style-support","../mixins/size-support","../components/eui-poplist","../mixins/disabled-support","../mixins/width-support","../mixins/validation-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
+  ["../components/eui-poplist","../mixins/disabled-support","../mixins/error-support","../mixins/width-support","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
-    var sizeSupport = __dependency2__["default"] || __dependency2__;
-    var poplistComponent = __dependency3__["default"] || __dependency3__;
-    var disabledSupport = __dependency4__["default"] || __dependency4__;
-    var widthSupport = __dependency5__["default"] || __dependency5__;
-    var validationSupport = __dependency6__["default"] || __dependency6__;
+    var poplistComponent = __dependency1__["default"] || __dependency1__;
+    var disabledSupport = __dependency2__["default"] || __dependency2__;
+    var errorSupport = __dependency3__["default"] || __dependency3__;
+    var widthSupport = __dependency4__["default"] || __dependency4__;
     var select;
 
-    select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport, {
+    select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-select',
       classNames: ['eui-select'],
-      classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class'],
+      classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class'],
+      style: 'default',
+      size: 'medium',
       poplistIsOpen: false,
       required: false,
       options: [],
@@ -36,7 +36,7 @@ define(
         labelPath = this.get('labelPath');
         return this.get("selection." + labelPath) || this.get('placeholder');
       }).property('selection', 'placeholder', 'labelPath'),
-      selection: Ember.computed(function(key, value) {
+      selection: Ember.computed('_selection', function(key, value) {
         var nullValue, selection;
         if (arguments.length === 2) {
           this.set('_selection', value);
@@ -50,8 +50,8 @@ define(
             return selection;
           }
         }
-      }).property('_selection'),
-      value: Ember.computed(function(key, value) {
+      }),
+      value: Ember.computed('selection', 'valuePath', function(key, value) {
         var selection, valuePath;
         if (arguments.length === 2) {
           valuePath = this.get('valuePath');
@@ -68,7 +68,7 @@ define(
             return null;
           }
         }
-      }).property('selection', 'valuePath'),
+      }),
       initialization: (function() {
         var labelPath, value, valuePath;
         if (this.get('options') === void 0) {
@@ -105,9 +105,7 @@ define(
           return this.click();
         }
       },
-      onChange: (function() {
-        return Ember.run.once(this, 'validateField');
-      }).observes('value')
+      isEntered: true
     });
 
     __exports__["default"] = select;

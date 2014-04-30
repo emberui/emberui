@@ -1,2 +1,60 @@
 "use strict";
-exports["default"] = Ember.Handlebars.compile("{{#if primaryAction}}\n  {{eui-button\n    label=primaryAction.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    loading=view.loading\n    disabled=view.disabled\n    class=\"eui-primaryaction\"\n    action=\"primaryAction\"}}\n\n  {{eui-button\n    style=view.style\n    size=view.size\n    icon=\"fa fa-caret-down\"\n    loading=false\n    disabled=view.disabled\n    classBinding=\":eui-trigger poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{else}}\n  {{eui-button\n    label=view.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    trailingIcon=\"fa fa-caret-down\"\n    loading=view.loading\n    disabled=view.disabled\n    classBinding=\"poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{/if}}\n");
+var Ember = require("ember")["default"] || require("ember");
+exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n  ");
+  data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+    'label': ("primaryAction.label"),
+    'style': ("view.style"),
+    'size': ("view.size"),
+    'icon': ("view.icon"),
+    'loading': ("view.loading"),
+    'disabled': ("view.disabled"),
+    'class': ("eui-primaryaction"),
+    'action': ("primaryAction")
+  },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'icon': "ID",'loading': "ID",'disabled': "ID",'class': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'icon': depth0,'loading': depth0,'disabled': depth0,'class': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+  data.buffer.push("\n\n  ");
+  data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+    'style': ("view.style"),
+    'size': ("view.size"),
+    'icon': ("fa fa-caret-down"),
+    'loading': (false),
+    'disabled': ("view.disabled"),
+    'classBinding': (":eui-trigger poplistIsOpen:eui-active"),
+    'action': ("toggleWindow")
+  },hashTypes:{'style': "ID",'size': "ID",'icon': "STRING",'loading': "BOOLEAN",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'style': depth0,'size': depth0,'icon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+  data.buffer.push("\n\n");
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n  ");
+  data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+    'label': ("view.label"),
+    'style': ("view.style"),
+    'size': ("view.size"),
+    'icon': ("view.icon"),
+    'trailingIcon': ("fa fa-caret-down"),
+    'loading': ("view.loading"),
+    'disabled': ("view.disabled"),
+    'classBinding': ("poplistIsOpen:eui-active"),
+    'action': ("toggleWindow")
+  },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'icon': "ID",'trailingIcon': "STRING",'loading': "ID",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'icon': depth0,'trailingIcon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+  data.buffer.push("\n\n");
+  return buffer;
+  }
+
+  stack1 = helpers['if'].call(depth0, "primaryAction", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n");
+  return buffer;
+  
+});

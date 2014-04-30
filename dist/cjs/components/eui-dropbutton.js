@@ -9,9 +9,9 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
   classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton'],
   poplistIsOpen: false,
   listWidth: 'auto',
-  primaryAction: Em.computed(function() {
+  primaryAction: Em.computed('options', function() {
     return this.get('options').findBy('primary', true);
-  }).property('options'),
+  }),
   peformSecondaryAction: (function() {
     var action;
     action = this.get('selection.action');
@@ -24,7 +24,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
   }).observes('selection'),
   optionsWithoutPrimaryAction: Ember.computed.filter('options', function(option) {
     return !option.primary;
-  }).property("options"),
+  }),
   actions: {
     toggleWindow: function() {
       if (!this.get('poplistIsOpen')) {

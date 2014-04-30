@@ -1,0 +1,25 @@
+<button {{bind-attr disabled="isDisabled" type="type" }}></button>
+
+<div class="eui-button-form">
+  <div class="eui-wrapper">
+    <i>
+      {{#if icon}}
+        <b {{bind-attr class='icon'}}></b>
+      {{/if}}
+
+      {{label}}
+
+      {{#if trailingIcon}}
+        <b {{bind-attr class='trailingIcon'}}></b>
+      {{/if}}
+    </i>
+
+    {{#if loading}}
+      <ul class="eui-loading-animation">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    {{/if}}
+  </div>
+</div>

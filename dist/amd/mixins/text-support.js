@@ -17,17 +17,17 @@ define(
       required: null,
       error: null,
       inputId: null,
-      didInsertElement: function() {
+      setInputId: (function() {
         return this.set('inputId', this.$('input').attr('id') || this.$('textarea').attr('id'));
-      },
-      placeholderVisible: Em.computed(function() {
+      }).on('didInsertElement'),
+      placeholderVisible: Em.computed('placeholder', 'value', function() {
         var placeholder, value;
         placeholder = this.get('placeholder');
         value = this.get('value');
         if (placeholder && !value) {
           return true;
         }
-      }).property('placeholder', 'value')
+      })
     });
 
     __exports__["default"] = textsupport;

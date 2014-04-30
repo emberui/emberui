@@ -1,0 +1,11 @@
+<div class="eui-poplistwrapper">
+  <div {{bind-attr class=":eui-search-wrapper searchString:eui-active"}}>
+    {{input class="eui-search" valueBinding="searchString" size="1"}}
+  </div>
+
+  {{#if hasNoOptions}}
+    <div class="eui-nooptions">No results found.</div>
+  {{else}}
+    {{view listView contentBinding="filteredOptions"}}
+  {{/if}}
+</div>

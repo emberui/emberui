@@ -19,7 +19,7 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
   searchString: null,
   highlightedIndex: -1,
   previousFocus: null,
-  highlighted: Ember.computed(function(key, value) {
+  highlighted: Ember.computed('highlightedIndex', 'filteredOptions', function(key, value) {
     var index, options;
     options = this.get('filteredOptions');
     if (arguments.length === 2) {
@@ -30,7 +30,7 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
       index = this.get('highlightedIndex');
       return options.objectAt(index);
     }
-  }).property('highlightedIndex', 'filteredOptions'),
+  }),
   hide: function() {
     this.setProperties({
       isOpen: false,
@@ -220,12 +220,12 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
         this._super(context);
         return this.set('content', context);
       },
-      isHighlighted: Ember.computed(function() {
+      isHighlighted: Ember.computed('controller.highlighted', 'content', function() {
         return this.get('controller.highlighted') === this.get('content');
-      }).property('controller.highlighted', 'content'),
-      isSelected: Ember.computed(function() {
+      }),
+      isSelected: Ember.computed('controller.selection', 'content', function() {
         return this.get('controller.selection') === this.get('content');
-      }).property('controller.selection', 'content'),
+      }),
       click: function() {
         this.set('controller.selection', this.get('content'));
         return this.get('controller').hide();

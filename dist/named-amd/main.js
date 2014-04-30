@@ -1,13 +1,14 @@
 define("emberui/components/eui-button",
-  ["../mixins/style-support","../mixins/size-support","../mixins/disabled-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/style-support","../mixins/size-support","../mixins/disabled-support","../mixins/width-support","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
     var sizeSupport = __dependency2__["default"] || __dependency2__;
     var disabledSupport = __dependency3__["default"] || __dependency3__;
+    var widthSupport = __dependency4__["default"] || __dependency4__;
     var button;
 
-    button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, {
+    button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, {
       classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
       tagName: 'eui-button',
       label: null,
@@ -18,6 +19,7 @@ define("emberui/components/eui-button",
       action: null,
       "class": null,
       type: 'button',
+      width: 'auto',
       click: function(event) {
         event.preventDefault();
         return this.sendAction('action', this.get('context'));
@@ -33,7 +35,7 @@ define("emberui/components/eui-button",
     var calendar, cpFormatMoment;
 
     cpFormatMoment = function(key, format) {
-      return Em.computed(function() {
+      return Em.computed('key', function() {
         var date;
         date = this.get(key);
         if (date) {
@@ -41,7 +43,7 @@ define("emberui/components/eui-button",
         } else {
           return null;
         }
-      }).property(key);
+      });
     };
 
     calendar = Em.Component.extend(styleSupport, {
@@ -57,7 +59,7 @@ define("emberui/components/eui-button",
       maxFutureDate: null,
       month: null,
       allowMultiple: false,
-      forceContinuousSelection: true,
+      continuousSelection: true,
       _selection: [],
       init: function() {
         var firstSelectedDate;
@@ -78,7 +80,7 @@ define("emberui/components/eui-button",
             return;
           }
           if (this.get('allowMultiple')) {
-            if (this.get('forceContinuousSelection')) {
+            if (this.get('continuousSelection')) {
               if (this.get('_selection.length') === 1) {
                 if (date.isSame(this.get('_selection.firstObject'))) {
                   return this.set('_selection', []);
@@ -120,7 +122,7 @@ define("emberui/components/eui-button",
           return this.set('month', month.clone().add('months', 1));
         }
       },
-      selection: Ember.computed(function(key, value) {
+      selection: Ember.computed('_selection', function(key, value) {
         var selection;
         if (arguments.length === 2) {
           if (this.get('allowMultiple')) {
@@ -139,7 +141,7 @@ define("emberui/components/eui-button",
             return selection.get('firstObject');
           }
         }
-      }).property('_selection'),
+      }),
       hasDate: function(date) {
         return this.get('_selection').any(function(d) {
           return d.isSame(date);
@@ -262,15 +264,15 @@ define("emberui/components/eui-button",
 
      __exports__["default"] = calendar;
   });define("emberui/components/eui-checkbox",
-  ["../mixins/validation-support","../mixins/style-support","../mixins/size-support","exports"],
+  ["../mixins/error-support","../mixins/style-support","../mixins/size-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
-    var validationSupport = __dependency1__["default"] || __dependency1__;
+    var errorSupport = __dependency1__["default"] || __dependency1__;
     var styleSupport = __dependency2__["default"] || __dependency2__;
     var sizeSupport = __dependency3__["default"] || __dependency3__;
     var checkbox;
 
-    checkbox = Em.Component.extend(validationSupport, styleSupport, sizeSupport, {
+    checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
       classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class'],
       tagName: 'eui-checkbox',
       value: false,
@@ -297,9 +299,9 @@ define("emberui/components/eui-button",
       classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton'],
       poplistIsOpen: false,
       listWidth: 'auto',
-      primaryAction: Em.computed(function() {
+      primaryAction: Em.computed('options', function() {
         return this.get('options').findBy('primary', true);
-      }).property('options'),
+      }),
       peformSecondaryAction: (function() {
         var action;
         action = this.get('selection.action');
@@ -312,7 +314,7 @@ define("emberui/components/eui-button",
       }).observes('selection'),
       optionsWithoutPrimaryAction: Ember.computed.filter('options', function(option) {
         return !option.primary;
-      }).property("options"),
+      }),
       actions: {
         toggleWindow: function() {
           if (!this.get('poplistIsOpen')) {
@@ -335,17 +337,17 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = dropbutton;
   });define("emberui/components/eui-input",
-  ["../mixins/validation-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","../mixins/width-support","exports"],
+  ["../mixins/error-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","../mixins/width-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
     "use strict";
-    var validationSupport = __dependency1__["default"] || __dependency1__;
+    var errorSupport = __dependency1__["default"] || __dependency1__;
     var textSupport = __dependency2__["default"] || __dependency2__;
     var styleSupport = __dependency3__["default"] || __dependency3__;
     var sizeSupport = __dependency4__["default"] || __dependency4__;
     var widthSupport = __dependency5__["default"] || __dependency5__;
     var input;
 
-    input = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
+    input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
       classNameBindings: [':eui-input'],
       tagName: 'eui-input',
       maxlength: null
@@ -373,7 +375,7 @@ define("emberui/components/eui-button",
       programmatic: false,
       isClosing: false,
       renderModal: false,
-      open: Ember.computed(function(key, value) {
+      open: Ember.computed('renderModal', function(key, value) {
         if (arguments.length === 2) {
           if (value) {
             this.set('renderModal', value);
@@ -387,7 +389,7 @@ define("emberui/components/eui-button",
           value = this.get('renderModal');
           return value;
         }
-      }).property('renderModal'),
+      }),
       didInsertElement: function() {
         if (this.get('programmatic')) {
           this.set('previousFocus', $(document.activeElement));
@@ -635,7 +637,7 @@ define("emberui/components/eui-button",
       searchString: null,
       highlightedIndex: -1,
       previousFocus: null,
-      highlighted: Ember.computed(function(key, value) {
+      highlighted: Ember.computed('highlightedIndex', 'filteredOptions', function(key, value) {
         var index, options;
         options = this.get('filteredOptions');
         if (arguments.length === 2) {
@@ -646,7 +648,7 @@ define("emberui/components/eui-button",
           index = this.get('highlightedIndex');
           return options.objectAt(index);
         }
-      }).property('highlightedIndex', 'filteredOptions'),
+      }),
       hide: function() {
         this.setProperties({
           isOpen: false,
@@ -836,12 +838,12 @@ define("emberui/components/eui-button",
             this._super(context);
             return this.set('content', context);
           },
-          isHighlighted: Ember.computed(function() {
+          isHighlighted: Ember.computed('controller.highlighted', 'content', function() {
             return this.get('controller.highlighted') === this.get('content');
-          }).property('controller.highlighted', 'content'),
-          isSelected: Ember.computed(function() {
+          }),
+          isSelected: Ember.computed('controller.selection', 'content', function() {
             return this.get('controller.selection') === this.get('content');
-          }).property('controller.selection', 'content'),
+          }),
           click: function() {
             this.set('controller.selection', this.get('content'));
             return this.get('controller').hide();
@@ -903,21 +905,21 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = poplist;
   });define("emberui/components/eui-select",
-  ["../mixins/style-support","../mixins/size-support","../components/eui-poplist","../mixins/disabled-support","../mixins/width-support","../mixins/validation-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
+  ["../components/eui-poplist","../mixins/disabled-support","../mixins/error-support","../mixins/width-support","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
-    var sizeSupport = __dependency2__["default"] || __dependency2__;
-    var poplistComponent = __dependency3__["default"] || __dependency3__;
-    var disabledSupport = __dependency4__["default"] || __dependency4__;
-    var widthSupport = __dependency5__["default"] || __dependency5__;
-    var validationSupport = __dependency6__["default"] || __dependency6__;
+    var poplistComponent = __dependency1__["default"] || __dependency1__;
+    var disabledSupport = __dependency2__["default"] || __dependency2__;
+    var errorSupport = __dependency3__["default"] || __dependency3__;
+    var widthSupport = __dependency4__["default"] || __dependency4__;
     var select;
 
-    select = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, validationSupport, {
+    select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-select',
       classNames: ['eui-select'],
-      classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'poplistIsOpen:eui-active', 'class'],
+      classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class'],
+      style: 'default',
+      size: 'medium',
       poplistIsOpen: false,
       required: false,
       options: [],
@@ -940,7 +942,7 @@ define("emberui/components/eui-button",
         labelPath = this.get('labelPath');
         return this.get("selection." + labelPath) || this.get('placeholder');
       }).property('selection', 'placeholder', 'labelPath'),
-      selection: Ember.computed(function(key, value) {
+      selection: Ember.computed('_selection', function(key, value) {
         var nullValue, selection;
         if (arguments.length === 2) {
           this.set('_selection', value);
@@ -954,8 +956,8 @@ define("emberui/components/eui-button",
             return selection;
           }
         }
-      }).property('_selection'),
-      value: Ember.computed(function(key, value) {
+      }),
+      value: Ember.computed('selection', 'valuePath', function(key, value) {
         var selection, valuePath;
         if (arguments.length === 2) {
           valuePath = this.get('valuePath');
@@ -972,7 +974,7 @@ define("emberui/components/eui-button",
             return null;
           }
         }
-      }).property('selection', 'valuePath'),
+      }),
       initialization: (function() {
         var labelPath, value, valuePath;
         if (this.get('options') === void 0) {
@@ -1009,28 +1011,26 @@ define("emberui/components/eui-button",
           return this.click();
         }
       },
-      onChange: (function() {
-        return Ember.run.once(this, 'validateField');
-      }).observes('value')
+      isEntered: true
     });
 
     __exports__["default"] = select;
   });define("emberui/components/eui-textarea",
-  ["../mixins/validation-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","exports"],
+  ["../mixins/error-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
-    var validationSupport = __dependency1__["default"] || __dependency1__;
+    var errorSupport = __dependency1__["default"] || __dependency1__;
     var textSupport = __dependency2__["default"] || __dependency2__;
     var styleSupport = __dependency3__["default"] || __dependency3__;
     var sizeSupport = __dependency4__["default"] || __dependency4__;
     var textarea;
 
-    textarea = Em.Component.extend(validationSupport, textSupport, styleSupport, sizeSupport, {
+    textarea = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, {
       classNameBindings: [':eui-textarea'],
       attributeBindings: ['computedWidthAndHeight:style'],
       tagName: 'eui-textarea',
       height: null,
-      computedWidthAndHeight: Em.computed(function() {
+      computedWidthAndHeight: Em.computed('size', 'width', 'height', function() {
         var height, heights, width, widths;
         widths = {
           tiny: '100px',
@@ -1047,7 +1047,7 @@ define("emberui/components/eui-button",
         width = this.get('width') || widths[this.get('size')] || widths['medium'];
         height = this.get('height') || heights[this.get('size')] || heights['medium'];
         return "width: " + width + "; height: " + height + ";";
-      }).property('size', 'width', 'height')
+      })
     });
 
     __exports__["default"] = textarea;
@@ -1131,6 +1131,7 @@ define("emberui/components/eui-button",
     __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
     __exports__.EuiDropbuttonComponent = EuiDropbuttonComponent;
     __exports__.EuiInputComponent = EuiInputComponent;
+    __exports__.EuiInputTemplate = EuiInputTemplate;
     __exports__.EuiModalComponent = EuiModalComponent;
     __exports__.EuiPoplistComponent = EuiPoplistComponent;
     __exports__.EuiSelectComponent = EuiSelectComponent;
@@ -1146,7 +1147,7 @@ define("emberui/components/eui-button",
     animationsDidComplete = Em.Mixin.create({
       animationsDidComplete: function() {
         var promise;
-        promise = new Ember.RSVP.Promise((function(_this) {
+        promise = new Em.RSVP.Promise((function(_this) {
           return function(resolve, reject) {
             var animatedElements, animation, cssRule, domPrefixes, element, elements, prefix, primaryElement, _i, _j, _len, _len1;
             animation = false;
@@ -1193,14 +1194,61 @@ define("emberui/components/eui-button",
     disabledsupport = Em.Mixin.create({
       classNameBindings: ['isDisabled:eui-disabled'],
       disabled: false,
-      isDisabled: Em.computed(function() {
+      isDisabled: Em.computed('disabled', 'loading', function() {
         if (this.get('disabled') || this.get('loading')) {
           return true;
         }
-      }).property('disabled', 'loading')
+      })
     });
 
     __exports__["default"] = disabledsupport;
+  });define("emberui/mixins/error-support",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var errorSupport;
+
+    errorSupport = Em.Mixin.create({
+      classNameBindings: ['errorState:eui-error'],
+      forceErrorCheck: false,
+      focusIn: function() {
+        return this.set("isEntered", false);
+      },
+      focusOut: function() {
+        return this.set("isEntered", true);
+      },
+      errorMessage: Em.computed('errorState', 'error', function() {
+        var error;
+        error = this.get('error');
+        if (this.get('errorState') && typeof error === 'string') {
+          return error;
+        } else {
+          return null;
+        }
+      }),
+      errorState: Em.computed('isEntered', 'forceErrorCheck', 'error', 'value', function() {
+        var errorState;
+        errorState = this._errorState();
+        this.set('_previousErrorState', errorState);
+        return errorState;
+      }),
+      _errorState: function() {
+        switch (this.get('_previousErrorState')) {
+          case void 0:
+            if (Em.isBlank(this.get('value')) && !this.get('forceErrorCheck')) {
+              return false;
+            }
+            break;
+          case false:
+            if (!this.get('isEntered') && !this.get('forceErrorCheck')) {
+              return false;
+            }
+        }
+        return !!this.get('error');
+      }
+    });
+
+    __exports__["default"] = errorSupport;
   });define("emberui/mixins/size-support",
   ["exports"],
   function(__exports__) {
@@ -1210,9 +1258,9 @@ define("emberui/components/eui-button",
     sizesupport = Em.Mixin.create({
       classNameBindings: ['computedSize'],
       size: 'medium',
-      computedSize: Em.computed(function() {
+      computedSize: Em.computed('size', function() {
         return 'eui-' + this.get('size');
-      }).property('size')
+      })
     });
 
     __exports__["default"] = sizesupport;
@@ -1250,69 +1298,20 @@ define("emberui/components/eui-button",
       required: null,
       error: null,
       inputId: null,
-      didInsertElement: function() {
+      setInputId: (function() {
         return this.set('inputId', this.$('input').attr('id') || this.$('textarea').attr('id'));
-      },
-      placeholderVisible: Em.computed(function() {
+      }).on('didInsertElement'),
+      placeholderVisible: Em.computed('placeholder', 'value', function() {
         var placeholder, value;
         placeholder = this.get('placeholder');
         value = this.get('value');
         if (placeholder && !value) {
           return true;
         }
-      }).property('placeholder', 'value')
+      })
     });
 
     __exports__["default"] = textsupport;
-  });define("emberui/mixins/validation-support",
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    var validationsupport;
-
-    validationsupport = Em.Mixin.create({
-      classNameBindings: ['errorState:eui-error'],
-      errorState: null,
-      errorMessage: null,
-      forceValidate: false,
-      validateField: function(type) {
-        var error, forceValidate, value;
-        error = this.get('error');
-        value = this.get('value');
-        forceValidate = this.get('forceValidate');
-        if (type === 'onload' && !value && !forceValidate) {
-          return;
-        }
-        if (Ember.isArray(error)) {
-          error = error[0];
-        }
-        if (error) {
-          this.set('errorState', true);
-          if (error && typeof error !== 'boolean') {
-            return this.set('errorMessage', error);
-          }
-        } else {
-          this.set('errorState', false);
-          return this.set('errorMessage', null);
-        }
-      },
-      focusOut: function() {
-        return this.validateField();
-      },
-      onChange: (function() {
-        if (this.get('errorState')) {
-          return Ember.run.once(this, 'validateField');
-        }
-      }).observes('value'),
-      forceValidation: (function() {
-        return this.validateField();
-      }).observes('forceValidate'),
-      validateOnLoad: (function() {
-        return this.validateField('onload');
-      }).on('init')
-    });
-
-    __exports__["default"] = validationsupport;
   });define("emberui/mixins/width-support",
   ["exports"],
   function(__exports__) {
@@ -1321,7 +1320,7 @@ define("emberui/components/eui-button",
 
     widthsupport = Em.Mixin.create({
       attributeBindings: ['computedWidth:style'],
-      computedWidth: Em.computed(function() {
+      computedWidth: Em.computed('size', 'width', function() {
         var width, widths;
         widths = {
           tiny: '100px',
@@ -1331,60 +1330,496 @@ define("emberui/components/eui-button",
         };
         width = this.get('width') || widths[this.get('size')] || widths['medium'];
         return "width: " + width + ";";
-      }).property('size', 'width')
+      })
     });
 
     __exports__["default"] = widthsupport;
   });define("emberui/templates/eui-button",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" type=\"type\" }}></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      {{#if icon}}\n        <b {{bind-attr class=\'icon\'}}></b>\n      {{/if}}\n\n      {{label}}\n\n      {{#if trailingIcon}}\n        <b {{bind-attr class=\'trailingIcon\'}}></b>\n      {{/if}}\n    </i>\n\n    {{#if loading}}\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    {{/if}}\n  </div>\n</div>\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+
+    function program1(depth0,data) {
+      
+      var buffer = '';
+      data.buffer.push("\n        <b ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'class': ("icon")
+      },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push("></b>\n      ");
+      return buffer;
+      }
+
+    function program3(depth0,data) {
+      
+      var buffer = '';
+      data.buffer.push("\n        <b ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'class': ("trailingIcon")
+      },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push("></b>\n      ");
+      return buffer;
+      }
+
+    function program5(depth0,data) {
+      
+      
+      data.buffer.push("\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    ");
+      }
+
+      data.buffer.push("<button ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'disabled': ("isDisabled"),
+        'type': ("type")
+      },hashTypes:{'disabled': "STRING",'type': "STRING"},hashContexts:{'disabled': depth0,'type': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push("></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      ");
+      stack1 = helpers['if'].call(depth0, "icon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n\n      ");
+      stack1 = helpers._triageMustache.call(depth0, "label", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n\n      ");
+      stack1 = helpers['if'].call(depth0, "trailingIcon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n    </i>\n\n    ");
+      stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n  </div>\n</div>\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-calendar",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-calendar-wrapper\">\n  <button {{action \"prev\"}} {{bind-attr disabled=\"isPrevDisabled\"}} class=\"eui-previous\"></button>\n  <button {{action \"next\"}} {{bind-attr disabled=\"isNextDisabled\"}} class=\"eui-next\"></button>\n\n  {{#if showPrevMonth}}\n    <div class=\"eui-month-container\">\n      <header>\n        {{prevMonthLabel}}\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        {{eui-month\n          month=prevMonth\n          selection=_selection\n          disabledDates=disabledDates\n          select=\"dateSelected\"}}\n      </div>\n    </div>\n  {{/if}}\n\n  <div class=\"eui-month-container\">\n    <header>\n      {{monthLabel}}\n    </header>\n    <div class=\"eui-month-frame\">\n      <ol class=\"eui-daysofweek\">\n        <li class=\"eui-nameofday\">Sun</li>\n        <li class=\"eui-nameofday\">Mon</li>\n        <li class=\"eui-nameofday\">Tue</li>\n        <li class=\"eui-nameofday\">Wed</li>\n        <li class=\"eui-nameofday\">Thu</li>\n        <li class=\"eui-nameofday\">Fri</li>\n        <li class=\"eui-nameofday\">Sat</li>\n      </ol>\n      {{eui-month\n        month=month\n        selection=_selection\n        disabledDates=disabledDates\n        select=\"dateSelected\"}}\n    </div>\n  </div>\n\n  {{#if showNextMonth}}\n    <div class=\"eui-month-container\">\n      <header>\n        {{nextMonthLabel}}\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        {{eui-month\n          month=nextMonth\n          selection=_selection\n          disabledDates=disabledDates\n          select=\"dateSelected\"}}\n      </div>\n    </div>\n  {{/if}}\n</div>\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', stack1, helper, options;
+      data.buffer.push("\n    <div class=\"eui-month-container\">\n      <header>\n        ");
+      stack1 = helpers._triageMustache.call(depth0, "prevMonthLabel", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        ");
+      data.buffer.push(escapeExpression((helper = helpers['eui-month'] || (depth0 && depth0['eui-month']),options={hash:{
+        'month': ("prevMonth"),
+        'selection': ("_selection"),
+        'disabledDates': ("disabledDates"),
+        'select': ("dateSelected")
+      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+      data.buffer.push("\n      </div>\n    </div>\n  ");
+      return buffer;
+      }
+
+    function program3(depth0,data) {
+      
+      var buffer = '', stack1, helper, options;
+      data.buffer.push("\n    <div class=\"eui-month-container\">\n      <header>\n        ");
+      stack1 = helpers._triageMustache.call(depth0, "nextMonthLabel", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n      </header>\n      <div class=\"eui-month-frame\">\n        <ol class=\"eui-daysofweek\">\n          <li class=\"eui-nameofday\">Sun</li>\n          <li class=\"eui-nameofday\">Mon</li>\n          <li class=\"eui-nameofday\">Tue</li>\n          <li class=\"eui-nameofday\">Wed</li>\n          <li class=\"eui-nameofday\">Thu</li>\n          <li class=\"eui-nameofday\">Fri</li>\n          <li class=\"eui-nameofday\">Sat</li>\n        </ol>\n        ");
+      data.buffer.push(escapeExpression((helper = helpers['eui-month'] || (depth0 && depth0['eui-month']),options={hash:{
+        'month': ("nextMonth"),
+        'selection': ("_selection"),
+        'disabledDates': ("disabledDates"),
+        'select': ("dateSelected")
+      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+      data.buffer.push("\n      </div>\n    </div>\n  ");
+      return buffer;
+      }
+
+      data.buffer.push("<div class=\"eui-calendar-wrapper\">\n  <button ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "prev", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+      data.buffer.push(" ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'disabled': ("isPrevDisabled")
+      },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push(" class=\"eui-previous\"></button>\n  <button ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "next", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+      data.buffer.push(" ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'disabled': ("isNextDisabled")
+      },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push(" class=\"eui-next\"></button>\n\n  ");
+      stack1 = helpers['if'].call(depth0, "showPrevMonth", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n\n  <div class=\"eui-month-container\">\n    <header>\n      ");
+      stack1 = helpers._triageMustache.call(depth0, "monthLabel", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n    </header>\n    <div class=\"eui-month-frame\">\n      <ol class=\"eui-daysofweek\">\n        <li class=\"eui-nameofday\">Sun</li>\n        <li class=\"eui-nameofday\">Mon</li>\n        <li class=\"eui-nameofday\">Tue</li>\n        <li class=\"eui-nameofday\">Wed</li>\n        <li class=\"eui-nameofday\">Thu</li>\n        <li class=\"eui-nameofday\">Fri</li>\n        <li class=\"eui-nameofday\">Sat</li>\n      </ol>\n      ");
+      data.buffer.push(escapeExpression((helper = helpers['eui-month'] || (depth0 && depth0['eui-month']),options={hash:{
+        'month': ("month"),
+        'selection': ("_selection"),
+        'disabledDates': ("disabledDates"),
+        'select': ("dateSelected")
+      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+      data.buffer.push("\n    </div>\n  </div>\n\n  ");
+      stack1 = helpers['if'].call(depth0, "showNextMonth", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n</div>\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-checkbox",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<input type=\"checkbox\" {{bind-attr checked=value disabled=disabled}} />\n\n<div {{bind-attr class=\":eui-checkbox-form disabled:eui-disabled:eui-enabled\"}}>\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n{{label}}\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        ");
+      stack1 = helpers._triageMustache.call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n      </p>\n    </div>\n  </div>\n");
+      return buffer;
+      }
+
+      data.buffer.push("<input type=\"checkbox\" ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'checked': ("value"),
+        'disabled': ("disabled")
+      },hashTypes:{'checked': "ID",'disabled': "ID"},hashContexts:{'checked': depth0,'disabled': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push(" />\n\n<div ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'class': (":eui-checkbox-form disabled:eui-disabled:eui-enabled")
+      },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push(">\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n");
+      stack1 = helpers._triageMustache.call(depth0, "label", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n\n");
+      stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-dropbutton",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("{{#if primaryAction}}\n  {{eui-button\n    label=primaryAction.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    loading=view.loading\n    disabled=view.disabled\n    class=\"eui-primaryaction\"\n    action=\"primaryAction\"}}\n\n  {{eui-button\n    style=view.style\n    size=view.size\n    icon=\"fa fa-caret-down\"\n    loading=false\n    disabled=view.disabled\n    classBinding=\":eui-trigger poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{else}}\n  {{eui-button\n    label=view.label\n    style=view.style\n    size=view.size\n    icon=view.icon\n    trailingIcon=\"fa fa-caret-down\"\n    loading=view.loading\n    disabled=view.disabled\n    classBinding=\"poplistIsOpen:eui-active\"\n    action=\"toggleWindow\"}}\n\n{{/if}}\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', helper, options;
+      data.buffer.push("\n  ");
+      data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+        'label': ("primaryAction.label"),
+        'style': ("view.style"),
+        'size': ("view.size"),
+        'icon': ("view.icon"),
+        'loading': ("view.loading"),
+        'disabled': ("view.disabled"),
+        'class': ("eui-primaryaction"),
+        'action': ("primaryAction")
+      },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'icon': "ID",'loading': "ID",'disabled': "ID",'class': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'icon': depth0,'loading': depth0,'disabled': depth0,'class': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      data.buffer.push("\n\n  ");
+      data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+        'style': ("view.style"),
+        'size': ("view.size"),
+        'icon': ("fa fa-caret-down"),
+        'loading': (false),
+        'disabled': ("view.disabled"),
+        'classBinding': (":eui-trigger poplistIsOpen:eui-active"),
+        'action': ("toggleWindow")
+      },hashTypes:{'style': "ID",'size': "ID",'icon': "STRING",'loading': "BOOLEAN",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'style': depth0,'size': depth0,'icon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      data.buffer.push("\n\n");
+      return buffer;
+      }
+
+    function program3(depth0,data) {
+      
+      var buffer = '', helper, options;
+      data.buffer.push("\n  ");
+      data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+        'label': ("view.label"),
+        'style': ("view.style"),
+        'size': ("view.size"),
+        'icon': ("view.icon"),
+        'trailingIcon': ("fa fa-caret-down"),
+        'loading': ("view.loading"),
+        'disabled': ("view.disabled"),
+        'classBinding': ("poplistIsOpen:eui-active"),
+        'action': ("toggleWindow")
+      },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'icon': "ID",'trailingIcon': "STRING",'loading': "ID",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'icon': depth0,'trailingIcon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      data.buffer.push("\n\n");
+      return buffer;
+      }
+
+      stack1 = helpers['if'].call(depth0, "primaryAction", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-input",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{input type=type value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n    <label ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'for': ("inputId")
+      },hashTypes:{'for': "ID"},hashContexts:{'for': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push(">");
+      stack1 = helpers._triageMustache.call(depth0, "placeholder", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("</label>\n  ");
+      return buffer;
+      }
+
+    function program3(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        ");
+      stack1 = helpers._triageMustache.call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n      </p>\n    </div>\n  </div>\n");
+      return buffer;
+      }
+
+      data.buffer.push("<div class=\"eui-wrapper\">\n  ");
+      stack1 = helpers['if'].call(depth0, "placeholderVisible", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n  ");
+      data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+        'type': ("type"),
+        'value': ("value"),
+        'name': ("name"),
+        'disabled': ("disabled"),
+        'maxlength': ("maxlength"),
+        'tabindex': ("tabindex")
+      },hashTypes:{'type': "ID",'value': "ID",'name': "ID",'disabled': "ID",'maxlength': "ID",'tabindex': "ID"},hashContexts:{'type': depth0,'value': depth0,'name': depth0,'disabled': depth0,'maxlength': depth0,'tabindex': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+      data.buffer.push("\n</div>\n\n");
+      stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-modal",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("{{#if renderModal}}\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject eui-animation\">\n          <div class=\"eui-modalobject-wrapper\">\n            {{#if programmatic}}\n              {{view contentViewClass contentBinding=\"content\"}}\n            {{else}}\n              {{yield}}\n            {{/if}}\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n{{/if}}\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject eui-animation\">\n          <div class=\"eui-modalobject-wrapper\">\n            ");
+      stack1 = helpers['if'].call(depth0, "programmatic", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n");
+      return buffer;
+      }
+    function program2(depth0,data) {
+      
+      var buffer = '';
+      data.buffer.push("\n              ");
+      data.buffer.push(escapeExpression(helpers.view.call(depth0, "contentViewClass", {hash:{
+        'contentBinding': ("content")
+      },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push("\n            ");
+      return buffer;
+      }
+
+    function program4(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n              ");
+      stack1 = helpers._triageMustache.call(depth0, "yield", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n            ");
+      return buffer;
+      }
+
+      stack1 = helpers['if'].call(depth0, "renderModal", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-poplist-option",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("{{view.label}}\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1;
+
+
+      stack1 = helpers._triageMustache.call(depth0, "view.label", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-poplist",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-poplistwrapper\">\n  <div {{bind-attr class=\":eui-search-wrapper searchString:eui-active\"}}>\n    {{input class=\"eui-search\" valueBinding=\"searchString\" size=\"1\"}}\n  </div>\n\n  {{#if hasNoOptions}}\n    <div class=\"eui-nooptions\">No results found.</div>\n  {{else}}\n    {{view listView contentBinding=\"filteredOptions\"}}\n  {{/if}}\n</div>\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+    function program1(depth0,data) {
+      
+      
+      data.buffer.push("\n    <div class=\"eui-nooptions\">No results found.</div>\n  ");
+      }
+
+    function program3(depth0,data) {
+      
+      var buffer = '';
+      data.buffer.push("\n    ");
+      data.buffer.push(escapeExpression(helpers.view.call(depth0, "listView", {hash:{
+        'contentBinding': ("filteredOptions")
+      },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push("\n  ");
+      return buffer;
+      }
+
+      data.buffer.push("<div class=\"eui-poplistwrapper\">\n  <div ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'class': (":eui-search-wrapper searchString:eui-active")
+      },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push(">\n    ");
+      data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+        'class': ("eui-search"),
+        'valueBinding': ("searchString"),
+        'size': ("1")
+      },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+      data.buffer.push("\n  </div>\n\n  ");
+      stack1 = helpers['if'].call(depth0, "hasNoOptions", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n</div>\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-select",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<button {{bind-attr disabled=\"isDisabled\" }}></button>\n\n<div class=\"eui-select-form\">\n  <div class=\"eui-wrapper\">\n    <i>{{view.label}}</i>\n    <b class=\"eui-icon\"></b>\n  </div>\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        ");
+      stack1 = helpers._triageMustache.call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n      </p>\n    </div>\n  </div>\n");
+      return buffer;
+      }
+
+      data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+        'label': ("view.label"),
+        'disabled': ("disabled"),
+        'style': ("style"),
+        'size': ("size"),
+        'width': ("100%"),
+        'classBinding': (":eui-select poplistIsOpen:eui-active"),
+        'icon': ("eui-icon")
+      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'icon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'icon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      data.buffer.push("\n\n");
+      stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-textarea",
-  ["exports"],
-  function(__exports__) {
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
-    __exports__["default"] = Ember.Handlebars.compile("<div class=\"eui-wrapper\">\n  {{#if placeholderVisible}}\n    <label {{bind-attr for=inputId}}>{{placeholder}}</label>\n  {{/if}}\n  {{textarea value=value type=type name=name disabled=disabled maxlength=maxlength tabindex=tabindex}}\n</div>\n\n{{#if errorMessage}}\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        {{errorMessage}}\n      </p>\n    </div>\n  </div>\n{{/if}}\n");
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n    <label ");
+      data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+        'for': ("inputId")
+      },hashTypes:{'for': "ID"},hashContexts:{'for': depth0},contexts:[],types:[],data:data})));
+      data.buffer.push(">");
+      stack1 = helpers._triageMustache.call(depth0, "placeholder", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("</label>\n  ");
+      return buffer;
+      }
+
+    function program3(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        ");
+      stack1 = helpers._triageMustache.call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n      </p>\n    </div>\n  </div>\n");
+      return buffer;
+      }
+
+      data.buffer.push("<div class=\"eui-wrapper\">\n  ");
+      stack1 = helpers['if'].call(depth0, "placeholderVisible", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n  ");
+      data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
+        'value': ("value"),
+        'type': ("type"),
+        'name': ("name"),
+        'disabled': ("disabled"),
+        'maxlength': ("maxlength"),
+        'tabindex': ("tabindex")
+      },hashTypes:{'value': "ID",'type': "ID",'name': "ID",'disabled': "ID",'maxlength': "ID",'tabindex': "ID"},hashContexts:{'value': depth0,'type': depth0,'name': depth0,'disabled': depth0,'maxlength': depth0,'tabindex': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
+      data.buffer.push("\n</div>\n\n");
+      stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/utilities/tabbable-selector",
   [],
   function() {

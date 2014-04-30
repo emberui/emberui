@@ -78,6 +78,7 @@ define(
     __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
     __exports__.EuiDropbuttonComponent = EuiDropbuttonComponent;
     __exports__.EuiInputComponent = EuiInputComponent;
+    __exports__.EuiInputTemplate = EuiInputTemplate;
     __exports__.EuiModalComponent = EuiModalComponent;
     __exports__.EuiPoplistComponent = EuiPoplistComponent;
     __exports__.EuiSelectComponent = EuiSelectComponent;

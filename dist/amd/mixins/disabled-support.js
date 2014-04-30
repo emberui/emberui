@@ -7,11 +7,11 @@ define(
     disabledsupport = Em.Mixin.create({
       classNameBindings: ['isDisabled:eui-disabled'],
       disabled: false,
-      isDisabled: Em.computed(function() {
+      isDisabled: Em.computed('disabled', 'loading', function() {
         if (this.get('disabled') || this.get('loading')) {
           return true;
         }
-      }).property('disabled', 'loading')
+      })
     });
 
     __exports__["default"] = disabledsupport;

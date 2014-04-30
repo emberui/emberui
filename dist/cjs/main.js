@@ -75,6 +75,7 @@ exports.EuiButtonComponent = EuiButtonComponent;
 exports.EuiCheckboxComponent = EuiCheckboxComponent;
 exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
 exports.EuiInputComponent = EuiInputComponent;
+exports.EuiInputTemplate = EuiInputTemplate;
 exports.EuiModalComponent = EuiModalComponent;
 exports.EuiPoplistComponent = EuiPoplistComponent;
 exports.EuiSelectComponent = EuiSelectComponent;

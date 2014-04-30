@@ -6,7 +6,7 @@ define(
 
     widthsupport = Em.Mixin.create({
       attributeBindings: ['computedWidth:style'],
-      computedWidth: Em.computed(function() {
+      computedWidth: Em.computed('size', 'width', function() {
         var width, widths;
         widths = {
           tiny: '100px',
@@ -16,7 +16,7 @@ define(
         };
         width = this.get('width') || widths[this.get('size')] || widths['medium'];
         return "width: " + width + ";";
-      }).property('size', 'width')
+      })
     });
 
     __exports__["default"] = widthsupport;
