@@ -73,6 +73,7 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
         closeCalendar = true
 
       if closeCalendar
+        $(window).unbind '.emberui'
         @hide()
 
 
@@ -87,11 +88,12 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
       @set '_selection', @get 'selection'
 
       # Bind click so we can close calendar is user clicks outside it
-      $(window).on 'click.emberui', (event) =>
-        unless @.$().find($(event.target)).length
-          event.preventDefault()
-          $(this).off(event);
-          @send 'closeCalendar', {forceClose: true}
+      Ember.run.next @, ->
+        $(window).on 'click.emberui', (event) =>
+          unless @.$('eui-calendar').find($(event.target)).length
+            event.preventDefault()
+            $(this).off(event)
+            @send 'closeCalendar', {forceClose: true}
 
 
   # Positions calendar using fixed positioning
