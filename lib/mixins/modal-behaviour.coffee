@@ -1,15 +1,7 @@
-`import styleSupport from '../mixins/style-support'`
-`import animationsDidComplete from '../mixins/animations-did-complete'`
-`import modalBehaviour from '../mixins/modal-behaviour'`
-`import modalLayout from '../templates/eui-modal'`
+modalBehaviour = Em.Mixin.create
+  classNameBindings: ['class', 'isClosing:eui-closing']
+  attributeBindings: ['tabindex']
 
-modal = Em.Component.extend styleSupport, animationsDidComplete, modalBehaviour,
-  layout: modalLayout
-  tagName: 'eui-modal'
-  classNames: ['eui-modal']
-  classNameBindings: ['class']
-
-  class: null
 
   # Stores the element that had focus before the modal was opened if the user uses the
   # keyboard to open it
@@ -42,7 +34,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete, modalBehaviour,
   # Proxy for renderModal. Allows us to animate the modal closing by delaying the setting of
   # renderModal until the animation is done playing
 
-  open: Ember.computed 'renderModal', (key, value) ->
+  open: Ember.computed (key, value) ->
     # setter
     if arguments.length is 2
 
@@ -61,6 +53,8 @@ modal = Em.Component.extend styleSupport, animationsDidComplete, modalBehaviour,
       value = @get 'renderModal'
       value
 
+  .property 'renderModal'
+
 
   # Initial setup when modal is shown programatically
 
@@ -73,7 +67,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete, modalBehaviour,
       @.$().focus()
 
       # Add a class to the body element of the page so we can disable page scrolling
-      $('body').addClass('eui-modal-open')
+      $('body').toggleClass('eui-modal-open')
 
 
   # Initial setup when modal is used as a block component
@@ -84,7 +78,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete, modalBehaviour,
       @.$().focus()
 
       # Add a class to the body element of the page so we can disable page scrolling
-      $('body').addClass('eui-modal-open')
+      $('body').toggleClass('eui-modal-open')
   ).observes 'renderModal'
 
 
@@ -105,7 +99,7 @@ modal = Em.Component.extend styleSupport, animationsDidComplete, modalBehaviour,
     @get('previousFocus')?.focus()
 
     # Remove class set on body to disable page scrolling
-    $('body').removeClass('eui-modal-open')
+    $('body').toggleClass('eui-modal-open')
 
     if @get 'programmatic'
       @destroy()
@@ -113,41 +107,27 @@ modal = Em.Component.extend styleSupport, animationsDidComplete, modalBehaviour,
       @setProperties { isClosing: false, renderModal: false }
 
 
-  # Actions will not bubble up from the programmatic modal so we need to create
-  # pre-defined actions that the user can trigger to close the modal
+  # Does cleanup if the user navigates to a different page while modal is open
 
-  actions:
-    cancel: (context) ->
-      @sendAction 'cancel', context
-      @hide()
-
-    accept: (context) ->
-      @sendAction 'accept', context
-      @hide()
+  willDestroy: ->
+    # Remove class set on body to disable page scrolling
+    $('body').removeClass('eui-modal-open')
 
 
-  # Catch and handle key presses
+  # Makes sure the tab focus cannot leave the modal since all user action is scoped to
+  # this modal and there is no need to leave it
+  # Adapted from ic-modal (https://github.com/instructure/ic-modal)
 
-  keyDown: (event) ->
-    # TAB
-    @constrainTabNavigationToModal(event) if event.keyCode == 9
+  constrainTabNavigationToModal: (event) ->
+    activeElement = document.activeElement
+    tabbable = @.$(':tabbable')
+    finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0]
 
-    # ESC
-    if event.keyCode == 27
-      @sendAction 'cancel'
-      @hide()
+    leavingFinalTabbable = finalTabbable is activeElement || @get('element') is activeElement
 
+    return unless leavingFinalTabbable
 
-modal.reopenClass
-  # Creates the modal programmatically and inserts it into the DOM
+    event.preventDefault()
+    tabbable[event.shiftKey && 'last' || 'first']()[0].focus()
 
-  show: (options = {}) ->
-    options.renderModal = true
-    options.programmatic = true
-
-    modal = this.create options
-    modal.container = modal.get('targetObject.container')
-    modal.appendTo 'body'
-    modal
-
-`export default modal`
+`export default modalBehaviour`

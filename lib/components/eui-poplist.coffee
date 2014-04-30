@@ -268,9 +268,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     rowHeight: Ember.computed.alias 'controller.listRowHeight'
 
 
-    didInsertElement: ->
-      @_super()
-
+    setup: (->
       # Prevents mouse scroll events from passing through to the div
       # behind the poplist when listView is scrolled to the end. Fixes
       # the poplist closing if you scroll too far down
@@ -286,6 +284,7 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
 
         @scrollTo(scrollTo)
       )
+    ).on 'didInsertElement'
 
 
     itemViewClass: Ember.ListItemView.extend
