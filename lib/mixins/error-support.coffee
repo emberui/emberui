@@ -1,4 +1,4 @@
-validationsupport = Em.Mixin.create
+errorSupport = Em.Mixin.create
   classNameBindings: ['errorState:eui-error']
 
   forceErrorCheck: false
@@ -33,4 +33,4 @@ validationsupport = Em.Mixin.create
 
     !!@get('error')
 
-`export default validationsupport`
+`export default errorSupport`

@@ -1,9 +1,9 @@
-`import validationSupport from '../mixins/validation-support'`
+`import errorSupport from '../mixins/error-support'`
 `import textSupport from '../mixins/text-support'`
 `import styleSupport from '../mixins/style-support'`
 `import sizeSupport from '../mixins/size-support'`
 
-textarea = Em.Component.extend validationSupport, textSupport, styleSupport, sizeSupport,
+textarea = Em.Component.extend errorSupport, textSupport, styleSupport, sizeSupport,
   classNameBindings: [':eui-textarea']
   attributeBindings: ['computedWidthAndHeight:style']
   tagName: 'eui-textarea'

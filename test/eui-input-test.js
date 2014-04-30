@@ -22,7 +22,7 @@ test('page load: errorState updated when element has no value', function() {
 });
 
 // NOTE: this test is setup in a somewhat roundabout way because the current implementation
-// of the validation support mixin does not allow a more direct testing approach. That is, we cannot
+// of the error support mixin does not allow a more direct testing approach. That is, we cannot
 // setup the initial state and then modify the error property to trigger an errorState change
 // because the mixin does not listen to changes on the error property, only the value property.
 // Once the implementation is improved this can be replaced with a more direct test.
