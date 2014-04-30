@@ -73,8 +73,6 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
         closeCalendar = true
 
       if closeCalendar
-        unless options and options.ignoreUnbind
-          $(window).unbind 'click.emberui'
         @hide()
 
 
@@ -89,12 +87,11 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
       @set '_selection', @get 'selection'
 
       # Bind click so we can close calendar is user clicks outside it
-      $(window).bind 'click.emberui', (event) =>
+      $(window).on 'click.emberui', (event) =>
         unless @.$().find($(event.target)).length
           event.preventDefault()
-          # TODO: remove ignoreUnbind hack. If we don't do this and the user clicks on another selectdate button
-          # then the event gets unbind after the next calendar shows.
-          @send 'closeCalendar', {forceClose: true, ignoreUnbind: true}
+          $(this).off(event);
+          @send 'closeCalendar', {forceClose: true}
 
 
   # Positions calendar using fixed positioning
