@@ -1,8 +1,9 @@
 `import poplistComponent from '../components/eui-poplist'`
 `import disabledSupport from '../mixins/disabled-support'`
 `import validationSupport from '../mixins/validation-support'`
+`import widthSupport from '../mixins/width-support'`
 
-select = Em.Component.extend disabledSupport, validationSupport,
+select = Em.Component.extend disabledSupport, validationSupport, widthSupport,
   tagName: 'eui-select'
   classNames: ['eui-select']
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
