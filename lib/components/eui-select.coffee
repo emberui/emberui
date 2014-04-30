@@ -1,9 +1,9 @@
 `import poplistComponent from '../components/eui-poplist'`
 `import disabledSupport from '../mixins/disabled-support'`
-`import validationSupport from '../mixins/validation-support'`
+`import errorSupport from '../mixins/error-support'`
 `import widthSupport from '../mixins/width-support'`
 
-select = Em.Component.extend disabledSupport, validationSupport, widthSupport,
+select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-select'
   classNames: ['eui-select']
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
@@ -125,13 +125,6 @@ select = Em.Component.extend disabledSupport, validationSupport, widthSupport,
       event.preventDefault()
       @click()
 
-
-  # Overide validation-support mixin to check validation on change even if no error
-  # This is needed because the select will not receive the blur event when the user
-  # select and option
-
-  onChange:  (->
-    Ember.run.once @, 'validateField'
-  ).observes 'value'
+  isEntered: true
 
 `export default select`
