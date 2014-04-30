@@ -111,7 +111,7 @@ modalBehaviour = Em.Mixin.create
 
   willDestroy: ->
     # Remove class set on body to disable page scrolling
-    $('body').toggleClass('eui-modal-open')
+    $('body').removeClass('eui-modal-open')
 
 
   # Makes sure the tab focus cannot leave the modal since all user action is scoped to
