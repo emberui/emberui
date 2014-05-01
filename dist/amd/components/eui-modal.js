@@ -1,18 +1,18 @@
 define(
-  ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-modal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/style-support","../mixins/animations-did-complete","../mixins/modal-behaviour","../templates/eui-modal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
     var animationsDidComplete = __dependency2__["default"] || __dependency2__;
-    var modalLayout = __dependency3__["default"] || __dependency3__;
+    var modalBehaviour = __dependency3__["default"] || __dependency3__;
+    var modalLayout = __dependency4__["default"] || __dependency4__;
     var modal;
 
-    modal = Em.Component.extend(styleSupport, animationsDidComplete, {
+    modal = Em.Component.extend(styleSupport, animationsDidComplete, modalBehaviour, {
       layout: modalLayout,
       tagName: 'eui-modal',
       classNames: ['eui-modal'],
-      classNameBindings: ['class', 'isClosing:eui-closing'],
-      attributeBindings: ['tabindex'],
+      classNameBindings: ['class'],
       "class": null,
       previousFocus: null,
       tabindex: 0,
@@ -88,18 +88,6 @@ define(
           this.sendAction('cancel');
           return this.hide();
         }
-      },
-      constrainTabNavigationToModal: function(event) {
-        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
-        activeElement = document.activeElement;
-        tabbable = this.$(':tabbable');
-        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
-        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
-        if (!leavingFinalTabbable) {
-          return;
-        }
-        event.preventDefault();
-        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
       }
     });
 

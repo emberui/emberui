@@ -531,6 +531,8 @@
       float: left; }
 
 .eui-calendar.eui-popup {
+  position: fixed;
+  z-index: 1000005;
   border-radius: 3px;
   padding: 1px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.25)));
@@ -577,6 +579,10 @@
       width: -webkit-calc(100% / 7);
       width: calc(100% / 7);
       float: left; }
+
+.eui-closing .eui-calendar.eui-popup {
+  -webkit-animation: eui-zoomupandin 0.2s 1;
+  animation: eui-zoomupandin 0.2s 1; }
 
 .eui-checkbox-form {
   display: inline-block;

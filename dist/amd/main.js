@@ -1,6 +1,6 @@
 define(
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","./utilities/position","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -29,13 +29,16 @@ define(
     var EuiSelectComponent = __dependency14__["default"] || __dependency14__;
     var EuiSelectTemplate = __dependency15__["default"] || __dependency15__;
 
-    var EuiTextareaComponent = __dependency16__["default"] || __dependency16__;
-    var EuiTextareaTemplate = __dependency17__["default"] || __dependency17__;
+    var EuiSelectDateComponent = __dependency16__["default"] || __dependency16__;
+    var EuiSelectDateTemplate = __dependency17__["default"] || __dependency17__;
 
-    var EuiMonthComponent = __dependency18__["default"] || __dependency18__;
+    var EuiTextareaComponent = __dependency18__["default"] || __dependency18__;
+    var EuiTextareaTemplate = __dependency19__["default"] || __dependency19__;
 
-    var EuiCalendarComponent = __dependency19__["default"] || __dependency19__;
-    var EuiCalendarTemplate = __dependency20__["default"] || __dependency20__;
+    var EuiMonthComponent = __dependency20__["default"] || __dependency20__;
+
+    var EuiCalendarComponent = __dependency21__["default"] || __dependency21__;
+    var EuiCalendarTemplate = __dependency22__["default"] || __dependency22__;
 
 
     Ember.Application.initializer({
@@ -64,6 +67,9 @@ define(
         container.register('template:components/eui-select', EuiSelectTemplate);
         container.register('component:eui-select', EuiSelectComponent);
 
+        container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
+        container.register('component:eui-selectdate', EuiSelectDateComponent);
+
         container.register('template:components/eui-textarea', EuiTextareaTemplate);
         container.register('component:eui-textarea', EuiTextareaComponent);
 
@@ -82,6 +88,7 @@ define(
     __exports__.EuiModalComponent = EuiModalComponent;
     __exports__.EuiPoplistComponent = EuiPoplistComponent;
     __exports__.EuiSelectComponent = EuiSelectComponent;
+    __exports__.EuiSelectDateComponent = EuiSelectDateComponent;
     __exports__.EuiTextareaComponent = EuiTextareaComponent;
     __exports__.EuiMonthComponent = EuiMonthComponent;
     __exports__.EuiCalendarComponent = EuiCalendarComponent;

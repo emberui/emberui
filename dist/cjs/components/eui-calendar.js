@@ -22,16 +22,14 @@ calendar = Em.Component.extend(styleSupport, {
   disabledDates: null,
   disablePast: null,
   disableFuture: null,
-  disableManipulation: null,
   maxPastDate: null,
   maxFutureDate: null,
   month: null,
   allowMultiple: false,
   continuousSelection: true,
   _selection: [],
-  init: function() {
+  setup: (function() {
     var firstSelectedDate;
-    this._super();
     Ember.warn('EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection', !(this.get('_selection.length') > 1 && !this.get('allowMultiple')));
     firstSelectedDate = this.get('_selection.firstObject');
     if (!this.get('month') && firstSelectedDate) {
@@ -40,38 +38,37 @@ calendar = Em.Component.extend(styleSupport, {
     if (!this.get('month')) {
       return this.set('month', moment().startOf('month'));
     }
-  },
+  }).on('init'),
   actions: {
     dateSelected: function(date) {
-      this.sendAction('selectAction', date);
-      if (this.get('disableManipulation')) {
-        return;
-      }
       if (this.get('allowMultiple')) {
         if (this.get('continuousSelection')) {
           if (this.get('_selection.length') === 1) {
             if (date.isSame(this.get('_selection.firstObject'))) {
-              return this.set('_selection', []);
+              this.set('_selection', []);
             } else {
-              return this.addDateRange(this.get('_selection.firstObject'), date);
+              this.addDateRange(this.get('_selection.firstObject'), date);
             }
           } else {
-            return this.set('_selection', [date]);
+            this.set('_selection', [date]);
           }
         } else {
           if (this.hasDate(date)) {
-            return this.removeDate(date);
+            this.removeDate(date);
           } else {
-            return this.addDate(date);
+            this.addDate(date);
           }
         }
       } else {
         if (this.hasDate(date)) {
-          return this.set('_selection', []);
+          this.set('_selection', []);
         } else {
-          return this.set('_selection', [date]);
+          this.set('_selection', [date]);
         }
       }
+      return Ember.run.next(this, function() {
+        return this.sendAction('selectAction', date);
+      });
     },
     prev: function() {
       var month;
@@ -93,12 +90,12 @@ calendar = Em.Component.extend(styleSupport, {
   selection: Ember.computed('_selection', function(key, value) {
     var selection;
     if (arguments.length === 2) {
-      if (this.get('allowMultiple')) {
-        if (Ember.isArray(value)) {
-          this.set('_selection', value);
-        } else {
-          this.set('_selection', [value]);
-        }
+      if (Ember.isArray(value)) {
+        this.set('_selection', value);
+      } else if (value) {
+        this.set('_selection', [value]);
+      } else {
+        this.set('_selection', []);
       }
       return value;
     } else {
@@ -115,6 +112,16 @@ calendar = Em.Component.extend(styleSupport, {
       return d.isSame(date);
     });
   },
+  isDisabledDate: function(date) {
+    var disabledDates;
+    disabledDates = this.get('disabledDates');
+    if (!disabledDates) {
+      return;
+    }
+    return disabledDates.any(function(d) {
+      return d.isSame(date);
+    });
+  },
   removeDate: function(date) {
     var dates, removeDates;
     dates = this.get('_selection');
@@ -128,25 +135,27 @@ calendar = Em.Component.extend(styleSupport, {
     return this.get('_selection').pushObject(date);
   },
   addDateRange: function(startDate, endDate) {
-    var day, _results, _results1;
+    var day, newSelection;
     day = moment(startDate);
+    newSelection = [startDate];
     if (endDate.isBefore(startDate)) {
       day.subtract('days', 1);
-      _results = [];
       while (!day.isBefore(endDate)) {
-        this.addDate(moment(day));
-        _results.push(day.subtract('days', 1));
+        if (!this.isDisabledDate(moment(day))) {
+          newSelection.pushObject(moment(day));
+        }
+        day.subtract('days', 1);
       }
-      return _results;
     } else {
       day.add('days', 1);
-      _results1 = [];
       while (!day.isAfter(endDate)) {
-        this.addDate(moment(day));
-        _results1.push(day.add('days', 1));
+        if (!this.isDisabledDate(moment(day))) {
+          newSelection.pushObject(moment(day));
+        }
+        day.add('days', 1);
       }
-      return _results1;
     }
+    return this.set('selection', newSelection);
   },
   now: (function() {
     return moment();

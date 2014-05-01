@@ -187,8 +187,7 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
     classNames: ['eui-options'],
     height: Ember.computed.alias('controller.listHeight'),
     rowHeight: Ember.computed.alias('controller.listRowHeight'),
-    didInsertElement: function() {
-      this._super();
+    setup: (function() {
       return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
         return function(e) {
           var scrollTo;
@@ -202,7 +201,7 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
           return _this.scrollTo(scrollTo);
         };
       })(this));
-    },
+    }).on('didInsertElement'),
     itemViewClass: Ember.ListItemView.extend({
       classNames: ['eui-option'],
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected'],

@@ -54,16 +54,14 @@ define("emberui/components/eui-button",
       disabledDates: null,
       disablePast: null,
       disableFuture: null,
-      disableManipulation: null,
       maxPastDate: null,
       maxFutureDate: null,
       month: null,
       allowMultiple: false,
       continuousSelection: true,
       _selection: [],
-      init: function() {
+      setup: (function() {
         var firstSelectedDate;
-        this._super();
         Ember.warn('EUI-CALENDAR: You have passed in multiple dates without allowing for mulitple date _selection', !(this.get('_selection.length') > 1 && !this.get('allowMultiple')));
         firstSelectedDate = this.get('_selection.firstObject');
         if (!this.get('month') && firstSelectedDate) {
@@ -72,38 +70,37 @@ define("emberui/components/eui-button",
         if (!this.get('month')) {
           return this.set('month', moment().startOf('month'));
         }
-      },
+      }).on('init'),
       actions: {
         dateSelected: function(date) {
-          this.sendAction('selectAction', date);
-          if (this.get('disableManipulation')) {
-            return;
-          }
           if (this.get('allowMultiple')) {
             if (this.get('continuousSelection')) {
               if (this.get('_selection.length') === 1) {
                 if (date.isSame(this.get('_selection.firstObject'))) {
-                  return this.set('_selection', []);
+                  this.set('_selection', []);
                 } else {
-                  return this.addDateRange(this.get('_selection.firstObject'), date);
+                  this.addDateRange(this.get('_selection.firstObject'), date);
                 }
               } else {
-                return this.set('_selection', [date]);
+                this.set('_selection', [date]);
               }
             } else {
               if (this.hasDate(date)) {
-                return this.removeDate(date);
+                this.removeDate(date);
               } else {
-                return this.addDate(date);
+                this.addDate(date);
               }
             }
           } else {
             if (this.hasDate(date)) {
-              return this.set('_selection', []);
+              this.set('_selection', []);
             } else {
-              return this.set('_selection', [date]);
+              this.set('_selection', [date]);
             }
           }
+          return Ember.run.next(this, function() {
+            return this.sendAction('selectAction', date);
+          });
         },
         prev: function() {
           var month;
@@ -125,12 +122,12 @@ define("emberui/components/eui-button",
       selection: Ember.computed('_selection', function(key, value) {
         var selection;
         if (arguments.length === 2) {
-          if (this.get('allowMultiple')) {
-            if (Ember.isArray(value)) {
-              this.set('_selection', value);
-            } else {
-              this.set('_selection', [value]);
-            }
+          if (Ember.isArray(value)) {
+            this.set('_selection', value);
+          } else if (value) {
+            this.set('_selection', [value]);
+          } else {
+            this.set('_selection', []);
           }
           return value;
         } else {
@@ -147,6 +144,16 @@ define("emberui/components/eui-button",
           return d.isSame(date);
         });
       },
+      isDisabledDate: function(date) {
+        var disabledDates;
+        disabledDates = this.get('disabledDates');
+        if (!disabledDates) {
+          return;
+        }
+        return disabledDates.any(function(d) {
+          return d.isSame(date);
+        });
+      },
       removeDate: function(date) {
         var dates, removeDates;
         dates = this.get('_selection');
@@ -160,25 +167,27 @@ define("emberui/components/eui-button",
         return this.get('_selection').pushObject(date);
       },
       addDateRange: function(startDate, endDate) {
-        var day, _results, _results1;
+        var day, newSelection;
         day = moment(startDate);
+        newSelection = [startDate];
         if (endDate.isBefore(startDate)) {
           day.subtract('days', 1);
-          _results = [];
           while (!day.isBefore(endDate)) {
-            this.addDate(moment(day));
-            _results.push(day.subtract('days', 1));
+            if (!this.isDisabledDate(moment(day))) {
+              newSelection.pushObject(moment(day));
+            }
+            day.subtract('days', 1);
           }
-          return _results;
         } else {
           day.add('days', 1);
-          _results1 = [];
           while (!day.isAfter(endDate)) {
-            this.addDate(moment(day));
-            _results1.push(day.add('days', 1));
+            if (!this.isDisabledDate(moment(day))) {
+              newSelection.pushObject(moment(day));
+            }
+            day.add('days', 1);
           }
-          return _results1;
         }
+        return this.set('selection', newSelection);
       },
       now: (function() {
         return moment();
@@ -355,20 +364,20 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = input;
   });define("emberui/components/eui-modal",
-  ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-modal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/style-support","../mixins/animations-did-complete","../mixins/modal-behaviour","../templates/eui-modal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
     var animationsDidComplete = __dependency2__["default"] || __dependency2__;
-    var modalLayout = __dependency3__["default"] || __dependency3__;
+    var modalBehaviour = __dependency3__["default"] || __dependency3__;
+    var modalLayout = __dependency4__["default"] || __dependency4__;
     var modal;
 
-    modal = Em.Component.extend(styleSupport, animationsDidComplete, {
+    modal = Em.Component.extend(styleSupport, animationsDidComplete, modalBehaviour, {
       layout: modalLayout,
       tagName: 'eui-modal',
       classNames: ['eui-modal'],
-      classNameBindings: ['class', 'isClosing:eui-closing'],
-      attributeBindings: ['tabindex'],
+      classNameBindings: ['class'],
       "class": null,
       previousFocus: null,
       tabindex: 0,
@@ -444,18 +453,6 @@ define("emberui/components/eui-button",
           this.sendAction('cancel');
           return this.hide();
         }
-      },
-      constrainTabNavigationToModal: function(event) {
-        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
-        activeElement = document.activeElement;
-        tabbable = this.$(':tabbable');
-        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
-        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
-        if (!leavingFinalTabbable) {
-          return;
-        }
-        event.preventDefault();
-        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
       }
     });
 
@@ -805,8 +802,7 @@ define("emberui/components/eui-button",
         classNames: ['eui-options'],
         height: Ember.computed.alias('controller.listHeight'),
         rowHeight: Ember.computed.alias('controller.listRowHeight'),
-        didInsertElement: function() {
-          this._super();
+        setup: (function() {
           return this.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (function(_this) {
             return function(e) {
               var scrollTo;
@@ -820,7 +816,7 @@ define("emberui/components/eui-button",
               return _this.scrollTo(scrollTo);
             };
           })(this));
-        },
+        }).on('didInsertElement'),
         itemViewClass: Ember.ListItemView.extend({
           classNames: ['eui-option'],
           classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected'],
@@ -1015,6 +1011,162 @@ define("emberui/components/eui-button",
     });
 
     __exports__["default"] = select;
+  });define("emberui/components/eui-selectdate",
+  ["../mixins/disabled-support","../mixins/width-support","../mixins/error-support","../mixins/animations-did-complete","../mixins/modal-behaviour","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
+    "use strict";
+    var disabledSupport = __dependency1__["default"] || __dependency1__;
+    var widthSupport = __dependency2__["default"] || __dependency2__;
+    var errorSupport = __dependency3__["default"] || __dependency3__;
+    var animationsDidComplete = __dependency4__["default"] || __dependency4__;
+    var modalBehaviour = __dependency5__["default"] || __dependency5__;
+    var select;
+
+    select = Em.Component.extend(disabledSupport, errorSupport, animationsDidComplete, modalBehaviour, widthSupport, {
+      tagName: 'eui-selectdate',
+      classNames: ['eui-selectdate'],
+      classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class'],
+      style: 'default',
+      size: 'medium',
+      dateRange: false,
+      formatting: {
+        yearFormat: "YYYY",
+        monthFormat: "MMMM",
+        dayFormat: "D"
+      },
+      isPlaceholder: Em.computed('selection', function() {
+        var selection;
+        selection = this.get('selection');
+        if (selection && Em.isArray(selection) && selection.get('length') === 0) {
+          return false;
+        }
+        if (!selection) {
+          return false;
+        }
+        return true;
+      }),
+      actions: {
+        toggleCalendar: function() {
+          if (this.get('open')) {
+            return this.send('closeCalendar');
+          } else {
+            return this.send('openCalendar');
+          }
+        },
+        closeCalendar: function(options) {
+          var closeCalendar, dateRange, selection;
+          dateRange = this.get('dateRange');
+          selection = this.get('selection');
+          closeCalendar = false;
+          if (dateRange) {
+            if (selection && selection.get('length') > 1) {
+              closeCalendar = true;
+            } else if (selection && selection.get('length') === 1 && options && options.forceClose === true) {
+              this.resetSelection();
+              closeCalendar = true;
+            } else if (selection.get('length') === 0 && options && options.forceClose === true) {
+              closeCalendar = true;
+            }
+          } else if (selection) {
+            closeCalendar = true;
+          } else if (options && options.forceClose === true) {
+            closeCalendar = true;
+          }
+          if (closeCalendar) {
+            $(window).unbind('.emberui');
+            return this.hide();
+          }
+        },
+        openCalendar: function() {
+          this.set('open', true);
+          Ember.run.next(this, function() {
+            return this.positionCalendar();
+          });
+          this.set('_selection', this.get('selection'));
+          return Ember.run.next(this, function() {
+            return $(window).on('click.emberui', (function(_this) {
+              return function(event) {
+                if (!_this.$('eui-calendar').find($(event.target)).length) {
+                  event.preventDefault();
+                  $(_this).off(event);
+                  return _this.send('closeCalendar', {
+                    forceClose: true
+                  });
+                }
+              };
+            })(this));
+          });
+        }
+      },
+      positionCalendar: function() {
+        return this.$().find('eui-calendar').position({
+          my: "center top",
+          at: "center bottom",
+          of: this.$(),
+          collision: 'flipfit'
+        });
+      },
+      resetSelection: function() {
+        return this.set('selection', this.get('_selection'));
+      },
+      keyDown: function(event) {
+        if (event.keyCode === 27) {
+          this.send('closeCalendar', {
+            forceClose: true
+          });
+        }
+        if (event.which === 40) {
+          event.preventDefault();
+          return this.send('toggleCalendar');
+        }
+      },
+      label: Em.computed('selection.@each', 'placeholder', function() {
+        var endDate, label, selection, startDate;
+        selection = this.get('selection');
+        label = null;
+        if (selection) {
+          if (Em.isArray(selection)) {
+            if (selection.get('length') < 2) {
+              startDate = selection.get('firstObject');
+              label = this.formatDateRange(startDate);
+            } else {
+              startDate = selection.get('firstObject');
+              endDate = selection.get('lastObject');
+              label = this.formatDateRange(startDate, endDate);
+            }
+          } else {
+            label = this.formatDate(selection);
+          }
+        }
+        return label || this.get('placeholder');
+      }),
+      formatDate: function(date) {
+        if (!date) {
+          return;
+        }
+        return date.twix(date, true).format(this.get('formatting'));
+      },
+      formatDateRange: function(startDate, endDate) {
+        var formatting;
+        if (!startDate) {
+          return;
+        }
+        formatting = this.get('formatting');
+        if (!endDate) {
+          return startDate.twix(startDate, true).format(formatting) + ' -';
+        }
+        if (startDate && endDate) {
+          if (endDate.isBefore(startDate)) {
+            return endDate.twix(startDate, true).format(formatting);
+          } else {
+            return startDate.twix(endDate, true).format(formatting);
+          }
+        }
+      },
+      isEntered: true
+    });
+
+    __exports__["default"] = select;
   });define("emberui/components/eui-textarea",
   ["../mixins/error-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
@@ -1052,8 +1204,8 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = textarea;
   });define("emberui",
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","./utilities/position","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -1082,13 +1234,16 @@ define("emberui/components/eui-button",
     var EuiSelectComponent = __dependency14__["default"] || __dependency14__;
     var EuiSelectTemplate = __dependency15__["default"] || __dependency15__;
 
-    var EuiTextareaComponent = __dependency16__["default"] || __dependency16__;
-    var EuiTextareaTemplate = __dependency17__["default"] || __dependency17__;
+    var EuiSelectDateComponent = __dependency16__["default"] || __dependency16__;
+    var EuiSelectDateTemplate = __dependency17__["default"] || __dependency17__;
 
-    var EuiMonthComponent = __dependency18__["default"] || __dependency18__;
+    var EuiTextareaComponent = __dependency18__["default"] || __dependency18__;
+    var EuiTextareaTemplate = __dependency19__["default"] || __dependency19__;
 
-    var EuiCalendarComponent = __dependency19__["default"] || __dependency19__;
-    var EuiCalendarTemplate = __dependency20__["default"] || __dependency20__;
+    var EuiMonthComponent = __dependency20__["default"] || __dependency20__;
+
+    var EuiCalendarComponent = __dependency21__["default"] || __dependency21__;
+    var EuiCalendarTemplate = __dependency22__["default"] || __dependency22__;
 
 
     Ember.Application.initializer({
@@ -1117,6 +1272,9 @@ define("emberui/components/eui-button",
         container.register('template:components/eui-select', EuiSelectTemplate);
         container.register('component:eui-select', EuiSelectComponent);
 
+        container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
+        container.register('component:eui-selectdate', EuiSelectDateComponent);
+
         container.register('template:components/eui-textarea', EuiTextareaTemplate);
         container.register('component:eui-textarea', EuiTextareaComponent);
 
@@ -1135,6 +1293,7 @@ define("emberui/components/eui-button",
     __exports__.EuiModalComponent = EuiModalComponent;
     __exports__.EuiPoplistComponent = EuiPoplistComponent;
     __exports__.EuiSelectComponent = EuiSelectComponent;
+    __exports__.EuiSelectDateComponent = EuiSelectDateComponent;
     __exports__.EuiTextareaComponent = EuiTextareaComponent;
     __exports__.EuiMonthComponent = EuiMonthComponent;
     __exports__.EuiCalendarComponent = EuiCalendarComponent;
@@ -1249,6 +1408,89 @@ define("emberui/components/eui-button",
     });
 
     __exports__["default"] = errorSupport;
+  });define("emberui/mixins/modal-behaviour",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var modalBehaviour;
+
+    modalBehaviour = Em.Mixin.create({
+      classNameBindings: ['class', 'isClosing:eui-closing'],
+      attributeBindings: ['tabindex'],
+      previousFocus: null,
+      tabindex: 0,
+      programmatic: false,
+      isClosing: false,
+      renderModal: false,
+      open: Ember.computed(function(key, value) {
+        if (arguments.length === 2) {
+          if (value) {
+            this.set('renderModal', value);
+          } else {
+            if (this.get('renderModal')) {
+              this.hide();
+            }
+          }
+          return value;
+        } else {
+          value = this.get('renderModal');
+          return value;
+        }
+      }).property('renderModal'),
+      didInsertElement: function() {
+        if (this.get('programmatic')) {
+          this.set('previousFocus', $(document.activeElement));
+          this.$().focus();
+          return $('body').toggleClass('eui-modal-open');
+        }
+      },
+      didOpenModal: (function() {
+        if (this.get('renderModal')) {
+          this.$().focus();
+          return $('body').toggleClass('eui-modal-open');
+        }
+      }).observes('renderModal'),
+      hide: function() {
+        this.set('isClosing', true);
+        return this.animationsDidComplete().then((function(_this) {
+          return function() {
+            return _this.remove();
+          };
+        })(this));
+      },
+      remove: function() {
+        var _ref;
+        if ((_ref = this.get('previousFocus')) != null) {
+          _ref.focus();
+        }
+        $('body').toggleClass('eui-modal-open');
+        if (this.get('programmatic')) {
+          return this.destroy();
+        } else {
+          return this.setProperties({
+            isClosing: false,
+            renderModal: false
+          });
+        }
+      },
+      willDestroy: function() {
+        return $('body').removeClass('eui-modal-open');
+      },
+      constrainTabNavigationToModal: function(event) {
+        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+        activeElement = document.activeElement;
+        tabbable = this.$(':tabbable');
+        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
+        if (!leavingFinalTabbable) {
+          return;
+        }
+        event.preventDefault();
+        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
+      }
+    });
+
+    __exports__["default"] = modalBehaviour;
   });define("emberui/mixins/size-support",
   ["exports"],
   function(__exports__) {
@@ -1767,6 +2009,66 @@ define("emberui/components/eui-button",
       return buffer;
       
     });
+  });define("emberui/templates/eui-selectdate",
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+
+    function program1(depth0,data) {
+      
+      var buffer = '', helper, options;
+      data.buffer.push("\n  ");
+      data.buffer.push(escapeExpression((helper = helpers['eui-calendar'] || (depth0 && depth0['eui-calendar']),options={hash:{
+        'style': ("popup"),
+        'selection': ("selection"),
+        'allowMultipleBinding': ("dateRange"),
+        'class': ("eui-animation"),
+        'selectAction': ("closeCalendar"),
+        'disablePast': ("disablePast"),
+        'disableFuture': ("disableFuture"),
+        'maxPastDate': ("maxPastDate"),
+        'maxFutureDate': ("maxFutureDate"),
+        'disabledDates': ("disabledDates")
+      },hashTypes:{'style': "STRING",'selection': "ID",'allowMultipleBinding': "STRING",'class': "STRING",'selectAction': "STRING",'disablePast': "ID",'disableFuture': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'disabledDates': "ID"},hashContexts:{'style': depth0,'selection': depth0,'allowMultipleBinding': depth0,'class': depth0,'selectAction': depth0,'disablePast': depth0,'disableFuture': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'disabledDates': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-calendar", options))));
+      data.buffer.push("\n");
+      return buffer;
+      }
+
+    function program3(depth0,data) {
+      
+      var buffer = '', stack1;
+      data.buffer.push("\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        ");
+      stack1 = helpers._triageMustache.call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n      </p>\n    </div>\n  </div>\n");
+      return buffer;
+      }
+
+      data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
+        'label': ("view.label"),
+        'disabled': ("disabled"),
+        'style': ("style"),
+        'size': ("size"),
+        'width': ("100%"),
+        'classBinding': (":eui-select showCalendar:eui-active"),
+        'action': ("toggleCalendar"),
+        'icon': ("eui-icon")
+      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'action': "STRING",'icon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'action': depth0,'icon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      data.buffer.push("\n\n");
+      stack1 = helpers['if'].call(depth0, "renderModal", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n\n");
+      stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
   });define("emberui/templates/eui-textarea",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
@@ -1820,6 +2122,506 @@ define("emberui/components/eui-button",
       return buffer;
       
     });
+  });define("emberui/utilities/position",
+  [],
+  function() {
+    "use strict";
+    /*! jQuery UI - v1.10.4 - 2014-04-28
+    * http://jqueryui.com
+    * Includes: jquery.ui.position.js
+    * Copyright 2014 jQuery Foundation and other contributors; Licensed MIT */
+
+    (function( $, undefined ) {
+
+    $.ui = $.ui || {};
+
+    var cachedScrollbarWidth,
+    	max = Math.max,
+    	abs = Math.abs,
+    	round = Math.round,
+    	rhorizontal = /left|center|right/,
+    	rvertical = /top|center|bottom/,
+    	roffset = /[\+\-]\d+(\.[\d]+)?%?/,
+    	rposition = /^\w+/,
+    	rpercent = /%$/,
+    	_position = $.fn.position;
+
+    function getOffsets( offsets, width, height ) {
+    	return [
+    		parseFloat( offsets[ 0 ] ) * ( rpercent.test( offsets[ 0 ] ) ? width / 100 : 1 ),
+    		parseFloat( offsets[ 1 ] ) * ( rpercent.test( offsets[ 1 ] ) ? height / 100 : 1 )
+    	];
+    }
+
+    function parseCss( element, property ) {
+    	return parseInt( $.css( element, property ), 10 ) || 0;
+    }
+
+    function getDimensions( elem ) {
+    	var raw = elem[0];
+    	if ( raw.nodeType === 9 ) {
+    		return {
+    			width: elem.width(),
+    			height: elem.height(),
+    			offset: { top: 0, left: 0 }
+    		};
+    	}
+    	if ( $.isWindow( raw ) ) {
+    		return {
+    			width: elem.width(),
+    			height: elem.height(),
+    			offset: { top: elem.scrollTop(), left: elem.scrollLeft() }
+    		};
+    	}
+    	if ( raw.preventDefault ) {
+    		return {
+    			width: 0,
+    			height: 0,
+    			offset: { top: raw.pageY, left: raw.pageX }
+    		};
+    	}
+    	return {
+    		width: elem.outerWidth(),
+    		height: elem.outerHeight(),
+    		offset: elem.offset()
+    	};
+    }
+
+    $.position = {
+    	scrollbarWidth: function() {
+    		if ( cachedScrollbarWidth !== undefined ) {
+    			return cachedScrollbarWidth;
+    		}
+    		var w1, w2,
+    			div = $( "<div style='display:block;position:absolute;width:50px;height:50px;overflow:hidden;'><div style='height:100px;width:auto;'></div></div>" ),
+    			innerDiv = div.children()[0];
+
+    		$( "body" ).append( div );
+    		w1 = innerDiv.offsetWidth;
+    		div.css( "overflow", "scroll" );
+
+    		w2 = innerDiv.offsetWidth;
+
+    		if ( w1 === w2 ) {
+    			w2 = div[0].clientWidth;
+    		}
+
+    		div.remove();
+
+    		return (cachedScrollbarWidth = w1 - w2);
+    	},
+    	getScrollInfo: function( within ) {
+    		var overflowX = within.isWindow || within.isDocument ? "" :
+    				within.element.css( "overflow-x" ),
+    			overflowY = within.isWindow || within.isDocument ? "" :
+    				within.element.css( "overflow-y" ),
+    			hasOverflowX = overflowX === "scroll" ||
+    				( overflowX === "auto" && within.width < within.element[0].scrollWidth ),
+    			hasOverflowY = overflowY === "scroll" ||
+    				( overflowY === "auto" && within.height < within.element[0].scrollHeight );
+    		return {
+    			width: hasOverflowY ? $.position.scrollbarWidth() : 0,
+    			height: hasOverflowX ? $.position.scrollbarWidth() : 0
+    		};
+    	},
+    	getWithinInfo: function( element ) {
+    		var withinElement = $( element || window ),
+    			isWindow = $.isWindow( withinElement[0] ),
+    			isDocument = !!withinElement[ 0 ] && withinElement[ 0 ].nodeType === 9;
+    		return {
+    			element: withinElement,
+    			isWindow: isWindow,
+    			isDocument: isDocument,
+    			offset: withinElement.offset() || { left: 0, top: 0 },
+    			scrollLeft: withinElement.scrollLeft(),
+    			scrollTop: withinElement.scrollTop(),
+    			width: isWindow ? withinElement.width() : withinElement.outerWidth(),
+    			height: isWindow ? withinElement.height() : withinElement.outerHeight()
+    		};
+    	}
+    };
+
+    $.fn.position = function( options ) {
+    	if ( !options || !options.of ) {
+    		return _position.apply( this, arguments );
+    	}
+
+    	// make a copy, we don't want to modify arguments
+    	options = $.extend( {}, options );
+
+    	var atOffset, targetWidth, targetHeight, targetOffset, basePosition, dimensions,
+    		target = $( options.of ),
+    		within = $.position.getWithinInfo( options.within ),
+    		scrollInfo = $.position.getScrollInfo( within ),
+    		collision = ( options.collision || "flip" ).split( " " ),
+    		offsets = {};
+
+    	dimensions = getDimensions( target );
+    	if ( target[0].preventDefault ) {
+    		// force left top to allow flipping
+    		options.at = "left top";
+    	}
+    	targetWidth = dimensions.width;
+    	targetHeight = dimensions.height;
+    	targetOffset = dimensions.offset;
+    	// clone to reuse original targetOffset later
+    	basePosition = $.extend( {}, targetOffset );
+
+    	// force my and at to have valid horizontal and vertical positions
+    	// if a value is missing or invalid, it will be converted to center
+    	$.each( [ "my", "at" ], function() {
+    		var pos = ( options[ this ] || "" ).split( " " ),
+    			horizontalOffset,
+    			verticalOffset;
+
+    		if ( pos.length === 1) {
+    			pos = rhorizontal.test( pos[ 0 ] ) ?
+    				pos.concat( [ "center" ] ) :
+    				rvertical.test( pos[ 0 ] ) ?
+    					[ "center" ].concat( pos ) :
+    					[ "center", "center" ];
+    		}
+    		pos[ 0 ] = rhorizontal.test( pos[ 0 ] ) ? pos[ 0 ] : "center";
+    		pos[ 1 ] = rvertical.test( pos[ 1 ] ) ? pos[ 1 ] : "center";
+
+    		// calculate offsets
+    		horizontalOffset = roffset.exec( pos[ 0 ] );
+    		verticalOffset = roffset.exec( pos[ 1 ] );
+    		offsets[ this ] = [
+    			horizontalOffset ? horizontalOffset[ 0 ] : 0,
+    			verticalOffset ? verticalOffset[ 0 ] : 0
+    		];
+
+    		// reduce to just the positions without the offsets
+    		options[ this ] = [
+    			rposition.exec( pos[ 0 ] )[ 0 ],
+    			rposition.exec( pos[ 1 ] )[ 0 ]
+    		];
+    	});
+
+    	// normalize collision option
+    	if ( collision.length === 1 ) {
+    		collision[ 1 ] = collision[ 0 ];
+    	}
+
+    	if ( options.at[ 0 ] === "right" ) {
+    		basePosition.left += targetWidth;
+    	} else if ( options.at[ 0 ] === "center" ) {
+    		basePosition.left += targetWidth / 2;
+    	}
+
+    	if ( options.at[ 1 ] === "bottom" ) {
+    		basePosition.top += targetHeight;
+    	} else if ( options.at[ 1 ] === "center" ) {
+    		basePosition.top += targetHeight / 2;
+    	}
+
+    	atOffset = getOffsets( offsets.at, targetWidth, targetHeight );
+    	basePosition.left += atOffset[ 0 ];
+    	basePosition.top += atOffset[ 1 ];
+
+    	return this.each(function() {
+    		var collisionPosition, using,
+    			elem = $( this ),
+    			elemWidth = elem.outerWidth(),
+    			elemHeight = elem.outerHeight(),
+    			marginLeft = parseCss( this, "marginLeft" ),
+    			marginTop = parseCss( this, "marginTop" ),
+    			collisionWidth = elemWidth + marginLeft + parseCss( this, "marginRight" ) + scrollInfo.width,
+    			collisionHeight = elemHeight + marginTop + parseCss( this, "marginBottom" ) + scrollInfo.height,
+    			position = $.extend( {}, basePosition ),
+    			myOffset = getOffsets( offsets.my, elem.outerWidth(), elem.outerHeight() );
+
+    		if ( options.my[ 0 ] === "right" ) {
+    			position.left -= elemWidth;
+    		} else if ( options.my[ 0 ] === "center" ) {
+    			position.left -= elemWidth / 2;
+    		}
+
+    		if ( options.my[ 1 ] === "bottom" ) {
+    			position.top -= elemHeight;
+    		} else if ( options.my[ 1 ] === "center" ) {
+    			position.top -= elemHeight / 2;
+    		}
+
+    		position.left += myOffset[ 0 ];
+    		position.top += myOffset[ 1 ];
+
+    		// if the browser doesn't support fractions, then round for consistent results
+    		if ( !$.support.offsetFractions ) {
+    			position.left = round( position.left );
+    			position.top = round( position.top );
+    		}
+
+    		collisionPosition = {
+    			marginLeft: marginLeft,
+    			marginTop: marginTop
+    		};
+
+    		$.each( [ "left", "top" ], function( i, dir ) {
+    			if ( $.ui.position[ collision[ i ] ] ) {
+    				$.ui.position[ collision[ i ] ][ dir ]( position, {
+    					targetWidth: targetWidth,
+    					targetHeight: targetHeight,
+    					elemWidth: elemWidth,
+    					elemHeight: elemHeight,
+    					collisionPosition: collisionPosition,
+    					collisionWidth: collisionWidth,
+    					collisionHeight: collisionHeight,
+    					offset: [ atOffset[ 0 ] + myOffset[ 0 ], atOffset [ 1 ] + myOffset[ 1 ] ],
+    					my: options.my,
+    					at: options.at,
+    					within: within,
+    					elem : elem
+    				});
+    			}
+    		});
+
+    		if ( options.using ) {
+    			// adds feedback as second argument to using callback, if present
+    			using = function( props ) {
+    				var left = targetOffset.left - position.left,
+    					right = left + targetWidth - elemWidth,
+    					top = targetOffset.top - position.top,
+    					bottom = top + targetHeight - elemHeight,
+    					feedback = {
+    						target: {
+    							element: target,
+    							left: targetOffset.left,
+    							top: targetOffset.top,
+    							width: targetWidth,
+    							height: targetHeight
+    						},
+    						element: {
+    							element: elem,
+    							left: position.left,
+    							top: position.top,
+    							width: elemWidth,
+    							height: elemHeight
+    						},
+    						horizontal: right < 0 ? "left" : left > 0 ? "right" : "center",
+    						vertical: bottom < 0 ? "top" : top > 0 ? "bottom" : "middle"
+    					};
+    				if ( targetWidth < elemWidth && abs( left + right ) < targetWidth ) {
+    					feedback.horizontal = "center";
+    				}
+    				if ( targetHeight < elemHeight && abs( top + bottom ) < targetHeight ) {
+    					feedback.vertical = "middle";
+    				}
+    				if ( max( abs( left ), abs( right ) ) > max( abs( top ), abs( bottom ) ) ) {
+    					feedback.important = "horizontal";
+    				} else {
+    					feedback.important = "vertical";
+    				}
+    				options.using.call( this, props, feedback );
+    			};
+    		}
+
+    		elem.offset( $.extend( position, { using: using } ) );
+    	});
+    };
+
+    $.ui.position = {
+    	fit: {
+    		left: function( position, data ) {
+    			var within = data.within,
+    				withinOffset = within.isWindow ? within.scrollLeft : within.offset.left,
+    				outerWidth = within.width,
+    				collisionPosLeft = position.left - data.collisionPosition.marginLeft,
+    				overLeft = withinOffset - collisionPosLeft,
+    				overRight = collisionPosLeft + data.collisionWidth - outerWidth - withinOffset,
+    				newOverRight;
+
+    			// element is wider than within
+    			if ( data.collisionWidth > outerWidth ) {
+    				// element is initially over the left side of within
+    				if ( overLeft > 0 && overRight <= 0 ) {
+    					newOverRight = position.left + overLeft + data.collisionWidth - outerWidth - withinOffset;
+    					position.left += overLeft - newOverRight;
+    				// element is initially over right side of within
+    				} else if ( overRight > 0 && overLeft <= 0 ) {
+    					position.left = withinOffset;
+    				// element is initially over both left and right sides of within
+    				} else {
+    					if ( overLeft > overRight ) {
+    						position.left = withinOffset + outerWidth - data.collisionWidth;
+    					} else {
+    						position.left = withinOffset;
+    					}
+    				}
+    			// too far left -> align with left edge
+    			} else if ( overLeft > 0 ) {
+    				position.left += overLeft;
+    			// too far right -> align with right edge
+    			} else if ( overRight > 0 ) {
+    				position.left -= overRight;
+    			// adjust based on position and margin
+    			} else {
+    				position.left = max( position.left - collisionPosLeft, position.left );
+    			}
+    		},
+    		top: function( position, data ) {
+    			var within = data.within,
+    				withinOffset = within.isWindow ? within.scrollTop : within.offset.top,
+    				outerHeight = data.within.height,
+    				collisionPosTop = position.top - data.collisionPosition.marginTop,
+    				overTop = withinOffset - collisionPosTop,
+    				overBottom = collisionPosTop + data.collisionHeight - outerHeight - withinOffset,
+    				newOverBottom;
+
+    			// element is taller than within
+    			if ( data.collisionHeight > outerHeight ) {
+    				// element is initially over the top of within
+    				if ( overTop > 0 && overBottom <= 0 ) {
+    					newOverBottom = position.top + overTop + data.collisionHeight - outerHeight - withinOffset;
+    					position.top += overTop - newOverBottom;
+    				// element is initially over bottom of within
+    				} else if ( overBottom > 0 && overTop <= 0 ) {
+    					position.top = withinOffset;
+    				// element is initially over both top and bottom of within
+    				} else {
+    					if ( overTop > overBottom ) {
+    						position.top = withinOffset + outerHeight - data.collisionHeight;
+    					} else {
+    						position.top = withinOffset;
+    					}
+    				}
+    			// too far up -> align with top
+    			} else if ( overTop > 0 ) {
+    				position.top += overTop;
+    			// too far down -> align with bottom edge
+    			} else if ( overBottom > 0 ) {
+    				position.top -= overBottom;
+    			// adjust based on position and margin
+    			} else {
+    				position.top = max( position.top - collisionPosTop, position.top );
+    			}
+    		}
+    	},
+    	flip: {
+    		left: function( position, data ) {
+    			var within = data.within,
+    				withinOffset = within.offset.left + within.scrollLeft,
+    				outerWidth = within.width,
+    				offsetLeft = within.isWindow ? within.scrollLeft : within.offset.left,
+    				collisionPosLeft = position.left - data.collisionPosition.marginLeft,
+    				overLeft = collisionPosLeft - offsetLeft,
+    				overRight = collisionPosLeft + data.collisionWidth - outerWidth - offsetLeft,
+    				myOffset = data.my[ 0 ] === "left" ?
+    					-data.elemWidth :
+    					data.my[ 0 ] === "right" ?
+    						data.elemWidth :
+    						0,
+    				atOffset = data.at[ 0 ] === "left" ?
+    					data.targetWidth :
+    					data.at[ 0 ] === "right" ?
+    						-data.targetWidth :
+    						0,
+    				offset = -2 * data.offset[ 0 ],
+    				newOverRight,
+    				newOverLeft;
+
+    			if ( overLeft < 0 ) {
+    				newOverRight = position.left + myOffset + atOffset + offset + data.collisionWidth - outerWidth - withinOffset;
+    				if ( newOverRight < 0 || newOverRight < abs( overLeft ) ) {
+    					position.left += myOffset + atOffset + offset;
+    				}
+    			}
+    			else if ( overRight > 0 ) {
+    				newOverLeft = position.left - data.collisionPosition.marginLeft + myOffset + atOffset + offset - offsetLeft;
+    				if ( newOverLeft > 0 || abs( newOverLeft ) < overRight ) {
+    					position.left += myOffset + atOffset + offset;
+    				}
+    			}
+    		},
+    		top: function( position, data ) {
+    			var within = data.within,
+    				withinOffset = within.offset.top + within.scrollTop,
+    				outerHeight = within.height,
+    				offsetTop = within.isWindow ? within.scrollTop : within.offset.top,
+    				collisionPosTop = position.top - data.collisionPosition.marginTop,
+    				overTop = collisionPosTop - offsetTop,
+    				overBottom = collisionPosTop + data.collisionHeight - outerHeight - offsetTop,
+    				top = data.my[ 1 ] === "top",
+    				myOffset = top ?
+    					-data.elemHeight :
+    					data.my[ 1 ] === "bottom" ?
+    						data.elemHeight :
+    						0,
+    				atOffset = data.at[ 1 ] === "top" ?
+    					data.targetHeight :
+    					data.at[ 1 ] === "bottom" ?
+    						-data.targetHeight :
+    						0,
+    				offset = -2 * data.offset[ 1 ],
+    				newOverTop,
+    				newOverBottom;
+    			if ( overTop < 0 ) {
+    				newOverBottom = position.top + myOffset + atOffset + offset + data.collisionHeight - outerHeight - withinOffset;
+    				if ( ( position.top + myOffset + atOffset + offset) > overTop && ( newOverBottom < 0 || newOverBottom < abs( overTop ) ) ) {
+    					position.top += myOffset + atOffset + offset;
+    				}
+    			}
+    			else if ( overBottom > 0 ) {
+    				newOverTop = position.top - data.collisionPosition.marginTop + myOffset + atOffset + offset - offsetTop;
+    				if ( ( position.top + myOffset + atOffset + offset) > overBottom && ( newOverTop > 0 || abs( newOverTop ) < overBottom ) ) {
+    					position.top += myOffset + atOffset + offset;
+    				}
+    			}
+    		}
+    	},
+    	flipfit: {
+    		left: function() {
+    			$.ui.position.flip.left.apply( this, arguments );
+    			$.ui.position.fit.left.apply( this, arguments );
+    		},
+    		top: function() {
+    			$.ui.position.flip.top.apply( this, arguments );
+    			$.ui.position.fit.top.apply( this, arguments );
+    		}
+    	}
+    };
+
+    // fraction support test
+    (function () {
+    	var testElement, testElementParent, testElementStyle, offsetLeft, i,
+    		body = document.getElementsByTagName( "body" )[ 0 ],
+    		div = document.createElement( "div" );
+
+    	//Create a "fake body" for testing based on method used in jQuery.support
+    	testElement = document.createElement( body ? "div" : "body" );
+    	testElementStyle = {
+    		visibility: "hidden",
+    		width: 0,
+    		height: 0,
+    		border: 0,
+    		margin: 0,
+    		background: "none"
+    	};
+    	if ( body ) {
+    		$.extend( testElementStyle, {
+    			position: "absolute",
+    			left: "-1000px",
+    			top: "-1000px"
+    		});
+    	}
+    	for ( i in testElementStyle ) {
+    		testElement.style[ i ] = testElementStyle[ i ];
+    	}
+    	testElement.appendChild( div );
+    	testElementParent = body || document.documentElement;
+    	testElementParent.insertBefore( testElement, testElementParent.firstChild );
+
+    	div.style.cssText = "position: absolute; left: 10.7432222px;";
+
+    	offsetLeft = $( div ).offset().left;
+    	$.support.offsetFractions = offsetLeft > 10 && offsetLeft < 11;
+
+    	testElement.innerHTML = "";
+    	testElementParent.removeChild( testElement );
+    })();
+
+    }( jQuery ) );
   });define("emberui/utilities/tabbable-selector",
   [],
   function() {

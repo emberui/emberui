@@ -1,15 +1,15 @@
 "use strict";
 var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
 var animationsDidComplete = require("../mixins/animations-did-complete")["default"] || require("../mixins/animations-did-complete");
+var modalBehaviour = require("../mixins/modal-behaviour")["default"] || require("../mixins/modal-behaviour");
 var modalLayout = require("../templates/eui-modal")["default"] || require("../templates/eui-modal");
 var modal;
 
-modal = Em.Component.extend(styleSupport, animationsDidComplete, {
+modal = Em.Component.extend(styleSupport, animationsDidComplete, modalBehaviour, {
   layout: modalLayout,
   tagName: 'eui-modal',
   classNames: ['eui-modal'],
-  classNameBindings: ['class', 'isClosing:eui-closing'],
-  attributeBindings: ['tabindex'],
+  classNameBindings: ['class'],
   "class": null,
   previousFocus: null,
   tabindex: 0,
@@ -85,18 +85,6 @@ modal = Em.Component.extend(styleSupport, animationsDidComplete, {
       this.sendAction('cancel');
       return this.hide();
     }
-  },
-  constrainTabNavigationToModal: function(event) {
-    var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
-    activeElement = document.activeElement;
-    tabbable = this.$(':tabbable');
-    finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
-    leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
-    if (!leavingFinalTabbable) {
-      return;
-    }
-    event.preventDefault();
-    return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
   }
 });
 
