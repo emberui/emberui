@@ -80,3 +80,12 @@ There is still a lot of work left to do with EmberUI and we would love your help
 Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings"`
 
 6. Push to your fork and submit a pull request. Please provide us with some explanation of why you made the changes you made. For new features make sure to explain a standard use case to us.
+
+## Syntax
+
+* Two spaces, no tabs.
+* No trailing whitespace. Blank lines should not have any space.
+* a = b and not a=b.
+* Try to keep lines 80 characters or less in length.
+* Newline at end of file.
+* Follow the conventions you see used in the source already.
