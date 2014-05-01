@@ -9,7 +9,6 @@
     "vendor/moment/moment.js",
     "http://localhost:4200/globals/main.js",
     "vendor/ember-qunit/dist/globals/main.js",
-    "vendor/ember-qunit/dist/globals/main.js",
     "/vendor/twix/bin/twix.js",
     "test/test-helper.js",
     "test/**/*-test.js"
