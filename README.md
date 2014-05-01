@@ -109,8 +109,8 @@ Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings
 
 # Thanks
 
-@heycarsten for calendar component code
+@ghedamat for many bug fixes, tooling, tests
 
-@ghedamat (and indirectly, @ryanflorence) for build, test, and tooling setup
+@heycarsten for the first version of the calenar
 
-@addepar for component code
+@addepar, @ryanflorence for component code
