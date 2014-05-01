@@ -183,8 +183,4 @@ select = Em.Component.extend disabledSupport, errorSupport, animationsDidComplet
         return startDate.twix(endDate, true).format formatting
 
 
-  # Error check should happen without user having to focus on component
-
-  isEntered: true
-
 `export default select`
