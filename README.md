@@ -111,6 +111,6 @@ Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings
 
 @ghedamat for many bug fixes, tooling, tests
 
-@heycarsten for the first version of the calenar
+@heycarsten for the first version of the calendar
 
 @addepar, @ryanflorence for component code
