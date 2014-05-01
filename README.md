@@ -16,7 +16,7 @@ Project Goals
 * comprehensive set of high-quality components
 
 * carefully designed with close attention to detail
- 
+
 * solid implementation that also supports interop with other libraries
 
 
@@ -61,6 +61,12 @@ https://github.com/emberui/emberui/tree/master/dist
 
 **note:** Until the first beta release is cut, please use `$ bower update emberui` when you need to update EmberUI in your project.
 
+There are also some css files that need to be included. The `emberui.css` stylesheet is required, but `default-theme.css` is optional if you are creating your own theme.
+
+```
+<link rel="stylesheet" href="/vendor/emberui/dist/emberui.css">
+<link rel="stylesheet" href="/vendor/emberui/dist/default-theme.css">
+```
 
 # Contributing
 
