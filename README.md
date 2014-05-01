@@ -93,3 +93,11 @@ Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings
 * Try to keep lines 80 characters or less in length.
 * Newline at end of file.
 * Follow the conventions you see used in the source already.
+
+## Building and running the project
+
+`$ npm install -g broccoli`
+`$ npm install -g testem`
+`$ broccoli serve`
+*and in another shell*
+`$ testem`
