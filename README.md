@@ -23,7 +23,7 @@ Project Goals
 Status
 ======
 
-EmberUI is still an alpha project but is being actively developed and stabalizing quickly.
+EmberUI is still an alpha project but is being actively developed and stabilizing quickly.
 
 
 Get some
