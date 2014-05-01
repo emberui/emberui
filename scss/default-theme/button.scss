@@ -242,3 +242,12 @@
     }
   }
 }
+
+
+/* ERROR */
+.eui-error .eui-button .eui-button-form {
+  background: #ff7f7f !important;
+  box-shadow: 0px 0px 4px #ff0000;
+  outline: none;
+  animation: eui-error-highlight 0.2s 1;
+}
