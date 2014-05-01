@@ -125,6 +125,9 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
       event.preventDefault()
       @click()
 
+
+  # Error check should happen without user having to focus on component
+
   isEntered: true
 
 `export default select`

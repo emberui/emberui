@@ -1,10 +1,10 @@
 `import disabledSupport from '../mixins/disabled-support'`
 `import widthSupport from '../mixins/width-support'`
-`import validationSupport from '../mixins/validation-support'`
+`import errorSupport from '../mixins/error-support'`
 `import animationsDidComplete from '../mixins/animations-did-complete'`
 `import modalBehaviour from '../mixins/modal-behaviour'`
 
-select = Em.Component.extend disabledSupport, validationSupport, animationsDidComplete, modalBehaviour, widthSupport,
+select = Em.Component.extend disabledSupport, errorSupport, animationsDidComplete, modalBehaviour, widthSupport,
   tagName: 'eui-selectdate'
   classNames: ['eui-selectdate']
   classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class']
@@ -183,12 +183,8 @@ select = Em.Component.extend disabledSupport, validationSupport, animationsDidCo
         return startDate.twix(endDate, true).format formatting
 
 
-  # Overide validation-support mixin to check validation on change even if no error
-  # This is needed because the select will not receive the blur event when the user
-  # select and option
+  # Error check should happen without user having to focus on component
 
-  onChange:  (->
-    Ember.run.once @, 'validateField'
-  ).observes 'value'
+  isEntered: true
 
 `export default select`
