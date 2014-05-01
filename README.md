@@ -9,6 +9,8 @@ Documentation, Demos
 
 http://emberui.com
 
+https://speakerdeck.com/jacojoubert/emberui
+
 
 Project Goals
 =============
