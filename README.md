@@ -105,3 +105,12 @@ Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings
 *and in another shell*
 
 `$ testem`
+
+
+# Thanks
+
+@heycarsten for calendar component code
+
+@ghedamat (and indirectly, @ryanflorence) for build, test, and tooling setup
+
+@addepar for component code
