@@ -97,7 +97,11 @@ Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings
 ## Building and running the project
 
 `$ npm install -g broccoli`
+
 `$ npm install -g testem`
+
 `$ broccoli serve`
+
 *and in another shell*
+
 `$ testem`
