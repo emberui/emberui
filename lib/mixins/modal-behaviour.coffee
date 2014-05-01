@@ -119,11 +119,12 @@ modalBehaviour = Em.Mixin.create
   # Adapted from ic-modal (https://github.com/instructure/ic-modal)
 
   constrainTabNavigationToModal: (event) ->
+    return unless @get 'open'
+
     activeElement = document.activeElement
     tabbable = @.$(':tabbable')
     finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0]
-
-    leavingFinalTabbable = finalTabbable is activeElement || @get('element') is activeElement
+    leavingFinalTabbable = finalTabbable is activeElement || @get('element') is activeElement and event.shiftKey
 
     return unless leavingFinalTabbable
 
