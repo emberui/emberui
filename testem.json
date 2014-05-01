@@ -6,6 +6,7 @@
     "vendor/ember/ember.js",
     "vendor/sinon/index.js",
     "vendor/ember-list-view/index.js",
+    "vendor/moment/moment.js",
     "http://localhost:4200/globals/main.js",
     "vendor/ember-qunit/dist/globals/main.js",
     "vendor/ember-qunit/dist/globals/main.js",
