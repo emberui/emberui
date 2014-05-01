@@ -56,3 +56,27 @@ https://github.com/emberui/emberui/tree/master/dist
 `$ npm install`
 
 **note:** Until the first beta release is cut, please use `$ bower update emberui` when you need to update EmberUI in your project.
+
+
+# Contributing
+
+This project uses Github issues for both issue tracking and development planning. If something doesn't seem right open an issue.
+
+The website (http://emberui.com) repo is at https://github.com/emberui/website. Same deal with issues and development.
+
+## Pull Requests
+
+There is still a lot of work left to do with EmberUI and we would love your help. Here is a quick guide to making pull requests (largely cribbed from https://github.com/emberjs/ember.js):
+
+1. Fork the repo.
+
+2. Run the tests. Our test coverage isn't great (yet) and we could use some help improving it. See below for build/test instructions.
+
+3. Try to add a test for your change. We understand that certain things are very difficult to isolate in a test (e.g. test that scroll is disabled when select component is open and pointer is not positioned over open select), but do your best. Refactoring and documentation changes don't (necessarily) require new tests.
+
+4. Make the test pass (if you can).
+
+5. Commit your changes. If your pull request fixes an issue specify it in the commit message.
+Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings"`
+
+6. Push to your fork and submit a pull request. Please provide us with some explanation of why you made the changes you made. For new features make sure to explain a standard use case to us.
