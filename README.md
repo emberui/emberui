@@ -66,7 +66,7 @@ The website (http://emberui.com) repo is at https://github.com/emberui/website. 
 
 ## Pull Requests
 
-There is still a lot of work left to do with EmberUI and we would love your help. Here is a quick guide to making pull requests (largely cribbed from https://github.com/emberjs/ember.js):
+There is still a lot of work left to do with EmberUI and we would love your help. Here is a quick guide to making pull requests (largely cribbed from https://raw.github.com/emberjs/ember.js/master/CONTRIBUTING.md):
 
 1. Fork the repo.
 
