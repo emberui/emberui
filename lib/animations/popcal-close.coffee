@@ -3,8 +3,8 @@ $.velocity.Sequences.euiPopcalClose = (element, options) ->
     opacity: [0, 1]
     scaleX: [0, 1]
     scaleY: [0, 1]
-    translateY: ->
-      offset = $(element).height() * 2.2
+    marginTop: ->
+      offset = $(element).height() / 2 + options.target.height()
 
       # Calculate which direction the animation should play
       popcalOffset = $(element).offset().top
