@@ -29,6 +29,9 @@ popcal = Em.Component.extend styleSupport,
 
     @get('previousFocus').focus()
 
+    # Set status to closed
+    @set 'isOpen', false
+
     # Remove class set on body to disable mobile scrolling
     $('body').removeClass('eui-popcal-open')
 
@@ -45,6 +48,9 @@ popcal = Em.Component.extend styleSupport,
 
   setup: (->
     @set 'previousFocus', $(document.activeElement)
+
+    # Set status to open
+    @set 'isOpen', true
 
     # Save current selection
     @set '_selection', @get 'selection'
