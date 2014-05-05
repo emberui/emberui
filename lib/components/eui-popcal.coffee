@@ -37,25 +37,10 @@ popcal = Em.Component.extend styleSupport,
       @resetSelection()
 
     # Animate Out
-    @.$().velocity({
-        opacity: [0, 1]
-        scaleX: [0, 1]
-        scaleY: [0, 1]
-        translateY: =>
-          offset = @.$().height() * 2.2
-
-          # Calculate which direction the animation should play
-          popcalOffset = @.$().offset().top
-          buttonOffset = @get('targetObject').$().offset().top
-          direction = '+'
-          direction = '-' if (buttonOffset - popcalOffset) < 1
-
-          return ["#{direction}#{offset}px", "0px"]
-      }, {
-        duration: '300'
-        complete: => @destroy()
-      }
-    )
+    @.$().velocity @get('closeAnimation'), {
+      complete: => @destroy()
+      target: @get('targetObject').$()
+    }
 
 
   setup: (->
@@ -73,14 +58,7 @@ popcal = Em.Component.extend styleSupport,
     }
 
     # Animate In
-    @.$().velocity({
-        opacity: [1, 0]
-        scaleX: [1, 0.7]
-        scaleY: [1, 0.7]
-      }, {
-        duration: '100'
-      }
-    )
+    @.$().velocity @get 'openAnimation'
 
     # Bind to click event so we can close the popcal if the user clicks outside
     # it. Run next so popcal doesn't close immediately.
