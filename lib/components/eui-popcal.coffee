@@ -36,7 +36,17 @@ popcal = Em.Component.extend styleSupport,
     if @get('dateRange') and @get('selection')?.get('length') is 1
       @resetSelection()
 
-    @destroy()
+    # Animate Out
+    @.$().velocity({
+        opacity: [0, 1]
+        scaleX: [0, 1]
+        scaleY: [0, 1]
+        translateY: ["-180%", "0%"]
+      }, {
+        duration: '300'
+        complete: => @destroy()
+      }
+    )
 
 
   setup: (->
@@ -53,6 +63,16 @@ popcal = Em.Component.extend styleSupport,
       collision: 'flipfit'
     }
 
+    # Animate In
+    @.$().velocity({
+        opacity: [1, 0]
+        scaleX: [1, 0.7]
+        scaleY: [1, 0.7]
+      }, {
+        duration: '100'
+      }
+    )
+
     # Bind to click event so we can close the popcal if the user clicks outside
     # it. Run next so popcal doesn't close immediately.
     Ember.run.next @, -> $(window).bind 'click.emberui', (event) ->
@@ -66,7 +86,7 @@ popcal = Em.Component.extend styleSupport,
     # Add a class to the body element of the page so we can disable page
     # scrolling on mobile
     $('body').addClass('eui-popcal-open')
-    
+
   ).on 'didInsertElement'
 
   actions:
