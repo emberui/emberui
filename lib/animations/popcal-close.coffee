@@ -14,5 +14,5 @@ $.velocity.Sequences.euiPopcalClose = (element, options) ->
 
       return ["#{direction}#{offset}px", "0px"]
   }, {
-    duration: options.duration or 300
+    duration: options.duration or 250
   }
