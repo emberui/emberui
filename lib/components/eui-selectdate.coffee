@@ -78,7 +78,8 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
       # Date Range
       if Em.isArray(selection)
 
-        # If they are in the middle of selecting a date range we want to only show the first date
+        # If they are in the middle of selecting a date range we want to only
+        # show the first date
         if selection.get('length') < 2
           startDate = selection.get('firstObject')
 
