@@ -39,7 +39,7 @@ popcal = Em.Component.extend styleSupport,
     @destroy()
 
 
-  didInsertElement: ->
+  setup: (->
     @set 'previousFocus', $(document.activeElement)
 
     # Save current selection
@@ -66,7 +66,8 @@ popcal = Em.Component.extend styleSupport,
     # Add a class to the body element of the page so we can disable page
     # scrolling on mobile
     $('body').addClass('eui-popcal-open')
-
+    
+  ).on 'didInsertElement'
 
   actions:
     closeCalendar: ->
