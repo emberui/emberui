@@ -29,28 +29,27 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
   # Return Unix Time stamp of selections
 
-  value: Em.computed 'selection.@each', ->
+  value: Em.computed 'selection.@each', (key, value) ->
     selection = @get 'selection'
 
-    return null unless selection
+    # setter
+    if arguments.length is 2
+      # TODO
 
-    if Em.isArray selection
-      values = []
-
-      for date in selection
-        values.pushObject date.format('X')
-
-      return values
-
+    # getter
     else
-      return selection.format('X')
+      return null unless selection
 
+      if Em.isArray selection
+        values = []
 
-  # TODO: Terrible hack. Not sure why value doesnt trigger on selection change
+        for date in selection
+          values.pushObject date.format('X')
 
-  selectionChanged: (->
-    @notifyPropertyChange 'value'
-  ).observes 'selection.@each'
+        return values
+
+      else
+        return selection.format('X')
 
 
   # We have to calculate if there is no selection manually because [] will
