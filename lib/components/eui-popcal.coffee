@@ -45,20 +45,27 @@ popcal = Em.Component.extend styleSupport,
     # Save current selection
     @set '_selection', @get 'selection'
 
-    # Focus on popcal to ensure we can catch keyboard input. Do this after
-    # the popcal is positioned to ensure it is visible. Failure to do so
-    # will result in the page scrolling
-    Ember.run.next this, -> @focusOnPopcal()
+    # Positions calendar using fixed positioning
+    @.$().position {
+      my: "center top",
+      at: "center bottom",
+      of: @get('targetObject').$(),
+      collision: 'flipfit'
+    }
+
+    # Bind to click event so we can close the popcal if the user clicks outside
+    # it. Run next so popcal doesn't close immediately.
+    Ember.run.next @, -> $(window).bind 'click.emberui', (event) ->
+      unless $(event.target).parents('.eui-popcal').length
+        event.preventDefault()
+        popcal.hide()
+
+    # Focus on popcal to ensure we can catch keyboard input.
+    @.$().focus()
 
     # Add a class to the body element of the page so we can disable page
     # scrolling on mobile
     $('body').addClass('eui-popcal-open')
-
-
-  # Focuses on search input so we can catch key input
-
-  focusOnPopcal: ->
-    @.$().focus()
 
 
   actions:
@@ -83,12 +90,11 @@ popcal = Em.Component.extend styleSupport,
 
 
   # Catch and handle key presses
-  
+
   keyDown: (event) ->
     # ESC
     if event.keyCode == 27
       @hide()
-
 
 
 popcal.reopenClass
@@ -96,27 +102,7 @@ popcal.reopenClass
     popcal = @.create options
     popcal.container = popcal.get 'targetObject.container'
     popcal.appendTo '.ember-application'
-
-    Ember.run.next this, -> @position(options.targetObject, popcal)
     popcal
-
-
-  position: (targetObject, popcal) ->
-    element = targetObject.$()
-    popcalElement = popcal.$()
-
-    # Positions calendar using fixed positioning
-    popcalElement.position {
-      my: "center top",
-      at: "center bottom",
-      of: element,
-      collision: 'flipfit'
-    }
-
-    $(window).bind 'click.emberui', (event) ->
-      unless $(event.target).parents('.eui-popcal').length
-        event.preventDefault()
-        popcal.hide()
 
 
 `export default popcal`
