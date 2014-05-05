@@ -3,6 +3,7 @@
   position: fixed;
   overflow: visible !important;
   outline: none;
+  z-index: 10000;
   opacity: 0.01;
 
   .eui-calendar {

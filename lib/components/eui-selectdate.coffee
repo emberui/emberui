@@ -27,6 +27,33 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   }
 
 
+  # Return Unix Time stamp of selections
+
+  value: Em.computed 'selection.@each', ->
+    selection = @get 'selection'
+
+    return null unless selection
+
+    if Em.isArray selection
+      values = []
+
+      for date in selection
+        values.pushObject date.format('X')
+
+      console.log values
+      return values
+
+    else
+      return selection.format('X')
+
+
+  # TODO: Terrible hack. Not sure why value doesnt trigger on selection change
+
+  selectionChanged: (->
+    @notifyPropertyChange 'value'
+  ).observes 'selection.@each'
+
+
   # We have to calculate if there is no selection manually because [] will
   # evaluate to true and prevent a multi select from adding the placeholder
   # class
@@ -129,6 +156,11 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
       else
         return startDate.twix(endDate, true).format formatting
+
+
+  # Error check should happen without user having to focus on component
+
+  isEntered: true
 
 
 `export default select`
