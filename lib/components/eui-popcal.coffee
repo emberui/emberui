@@ -41,7 +41,16 @@ popcal = Em.Component.extend styleSupport,
         opacity: [0, 1]
         scaleX: [0, 1]
         scaleY: [0, 1]
-        translateY: ["-180%", "0%"]
+        translateY: =>
+          offset = @.$().height() * 2.2
+
+          # Calculate which direction the animation should play
+          popcalOffset = @.$().offset().top
+          buttonOffset = @get('targetObject').$().offset().top
+          direction = '+'
+          direction = '-' if (buttonOffset - popcalOffset) < 1
+
+          return ["#{direction}#{offset}px", "0px"]
       }, {
         duration: '300'
         complete: => @destroy()
