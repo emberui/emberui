@@ -40,7 +40,6 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
       for date in selection
         values.pushObject date.format('X')
 
-      console.log values
       return values
 
     else
