@@ -35,9 +35,9 @@ popcal = Em.Component.extend styleSupport,
     # Remove class set on body to disable mobile scrolling
     $('body').removeClass('eui-popcal-open')
 
-    # Reset selection if it is invalid
-    if @get('dateRange') and @get('selection')?.get('length') is 1
-      @resetSelection()
+    # Update selection if it is valid
+    unless @get('dateRange') and @get('_selection')?.get('length') is 1
+      @set 'selection', @get '_selection'
 
     # Animate Out
     @.$().velocity @get('closeAnimation'), {
@@ -52,7 +52,7 @@ popcal = Em.Component.extend styleSupport,
     # Set status to open
     @set 'isOpen', true
 
-    # Save current selection
+    # Set user selection to internal selection
     @set '_selection', @get 'selection'
 
     # Positions calendar using fixed positioning
@@ -85,7 +85,7 @@ popcal = Em.Component.extend styleSupport,
   actions:
     closeCalendar: ->
       dateRange = @get 'dateRange'
-      selection = @get 'selection'
+      selection = @get '_selection'
 
       if dateRange
         # Close if user has a complete date range selected
@@ -95,12 +95,6 @@ popcal = Em.Component.extend styleSupport,
       # Close if single date mode and they have made a selection
       else if selection
         @hide()
-
-
-  # Undos changes user made to selection
-
-  resetSelection: ->
-    @set 'selection', @get '_selection'
 
 
   # Catch and handle key presses
