@@ -56,6 +56,14 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
         selection.format('X')
 
 
+  # Make sure if a selection is passed in that we immediately calculate what the
+  # value is
+
+  calculateInitalValue: (->
+    @notifyPropertyChange 'value'
+  ).on 'didInsertElement'
+
+
   # We have to calculate if there is no selection manually because [] will
   # evaluate to true and prevent a multi select from adding the placeholder
   # class
