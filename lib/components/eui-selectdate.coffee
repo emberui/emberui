@@ -32,24 +32,26 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   value: Em.computed 'selection.@each', (key, value) ->
     selection = @get 'selection'
 
-    # setter
     if arguments.length is 2
-      # TODO
+      unless value
+        @set 'selection', value
+        return value
 
-    # getter
+      if Em.isArray value
+        @set 'selection', value.map (v) -> moment(v)
+      else
+        @set 'selection', moment(value)
+
+      value
+
     else
-      return null unless selection
+      unless selection
+        return if @get('dateRange') then [] else null
 
       if Em.isArray selection
-        values = []
-
-        for date in selection
-          values.pushObject date.format('X')
-
-        return values
-
+          selection.map (date) -> date.format('X')
       else
-        return selection.format('X')
+        selection.format('X')
 
 
   # We have to calculate if there is no selection manually because [] will
