@@ -1,7 +1,8 @@
 {
   "name": "emberui",
   "version": "0.1.0",
-  "main": ["dist/emberui.css",
+  "main": [
+    "dist/emberui.css",
     "dist/default-theme.css",
     "dist/globals/main.js"
   ],
@@ -26,7 +27,8 @@
     "ember-testing-httpRespond": "~0.1.1",
     "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
     "moment": "2.6.0",
-    "twix": "~0.4.0"
+    "twix": "~0.4.0",
+    "Velocity.js": "https://github.com/julianshapiro/velocity.git"
   },
   "devDependencies": {
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",

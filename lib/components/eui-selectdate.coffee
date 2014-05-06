@@ -1,16 +1,19 @@
 `import disabledSupport from '../mixins/disabled-support'`
 `import widthSupport from '../mixins/width-support'`
 `import errorSupport from '../mixins/error-support'`
-`import animationsDidComplete from '../mixins/animations-did-complete'`
-`import modalBehaviour from '../mixins/modal-behaviour'`
+`import popcalComponent from '../components/eui-popcal'`
 
-select = Em.Component.extend disabledSupport, errorSupport, animationsDidComplete, modalBehaviour, widthSupport,
+select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-selectdate'
   classNames: ['eui-selectdate']
   classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class']
 
   style: 'default'
   size: 'medium'
+  openAnimation: 'euiPopcalOpen'
+  closeAnimation: 'euiPopcalClose'
+
+  popcalIsOpen: false
 
   dateRange: false
 
@@ -24,8 +27,46 @@ select = Em.Component.extend disabledSupport, errorSupport, animationsDidComplet
   }
 
 
-  # We have to calculate if there is no selection manually because [] will evaluate to true
-  # and prevent a multi select from adding the placeholder class
+  # Return Unix Time stamp of selections
+
+  value: Em.computed 'selection.@each', (key, value) ->
+    selection = @get 'selection'
+
+    # setter
+    if arguments.length is 2
+      unless value
+        @set 'selection', value
+        return value
+
+      if Em.isArray value
+        @set 'selection', value.map (v) -> moment(v)
+      else
+        @set 'selection', moment(value)
+
+      value
+
+    # getter
+    else
+      unless selection
+        return if @get('dateRange') then [] else null
+
+      if Em.isArray selection
+          selection.map (date) -> date.format('X')
+      else
+        selection.format('X')
+
+
+  # Make sure if a selection is passed in that we immediately calculate what the
+  # value is
+
+  calculateInitalValue: (->
+    @notifyPropertyChange 'value'
+  ).on 'didInsertElement'
+
+
+  # We have to calculate if there is no selection manually because [] will
+  # evaluate to true and prevent a multi select from adding the placeholder
+  # class
 
   isPlaceholder: Em.computed 'selection', ->
     selection = @get 'selection'
@@ -40,77 +81,20 @@ select = Em.Component.extend disabledSupport, errorSupport, animationsDidComplet
 
 
   actions:
-    toggleCalendar: ->
-       if @get('open') then @send('closeCalendar') else @send('openCalendar')
-
-
-    closeCalendar: (options) ->
-      dateRange = @get 'dateRange'
-      selection = @get 'selection'
-
-      closeCalendar = false
-
-      if dateRange
-        # Close if user has date range selected
-        if selection and selection.get('length') > 1
-          closeCalendar = true
-
-        # Close if part of date range is selected, but user pressed ESC. Reset selection.
-        else if selection and selection.get('length') is 1 and options and options.forceClose is true
-          @resetSelection()
-          closeCalendar = true
-
-        # Close if nothing is selected and user presses ESC
-        else if selection.get('length') is 0 and options and options.forceClose is true
-          closeCalendar = true
-
-      # Close if single date mode and they have made a selection
-      else if selection
-        closeCalendar = true
-
-      # Close if we have set forceClose for any reason
-      else if options and options.forceClose is true
-        closeCalendar = true
-
-      if closeCalendar
-        $(window).unbind '.emberui'
-        @hide()
-
-
     openCalendar: ->
-      # Show calendar
-      @set 'open', true
-
-      # Position calendar
-      Ember.run.next @, -> @positionCalendar()
-
-      # Save current selection
-      @set '_selection', @get 'selection'
-
-      # Bind click so we can close calendar is user clicks outside it
-      Ember.run.next @, ->
-        $(window).on 'click.emberui', (event) =>
-          unless @.$('eui-calendar').find($(event.target)).length
-            event.preventDefault()
-            $(this).off(event)
-            @send 'closeCalendar', {forceClose: true}
-
-
-  # Positions calendar using fixed positioning
-
-  positionCalendar: ->
-    @.$().find('eui-calendar').position {
-      my: "center top",
-      at: "center bottom",
-      of: @.$(),
-      collision: 'flipfit'
-    }
-
-
-  # Undos changes user made to selection
-
-  resetSelection: ->
-    @set 'selection', @get '_selection'
+      unless @get 'popcalIsOpen'
+        popcalComponent.show
+          targetObject: @
+          isOpenBinding: 'targetObject.popcalIsOpen'
+          selectionBinding: 'targetObject.selection'
+          dateRangeBinding: 'targetObject.dateRange'
+          disablePastBinding: 'targetObject.disablePast'
+          disableFutureBinding: 'targetObject.disableFuture'
+          maxPastDateBinding: 'targetObject.maxPastDate'
+          maxFutureDateBinding: 'targetObject.maxFutureDate'
+          disabledDatesBinding: 'targetObject.disabledDates'
+          closeAnimation: @get 'closeAnimation'
+          openAnimation: @get 'openAnimation'
 
 
   # Catch and handle key presses
@@ -136,7 +120,8 @@ select = Em.Component.extend disabledSupport, errorSupport, animationsDidComplet
       # Date Range
       if Em.isArray(selection)
 
-        # If they are in the middle of selecting a date range we want to only show the first date
+        # If they are in the middle of selecting a date range we want to only
+        # show the first date
         if selection.get('length') < 2
           startDate = selection.get('firstObject')
 
@@ -181,6 +166,11 @@ select = Em.Component.extend disabledSupport, errorSupport, animationsDidComplet
 
       else
         return startDate.twix(endDate, true).format formatting
+
+
+  # Error check should happen without user having to focus on component
+
+  isEntered: true
 
 
 `export default select`

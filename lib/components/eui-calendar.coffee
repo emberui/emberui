@@ -1,11 +1,5 @@
 `import styleSupport from '../mixins/style-support'`
 
-cpFormatMoment = (key, format) ->
-  return Em.computed 'key', ->
-    date = @get(key)
-    return if date then date.format(format) else null
-
-
 calendar = Em.Component.extend styleSupport,
   tagName: 'eui-calendar'
   classNames: 'eui-calendar'
@@ -103,7 +97,7 @@ calendar = Em.Component.extend styleSupport,
         @set '_selection', [value]
       else
         @set '_selection', []
-        
+
       value
 
     # getter
@@ -244,9 +238,14 @@ calendar = Em.Component.extend styleSupport,
     return false
   ).property 'isNextMonthBeyondMax', 'isNextMonthInFuture', 'disableFuture'
 
-  prevMonthLabel: cpFormatMoment('prevMonth', 'MMMM YYYY')
-  nextMonthLabel: cpFormatMoment('nextMonth', 'MMMM YYYY')
-  monthLabel:     cpFormatMoment('month', 'MMMM YYYY')
+  prevMonthLabel: Em.computed 'prevMonth', ->
+    return  @get('prevMonth').format('MMMM YYYY')
+
+  nextMonthLabel: Em.computed 'nextMonth', ->
+    return  @get('nextMonth').format('MMMM YYYY')
+
+  monthLabel: Em.computed 'month', ->
+    return  @get('month').format('MMMM YYYY')
 
 
 ` export default calendar`

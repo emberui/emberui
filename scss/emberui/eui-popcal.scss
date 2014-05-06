@@ -1,0 +1,35 @@
+.eui-popcal {
+  display: block;
+  position: fixed;
+  overflow: visible !important;
+  outline: none;
+  z-index: 10000;
+  opacity: 0.01;
+
+  .eui-calendar {
+    background-image: linear-gradient(to bottom,
+      rgba(0,0,0,0.1) 0%,
+      rgba(0,0,0,0.25) 100%);
+    border: none !important;
+    padding: 1px;
+    box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+  }
+
+
+  .calendar {
+    border-radius: 5px;
+    border: none;
+  }
+}
+
+
+// Disables page scrolling when popcal is open
+.eui-popcal-open {
+  overflow: hidden;
+
+  // Required for mobile
+  &.ember-application > .ember-view:first-of-type,
+  .ember-application > .ember-view:first-of-type {
+    overflow: hidden;
+  }
+}
