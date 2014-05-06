@@ -32,6 +32,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   value: Em.computed 'selection.@each', (key, value) ->
     selection = @get 'selection'
 
+    # setter
     if arguments.length is 2
       unless value
         @set 'selection', value
@@ -44,6 +45,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
       value
 
+    # getter
     else
       unless selection
         return if @get('dateRange') then [] else null
