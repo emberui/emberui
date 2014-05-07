@@ -110,9 +110,10 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     # Bind to click event so we can close the poplist if the user click outside
     # it
     Ember.run.next @, ->
-      $(window).bind 'click.emberui', (event) =>
+      $(window).on 'click.emberui', (event) =>
         unless $(event.target).parents('.eui-poplist').length
           event.preventDefault()
+          $(window).off(event)
           @hide()
 
   ).on 'didInsertElement'
@@ -120,7 +121,6 @@ poplist = Em.Component.extend styleSupport, animationSupport,
 
   breakdown: ->
     @setProperties { isOpen: false, highlightedIndex: -1 }
-    $(window).unbind('.emberui')
     @.$().unbind('.emberui')
 
     @get('previousFocus').focus()
