@@ -131,6 +131,10 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     @destroy()
 
 
+  willDestroy: ->
+    $(window).unbind '.emberui'
+
+
   # Set poplist width to the user specified width, but enforce a min width of
   # the parent button
 
