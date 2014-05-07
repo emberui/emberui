@@ -10,8 +10,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
   style: 'default'
   size: 'medium'
-  openAnimation: 'euiPopcalOpen'
-  closeAnimation: 'euiPopcalClose'
+  calendarStyle: 'default'
 
   popcalIsOpen: false
 
@@ -93,8 +92,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
           maxPastDateBinding: 'targetObject.maxPastDate'
           maxFutureDateBinding: 'targetObject.maxFutureDate'
           disabledDatesBinding: 'targetObject.disabledDates'
-          closeAnimation: @get 'closeAnimation'
-          openAnimation: @get 'openAnimation'
+          styleBinding: 'targetObject.calendarStyle'
 
 
   # Catch and handle key presses

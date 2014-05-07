@@ -30,18 +30,22 @@ animationSupport = Em.Mixin.create
 
   # Animate in
 
-  animateIn: ->
+  animateIn: (options) ->
     return unless openAnimation = @get 'openAnimation'
+
+    options = {} unless options
+
     Em.run.next @, ->
-      @.$().velocity openAnimation
+      @.$().velocity openAnimation, options
 
 
   # Animate out
 
-  animateOut: ->
+  animateOut: (options) ->
     return unless closeAnimation = @get('closeAnimation')
-    @.$().velocity closeAnimation, {
-      complete: => @breakdown()
-    }
+
+    options = {} unless options
+
+    @.$().velocity closeAnimation, options
 
 `export default animationSupport`

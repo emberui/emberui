@@ -1,4 +1,4 @@
-$.velocity.Sequences.euiPopcalClose = (element, options) ->
+$.velocity.Sequences.euiPopcalCloseDefault = (element, options) ->
   $.velocity.animate element, {
     opacity: [0, 1]
     scaleX: [0, 1]
@@ -15,4 +15,5 @@ $.velocity.Sequences.euiPopcalClose = (element, options) ->
       return ["#{direction}#{offset}px", "0px"]
   }, {
     duration: options.duration or 250
+    complete: options.complete
   }

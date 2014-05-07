@@ -1,13 +1,14 @@
 `import styleSupport from '../mixins/style-support'`
-`import animationsDidComplete from '../mixins/animations-did-complete'`
+`import animationSupport from '../mixins/animation-support'`
 `import popcalLayout from '../templates/eui-popcal'`
 
-popcal = Em.Component.extend styleSupport,
+popcal = Em.Component.extend styleSupport, animationSupport,
   layout: popcalLayout
   classNames: ['eui-popcal']
   attributeBindings: ['tabindex']
   tagName: 'eui-popcal'
 
+  animationClass: 'euiPopcal'
 
   # We don't really want to modal to be focusable, but we do need it to catch
   # all key presses
@@ -21,32 +22,16 @@ popcal = Em.Component.extend styleSupport,
   previousFocus: null
 
 
-  # Reset and remove Popcal from the DOM and unbind events bound during
-  # initialization.
-
   hide: ->
-    $(window).unbind('.emberui')
-
-    @get('previousFocus').focus()
-
-    # Set status to closed
-    @set 'isOpen', false
-
-    # Remove class set on body to disable mobile scrolling
-    $('body').removeClass('eui-popcal-open')
-
-    # Update selection if it is valid
-    unless @get('dateRange') and @get('_selection')?.get('length') is 1
-      @set 'selection', @get '_selection'
-
-    # Animate Out
-    @.$().velocity @get('closeAnimation'), {
-      complete: => @destroy()
+    @animateOut({
       target: @get('targetObject').$()
-    }
+      complete: => @breakdown()
+    })
 
 
   setup: (->
+    @animateIn()
+
     @set 'previousFocus', $(document.activeElement)
 
     # Set status to open
@@ -63,9 +48,6 @@ popcal = Em.Component.extend styleSupport,
       collision: 'flipfit'
     }
 
-    # Animate In
-    @.$().velocity @get 'openAnimation'
-
     # Bind to click event so we can close the popcal if the user clicks outside
     # it. Run next so popcal doesn't close immediately.
     Ember.run.next @, -> $(window).bind 'click.emberui', (event) ->
@@ -81,6 +63,23 @@ popcal = Em.Component.extend styleSupport,
     $('body').addClass('eui-popcal-open')
 
   ).on 'didInsertElement'
+
+
+  breakdown: ->
+    $(window).unbind('.emberui')
+
+    @get('previousFocus').focus()
+
+    # Set status to closed
+    @set 'isOpen', false
+
+    # Remove class set on body to disable mobile scrolling
+    $('body').removeClass('eui-popcal-open')
+
+    # Update selection if it is valid
+    unless @get('dateRange') and @get('_selection')?.get('length') is 1
+      @set 'selection', @get '_selection'
+
 
   actions:
     closeCalendar: ->

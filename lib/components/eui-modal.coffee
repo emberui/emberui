@@ -50,7 +50,7 @@ modal = Em.Component.extend styleSupport, animationSupport,
       if value
         @set 'renderModal', value
       else if @get 'renderModal'
-        @animateOut()
+        @hide()
 
       value
 
@@ -60,6 +60,10 @@ modal = Em.Component.extend styleSupport, animationSupport,
       value
 
   .property 'renderModal'
+
+
+  hide: ->
+    @animateOut({ complete: => @breakdown() })
 
 
   didInsertElement: ->
@@ -130,11 +134,11 @@ modal = Em.Component.extend styleSupport, animationSupport,
   actions:
     cancel: (context) ->
       @sendAction 'cancel', context
-      @animateOut()
+      @hide()
 
     accept: (context) ->
       @sendAction 'accept', context
-      @animateOut()
+      @hide()
 
 
   # Catch and handle key presses
@@ -146,7 +150,7 @@ modal = Em.Component.extend styleSupport, animationSupport,
     # ESC
     if event.keyCode == 27
       @sendAction 'cancel'
-      @animateOut()
+      @hide()
 
 
 modal.reopenClass
