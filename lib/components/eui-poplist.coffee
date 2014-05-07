@@ -11,8 +11,9 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
   tagName: 'eui-poplist'
 
 
-  # Width of the poplist. Because list-view uses absolute positioning we can not rely
-  # on the content to push the poplist wider so the user needs a way to specify it
+  # Width of the poplist. Because list-view uses absolute positioning we can not
+  # rely on the content to push the poplist wider so the user needs a way to
+  # specify it
 
   listWidth: null
 
@@ -43,8 +44,8 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
   highlightedIndex: -1
 
 
-  # If the poplist is opened using the keyboard then we use this value to restore the
-  # focus where it was after the poplist closes.
+  # If the poplist is opened using the keyboard then we use this value to
+  # restore the focus where it was after the poplist closes.
 
   previousFocus: null
 
@@ -67,7 +68,8 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
 
 
 
-  # Reset and remove Poplist from the DOM and unbind events bound during initialization.
+  # Reset and remove Poplist from the DOM and unbind events bound during
+  # initialization.
 
   hide: ->
     @setProperties { isOpen: false, highlightedIndex: -1 }
@@ -87,9 +89,9 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     @set 'isOpen', true
     @set 'previousFocus', $(document.activeElement)
 
-    # Focus on search input to ensure we can catch keyboard input. Do this after the
-    # poplist is positioned to ensure it is visible. Failure to do so will result in
-    # the page scrolling and closing the poplist
+    # Focus on search input to ensure we can catch keyboard input. Do this after
+    # the poplist is positioned to ensure it is visible. Failure to do so will
+    # result in the page scrolling and closing the poplist
     Ember.run.next this, -> @focusOnSearch()
 
     # Set poplist width
@@ -98,7 +100,8 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     # Ensure the selected option is visible and center it
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
 
-    # Add a class to the body element of the page so we can disable page scrolling on mobile
+    # Add a class to the body element of the page so we can disable page
+    # scrolling on mobile
     $('body').addClass('eui-poplist-open')
 
 
@@ -108,16 +111,18 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     @$().find('input:first').focus()
 
 
-  # Because we are manually setting other css on the element we can't use bindings to
-  # update it automatically and have to do so manually
+  # Because we are manually setting other css on the element we can't use
+  # bindings to update it automatically and have to do so manually
 
   updateListWidthCss: ->
     listWidth = @get 'listWidth'
     @.$().css 'width', listWidth
 
 
-  # Set the selection back to the first option if the users changes the search query
-  # TODO: This doesn't fire the bindings on the listView correctly and you end up with multiple items highlighted.
+  # Set the selection back to the first option if the users changes the search
+  # query
+  # TODO: This doesn't fire the bindings on the listView correctly and you end
+  # up with multiple items highlighted.
 
   searchStringDidChange: (->
     @set 'highlightedIndex', 0 if @get 'searchString'
@@ -354,8 +359,8 @@ poplist.reopenClass
     offset = element.offset()
 
 
-    # Set a reasonable min-width on the poplist before we caclulate its actual size. This handles the
-    # case where no width is specified for the poplist
+    # Set a reasonable min-width on the poplist before we caclulate its actual
+    # size. This handles the case where no width is specified for the poplist
 
     elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'))
     poplistElement.css('min-width', elementWidthMinuspoplistPadding)
