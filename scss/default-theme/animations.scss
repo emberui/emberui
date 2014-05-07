@@ -54,47 +54,6 @@
   }
 }
 
-/* Modal Overlay Fade In */
-@keyframes eui-modaloverlay-fadein {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-
-/* Modal Overlay Fade Out */
-@keyframes eui-modaloverlay-fadeout {
-  0%   { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-
-/* Full Modal Zoom In */
-@keyframes eui-fullmodal-zoomin {
-  0% { transform: scale(5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-
-/* Full Modal Zoom Out */
-@keyframes eui-fullmodal-zoomout {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(5); opacity: 0; }
-}
-
-
-/* Default Modal Zoom In */
-@keyframes eui-defaultmodal-zoomin {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-
-/* Default Modal Zoom Out */
-@keyframes eui-defaultmodal-zoomout {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0.5); opacity: 0; }
-}
-
 
 /* poplist Flyin */
 @keyframes eui-flyin {
