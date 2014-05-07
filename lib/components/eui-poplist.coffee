@@ -1,14 +1,16 @@
 `import styleSupport from '../mixins/style-support'`
-`import animationsDidComplete from '../mixins/animations-did-complete'`
+`import animationSupport from '../mixins/animation-support'`
 `import poplistLayout from '../templates/eui-poplist'`
 `import itemViewClassTemplate from '../templates/eui-poplist-option'`
 
-poplist = Em.Component.extend styleSupport, animationsDidComplete,
+poplist = Em.Component.extend styleSupport, animationSupport,
   layout: poplistLayout
-  classNames: ['eui-poplist eui-animation']
+  classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing']
   attributeBindings: ['tabindex']
   tagName: 'eui-poplist'
+
+  animationClass: 'euiPoplist'
 
 
   # Width of the poplist. Because list-view uses absolute positioning we can not
@@ -67,25 +69,26 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
       options.objectAt index
 
 
-
-  # Reset and remove Poplist from the DOM and unbind events bound during
-  # initialization.
-
   hide: ->
-    @setProperties { isOpen: false, highlightedIndex: -1 }
-    $(window).unbind('.emberui')
-    @.$().unbind('.emberui')
-
-    @get('previousFocus').focus()
-
-    # Remove class set on body to disable mobile scrolling
-    $('body').removeClass('eui-poplist-open')
-
-    @animationsDidComplete().then =>
-      @destroy()
+    @animateOut({
+      target: @get('targetObject').$()
+      complete: => @breakdown()
+    })
 
 
-  didInsertElement: ->
+  setup: (->
+    @setPoplistWidth()
+
+    # Positions calendar using fixed positioning
+    @.$().position {
+      my: "left top",
+      at: "left bottom",
+      of: @get('targetObject').$(),
+      collision: 'flipfit'
+    }
+
+    @animateIn()
+
     @set 'isOpen', true
     @set 'previousFocus', $(document.activeElement)
 
@@ -103,6 +106,44 @@ poplist = Em.Component.extend styleSupport, animationsDidComplete,
     # Add a class to the body element of the page so we can disable page
     # scrolling on mobile
     $('body').addClass('eui-poplist-open')
+
+    # Bind to click event so we can close the poplist if the user click outside
+    # it
+    Ember.run.next @, ->
+      $(window).bind 'click.emberui', (event) =>
+        unless $(event.target).parents('.eui-poplist').length
+          event.preventDefault()
+          @hide()
+
+  ).on 'didInsertElement'
+
+
+  breakdown: ->
+    @setProperties { isOpen: false, highlightedIndex: -1 }
+    $(window).unbind('.emberui')
+    @.$().unbind('.emberui')
+
+    @get('previousFocus').focus()
+
+    # Remove class set on body to disable mobile scrolling
+    $('body').removeClass('eui-poplist-open')
+
+    @destroy()
+
+
+  # Set poplist width to the user specified width, but enforce a min width of
+  # the parent button
+
+  setPoplistWidth: ->
+    element = @get('targetObject').$()
+    poplistElement = @.$()
+
+    elementWidthMinuspoplistPadding =
+      element.width() -
+      parseFloat(poplistElement.css('paddingLeft')) -
+      parseFloat(poplistElement.css('paddingRight'))
+
+    poplistElement.css('min-width', elementWidthMinuspoplistPadding)
 
 
   # Focuses on search input so we can catch key input
@@ -345,50 +386,7 @@ poplist.reopenClass
     poplist.appendTo '.ember-application'
 
     poplist.updateListHeight()
-
-    Ember.run.next this, -> @position(options.targetObject, poplist)
     poplist
-
-
-  # TODO: Rewrite as reusable position function
-
-  position: (targetObject, poplist) ->
-    element = targetObject.$()
-    poplistElement = poplist.$()
-
-    offset = element.offset()
-
-
-    # Set a reasonable min-width on the poplist before we caclulate its actual
-    # size. This handles the case where no width is specified for the poplist
-
-    elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'))
-    poplistElement.css('min-width', elementWidthMinuspoplistPadding)
-
-
-    # calculate all the numbers needed to set positioning
-    elementPositionTop = offset.top - element.scrollTop()
-    elementPositionLeft = offset.left - element.scrollLeft()
-    elementHeight = element.height()
-    elementWidth = element.width()
-    poplistWidth = poplistElement.width()
-    poplistHorizontalPadding = parseFloat(poplistElement.css('paddingLeft')) + parseFloat(poplistElement.css('paddingRight'))
-    windowScrollTop = $(window).scrollTop()
-    windowScrollLeft = $(window).scrollLeft()
-
-    poplistPositionTop = elementPositionTop + elementHeight  - windowScrollTop
-    poplistPositionLeft = elementPositionLeft + elementWidth - poplistWidth - poplistHorizontalPadding - windowScrollLeft
-
-    poplistElement.css('top', poplistPositionTop)
-    poplistElement.css('left', poplistPositionLeft)
-
-    $(window).bind 'scroll.emberui', ->
-      poplist.hide()
-
-    $(window).bind 'click.emberui', (event) ->
-      unless $(event.target).parents('.eui-poplist').length
-        event.preventDefault()
-        poplist.hide()
 
 
 `export default poplist`

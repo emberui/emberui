@@ -33,18 +33,17 @@
 /*
   * STYLES
   *
-  * bubble: for use with dropbutton
+  * default: for use with dropbutton
+  * fluing: for use with select
   *
   */
 .eui-poplist {
-  &.eui-bubble {
+  &.eui-default {
     border-radius: 3px;
     padding: 1px;
     margin-top: -2px;
     background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-    animation-duration: 0.2s;
-    animation-name: eui-slidedown;
     max-height: calc(100% - 100px);
 
     &:before {
@@ -82,10 +81,6 @@
         text-shadow: 0px 1px rgba(0,0,0,0.35);
       }
     }
-
-    &.eui-closing {
-      animation: eui-slidezerodown 0.2s 1;
-    }
   }
 
   &.eui-flyin {
@@ -94,8 +89,6 @@
     margin-top: -2px;
     background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-    animation-duration: 0.1s;
-    animation-name: eui-flyin;
     max-height: calc(100% - 100px);
 
     .eui-poplistwrapper {
@@ -134,10 +127,6 @@
           color: #aed4f3;
         }
       }
-    }
-
-    &.eui-closing {
-      animation: eui-zoomupandin 0.2s 1;
     }
   }
 }

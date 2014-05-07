@@ -44,7 +44,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
           selectionBinding: 'targetObject.selection'
           optionsBinding: 'targetObject.optionsWithoutPrimaryAction'
           labelPath: 'label'
-          style: 'bubble'
+          style: 'default'
           listWidth: @get 'listWidth'
 
     primaryAction: ->

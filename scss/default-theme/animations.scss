@@ -7,20 +7,6 @@
 }
 
 
-/* Slide Down */
-@keyframes eui-slidedown {
-  0% { opacity: 0; transform: translate(0px, -10px); }
-  100% { opacity: 1; transform: translate(0px, 0px); }
-}
-
-
-/* Slide Down from Zero */
-@keyframes eui-slidezerodown {
-  0% { opacity: 1; transform: translate(0px, 0px); }
-  100% { opacity: 0; transform: translate(0px, 10px); }
-}
-
-
 /* Error Glow */
 @keyframes eui-error-highlight {
   0% {
@@ -52,18 +38,4 @@
       0px 0px 4px #0090ff,
       inset 0px 2px 3px rgba(0, 0, 0, 0.1);
   }
-}
-
-
-/* poplist Flyin */
-@keyframes eui-flyin {
-  0% { transform: scale(0.7); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-
-/* poplist zoom into top */
-@keyframes eui-zoomupandin {
-  0% { opacity: 1; transform: translate(0px, 0px) scale(1); }
-  100% { opacity: 0; transform: translate(0px, -60%) scale(0.3); }
 }

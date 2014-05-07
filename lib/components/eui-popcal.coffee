@@ -10,6 +10,7 @@ popcal = Em.Component.extend styleSupport, animationSupport,
 
   animationClass: 'euiPopcal'
 
+
   # We don't really want to modal to be focusable, but we do need it to catch
   # all key presses
 
