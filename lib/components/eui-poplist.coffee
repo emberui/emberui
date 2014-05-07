@@ -80,9 +80,9 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     @setPoplistWidth()
 
     # Positions calendar using fixed positioning
-    @.$().position {
-      my: "left top",
-      at: "left bottom",
+    Em.run.next @, -> @.$().position {
+      my: "right top",
+      at: "right bottom",
       of: @get('targetObject').$(),
       collision: 'flipfit'
     }
