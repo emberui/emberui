@@ -1,7 +1,8 @@
 `import styleSupport from '../mixins/style-support'`
+`import animationSupport from '../mixins/animation-support'`
 `import modalLayout from '../templates/eui-modal'`
 
-modal = Em.Component.extend styleSupport,
+modal = Em.Component.extend styleSupport, animationSupport,
   layout: modalLayout
   tagName: 'eui-modal'
   classNames: ['eui-modal']
@@ -9,9 +10,7 @@ modal = Em.Component.extend styleSupport,
   attributeBindings: ['tabindex']
 
   class: null
-
-  openAnimation: 'euiModalOpenDefault'
-  closeAnimation: 'euiModalCloseDefault'
+  animationClass: 'euiModal'
 
 
   # Stores the element that had focus before the modal was opened if the user
@@ -105,21 +104,6 @@ modal = Em.Component.extend styleSupport,
 
   willDestroy: ->
     $('body').removeClass('eui-modal-open')
-
-
-  # Animate modal in
-
-  animateIn: ->
-    Em.run.next @, ->
-      @.$().velocity @get('openAnimation')
-
-
-  # Animate modal out
-
-  animateOut: ->
-    @.$().velocity @get('closeAnimation'), {
-      complete: => @breakdown()
-    }
 
 
   # Makes sure the tab focus cannot leave the modal since all user action is
