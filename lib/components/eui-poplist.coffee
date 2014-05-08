@@ -121,7 +121,6 @@ poplist = Em.Component.extend styleSupport, animationSupport,
 
   breakdown: ->
     @setProperties { isOpen: false, highlightedIndex: -1 }
-    @.$().unbind('.emberui')
 
     @get('previousFocus').focus()
 
@@ -129,10 +128,6 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     $('body').removeClass('eui-poplist-open')
 
     @destroy()
-
-
-  willDestroy: ->
-    $(window).unbind '.emberui'
 
 
   # Set poplist width to the user specified width, but enforce a min width of

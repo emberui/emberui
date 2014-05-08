@@ -51,11 +51,12 @@ popcal = Em.Component.extend styleSupport, animationSupport,
 
     # Bind to click event so we can close the popcal if the user clicks outside
     # it. Run next so popcal doesn't close immediately.
-    Ember.run.next @, -> $(window).on 'click.emberui', (event) ->
-      unless $(event.target).parents('.eui-popcal').length
-        $(window).off(event)
-        event.preventDefault()
-        popcal.hide()
+    Ember.run.next @, ->
+      $(window).on 'click.emberui', (event) =>
+        unless $(event.target).parents('.eui-popcal').length
+          event.preventDefault()
+          $(window).off(event)
+          @hide()
 
     # Focus on popcal to ensure we can catch keyboard input.
     @.$().focus()
@@ -81,10 +82,6 @@ popcal = Em.Component.extend styleSupport, animationSupport,
       @set 'selection', @get '_selection'
 
 
-  willDestroy: ->
-    $(window).unbind '.emberui'
-
-    
   actions:
     closeCalendar: ->
       dateRange = @get 'dateRange'
