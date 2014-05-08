@@ -74,8 +74,10 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     # different route and the component will get killed by its parent
     return unless @get('targetObject')
 
+    target = @get('targetObject')?.$()
+
     @animateOut({
-      target: @get('targetObject').$()
+      target: target
       complete: => @breakdown()
     })
 
