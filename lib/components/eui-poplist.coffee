@@ -70,6 +70,10 @@ poplist = Em.Component.extend styleSupport, animationSupport,
 
 
   hide: ->
+    # Don't animate if no targetObject because that means the user clicked on a
+    # different route and the component will get killed by its parent
+    return unless @get('targetObject')
+
     @animateOut({
       target: @get('targetObject').$()
       complete: => @breakdown()
@@ -386,6 +390,10 @@ poplist.reopenClass
 
     poplist.updateListHeight()
     poplist
+
+  die: ->
+    poplist.destroy()
+    $('body').removeClass('eui-poplist-open')
 
 
 `export default poplist`

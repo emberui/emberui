@@ -118,6 +118,10 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
         listWidth: @get 'listWidth'
 
 
+  willDestroy: ->
+    poplistComponent.die()
+
+
   # Down Arrow Key opens poplist
 
   keyDown: (event) ->
