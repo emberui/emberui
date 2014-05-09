@@ -8,8 +8,9 @@ animationSupport = Em.Mixin.create
     return unless style and component
 
     style = "#{component}Open#{style}"
+    backupStyle = "#{component}OpenDefault"
 
-    if $.velocity.Sequences.hasOwnProperty style then style else return
+    if $.velocity.Sequences.hasOwnProperty style then style else backupStyle
 
 
   closeAnimation: Em.computed 'computedAnimationStyle', ->
@@ -18,8 +19,9 @@ animationSupport = Em.Mixin.create
     return unless style and component
 
     style = "#{component}Close#{style}"
+    backupStyle = "#{component}CloseDefault"
 
-    if $.velocity.Sequences.hasOwnProperty style then style else return
+    if $.velocity.Sequences.hasOwnProperty style then style else backupStyle
 
 
   computedAnimationStyle: Em.computed 'animationStyle', 'style', ->
