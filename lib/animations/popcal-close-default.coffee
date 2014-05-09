@@ -4,6 +4,8 @@ $.velocity.Sequences.euiPopcalCloseDefault = (element, options) ->
     scaleX: [0, 1]
     scaleY: [0, 1]
     marginTop: ->
+      return ["0px", "0px"] unless options.target
+      
       offset = $(element).height() / 2 + options.target.height()
 
       # Calculate which direction the animation should play

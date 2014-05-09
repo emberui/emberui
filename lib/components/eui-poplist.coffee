@@ -70,10 +70,8 @@ poplist = Em.Component.extend styleSupport, animationSupport,
 
 
   hide: ->
-    target = @get('targetObject')?.$()
-
     @animateOut({
-      target: target
+      target: @get('targetObject').$()
       complete: => @breakdown()
     })
 
@@ -388,9 +386,6 @@ poplist.reopenClass
 
     poplist.updateListHeight()
     poplist
-
-  die: ->
-    poplist.hide()
 
 
 `export default poplist`
