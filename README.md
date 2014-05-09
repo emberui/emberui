@@ -54,7 +54,8 @@ https://github.com/emberui/emberui/tree/master/dist
     "ember-listview": "https://github.com/geekingreen/ember-list-view.git#master",
     "emberui": "git@github.com:emberui/emberui.git",
     "momentjs": "~2.6.0",
-    "twix": "~0.4.0"
+    "twix": "~0.4.0",
+    "Velocity.js": "https://github.com/julianshapiro/velocity.git"
   }
 }
 ```
