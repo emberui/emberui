@@ -46,6 +46,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
           labelPath: 'label'
           style: 'default'
           listWidth: @get 'listWidth'
+          animationStyle: @get 'animationStyle'
 
     primaryAction: ->
       @sendAction 'primaryAction.action', @

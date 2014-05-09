@@ -93,6 +93,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
           maxFutureDateBinding: 'targetObject.maxFutureDate'
           disabledDatesBinding: 'targetObject.disabledDates'
           styleBinding: 'targetObject.calendarStyle'
+          animationStyle: @get 'animationStyle'
 
 
   # Catch and handle key presses

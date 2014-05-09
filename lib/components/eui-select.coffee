@@ -116,6 +116,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
         labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
         listWidth: @get 'listWidth'
+        animationStyle: @get 'animationStyle'
 
 
   # Down Arrow Key opens poplist
