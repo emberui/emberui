@@ -916,8 +916,9 @@ define("emberui/animations/modal-close-default",
         this.set('isOpen', false);
         $('body').removeClass('eui-popcal-open');
         if (!(this.get('dateRange') && ((_ref = this.get('_selection')) != null ? _ref.get('length') : void 0) === 1)) {
-          return this.set('selection', this.get('_selection'));
+          this.set('selection', this.get('_selection'));
         }
+        return this.destroy();
       },
       actions: {
         closeCalendar: function() {

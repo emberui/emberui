@@ -81,6 +81,8 @@ popcal = Em.Component.extend styleSupport, animationSupport,
     unless @get('dateRange') and @get('_selection')?.get('length') is 1
       @set 'selection', @get '_selection'
 
+    @destroy()
+
 
   actions:
     closeCalendar: ->
