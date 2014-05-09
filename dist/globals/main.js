@@ -1,5 +1,220 @@
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.eui=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
+$.velocity.Sequences.euiModalCloseDefault = function(element, options) {
+  var calls;
+  calls = [
+    {
+      element: $(element).find('.eui-modalobject'),
+      properties: {
+        opacity: [0, 1],
+        scaleX: [0.5, 1],
+        scaleY: [0.5, 1]
+      },
+      options: {
+        duration: 200
+      }
+    }, {
+      element: $(element).find('.eui-overlay'),
+      properties: {
+        opacity: [0, 1]
+      },
+      options: {
+        duration: 400,
+        complete: options.complete
+      }
+    }
+  ];
+  return $.each(calls, function(i, call) {
+    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+  });
+};
+},{}],2:[function(_dereq_,module,exports){
+"use strict";
+$.velocity.Sequences.euiModalCloseFull = function(element, options) {
+  var calls;
+  calls = [
+    {
+      element: $(element).find('.eui-modalobject'),
+      properties: {
+        opacity: [0, 1],
+        scaleX: [5, 1],
+        scaleY: [5, 1]
+      },
+      options: {
+        duration: 200
+      }
+    }, {
+      element: $(element).find('.eui-overlay'),
+      properties: {
+        opacity: [0, 1]
+      },
+      options: {
+        duration: 400,
+        complete: options.complete
+      }
+    }
+  ];
+  return $.each(calls, function(i, call) {
+    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+  });
+};
+},{}],3:[function(_dereq_,module,exports){
+"use strict";
+jQuery.velocity.Sequences.euiModalOpenDefault = function(element, options) {
+  var calls;
+  calls = [
+    {
+      element: $(element).find('.eui-modalobject'),
+      properties: {
+        opacity: [1, 0],
+        scaleX: [1, 0.5],
+        scaleY: [1, 0.5]
+      },
+      options: {
+        duration: 200
+      }
+    }, {
+      element: $(element).find('.eui-overlay'),
+      properties: {
+        opacity: [1, 0]
+      },
+      options: {
+        duration: 400,
+        complete: options.complete
+      }
+    }
+  ];
+  return jQuery.each(calls, function(i, call) {
+    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+  });
+};
+},{}],4:[function(_dereq_,module,exports){
+"use strict";
+jQuery.velocity.Sequences.euiModalOpenFull = function(element, options) {
+  var calls;
+  calls = [
+    {
+      element: $(element).find('.eui-modalobject'),
+      properties: {
+        opacity: [1, 0],
+        scaleX: [1, 0.5],
+        scaleY: [1, 0.5]
+      },
+      options: {
+        duration: 200
+      }
+    }, {
+      element: $(element).find('.eui-overlay'),
+      properties: {
+        opacity: [1, 0]
+      },
+      options: {
+        duration: 400,
+        complete: options.complete
+      }
+    }
+  ];
+  return jQuery.each(calls, function(i, call) {
+    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+  });
+};
+},{}],5:[function(_dereq_,module,exports){
+"use strict";
+$.velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
+  return $.velocity.animate(element, {
+    opacity: [0, 1],
+    scaleX: [0, 1],
+    scaleY: [0, 1],
+    marginTop: function() {
+      var buttonOffset, direction, offset, popcalOffset;
+      if (!options.target) {
+        return ["0px", "0px"];
+      }
+      offset = $(element).height() / 2 + options.target.height();
+      popcalOffset = $(element).offset().top;
+      buttonOffset = options.target.offset().top;
+      direction = '+';
+      if ((buttonOffset - popcalOffset) < 1) {
+        direction = '-';
+      }
+      return ["" + direction + offset + "px", "0px"];
+    }
+  }, {
+    duration: options.duration || 250,
+    complete: options.complete
+  });
+};
+},{}],6:[function(_dereq_,module,exports){
+"use strict";
+$.velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
+  return $.velocity.animate(element, {
+    opacity: [1, 0],
+    scaleX: [1, 0.7],
+    scaleY: [1, 0.7]
+  }, {
+    duration: options.duration || 100
+  });
+};
+},{}],7:[function(_dereq_,module,exports){
+"use strict";
+$.velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
+  return $.velocity.animate(element, {
+    opacity: [0, 1],
+    marginTop: ["6px", "-4px"]
+  }, {
+    duration: options.duration || 200,
+    complete: options.complete
+  });
+};
+},{}],8:[function(_dereq_,module,exports){
+"use strict";
+$.velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
+  return $.velocity.animate(element, {
+    opacity: [0, 1],
+    scaleX: [0, 1],
+    scaleY: [0, 1],
+    marginTop: function() {
+      var buttonOffset, direction, offset, popcalOffset;
+      if (!options.target) {
+        return ["0px", "0px"];
+      }
+      offset = $(element).height() / 2 + options.target.height();
+      popcalOffset = $(element).offset().top;
+      buttonOffset = options.target.offset().top;
+      direction = '+';
+      if ((buttonOffset - popcalOffset) < 1) {
+        direction = '-';
+      }
+      return ["" + direction + offset + "px", "0px"];
+    }
+  }, {
+    duration: options.duration || 200,
+    complete: options.complete
+  });
+};
+},{}],9:[function(_dereq_,module,exports){
+"use strict";
+$.velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
+  return $.velocity.animate(element, {
+    opacity: [1, 0],
+    marginTop: ["-4px", "-14px"]
+  }, {
+    duration: options.duration || 200
+  });
+};
+},{}],10:[function(_dereq_,module,exports){
+"use strict";
+$.velocity.Sequences.euiPoplistOpenFlyin = function(element, options) {
+  return $.velocity.animate(element, {
+    opacity: [1, 0],
+    scaleX: [1, 0.7],
+    scaleY: [1, 0.7]
+  }, {
+    duration: options.duration || 100
+  });
+};
+},{}],11:[function(_dereq_,module,exports){
+"use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
@@ -25,22 +240,10 @@ button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
 });
 
 exports["default"] = button;
-},{"../mixins/disabled-support":14,"../mixins/size-support":17,"../mixins/style-support":18,"../mixins/width-support":20}],2:[function(_dereq_,module,exports){
+},{"../mixins/disabled-support":25,"../mixins/size-support":27,"../mixins/style-support":28,"../mixins/width-support":30}],12:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
-var calendar, cpFormatMoment;
-
-cpFormatMoment = function(key, format) {
-  return Em.computed('key', function() {
-    var date;
-    date = this.get(key);
-    if (date) {
-      return date.format(format);
-    } else {
-      return null;
-    }
-  });
-};
+var calendar;
 
 calendar = Em.Component.extend(styleSupport, {
   tagName: 'eui-calendar',
@@ -262,13 +465,19 @@ calendar = Em.Component.extend(styleSupport, {
     }
     return false;
   }).property('isNextMonthBeyondMax', 'isNextMonthInFuture', 'disableFuture'),
-  prevMonthLabel: cpFormatMoment('prevMonth', 'MMMM YYYY'),
-  nextMonthLabel: cpFormatMoment('nextMonth', 'MMMM YYYY'),
-  monthLabel: cpFormatMoment('month', 'MMMM YYYY')
+  prevMonthLabel: Em.computed('prevMonth', function() {
+    return this.get('prevMonth').format('MMMM YYYY');
+  }),
+  nextMonthLabel: Em.computed('nextMonth', function() {
+    return this.get('nextMonth').format('MMMM YYYY');
+  }),
+  monthLabel: Em.computed('month', function() {
+    return this.get('month').format('MMMM YYYY');
+  })
 });
 
  exports["default"] = calendar;
-},{"../mixins/style-support":18}],3:[function(_dereq_,module,exports){
+},{"../mixins/style-support":28}],13:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
@@ -288,7 +497,7 @@ checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
 });
 
 exports["default"] = checkbox;
-},{"../mixins/error-support":15,"../mixins/size-support":17,"../mixins/style-support":18}],4:[function(_dereq_,module,exports){
+},{"../mixins/error-support":26,"../mixins/size-support":27,"../mixins/style-support":28}],14:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -325,8 +534,9 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
           selectionBinding: 'targetObject.selection',
           optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
           labelPath: 'label',
-          style: 'bubble',
-          listWidth: this.get('listWidth')
+          style: 'default',
+          listWidth: this.get('listWidth'),
+          animationStyle: this.get('animationStyle')
         });
       }
     },
@@ -337,7 +547,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
 });
 
 exports["default"] = dropbutton;
-},{"../components/eui-poplist":8,"../mixins/size-support":17,"../mixins/style-support":18}],5:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/size-support":27,"../mixins/style-support":28}],15:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -353,75 +563,93 @@ input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport
 });
 
 exports["default"] = input;
-},{"../mixins/error-support":15,"../mixins/size-support":17,"../mixins/style-support":18,"../mixins/text-support":19,"../mixins/width-support":20}],6:[function(_dereq_,module,exports){
+},{"../mixins/error-support":26,"../mixins/size-support":27,"../mixins/style-support":28,"../mixins/text-support":29,"../mixins/width-support":30}],16:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
-var animationsDidComplete = _dereq_("../mixins/animations-did-complete")["default"] || _dereq_("../mixins/animations-did-complete");
-var modalBehaviour = _dereq_("../mixins/modal-behaviour")["default"] || _dereq_("../mixins/modal-behaviour");
+var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
 var modalLayout = _dereq_("../templates/eui-modal")["default"] || _dereq_("../templates/eui-modal");
 var modal;
 
-modal = Em.Component.extend(styleSupport, animationsDidComplete, modalBehaviour, {
+modal = Em.Component.extend(styleSupport, animationSupport, {
   layout: modalLayout,
   tagName: 'eui-modal',
   classNames: ['eui-modal'],
   classNameBindings: ['class'],
+  attributeBindings: ['tabindex'],
   "class": null,
+  animationClass: 'euiModal',
   previousFocus: null,
   tabindex: 0,
   programmatic: false,
   isClosing: false,
   renderModal: false,
-  open: Ember.computed('renderModal', function(key, value) {
+  open: Ember.computed(function(key, value) {
     if (arguments.length === 2) {
       if (value) {
         this.set('renderModal', value);
-      } else {
-        if (this.get('renderModal')) {
-          this.hide();
-        }
+      } else if (this.get('renderModal')) {
+        this.hide();
       }
       return value;
     } else {
       value = this.get('renderModal');
       return value;
     }
-  }),
+  }).property('renderModal'),
+  hide: function() {
+    return this.animateOut({
+      complete: (function(_this) {
+        return function() {
+          return _this.breakdown();
+        };
+      })(this)
+    });
+  },
   didInsertElement: function() {
     if (this.get('programmatic')) {
-      this.set('previousFocus', $(document.activeElement));
-      this.$().focus();
-      return $('body').addClass('eui-modal-open');
+      return this.setup();
     }
   },
   didOpenModal: (function() {
     if (this.get('renderModal')) {
-      this.$().focus();
-      return $('body').addClass('eui-modal-open');
+      return this.setup();
     }
   }).observes('renderModal'),
-  hide: function() {
-    this.set('isClosing', true);
-    return this.animationsDidComplete().then((function(_this) {
-      return function() {
-        return _this.remove();
-      };
-    })(this));
+  setup: function() {
+    this.animateIn();
+    this.set('previousFocus', $(document.activeElement));
+    this.$().focus();
+    return $('body').toggleClass('eui-modal-open');
   },
-  remove: function() {
+  breakdown: function() {
     var _ref;
     if ((_ref = this.get('previousFocus')) != null) {
       _ref.focus();
     }
-    $('body').removeClass('eui-modal-open');
+    $('body').toggleClass('eui-modal-open');
     if (this.get('programmatic')) {
       return this.destroy();
     } else {
-      return this.setProperties({
-        isClosing: false,
-        renderModal: false
-      });
+      return this.set('renderModal', false);
     }
+  },
+  willDestroy: function() {
+    return $('body').removeClass('eui-modal-open');
+  },
+  constrainTabNavigationToModal: function(event) {
+    var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+    if (!this.get('open')) {
+      return;
+    }
+    activeElement = document.activeElement;
+    tabbable = this.$(':tabbable');
+    finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+    leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement && event.shiftKey;
+    if (!leavingFinalTabbable) {
+      return;
+    }
+    event.preventDefault();
+    return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
   },
   actions: {
     cancel: function(context) {
@@ -459,7 +687,7 @@ modal.reopenClass({
 });
 
 exports["default"] = modal;
-},{"../mixins/animations-did-complete":13,"../mixins/modal-behaviour":16,"../mixins/style-support":18,"../templates/eui-modal":26}],7:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":24,"../mixins/style-support":28,"../templates/eui-modal":36}],17:[function(_dereq_,module,exports){
 "use strict";
 var DATE_SLOT_HBS, containsDate, forEachSlot, month;
 
@@ -596,20 +824,114 @@ month = Em.Component.extend({
 });
 
 exports["default"] = month;
-},{}],8:[function(_dereq_,module,exports){
+},{}],18:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
-var animationsDidComplete = _dereq_("../mixins/animations-did-complete")["default"] || _dereq_("../mixins/animations-did-complete");
+var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
+var popcalLayout = _dereq_("../templates/eui-popcal")["default"] || _dereq_("../templates/eui-popcal");
+var popcal;
+
+popcal = Em.Component.extend(styleSupport, animationSupport, {
+  layout: popcalLayout,
+  classNames: ['eui-popcal'],
+  attributeBindings: ['tabindex'],
+  tagName: 'eui-popcal',
+  animationClass: 'euiPopcal',
+  tabindex: 0,
+  previousFocus: null,
+  hide: function() {
+    return this.animateOut({
+      target: this.get('targetObject').$(),
+      complete: (function(_this) {
+        return function() {
+          return _this.breakdown();
+        };
+      })(this)
+    });
+  },
+  setup: (function() {
+    this.animateIn();
+    this.set('previousFocus', $(document.activeElement));
+    this.set('isOpen', true);
+    this.set('_selection', this.get('selection'));
+    this.$().position({
+      my: "center top",
+      at: "center bottom",
+      of: this.get('targetObject').$(),
+      collision: 'flipfit'
+    });
+    Ember.run.next(this, function() {
+      return $(window).on('click.emberui', (function(_this) {
+        return function(event) {
+          if (!$(event.target).parents('.eui-popcal').length) {
+            event.preventDefault();
+            $(window).off(event);
+            return _this.hide();
+          }
+        };
+      })(this));
+    });
+    this.$().focus();
+    return $('body').addClass('eui-popcal-open');
+  }).on('didInsertElement'),
+  breakdown: function() {
+    var _ref;
+    this.get('previousFocus').focus();
+    this.set('isOpen', false);
+    $('body').removeClass('eui-popcal-open');
+    if (!(this.get('dateRange') && ((_ref = this.get('_selection')) != null ? _ref.get('length') : void 0) === 1)) {
+      return this.set('selection', this.get('_selection'));
+    }
+  },
+  actions: {
+    closeCalendar: function() {
+      var dateRange, selection;
+      dateRange = this.get('dateRange');
+      selection = this.get('_selection');
+      if (dateRange) {
+        if ((selection != null ? selection.get('length') : void 0) > 1) {
+          return this.hide();
+        }
+      } else if (selection) {
+        return this.hide();
+      }
+    }
+  },
+  keyDown: function(event) {
+    if (event.keyCode === 27) {
+      return this.hide();
+    }
+  }
+});
+
+popcal.reopenClass({
+  show: function(options) {
+    if (options == null) {
+      options = {};
+    }
+    popcal = this.create(options);
+    popcal.container = popcal.get('targetObject.container');
+    popcal.appendTo('.ember-application');
+    return popcal;
+  }
+});
+
+exports["default"] = popcal;
+},{"../mixins/animation-support":24,"../mixins/style-support":28,"../templates/eui-popcal":37}],19:[function(_dereq_,module,exports){
+"use strict";
+var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
+var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
 var poplistLayout = _dereq_("../templates/eui-poplist")["default"] || _dereq_("../templates/eui-poplist");
 var itemViewClassTemplate = _dereq_("../templates/eui-poplist-option")["default"] || _dereq_("../templates/eui-poplist-option");
 var poplist;
 
-poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
+poplist = Em.Component.extend(styleSupport, animationSupport, {
   layout: poplistLayout,
-  classNames: ['eui-poplist eui-animation'],
+  classNames: ['eui-poplist'],
   classNameBindings: ['isOpen::eui-closing'],
   attributeBindings: ['tabindex'],
   tagName: 'eui-poplist',
+  animationClass: 'euiPoplist',
   listWidth: null,
   listHeight: '80',
   listRowHeight: '20',
@@ -631,21 +953,26 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
     }
   }),
   hide: function() {
-    this.setProperties({
-      isOpen: false,
-      highlightedIndex: -1
+    return this.animateOut({
+      target: this.get('targetObject').$(),
+      complete: (function(_this) {
+        return function() {
+          return _this.breakdown();
+        };
+      })(this)
     });
-    $(window).unbind('.emberui');
-    this.$().unbind('.emberui');
-    this.get('previousFocus').focus();
-    $('body').removeClass('eui-poplist-open');
-    return this.animationsDidComplete().then((function(_this) {
-      return function() {
-        return _this.destroy();
-      };
-    })(this));
   },
-  didInsertElement: function() {
+  setup: (function() {
+    this.setPoplistWidth();
+    Em.run.next(this, function() {
+      return this.$().position({
+        my: "right top",
+        at: "right bottom",
+        of: this.get('targetObject').$(),
+        collision: 'flipfit'
+      });
+    });
+    this.animateIn();
     this.set('isOpen', true);
     this.set('previousFocus', $(document.activeElement));
     Ember.run.next(this, function() {
@@ -655,7 +982,34 @@ poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
     Ember.run.next(this, function() {
       return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
     });
-    return $('body').addClass('eui-poplist-open');
+    $('body').addClass('eui-poplist-open');
+    return Ember.run.next(this, function() {
+      return $(window).on('click.emberui', (function(_this) {
+        return function(event) {
+          if (!$(event.target).parents('.eui-poplist').length) {
+            event.preventDefault();
+            $(window).off(event);
+            return _this.hide();
+          }
+        };
+      })(this));
+    });
+  }).on('didInsertElement'),
+  breakdown: function() {
+    this.setProperties({
+      isOpen: false,
+      highlightedIndex: -1
+    });
+    this.get('previousFocus').focus();
+    $('body').removeClass('eui-poplist-open');
+    return this.destroy();
+  },
+  setPoplistWidth: function() {
+    var element, elementWidthMinuspoplistPadding, poplistElement;
+    element = this.get('targetObject').$();
+    poplistElement = this.$();
+    elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
+    return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
   },
   focusOnSearch: function() {
     return this.$().find('input:first').focus();
@@ -847,44 +1201,12 @@ poplist.reopenClass({
     poplist.container = poplist.get('targetObject.container');
     poplist.appendTo('.ember-application');
     poplist.updateListHeight();
-    Ember.run.next(this, function() {
-      return this.position(options.targetObject, poplist);
-    });
     return poplist;
-  },
-  position: function(targetObject, poplist) {
-    var element, elementHeight, elementPositionLeft, elementPositionTop, elementWidth, elementWidthMinuspoplistPadding, offset, poplistElement, poplistHorizontalPadding, poplistPositionLeft, poplistPositionTop, poplistWidth, windowScrollLeft, windowScrollTop;
-    element = targetObject.$();
-    poplistElement = poplist.$();
-    offset = element.offset();
-    elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
-    poplistElement.css('min-width', elementWidthMinuspoplistPadding);
-    elementPositionTop = offset.top - element.scrollTop();
-    elementPositionLeft = offset.left - element.scrollLeft();
-    elementHeight = element.height();
-    elementWidth = element.width();
-    poplistWidth = poplistElement.width();
-    poplistHorizontalPadding = parseFloat(poplistElement.css('paddingLeft')) + parseFloat(poplistElement.css('paddingRight'));
-    windowScrollTop = $(window).scrollTop();
-    windowScrollLeft = $(window).scrollLeft();
-    poplistPositionTop = elementPositionTop + elementHeight - windowScrollTop;
-    poplistPositionLeft = elementPositionLeft + elementWidth - poplistWidth - poplistHorizontalPadding - windowScrollLeft;
-    poplistElement.css('top', poplistPositionTop);
-    poplistElement.css('left', poplistPositionLeft);
-    $(window).bind('scroll.emberui', function() {
-      return poplist.hide();
-    });
-    return $(window).bind('click.emberui', function(event) {
-      if (!$(event.target).parents('.eui-poplist').length) {
-        event.preventDefault();
-        return poplist.hide();
-      }
-    });
   }
 });
 
 exports["default"] = poplist;
-},{"../mixins/animations-did-complete":13,"../mixins/style-support":18,"../templates/eui-poplist":28,"../templates/eui-poplist-option":27}],9:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":24,"../mixins/style-support":28,"../templates/eui-poplist":39,"../templates/eui-poplist-option":38}],20:[function(_dereq_,module,exports){
 "use strict";
 var poplistComponent = _dereq_("../components/eui-poplist")["default"] || _dereq_("../components/eui-poplist");
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
@@ -979,7 +1301,8 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
         optionsBinding: 'targetObject.optionsWithBlank',
         labelPathBinding: 'targetObject.labelPath',
         style: 'flyin',
-        listWidth: this.get('listWidth')
+        listWidth: this.get('listWidth'),
+        animationStyle: this.get('animationStyle')
       });
     }
   },
@@ -993,27 +1316,64 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
 });
 
 exports["default"] = select;
-},{"../components/eui-poplist":8,"../mixins/disabled-support":14,"../mixins/error-support":15,"../mixins/width-support":20}],10:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/disabled-support":25,"../mixins/error-support":26,"../mixins/width-support":30}],21:[function(_dereq_,module,exports){
 "use strict";
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
 var widthSupport = _dereq_("../mixins/width-support")["default"] || _dereq_("../mixins/width-support");
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
-var animationsDidComplete = _dereq_("../mixins/animations-did-complete")["default"] || _dereq_("../mixins/animations-did-complete");
-var modalBehaviour = _dereq_("../mixins/modal-behaviour")["default"] || _dereq_("../mixins/modal-behaviour");
+var popcalComponent = _dereq_("../components/eui-popcal")["default"] || _dereq_("../components/eui-popcal");
 var select;
 
-select = Em.Component.extend(disabledSupport, errorSupport, animationsDidComplete, modalBehaviour, widthSupport, {
+select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
   tagName: 'eui-selectdate',
   classNames: ['eui-selectdate'],
   classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class'],
   style: 'default',
   size: 'medium',
+  calendarStyle: 'default',
+  popcalIsOpen: false,
   dateRange: false,
   formatting: {
     yearFormat: "YYYY",
     monthFormat: "MMMM",
     dayFormat: "D"
   },
+  value: Em.computed('selection.@each', function(key, value) {
+    var selection;
+    selection = this.get('selection');
+    if (arguments.length === 2) {
+      if (!value) {
+        this.set('selection', value);
+        return value;
+      }
+      if (Em.isArray(value)) {
+        this.set('selection', value.map(function(v) {
+          return moment(v);
+        }));
+      } else {
+        this.set('selection', moment(value));
+      }
+      return value;
+    } else {
+      if (!selection) {
+        if (this.get('dateRange')) {
+          return [];
+        } else {
+          return null;
+        }
+      }
+      if (Em.isArray(selection)) {
+        return selection.map(function(date) {
+          return date.format('X');
+        });
+      } else {
+        return selection.format('X');
+      }
+    }
+  }),
+  calculateInitalValue: (function() {
+    return this.notifyPropertyChange('value');
+  }).on('didInsertElement'),
   isPlaceholder: Em.computed('selection', function() {
     var selection;
     selection = this.get('selection');
@@ -1026,68 +1386,23 @@ select = Em.Component.extend(disabledSupport, errorSupport, animationsDidComplet
     return true;
   }),
   actions: {
-    toggleCalendar: function() {
-      if (this.get('open')) {
-        return this.send('closeCalendar');
-      } else {
-        return this.send('openCalendar');
-      }
-    },
-    closeCalendar: function(options) {
-      var closeCalendar, dateRange, selection;
-      dateRange = this.get('dateRange');
-      selection = this.get('selection');
-      closeCalendar = false;
-      if (dateRange) {
-        if (selection && selection.get('length') > 1) {
-          closeCalendar = true;
-        } else if (selection && selection.get('length') === 1 && options && options.forceClose === true) {
-          this.resetSelection();
-          closeCalendar = true;
-        } else if (selection.get('length') === 0 && options && options.forceClose === true) {
-          closeCalendar = true;
-        }
-      } else if (selection) {
-        closeCalendar = true;
-      } else if (options && options.forceClose === true) {
-        closeCalendar = true;
-      }
-      if (closeCalendar) {
-        $(window).unbind('.emberui');
-        return this.hide();
-      }
-    },
     openCalendar: function() {
-      this.set('open', true);
-      Ember.run.next(this, function() {
-        return this.positionCalendar();
-      });
-      this.set('_selection', this.get('selection'));
-      return Ember.run.next(this, function() {
-        return $(window).on('click.emberui', (function(_this) {
-          return function(event) {
-            if (!_this.$('eui-calendar').find($(event.target)).length) {
-              event.preventDefault();
-              $(_this).off(event);
-              return _this.send('closeCalendar', {
-                forceClose: true
-              });
-            }
-          };
-        })(this));
-      });
+      if (!this.get('popcalIsOpen')) {
+        return popcalComponent.show({
+          targetObject: this,
+          isOpenBinding: 'targetObject.popcalIsOpen',
+          selectionBinding: 'targetObject.selection',
+          dateRangeBinding: 'targetObject.dateRange',
+          disablePastBinding: 'targetObject.disablePast',
+          disableFutureBinding: 'targetObject.disableFuture',
+          maxPastDateBinding: 'targetObject.maxPastDate',
+          maxFutureDateBinding: 'targetObject.maxFutureDate',
+          disabledDatesBinding: 'targetObject.disabledDates',
+          styleBinding: 'targetObject.calendarStyle',
+          animationStyle: this.get('animationStyle')
+        });
+      }
     }
-  },
-  positionCalendar: function() {
-    return this.$().find('eui-calendar').position({
-      my: "center top",
-      at: "center bottom",
-      of: this.$(),
-      collision: 'flipfit'
-    });
-  },
-  resetSelection: function() {
-    return this.set('selection', this.get('_selection'));
   },
   keyDown: function(event) {
     if (event.keyCode === 27) {
@@ -1147,7 +1462,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, animationsDidComplet
 });
 
 exports["default"] = select;
-},{"../mixins/animations-did-complete":13,"../mixins/disabled-support":14,"../mixins/error-support":15,"../mixins/modal-behaviour":16,"../mixins/width-support":20}],11:[function(_dereq_,module,exports){
+},{"../components/eui-popcal":18,"../mixins/disabled-support":25,"../mixins/error-support":26,"../mixins/width-support":30}],22:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -1181,7 +1496,7 @@ textarea = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupp
 });
 
 exports["default"] = textarea;
-},{"../mixins/error-support":15,"../mixins/size-support":17,"../mixins/style-support":18,"../mixins/text-support":19}],12:[function(_dereq_,module,exports){
+},{"../mixins/error-support":26,"../mixins/size-support":27,"../mixins/style-support":28,"../mixins/text-support":29}],23:[function(_dereq_,module,exports){
 "use strict";
 /*!
 EmberUI (c) 2014 Jaco Joubert
@@ -1221,7 +1536,11 @@ var EuiMonthComponent = _dereq_("./components/eui-month")["default"] || _dereq_(
 var EuiCalendarComponent = _dereq_("./components/eui-calendar")["default"] || _dereq_("./components/eui-calendar");
 var EuiCalendarTemplate = _dereq_("./templates/eui-calendar")["default"] || _dereq_("./templates/eui-calendar");
 
-_dereq_("./utilities/tabbable-selector");_dereq_("./utilities/position");
+var EuiPopcalComponent = _dereq_("./components/eui-popcal")["default"] || _dereq_("./components/eui-popcal");
+var EuiPopcalTemplate = _dereq_("./templates/eui-popcal")["default"] || _dereq_("./templates/eui-popcal");
+
+_dereq_("./utilities/tabbable-selector");_dereq_("./utilities/position");_dereq_("./animations/popcal-close-default");_dereq_("./animations/popcal-open-default");_dereq_("./animations/modal-close-default");_dereq_("./animations/modal-open-default");_dereq_("./animations/modal-close-full");_dereq_("./animations/modal-open-full");_dereq_("./animations/poplist-close-default");_dereq_("./animations/poplist-open-default");_dereq_("./animations/poplist-close-flyin");_dereq_("./animations/poplist-open-flyin");
+
 Ember.Application.initializer({
   name: 'emberui',
 
@@ -1251,6 +1570,9 @@ Ember.Application.initializer({
     container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
     container.register('component:eui-selectdate', EuiSelectDateComponent);
 
+    container.register('template:components/eui-popcal', EuiPopcalTemplate);
+    container.register('component:eui-popcal', EuiPopcalComponent);
+
     container.register('template:components/eui-textarea', EuiTextareaTemplate);
     container.register('component:eui-textarea', EuiTextareaComponent);
 
@@ -1260,6 +1582,8 @@ Ember.Application.initializer({
     container.register('component:eui-calendar', EuiCalendarComponent);
   }
 });
+
+Ember.libraries.register('EmberUI', '0.1.0');
 
 exports.EuiButtonComponent = EuiButtonComponent;
 exports.EuiCheckboxComponent = EuiCheckboxComponent;
@@ -1273,52 +1597,78 @@ exports.EuiSelectDateComponent = EuiSelectDateComponent;
 exports.EuiTextareaComponent = EuiTextareaComponent;
 exports.EuiMonthComponent = EuiMonthComponent;
 exports.EuiCalendarComponent = EuiCalendarComponent;
-},{"./components/eui-button":1,"./components/eui-calendar":2,"./components/eui-checkbox":3,"./components/eui-dropbutton":4,"./components/eui-input":5,"./components/eui-modal":6,"./components/eui-month":7,"./components/eui-poplist":8,"./components/eui-select":9,"./components/eui-selectdate":10,"./components/eui-textarea":11,"./templates/eui-button":21,"./templates/eui-calendar":22,"./templates/eui-checkbox":23,"./templates/eui-dropbutton":24,"./templates/eui-input":25,"./templates/eui-modal":26,"./templates/eui-poplist":28,"./templates/eui-poplist-option":27,"./templates/eui-select":29,"./templates/eui-selectdate":30,"./templates/eui-textarea":31,"./utilities/position":32,"./utilities/tabbable-selector":33}],13:[function(_dereq_,module,exports){
+exports.EuiPopcalComponent = EuiPopcalComponent;
+},{"./animations/modal-close-default":1,"./animations/modal-close-full":2,"./animations/modal-open-default":3,"./animations/modal-open-full":4,"./animations/popcal-close-default":5,"./animations/popcal-open-default":6,"./animations/poplist-close-default":7,"./animations/poplist-close-flyin":8,"./animations/poplist-open-default":9,"./animations/poplist-open-flyin":10,"./components/eui-button":11,"./components/eui-calendar":12,"./components/eui-checkbox":13,"./components/eui-dropbutton":14,"./components/eui-input":15,"./components/eui-modal":16,"./components/eui-month":17,"./components/eui-popcal":18,"./components/eui-poplist":19,"./components/eui-select":20,"./components/eui-selectdate":21,"./components/eui-textarea":22,"./templates/eui-button":31,"./templates/eui-calendar":32,"./templates/eui-checkbox":33,"./templates/eui-dropbutton":34,"./templates/eui-input":35,"./templates/eui-modal":36,"./templates/eui-popcal":37,"./templates/eui-poplist":39,"./templates/eui-poplist-option":38,"./templates/eui-select":40,"./templates/eui-selectdate":41,"./templates/eui-textarea":42,"./utilities/position":43,"./utilities/tabbable-selector":44}],24:[function(_dereq_,module,exports){
 "use strict";
-var animationsDidComplete;
+var animationSupport;
 
-animationsDidComplete = Em.Mixin.create({
-  animationsDidComplete: function() {
-    var promise;
-    promise = new Em.RSVP.Promise((function(_this) {
-      return function(resolve, reject) {
-        var animatedElements, animation, cssRule, domPrefixes, element, elements, prefix, primaryElement, _i, _j, _len, _len1;
-        animation = false;
-        primaryElement = _this.$();
-        animatedElements = _this.$().find('.eui-animation');
-        elements = $.merge(primaryElement, animatedElements);
-        domPrefixes = ['', 'Webkit', 'Moz', 'O', 'ms'];
-        for (_i = 0, _len = elements.length; _i < _len; _i++) {
-          element = elements[_i];
-          if (animation) {
-            break;
-          }
-          for (_j = 0, _len1 = domPrefixes.length; _j < _len1; _j++) {
-            prefix = domPrefixes[_j];
-            cssRule = $(element).css(prefix + 'animationName');
-            if (cssRule && cssRule !== 'none') {
-              animation = true;
-            }
-            if (animation) {
-              break;
-            }
-          }
-        }
-        if (animation) {
-          return _this.$().one('webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', function() {
-            return resolve(_this);
-          });
-        } else {
-          return resolve(_this);
-        }
-      };
-    })(this));
-    return promise;
+animationSupport = Em.Mixin.create({
+  animationStyle: null,
+  animationClass: null,
+  openAnimation: Em.computed('computedAnimationStyle', function() {
+    var backupStyle, component, style;
+    style = this.get('computedAnimationStyle');
+    component = this.get('animationClass');
+    if (!(style && component)) {
+      return;
+    }
+    style = "" + component + "Open" + style;
+    backupStyle = "" + component + "OpenDefault";
+    if ($.velocity.Sequences.hasOwnProperty(style)) {
+      return style;
+    } else {
+      return backupStyle;
+    }
+  }),
+  closeAnimation: Em.computed('computedAnimationStyle', function() {
+    var backupStyle, component, style;
+    style = this.get('computedAnimationStyle');
+    component = this.get('animationClass');
+    if (!(style && component)) {
+      return;
+    }
+    style = "" + component + "Close" + style;
+    backupStyle = "" + component + "CloseDefault";
+    if ($.velocity.Sequences.hasOwnProperty(style)) {
+      return style;
+    } else {
+      return backupStyle;
+    }
+  }),
+  computedAnimationStyle: Em.computed('animationStyle', 'style', function() {
+    var style, _ref, _ref1;
+    style = (_ref = this.get('animationStyle')) != null ? _ref.capitalize() : void 0;
+    if (!style) {
+      style = (_ref1 = this.get('style')) != null ? _ref1.capitalize() : void 0;
+    }
+    return style;
+  }),
+  animateIn: function(options) {
+    var openAnimation;
+    if (!(openAnimation = this.get('openAnimation'))) {
+      return;
+    }
+    if (!options) {
+      options = {};
+    }
+    return Em.run.next(this, function() {
+      return this.$().velocity(openAnimation, options);
+    });
+  },
+  animateOut: function(options) {
+    var closeAnimation;
+    if (!(closeAnimation = this.get('closeAnimation'))) {
+      return;
+    }
+    if (!options) {
+      options = {};
+    }
+    return this.$().velocity(closeAnimation, options);
   }
 });
 
-exports["default"] = animationsDidComplete;
-},{}],14:[function(_dereq_,module,exports){
+exports["default"] = animationSupport;
+},{}],25:[function(_dereq_,module,exports){
 "use strict";
 var disabledsupport;
 
@@ -1333,7 +1683,7 @@ disabledsupport = Em.Mixin.create({
 });
 
 exports["default"] = disabledsupport;
-},{}],15:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport;
 
@@ -1378,88 +1728,7 @@ errorSupport = Em.Mixin.create({
 });
 
 exports["default"] = errorSupport;
-},{}],16:[function(_dereq_,module,exports){
-"use strict";
-var modalBehaviour;
-
-modalBehaviour = Em.Mixin.create({
-  classNameBindings: ['class', 'isClosing:eui-closing'],
-  attributeBindings: ['tabindex'],
-  previousFocus: null,
-  tabindex: 0,
-  programmatic: false,
-  isClosing: false,
-  renderModal: false,
-  open: Ember.computed(function(key, value) {
-    if (arguments.length === 2) {
-      if (value) {
-        this.set('renderModal', value);
-      } else {
-        if (this.get('renderModal')) {
-          this.hide();
-        }
-      }
-      return value;
-    } else {
-      value = this.get('renderModal');
-      return value;
-    }
-  }).property('renderModal'),
-  didInsertElement: function() {
-    if (this.get('programmatic')) {
-      this.set('previousFocus', $(document.activeElement));
-      this.$().focus();
-      return $('body').toggleClass('eui-modal-open');
-    }
-  },
-  didOpenModal: (function() {
-    if (this.get('renderModal')) {
-      this.$().focus();
-      return $('body').toggleClass('eui-modal-open');
-    }
-  }).observes('renderModal'),
-  hide: function() {
-    this.set('isClosing', true);
-    return this.animationsDidComplete().then((function(_this) {
-      return function() {
-        return _this.remove();
-      };
-    })(this));
-  },
-  remove: function() {
-    var _ref;
-    if ((_ref = this.get('previousFocus')) != null) {
-      _ref.focus();
-    }
-    $('body').toggleClass('eui-modal-open');
-    if (this.get('programmatic')) {
-      return this.destroy();
-    } else {
-      return this.setProperties({
-        isClosing: false,
-        renderModal: false
-      });
-    }
-  },
-  willDestroy: function() {
-    return $('body').removeClass('eui-modal-open');
-  },
-  constrainTabNavigationToModal: function(event) {
-    var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
-    activeElement = document.activeElement;
-    tabbable = this.$(':tabbable');
-    finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
-    leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
-    if (!leavingFinalTabbable) {
-      return;
-    }
-    event.preventDefault();
-    return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
-  }
-});
-
-exports["default"] = modalBehaviour;
-},{}],17:[function(_dereq_,module,exports){
+},{}],27:[function(_dereq_,module,exports){
 "use strict";
 var sizesupport;
 
@@ -1472,7 +1741,7 @@ sizesupport = Em.Mixin.create({
 });
 
 exports["default"] = sizesupport;
-},{}],18:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 "use strict";
 var stylesupport;
 
@@ -1485,7 +1754,7 @@ stylesupport = Em.Mixin.create({
 });
 
 exports["default"] = stylesupport;
-},{}],19:[function(_dereq_,module,exports){
+},{}],29:[function(_dereq_,module,exports){
 "use strict";
 var textsupport;
 
@@ -1516,7 +1785,7 @@ textsupport = Em.Mixin.create({
 });
 
 exports["default"] = textsupport;
-},{}],20:[function(_dereq_,module,exports){
+},{}],30:[function(_dereq_,module,exports){
 "use strict";
 var widthsupport;
 
@@ -1536,7 +1805,7 @@ widthsupport = Em.Mixin.create({
 });
 
 exports["default"] = widthsupport;
-},{}],21:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1593,7 +1862,7 @@ function program5(depth0,data) {
   return buffer;
   
 });
-},{}],22:[function(_dereq_,module,exports){
+},{}],32:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1667,7 +1936,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],23:[function(_dereq_,module,exports){
+},{}],33:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1704,7 +1973,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],24:[function(_dereq_,module,exports){
+},{}],34:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1765,7 +2034,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],25:[function(_dereq_,module,exports){
+},{}],35:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1816,7 +2085,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],26:[function(_dereq_,module,exports){
+},{}],36:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1827,10 +2096,10 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject eui-animation\">\n          <div class=\"eui-modalobject-wrapper\">\n            ");
+  data.buffer.push("\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject\">\n          <div class=\"eui-modalobject-wrapper\">\n            ");
   stack1 = helpers['if'].call(depth0, "programmatic", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n");
+  data.buffer.push("\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay\"></div>\n  </div>\n");
   return buffer;
   }
 function program2(depth0,data) {
@@ -1860,7 +2129,31 @@ function program4(depth0,data) {
   return buffer;
   
 });
-},{}],27:[function(_dereq_,module,exports){
+},{}],37:[function(_dereq_,module,exports){
+"use strict";
+var Ember = window.Ember["default"] || window.Ember;
+exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push(escapeExpression((helper = helpers['eui-calendar'] || (depth0 && depth0['eui-calendar']),options={hash:{
+    'selection': ("_selection"),
+    'allowMultipleBinding': ("dateRange"),
+    'selectAction': ("closeCalendar"),
+    'disablePast': ("disablePast"),
+    'disableFuture': ("disableFuture"),
+    'maxPastDate': ("maxPastDate"),
+    'maxFutureDate': ("maxFutureDate"),
+    'disabledDates': ("disabledDates"),
+    'style': ("style")
+  },hashTypes:{'selection': "ID",'allowMultipleBinding': "STRING",'selectAction': "STRING",'disablePast': "ID",'disableFuture': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'disabledDates': "ID",'style': "ID"},hashContexts:{'selection': depth0,'allowMultipleBinding': depth0,'selectAction': depth0,'disablePast': depth0,'disableFuture': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'disabledDates': depth0,'style': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-calendar", options))));
+  data.buffer.push("\n");
+  return buffer;
+  
+});
+},{}],38:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1875,7 +2168,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-},{}],28:[function(_dereq_,module,exports){
+},{}],39:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1917,7 +2210,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],29:[function(_dereq_,module,exports){
+},{}],40:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1951,7 +2244,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],30:[function(_dereq_,module,exports){
+},{}],41:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1960,26 +2253,6 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n  ");
-  data.buffer.push(escapeExpression((helper = helpers['eui-calendar'] || (depth0 && depth0['eui-calendar']),options={hash:{
-    'style': ("popup"),
-    'selection': ("selection"),
-    'allowMultipleBinding': ("dateRange"),
-    'class': ("eui-animation"),
-    'selectAction': ("closeCalendar"),
-    'disablePast': ("disablePast"),
-    'disableFuture': ("disableFuture"),
-    'maxPastDate': ("maxPastDate"),
-    'maxFutureDate': ("maxFutureDate"),
-    'disabledDates': ("disabledDates")
-  },hashTypes:{'style': "STRING",'selection': "ID",'allowMultipleBinding': "STRING",'class': "STRING",'selectAction': "STRING",'disablePast': "ID",'disableFuture': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'disabledDates': "ID"},hashContexts:{'style': depth0,'selection': depth0,'allowMultipleBinding': depth0,'class': depth0,'selectAction': depth0,'disablePast': depth0,'disableFuture': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'disabledDates': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-calendar", options))));
-  data.buffer.push("\n");
-  return buffer;
-  }
-
-function program3(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        ");
@@ -1995,21 +2268,18 @@ function program3(depth0,data) {
     'style': ("style"),
     'size': ("size"),
     'width': ("100%"),
-    'classBinding': (":eui-select showCalendar:eui-active"),
-    'action': ("toggleCalendar"),
+    'classBinding': (":eui-select popcalIsOpen:eui-active"),
+    'action': ("openCalendar"),
     'icon': ("eui-icon")
   },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'action': "STRING",'icon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'action': depth0,'icon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
   data.buffer.push("\n\n");
-  stack1 = helpers['if'].call(depth0, "renderModal", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n");
-  stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
   
 });
-},{}],31:[function(_dereq_,module,exports){
+},{}],42:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2060,7 +2330,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],32:[function(_dereq_,module,exports){
+},{}],43:[function(_dereq_,module,exports){
 "use strict";
 /*! jQuery UI - v1.10.4 - 2014-04-28
 * http://jqueryui.com
@@ -2558,7 +2828,7 @@ $.ui.position = {
 })();
 
 }( jQuery ) );
-},{}],33:[function(_dereq_,module,exports){
+},{}],44:[function(_dereq_,module,exports){
 "use strict";
 /*!
  * Copied from ic-modal which is adapted from jQuery UI core
@@ -2598,6 +2868,6 @@ if (!$.expr[':'].tabbable) {
     return ( isTabIndexNaN || tabIndex >= 0 ) && focusable( element, !isTabIndexNaN );
   }
 };
-},{}]},{},[12])
-(12)
+},{}]},{},[23])
+(23)
 });

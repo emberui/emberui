@@ -37,7 +37,11 @@ var EuiMonthComponent = require("./components/eui-month")["default"] || require(
 var EuiCalendarComponent = require("./components/eui-calendar")["default"] || require("./components/eui-calendar");
 var EuiCalendarTemplate = require("./templates/eui-calendar")["default"] || require("./templates/eui-calendar");
 
-require("./utilities/tabbable-selector");require("./utilities/position");
+var EuiPopcalComponent = require("./components/eui-popcal")["default"] || require("./components/eui-popcal");
+var EuiPopcalTemplate = require("./templates/eui-popcal")["default"] || require("./templates/eui-popcal");
+
+require("./utilities/tabbable-selector");require("./utilities/position");require("./animations/popcal-close-default");require("./animations/popcal-open-default");require("./animations/modal-close-default");require("./animations/modal-open-default");require("./animations/modal-close-full");require("./animations/modal-open-full");require("./animations/poplist-close-default");require("./animations/poplist-open-default");require("./animations/poplist-close-flyin");require("./animations/poplist-open-flyin");
+
 Ember.Application.initializer({
   name: 'emberui',
 
@@ -67,6 +71,9 @@ Ember.Application.initializer({
     container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
     container.register('component:eui-selectdate', EuiSelectDateComponent);
 
+    container.register('template:components/eui-popcal', EuiPopcalTemplate);
+    container.register('component:eui-popcal', EuiPopcalComponent);
+
     container.register('template:components/eui-textarea', EuiTextareaTemplate);
     container.register('component:eui-textarea', EuiTextareaComponent);
 
@@ -76,6 +83,8 @@ Ember.Application.initializer({
     container.register('component:eui-calendar', EuiCalendarComponent);
   }
 });
+
+Ember.libraries.register('EmberUI', '0.1.0');
 
 exports.EuiButtonComponent = EuiButtonComponent;
 exports.EuiCheckboxComponent = EuiCheckboxComponent;
@@ -89,3 +98,4 @@ exports.EuiSelectDateComponent = EuiSelectDateComponent;
 exports.EuiTextareaComponent = EuiTextareaComponent;
 exports.EuiMonthComponent = EuiMonthComponent;
 exports.EuiCalendarComponent = EuiCalendarComponent;
+exports.EuiPopcalComponent = EuiPopcalComponent;

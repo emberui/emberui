@@ -34,8 +34,9 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
           selectionBinding: 'targetObject.selection',
           optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
           labelPath: 'label',
-          style: 'bubble',
-          listWidth: this.get('listWidth')
+          style: 'default',
+          listWidth: this.get('listWidth'),
+          animationStyle: this.get('animationStyle')
         });
       }
     },

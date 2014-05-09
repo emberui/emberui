@@ -1,4 +1,239 @@
-define("emberui/components/eui-button",
+define("emberui/animations/modal-close-default",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiModalCloseDefault = function(element, options) {
+      var calls;
+      calls = [
+        {
+          element: $(element).find('.eui-modalobject'),
+          properties: {
+            opacity: [0, 1],
+            scaleX: [0.5, 1],
+            scaleY: [0.5, 1]
+          },
+          options: {
+            duration: 200
+          }
+        }, {
+          element: $(element).find('.eui-overlay'),
+          properties: {
+            opacity: [0, 1]
+          },
+          options: {
+            duration: 400,
+            complete: options.complete
+          }
+        }
+      ];
+      return $.each(calls, function(i, call) {
+        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+      });
+    };
+  });define("emberui/animations/modal-close-full",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiModalCloseFull = function(element, options) {
+      var calls;
+      calls = [
+        {
+          element: $(element).find('.eui-modalobject'),
+          properties: {
+            opacity: [0, 1],
+            scaleX: [5, 1],
+            scaleY: [5, 1]
+          },
+          options: {
+            duration: 200
+          }
+        }, {
+          element: $(element).find('.eui-overlay'),
+          properties: {
+            opacity: [0, 1]
+          },
+          options: {
+            duration: 400,
+            complete: options.complete
+          }
+        }
+      ];
+      return $.each(calls, function(i, call) {
+        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+      });
+    };
+  });define("emberui/animations/modal-open-default",
+  [],
+  function() {
+    "use strict";
+    jQuery.velocity.Sequences.euiModalOpenDefault = function(element, options) {
+      var calls;
+      calls = [
+        {
+          element: $(element).find('.eui-modalobject'),
+          properties: {
+            opacity: [1, 0],
+            scaleX: [1, 0.5],
+            scaleY: [1, 0.5]
+          },
+          options: {
+            duration: 200
+          }
+        }, {
+          element: $(element).find('.eui-overlay'),
+          properties: {
+            opacity: [1, 0]
+          },
+          options: {
+            duration: 400,
+            complete: options.complete
+          }
+        }
+      ];
+      return jQuery.each(calls, function(i, call) {
+        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+      });
+    };
+  });define("emberui/animations/modal-open-full",
+  [],
+  function() {
+    "use strict";
+    jQuery.velocity.Sequences.euiModalOpenFull = function(element, options) {
+      var calls;
+      calls = [
+        {
+          element: $(element).find('.eui-modalobject'),
+          properties: {
+            opacity: [1, 0],
+            scaleX: [1, 0.5],
+            scaleY: [1, 0.5]
+          },
+          options: {
+            duration: 200
+          }
+        }, {
+          element: $(element).find('.eui-overlay'),
+          properties: {
+            opacity: [1, 0]
+          },
+          options: {
+            duration: 400,
+            complete: options.complete
+          }
+        }
+      ];
+      return jQuery.each(calls, function(i, call) {
+        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+      });
+    };
+  });define("emberui/animations/popcal-close-default",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
+      return $.velocity.animate(element, {
+        opacity: [0, 1],
+        scaleX: [0, 1],
+        scaleY: [0, 1],
+        marginTop: function() {
+          var buttonOffset, direction, offset, popcalOffset;
+          if (!options.target) {
+            return ["0px", "0px"];
+          }
+          offset = $(element).height() / 2 + options.target.height();
+          popcalOffset = $(element).offset().top;
+          buttonOffset = options.target.offset().top;
+          direction = '+';
+          if ((buttonOffset - popcalOffset) < 1) {
+            direction = '-';
+          }
+          return ["" + direction + offset + "px", "0px"];
+        }
+      }, {
+        duration: options.duration || 250,
+        complete: options.complete
+      });
+    };
+  });define("emberui/animations/popcal-open-default",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
+      return $.velocity.animate(element, {
+        opacity: [1, 0],
+        scaleX: [1, 0.7],
+        scaleY: [1, 0.7]
+      }, {
+        duration: options.duration || 100
+      });
+    };
+  });define("emberui/animations/poplist-close-default",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
+      return $.velocity.animate(element, {
+        opacity: [0, 1],
+        marginTop: ["6px", "-4px"]
+      }, {
+        duration: options.duration || 200,
+        complete: options.complete
+      });
+    };
+  });define("emberui/animations/poplist-close-flyin",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
+      return $.velocity.animate(element, {
+        opacity: [0, 1],
+        scaleX: [0, 1],
+        scaleY: [0, 1],
+        marginTop: function() {
+          var buttonOffset, direction, offset, popcalOffset;
+          if (!options.target) {
+            return ["0px", "0px"];
+          }
+          offset = $(element).height() / 2 + options.target.height();
+          popcalOffset = $(element).offset().top;
+          buttonOffset = options.target.offset().top;
+          direction = '+';
+          if ((buttonOffset - popcalOffset) < 1) {
+            direction = '-';
+          }
+          return ["" + direction + offset + "px", "0px"];
+        }
+      }, {
+        duration: options.duration || 200,
+        complete: options.complete
+      });
+    };
+  });define("emberui/animations/poplist-open-default",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
+      return $.velocity.animate(element, {
+        opacity: [1, 0],
+        marginTop: ["-4px", "-14px"]
+      }, {
+        duration: options.duration || 200
+      });
+    };
+  });define("emberui/animations/poplist-open-flyin",
+  [],
+  function() {
+    "use strict";
+    $.velocity.Sequences.euiPoplistOpenFlyin = function(element, options) {
+      return $.velocity.animate(element, {
+        opacity: [1, 0],
+        scaleX: [1, 0.7],
+        scaleY: [1, 0.7]
+      }, {
+        duration: options.duration || 100
+      });
+    };
+  });define("emberui/components/eui-button",
   ["../mixins/style-support","../mixins/size-support","../mixins/disabled-support","../mixins/width-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -32,19 +267,7 @@ define("emberui/components/eui-button",
   function(__dependency1__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var calendar, cpFormatMoment;
-
-    cpFormatMoment = function(key, format) {
-      return Em.computed('key', function() {
-        var date;
-        date = this.get(key);
-        if (date) {
-          return date.format(format);
-        } else {
-          return null;
-        }
-      });
-    };
+    var calendar;
 
     calendar = Em.Component.extend(styleSupport, {
       tagName: 'eui-calendar',
@@ -266,9 +489,15 @@ define("emberui/components/eui-button",
         }
         return false;
       }).property('isNextMonthBeyondMax', 'isNextMonthInFuture', 'disableFuture'),
-      prevMonthLabel: cpFormatMoment('prevMonth', 'MMMM YYYY'),
-      nextMonthLabel: cpFormatMoment('nextMonth', 'MMMM YYYY'),
-      monthLabel: cpFormatMoment('month', 'MMMM YYYY')
+      prevMonthLabel: Em.computed('prevMonth', function() {
+        return this.get('prevMonth').format('MMMM YYYY');
+      }),
+      nextMonthLabel: Em.computed('nextMonth', function() {
+        return this.get('nextMonth').format('MMMM YYYY');
+      }),
+      monthLabel: Em.computed('month', function() {
+        return this.get('month').format('MMMM YYYY');
+      })
     });
 
      __exports__["default"] = calendar;
@@ -333,8 +562,9 @@ define("emberui/components/eui-button",
               selectionBinding: 'targetObject.selection',
               optionsBinding: 'targetObject.optionsWithoutPrimaryAction',
               labelPath: 'label',
-              style: 'bubble',
-              listWidth: this.get('listWidth')
+              style: 'default',
+              listWidth: this.get('listWidth'),
+              animationStyle: this.get('animationStyle')
             });
           }
         },
@@ -364,76 +594,94 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = input;
   });define("emberui/components/eui-modal",
-  ["../mixins/style-support","../mixins/animations-did-complete","../mixins/modal-behaviour","../templates/eui-modal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
+  ["../mixins/style-support","../mixins/animation-support","../templates/eui-modal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var animationsDidComplete = __dependency2__["default"] || __dependency2__;
-    var modalBehaviour = __dependency3__["default"] || __dependency3__;
-    var modalLayout = __dependency4__["default"] || __dependency4__;
+    var animationSupport = __dependency2__["default"] || __dependency2__;
+    var modalLayout = __dependency3__["default"] || __dependency3__;
     var modal;
 
-    modal = Em.Component.extend(styleSupport, animationsDidComplete, modalBehaviour, {
+    modal = Em.Component.extend(styleSupport, animationSupport, {
       layout: modalLayout,
       tagName: 'eui-modal',
       classNames: ['eui-modal'],
       classNameBindings: ['class'],
+      attributeBindings: ['tabindex'],
       "class": null,
+      animationClass: 'euiModal',
       previousFocus: null,
       tabindex: 0,
       programmatic: false,
       isClosing: false,
       renderModal: false,
-      open: Ember.computed('renderModal', function(key, value) {
+      open: Ember.computed(function(key, value) {
         if (arguments.length === 2) {
           if (value) {
             this.set('renderModal', value);
-          } else {
-            if (this.get('renderModal')) {
-              this.hide();
-            }
+          } else if (this.get('renderModal')) {
+            this.hide();
           }
           return value;
         } else {
           value = this.get('renderModal');
           return value;
         }
-      }),
+      }).property('renderModal'),
+      hide: function() {
+        return this.animateOut({
+          complete: (function(_this) {
+            return function() {
+              return _this.breakdown();
+            };
+          })(this)
+        });
+      },
       didInsertElement: function() {
         if (this.get('programmatic')) {
-          this.set('previousFocus', $(document.activeElement));
-          this.$().focus();
-          return $('body').addClass('eui-modal-open');
+          return this.setup();
         }
       },
       didOpenModal: (function() {
         if (this.get('renderModal')) {
-          this.$().focus();
-          return $('body').addClass('eui-modal-open');
+          return this.setup();
         }
       }).observes('renderModal'),
-      hide: function() {
-        this.set('isClosing', true);
-        return this.animationsDidComplete().then((function(_this) {
-          return function() {
-            return _this.remove();
-          };
-        })(this));
+      setup: function() {
+        this.animateIn();
+        this.set('previousFocus', $(document.activeElement));
+        this.$().focus();
+        return $('body').toggleClass('eui-modal-open');
       },
-      remove: function() {
+      breakdown: function() {
         var _ref;
         if ((_ref = this.get('previousFocus')) != null) {
           _ref.focus();
         }
-        $('body').removeClass('eui-modal-open');
+        $('body').toggleClass('eui-modal-open');
         if (this.get('programmatic')) {
           return this.destroy();
         } else {
-          return this.setProperties({
-            isClosing: false,
-            renderModal: false
-          });
+          return this.set('renderModal', false);
         }
+      },
+      willDestroy: function() {
+        return $('body').removeClass('eui-modal-open');
+      },
+      constrainTabNavigationToModal: function(event) {
+        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+        if (!this.get('open')) {
+          return;
+        }
+        activeElement = document.activeElement;
+        tabbable = this.$(':tabbable');
+        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement && event.shiftKey;
+        if (!leavingFinalTabbable) {
+          return;
+        }
+        event.preventDefault();
+        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
       },
       actions: {
         cancel: function(context) {
@@ -610,22 +858,118 @@ define("emberui/components/eui-button",
     });
 
     __exports__["default"] = month;
+  });define("emberui/components/eui-popcal",
+  ["../mixins/style-support","../mixins/animation-support","../templates/eui-popcal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+    "use strict";
+    var styleSupport = __dependency1__["default"] || __dependency1__;
+    var animationSupport = __dependency2__["default"] || __dependency2__;
+    var popcalLayout = __dependency3__["default"] || __dependency3__;
+    var popcal;
+
+    popcal = Em.Component.extend(styleSupport, animationSupport, {
+      layout: popcalLayout,
+      classNames: ['eui-popcal'],
+      attributeBindings: ['tabindex'],
+      tagName: 'eui-popcal',
+      animationClass: 'euiPopcal',
+      tabindex: 0,
+      previousFocus: null,
+      hide: function() {
+        return this.animateOut({
+          target: this.get('targetObject').$(),
+          complete: (function(_this) {
+            return function() {
+              return _this.breakdown();
+            };
+          })(this)
+        });
+      },
+      setup: (function() {
+        this.animateIn();
+        this.set('previousFocus', $(document.activeElement));
+        this.set('isOpen', true);
+        this.set('_selection', this.get('selection'));
+        this.$().position({
+          my: "center top",
+          at: "center bottom",
+          of: this.get('targetObject').$(),
+          collision: 'flipfit'
+        });
+        Ember.run.next(this, function() {
+          return $(window).on('click.emberui', (function(_this) {
+            return function(event) {
+              if (!$(event.target).parents('.eui-popcal').length) {
+                event.preventDefault();
+                $(window).off(event);
+                return _this.hide();
+              }
+            };
+          })(this));
+        });
+        this.$().focus();
+        return $('body').addClass('eui-popcal-open');
+      }).on('didInsertElement'),
+      breakdown: function() {
+        var _ref;
+        this.get('previousFocus').focus();
+        this.set('isOpen', false);
+        $('body').removeClass('eui-popcal-open');
+        if (!(this.get('dateRange') && ((_ref = this.get('_selection')) != null ? _ref.get('length') : void 0) === 1)) {
+          return this.set('selection', this.get('_selection'));
+        }
+      },
+      actions: {
+        closeCalendar: function() {
+          var dateRange, selection;
+          dateRange = this.get('dateRange');
+          selection = this.get('_selection');
+          if (dateRange) {
+            if ((selection != null ? selection.get('length') : void 0) > 1) {
+              return this.hide();
+            }
+          } else if (selection) {
+            return this.hide();
+          }
+        }
+      },
+      keyDown: function(event) {
+        if (event.keyCode === 27) {
+          return this.hide();
+        }
+      }
+    });
+
+    popcal.reopenClass({
+      show: function(options) {
+        if (options == null) {
+          options = {};
+        }
+        popcal = this.create(options);
+        popcal.container = popcal.get('targetObject.container');
+        popcal.appendTo('.ember-application');
+        return popcal;
+      }
+    });
+
+    __exports__["default"] = popcal;
   });define("emberui/components/eui-poplist",
-  ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  ["../mixins/style-support","../mixins/animation-support","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var animationsDidComplete = __dependency2__["default"] || __dependency2__;
+    var animationSupport = __dependency2__["default"] || __dependency2__;
     var poplistLayout = __dependency3__["default"] || __dependency3__;
     var itemViewClassTemplate = __dependency4__["default"] || __dependency4__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
+    poplist = Em.Component.extend(styleSupport, animationSupport, {
       layout: poplistLayout,
-      classNames: ['eui-poplist eui-animation'],
+      classNames: ['eui-poplist'],
       classNameBindings: ['isOpen::eui-closing'],
       attributeBindings: ['tabindex'],
       tagName: 'eui-poplist',
+      animationClass: 'euiPoplist',
       listWidth: null,
       listHeight: '80',
       listRowHeight: '20',
@@ -647,21 +991,26 @@ define("emberui/components/eui-button",
         }
       }),
       hide: function() {
-        this.setProperties({
-          isOpen: false,
-          highlightedIndex: -1
+        return this.animateOut({
+          target: this.get('targetObject').$(),
+          complete: (function(_this) {
+            return function() {
+              return _this.breakdown();
+            };
+          })(this)
         });
-        $(window).unbind('.emberui');
-        this.$().unbind('.emberui');
-        this.get('previousFocus').focus();
-        $('body').removeClass('eui-poplist-open');
-        return this.animationsDidComplete().then((function(_this) {
-          return function() {
-            return _this.destroy();
-          };
-        })(this));
       },
-      didInsertElement: function() {
+      setup: (function() {
+        this.setPoplistWidth();
+        Em.run.next(this, function() {
+          return this.$().position({
+            my: "right top",
+            at: "right bottom",
+            of: this.get('targetObject').$(),
+            collision: 'flipfit'
+          });
+        });
+        this.animateIn();
         this.set('isOpen', true);
         this.set('previousFocus', $(document.activeElement));
         Ember.run.next(this, function() {
@@ -671,7 +1020,34 @@ define("emberui/components/eui-button",
         Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
-        return $('body').addClass('eui-poplist-open');
+        $('body').addClass('eui-poplist-open');
+        return Ember.run.next(this, function() {
+          return $(window).on('click.emberui', (function(_this) {
+            return function(event) {
+              if (!$(event.target).parents('.eui-poplist').length) {
+                event.preventDefault();
+                $(window).off(event);
+                return _this.hide();
+              }
+            };
+          })(this));
+        });
+      }).on('didInsertElement'),
+      breakdown: function() {
+        this.setProperties({
+          isOpen: false,
+          highlightedIndex: -1
+        });
+        this.get('previousFocus').focus();
+        $('body').removeClass('eui-poplist-open');
+        return this.destroy();
+      },
+      setPoplistWidth: function() {
+        var element, elementWidthMinuspoplistPadding, poplistElement;
+        element = this.get('targetObject').$();
+        poplistElement = this.$();
+        elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
+        return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
       },
       focusOnSearch: function() {
         return this.$().find('input:first').focus();
@@ -863,39 +1239,7 @@ define("emberui/components/eui-button",
         poplist.container = poplist.get('targetObject.container');
         poplist.appendTo('.ember-application');
         poplist.updateListHeight();
-        Ember.run.next(this, function() {
-          return this.position(options.targetObject, poplist);
-        });
         return poplist;
-      },
-      position: function(targetObject, poplist) {
-        var element, elementHeight, elementPositionLeft, elementPositionTop, elementWidth, elementWidthMinuspoplistPadding, offset, poplistElement, poplistHorizontalPadding, poplistPositionLeft, poplistPositionTop, poplistWidth, windowScrollLeft, windowScrollTop;
-        element = targetObject.$();
-        poplistElement = poplist.$();
-        offset = element.offset();
-        elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
-        poplistElement.css('min-width', elementWidthMinuspoplistPadding);
-        elementPositionTop = offset.top - element.scrollTop();
-        elementPositionLeft = offset.left - element.scrollLeft();
-        elementHeight = element.height();
-        elementWidth = element.width();
-        poplistWidth = poplistElement.width();
-        poplistHorizontalPadding = parseFloat(poplistElement.css('paddingLeft')) + parseFloat(poplistElement.css('paddingRight'));
-        windowScrollTop = $(window).scrollTop();
-        windowScrollLeft = $(window).scrollLeft();
-        poplistPositionTop = elementPositionTop + elementHeight - windowScrollTop;
-        poplistPositionLeft = elementPositionLeft + elementWidth - poplistWidth - poplistHorizontalPadding - windowScrollLeft;
-        poplistElement.css('top', poplistPositionTop);
-        poplistElement.css('left', poplistPositionLeft);
-        $(window).bind('scroll.emberui', function() {
-          return poplist.hide();
-        });
-        return $(window).bind('click.emberui', function(event) {
-          if (!$(event.target).parents('.eui-poplist').length) {
-            event.preventDefault();
-            return poplist.hide();
-          }
-        });
       }
     });
 
@@ -997,7 +1341,8 @@ define("emberui/components/eui-button",
             optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
             style: 'flyin',
-            listWidth: this.get('listWidth')
+            listWidth: this.get('listWidth'),
+            animationStyle: this.get('animationStyle')
           });
         }
       },
@@ -1012,28 +1357,65 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = select;
   });define("emberui/components/eui-selectdate",
-  ["../mixins/disabled-support","../mixins/width-support","../mixins/error-support","../mixins/animations-did-complete","../mixins/modal-behaviour","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
+  ["../mixins/disabled-support","../mixins/width-support","../mixins/error-support","../components/eui-popcal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var disabledSupport = __dependency1__["default"] || __dependency1__;
     var widthSupport = __dependency2__["default"] || __dependency2__;
     var errorSupport = __dependency3__["default"] || __dependency3__;
-    var animationsDidComplete = __dependency4__["default"] || __dependency4__;
-    var modalBehaviour = __dependency5__["default"] || __dependency5__;
+    var popcalComponent = __dependency4__["default"] || __dependency4__;
     var select;
 
-    select = Em.Component.extend(disabledSupport, errorSupport, animationsDidComplete, modalBehaviour, widthSupport, {
+    select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-selectdate',
       classNames: ['eui-selectdate'],
       classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class'],
       style: 'default',
       size: 'medium',
+      calendarStyle: 'default',
+      popcalIsOpen: false,
       dateRange: false,
       formatting: {
         yearFormat: "YYYY",
         monthFormat: "MMMM",
         dayFormat: "D"
       },
+      value: Em.computed('selection.@each', function(key, value) {
+        var selection;
+        selection = this.get('selection');
+        if (arguments.length === 2) {
+          if (!value) {
+            this.set('selection', value);
+            return value;
+          }
+          if (Em.isArray(value)) {
+            this.set('selection', value.map(function(v) {
+              return moment(v);
+            }));
+          } else {
+            this.set('selection', moment(value));
+          }
+          return value;
+        } else {
+          if (!selection) {
+            if (this.get('dateRange')) {
+              return [];
+            } else {
+              return null;
+            }
+          }
+          if (Em.isArray(selection)) {
+            return selection.map(function(date) {
+              return date.format('X');
+            });
+          } else {
+            return selection.format('X');
+          }
+        }
+      }),
+      calculateInitalValue: (function() {
+        return this.notifyPropertyChange('value');
+      }).on('didInsertElement'),
       isPlaceholder: Em.computed('selection', function() {
         var selection;
         selection = this.get('selection');
@@ -1046,68 +1428,23 @@ define("emberui/components/eui-button",
         return true;
       }),
       actions: {
-        toggleCalendar: function() {
-          if (this.get('open')) {
-            return this.send('closeCalendar');
-          } else {
-            return this.send('openCalendar');
-          }
-        },
-        closeCalendar: function(options) {
-          var closeCalendar, dateRange, selection;
-          dateRange = this.get('dateRange');
-          selection = this.get('selection');
-          closeCalendar = false;
-          if (dateRange) {
-            if (selection && selection.get('length') > 1) {
-              closeCalendar = true;
-            } else if (selection && selection.get('length') === 1 && options && options.forceClose === true) {
-              this.resetSelection();
-              closeCalendar = true;
-            } else if (selection.get('length') === 0 && options && options.forceClose === true) {
-              closeCalendar = true;
-            }
-          } else if (selection) {
-            closeCalendar = true;
-          } else if (options && options.forceClose === true) {
-            closeCalendar = true;
-          }
-          if (closeCalendar) {
-            $(window).unbind('.emberui');
-            return this.hide();
-          }
-        },
         openCalendar: function() {
-          this.set('open', true);
-          Ember.run.next(this, function() {
-            return this.positionCalendar();
-          });
-          this.set('_selection', this.get('selection'));
-          return Ember.run.next(this, function() {
-            return $(window).on('click.emberui', (function(_this) {
-              return function(event) {
-                if (!_this.$('eui-calendar').find($(event.target)).length) {
-                  event.preventDefault();
-                  $(_this).off(event);
-                  return _this.send('closeCalendar', {
-                    forceClose: true
-                  });
-                }
-              };
-            })(this));
-          });
+          if (!this.get('popcalIsOpen')) {
+            return popcalComponent.show({
+              targetObject: this,
+              isOpenBinding: 'targetObject.popcalIsOpen',
+              selectionBinding: 'targetObject.selection',
+              dateRangeBinding: 'targetObject.dateRange',
+              disablePastBinding: 'targetObject.disablePast',
+              disableFutureBinding: 'targetObject.disableFuture',
+              maxPastDateBinding: 'targetObject.maxPastDate',
+              maxFutureDateBinding: 'targetObject.maxFutureDate',
+              disabledDatesBinding: 'targetObject.disabledDates',
+              styleBinding: 'targetObject.calendarStyle',
+              animationStyle: this.get('animationStyle')
+            });
+          }
         }
-      },
-      positionCalendar: function() {
-        return this.$().find('eui-calendar').position({
-          my: "center top",
-          at: "center bottom",
-          of: this.$(),
-          collision: 'flipfit'
-        });
-      },
-      resetSelection: function() {
-        return this.set('selection', this.get('_selection'));
       },
       keyDown: function(event) {
         if (event.keyCode === 27) {
@@ -1204,8 +1541,8 @@ define("emberui/components/eui-button",
 
     __exports__["default"] = textarea;
   });define("emberui",
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","./utilities/position","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./utilities/tabbable-selector","./utilities/position","./animations/popcal-close-default","./animations/popcal-open-default","./animations/modal-close-default","./animations/modal-open-default","./animations/modal-close-full","./animations/modal-open-full","./animations/poplist-close-default","./animations/poplist-open-default","./animations/poplist-close-flyin","./animations/poplist-open-flyin","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __dependency31__, __dependency32__, __dependency33__, __dependency34__, __dependency35__, __dependency36__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -1245,6 +1582,10 @@ define("emberui/components/eui-button",
     var EuiCalendarComponent = __dependency21__["default"] || __dependency21__;
     var EuiCalendarTemplate = __dependency22__["default"] || __dependency22__;
 
+    var EuiPopcalComponent = __dependency23__["default"] || __dependency23__;
+    var EuiPopcalTemplate = __dependency24__["default"] || __dependency24__;
+
+
 
     Ember.Application.initializer({
       name: 'emberui',
@@ -1275,6 +1616,9 @@ define("emberui/components/eui-button",
         container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
         container.register('component:eui-selectdate', EuiSelectDateComponent);
 
+        container.register('template:components/eui-popcal', EuiPopcalTemplate);
+        container.register('component:eui-popcal', EuiPopcalComponent);
+
         container.register('template:components/eui-textarea', EuiTextareaTemplate);
         container.register('component:eui-textarea', EuiTextareaComponent);
 
@@ -1284,6 +1628,8 @@ define("emberui/components/eui-button",
         container.register('component:eui-calendar', EuiCalendarComponent);
       }
     });
+
+    Ember.libraries.register('EmberUI', '0.1.0');
 
     __exports__.EuiButtonComponent = EuiButtonComponent;
     __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
@@ -1297,53 +1643,79 @@ define("emberui/components/eui-button",
     __exports__.EuiTextareaComponent = EuiTextareaComponent;
     __exports__.EuiMonthComponent = EuiMonthComponent;
     __exports__.EuiCalendarComponent = EuiCalendarComponent;
-  });define("emberui/mixins/animations-did-complete",
+    __exports__.EuiPopcalComponent = EuiPopcalComponent;
+  });define("emberui/mixins/animation-support",
   ["exports"],
   function(__exports__) {
     "use strict";
-    var animationsDidComplete;
+    var animationSupport;
 
-    animationsDidComplete = Em.Mixin.create({
-      animationsDidComplete: function() {
-        var promise;
-        promise = new Em.RSVP.Promise((function(_this) {
-          return function(resolve, reject) {
-            var animatedElements, animation, cssRule, domPrefixes, element, elements, prefix, primaryElement, _i, _j, _len, _len1;
-            animation = false;
-            primaryElement = _this.$();
-            animatedElements = _this.$().find('.eui-animation');
-            elements = $.merge(primaryElement, animatedElements);
-            domPrefixes = ['', 'Webkit', 'Moz', 'O', 'ms'];
-            for (_i = 0, _len = elements.length; _i < _len; _i++) {
-              element = elements[_i];
-              if (animation) {
-                break;
-              }
-              for (_j = 0, _len1 = domPrefixes.length; _j < _len1; _j++) {
-                prefix = domPrefixes[_j];
-                cssRule = $(element).css(prefix + 'animationName');
-                if (cssRule && cssRule !== 'none') {
-                  animation = true;
-                }
-                if (animation) {
-                  break;
-                }
-              }
-            }
-            if (animation) {
-              return _this.$().one('webkitAnimationEnd mozAnimationEnd oanimationend msAnimationEnd animationend', function() {
-                return resolve(_this);
-              });
-            } else {
-              return resolve(_this);
-            }
-          };
-        })(this));
-        return promise;
+    animationSupport = Em.Mixin.create({
+      animationStyle: null,
+      animationClass: null,
+      openAnimation: Em.computed('computedAnimationStyle', function() {
+        var backupStyle, component, style;
+        style = this.get('computedAnimationStyle');
+        component = this.get('animationClass');
+        if (!(style && component)) {
+          return;
+        }
+        style = "" + component + "Open" + style;
+        backupStyle = "" + component + "OpenDefault";
+        if ($.velocity.Sequences.hasOwnProperty(style)) {
+          return style;
+        } else {
+          return backupStyle;
+        }
+      }),
+      closeAnimation: Em.computed('computedAnimationStyle', function() {
+        var backupStyle, component, style;
+        style = this.get('computedAnimationStyle');
+        component = this.get('animationClass');
+        if (!(style && component)) {
+          return;
+        }
+        style = "" + component + "Close" + style;
+        backupStyle = "" + component + "CloseDefault";
+        if ($.velocity.Sequences.hasOwnProperty(style)) {
+          return style;
+        } else {
+          return backupStyle;
+        }
+      }),
+      computedAnimationStyle: Em.computed('animationStyle', 'style', function() {
+        var style, _ref, _ref1;
+        style = (_ref = this.get('animationStyle')) != null ? _ref.capitalize() : void 0;
+        if (!style) {
+          style = (_ref1 = this.get('style')) != null ? _ref1.capitalize() : void 0;
+        }
+        return style;
+      }),
+      animateIn: function(options) {
+        var openAnimation;
+        if (!(openAnimation = this.get('openAnimation'))) {
+          return;
+        }
+        if (!options) {
+          options = {};
+        }
+        return Em.run.next(this, function() {
+          return this.$().velocity(openAnimation, options);
+        });
+      },
+      animateOut: function(options) {
+        var closeAnimation;
+        if (!(closeAnimation = this.get('closeAnimation'))) {
+          return;
+        }
+        if (!options) {
+          options = {};
+        }
+        return this.$().velocity(closeAnimation, options);
       }
     });
 
-    __exports__["default"] = animationsDidComplete;
+    __exports__["default"] = animationSupport;
   });define("emberui/mixins/disabled-support",
   ["exports"],
   function(__exports__) {
@@ -1408,89 +1780,6 @@ define("emberui/components/eui-button",
     });
 
     __exports__["default"] = errorSupport;
-  });define("emberui/mixins/modal-behaviour",
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    var modalBehaviour;
-
-    modalBehaviour = Em.Mixin.create({
-      classNameBindings: ['class', 'isClosing:eui-closing'],
-      attributeBindings: ['tabindex'],
-      previousFocus: null,
-      tabindex: 0,
-      programmatic: false,
-      isClosing: false,
-      renderModal: false,
-      open: Ember.computed(function(key, value) {
-        if (arguments.length === 2) {
-          if (value) {
-            this.set('renderModal', value);
-          } else {
-            if (this.get('renderModal')) {
-              this.hide();
-            }
-          }
-          return value;
-        } else {
-          value = this.get('renderModal');
-          return value;
-        }
-      }).property('renderModal'),
-      didInsertElement: function() {
-        if (this.get('programmatic')) {
-          this.set('previousFocus', $(document.activeElement));
-          this.$().focus();
-          return $('body').toggleClass('eui-modal-open');
-        }
-      },
-      didOpenModal: (function() {
-        if (this.get('renderModal')) {
-          this.$().focus();
-          return $('body').toggleClass('eui-modal-open');
-        }
-      }).observes('renderModal'),
-      hide: function() {
-        this.set('isClosing', true);
-        return this.animationsDidComplete().then((function(_this) {
-          return function() {
-            return _this.remove();
-          };
-        })(this));
-      },
-      remove: function() {
-        var _ref;
-        if ((_ref = this.get('previousFocus')) != null) {
-          _ref.focus();
-        }
-        $('body').toggleClass('eui-modal-open');
-        if (this.get('programmatic')) {
-          return this.destroy();
-        } else {
-          return this.setProperties({
-            isClosing: false,
-            renderModal: false
-          });
-        }
-      },
-      willDestroy: function() {
-        return $('body').removeClass('eui-modal-open');
-      },
-      constrainTabNavigationToModal: function(event) {
-        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
-        activeElement = document.activeElement;
-        tabbable = this.$(':tabbable');
-        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
-        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement;
-        if (!leavingFinalTabbable) {
-          return;
-        }
-        event.preventDefault();
-        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
-      }
-    });
-
-    __exports__["default"] = modalBehaviour;
   });define("emberui/mixins/size-support",
   ["exports"],
   function(__exports__) {
@@ -1879,10 +2168,10 @@ define("emberui/components/eui-button",
     function program1(depth0,data) {
       
       var buffer = '', stack1;
-      data.buffer.push("\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject eui-animation\">\n          <div class=\"eui-modalobject-wrapper\">\n            ");
+      data.buffer.push("\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject\">\n          <div class=\"eui-modalobject-wrapper\">\n            ");
       stack1 = helpers['if'].call(depth0, "programmatic", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-      data.buffer.push("\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay eui-animation\"></div>\n  </div>\n");
+      data.buffer.push("\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay\"></div>\n  </div>\n");
       return buffer;
       }
     function program2(depth0,data) {
@@ -1908,6 +2197,32 @@ define("emberui/components/eui-button",
 
       stack1 = helpers['if'].call(depth0, "renderModal", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("\n");
+      return buffer;
+      
+    });
+  });define("emberui/templates/eui-popcal",
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"] || __dependency1__;
+    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+
+
+      data.buffer.push(escapeExpression((helper = helpers['eui-calendar'] || (depth0 && depth0['eui-calendar']),options={hash:{
+        'selection': ("_selection"),
+        'allowMultipleBinding': ("dateRange"),
+        'selectAction': ("closeCalendar"),
+        'disablePast': ("disablePast"),
+        'disableFuture': ("disableFuture"),
+        'maxPastDate': ("maxPastDate"),
+        'maxFutureDate': ("maxFutureDate"),
+        'disabledDates': ("disabledDates"),
+        'style': ("style")
+      },hashTypes:{'selection': "ID",'allowMultipleBinding': "STRING",'selectAction': "STRING",'disablePast': "ID",'disableFuture': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'disabledDates': "ID",'style': "ID"},hashContexts:{'selection': depth0,'allowMultipleBinding': depth0,'selectAction': depth0,'disablePast': depth0,'disableFuture': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'disabledDates': depth0,'style': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-calendar", options))));
       data.buffer.push("\n");
       return buffer;
       
@@ -2021,26 +2336,6 @@ define("emberui/components/eui-button",
 
     function program1(depth0,data) {
       
-      var buffer = '', helper, options;
-      data.buffer.push("\n  ");
-      data.buffer.push(escapeExpression((helper = helpers['eui-calendar'] || (depth0 && depth0['eui-calendar']),options={hash:{
-        'style': ("popup"),
-        'selection': ("selection"),
-        'allowMultipleBinding': ("dateRange"),
-        'class': ("eui-animation"),
-        'selectAction': ("closeCalendar"),
-        'disablePast': ("disablePast"),
-        'disableFuture': ("disableFuture"),
-        'maxPastDate': ("maxPastDate"),
-        'maxFutureDate': ("maxFutureDate"),
-        'disabledDates': ("disabledDates")
-      },hashTypes:{'style': "STRING",'selection': "ID",'allowMultipleBinding': "STRING",'class': "STRING",'selectAction': "STRING",'disablePast': "ID",'disableFuture': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'disabledDates': "ID"},hashContexts:{'style': depth0,'selection': depth0,'allowMultipleBinding': depth0,'class': depth0,'selectAction': depth0,'disablePast': depth0,'disableFuture': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'disabledDates': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-calendar", options))));
-      data.buffer.push("\n");
-      return buffer;
-      }
-
-    function program3(depth0,data) {
-      
       var buffer = '', stack1;
       data.buffer.push("\n  <div class=\"eui-error-message\">\n    <div class=\"eui-error-wrapper\">\n      <p>\n        ");
       stack1 = helpers._triageMustache.call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -2055,15 +2350,12 @@ define("emberui/components/eui-button",
         'style': ("style"),
         'size': ("size"),
         'width': ("100%"),
-        'classBinding': (":eui-select showCalendar:eui-active"),
-        'action': ("toggleCalendar"),
+        'classBinding': (":eui-select popcalIsOpen:eui-active"),
+        'action': ("openCalendar"),
         'icon': ("eui-icon")
       },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'action': "STRING",'icon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'action': depth0,'icon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n");
-      stack1 = helpers['if'].call(depth0, "renderModal", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
-      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-      data.buffer.push("\n\n");
-      stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+      stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n");
       return buffer;

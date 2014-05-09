@@ -1,71 +1,89 @@
 "use strict";
 var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
-var animationsDidComplete = require("../mixins/animations-did-complete")["default"] || require("../mixins/animations-did-complete");
-var modalBehaviour = require("../mixins/modal-behaviour")["default"] || require("../mixins/modal-behaviour");
+var animationSupport = require("../mixins/animation-support")["default"] || require("../mixins/animation-support");
 var modalLayout = require("../templates/eui-modal")["default"] || require("../templates/eui-modal");
 var modal;
 
-modal = Em.Component.extend(styleSupport, animationsDidComplete, modalBehaviour, {
+modal = Em.Component.extend(styleSupport, animationSupport, {
   layout: modalLayout,
   tagName: 'eui-modal',
   classNames: ['eui-modal'],
   classNameBindings: ['class'],
+  attributeBindings: ['tabindex'],
   "class": null,
+  animationClass: 'euiModal',
   previousFocus: null,
   tabindex: 0,
   programmatic: false,
   isClosing: false,
   renderModal: false,
-  open: Ember.computed('renderModal', function(key, value) {
+  open: Ember.computed(function(key, value) {
     if (arguments.length === 2) {
       if (value) {
         this.set('renderModal', value);
-      } else {
-        if (this.get('renderModal')) {
-          this.hide();
-        }
+      } else if (this.get('renderModal')) {
+        this.hide();
       }
       return value;
     } else {
       value = this.get('renderModal');
       return value;
     }
-  }),
+  }).property('renderModal'),
+  hide: function() {
+    return this.animateOut({
+      complete: (function(_this) {
+        return function() {
+          return _this.breakdown();
+        };
+      })(this)
+    });
+  },
   didInsertElement: function() {
     if (this.get('programmatic')) {
-      this.set('previousFocus', $(document.activeElement));
-      this.$().focus();
-      return $('body').addClass('eui-modal-open');
+      return this.setup();
     }
   },
   didOpenModal: (function() {
     if (this.get('renderModal')) {
-      this.$().focus();
-      return $('body').addClass('eui-modal-open');
+      return this.setup();
     }
   }).observes('renderModal'),
-  hide: function() {
-    this.set('isClosing', true);
-    return this.animationsDidComplete().then((function(_this) {
-      return function() {
-        return _this.remove();
-      };
-    })(this));
+  setup: function() {
+    this.animateIn();
+    this.set('previousFocus', $(document.activeElement));
+    this.$().focus();
+    return $('body').toggleClass('eui-modal-open');
   },
-  remove: function() {
+  breakdown: function() {
     var _ref;
     if ((_ref = this.get('previousFocus')) != null) {
       _ref.focus();
     }
-    $('body').removeClass('eui-modal-open');
+    $('body').toggleClass('eui-modal-open');
     if (this.get('programmatic')) {
       return this.destroy();
     } else {
-      return this.setProperties({
-        isClosing: false,
-        renderModal: false
-      });
+      return this.set('renderModal', false);
     }
+  },
+  willDestroy: function() {
+    return $('body').removeClass('eui-modal-open');
+  },
+  constrainTabNavigationToModal: function(event) {
+    var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+    if (!this.get('open')) {
+      return;
+    }
+    activeElement = document.activeElement;
+    tabbable = this.$(':tabbable');
+    finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+    leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement && event.shiftKey;
+    if (!leavingFinalTabbable) {
+      return;
+    }
+    event.preventDefault();
+    return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
   },
   actions: {
     cancel: function(context) {

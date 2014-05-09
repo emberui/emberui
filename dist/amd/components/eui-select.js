@@ -95,7 +95,8 @@ define(
             optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
             style: 'flyin',
-            listWidth: this.get('listWidth')
+            listWidth: this.get('listWidth'),
+            animationStyle: this.get('animationStyle')
           });
         }
       },

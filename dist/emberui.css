@@ -169,6 +169,7 @@
   top: 0px;
   left: 0px;
   z-index: 1000001;
+  opacity: 0.1;
   outline: none;
   max-height: -webkit-calc(100% - 100px);
   max-height: calc(100% - 100px);
@@ -336,7 +337,7 @@
     height: 100%; }
   .eui-modal .eui-overlay {
     position: absolute;
-    opacity: 1;
+    opacity: 0.1;
     height: 100%;
     width: 100%;
     top: 0px;
@@ -346,7 +347,7 @@
   .eui-modal .eui-modalobject {
     position: relative;
     display: inline-block;
-    opacity: 1;
+    opacity: 0.01;
     z-index: 1000003;
     text-align: left;
     background: #ffffff; }
@@ -571,3 +572,27 @@
 
 .eui-closing .eui-calendar {
   opacity: 0; }
+
+.eui-popcal {
+  display: block;
+  position: fixed;
+  overflow: visible !important;
+  outline: none;
+  z-index: 10000;
+  opacity: 0.01; }
+  .eui-popcal .eui-calendar {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.25)));
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
+    border: none !important;
+    padding: 1px;
+    -webkit-box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2); }
+  .eui-popcal .calendar {
+    border-radius: 5px;
+    border: none; }
+
+.eui-popcal-open {
+  overflow: hidden; }
+  .eui-popcal-open.ember-application > .ember-view:first-of-type, .eui-popcal-open .ember-application > .ember-view:first-of-type {
+    overflow: hidden; }

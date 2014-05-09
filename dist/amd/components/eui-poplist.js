@@ -1,19 +1,20 @@
 define(
-  ["../mixins/style-support","../mixins/animations-did-complete","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  ["../mixins/style-support","../mixins/animation-support","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var animationsDidComplete = __dependency2__["default"] || __dependency2__;
+    var animationSupport = __dependency2__["default"] || __dependency2__;
     var poplistLayout = __dependency3__["default"] || __dependency3__;
     var itemViewClassTemplate = __dependency4__["default"] || __dependency4__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, animationsDidComplete, {
+    poplist = Em.Component.extend(styleSupport, animationSupport, {
       layout: poplistLayout,
-      classNames: ['eui-poplist eui-animation'],
+      classNames: ['eui-poplist'],
       classNameBindings: ['isOpen::eui-closing'],
       attributeBindings: ['tabindex'],
       tagName: 'eui-poplist',
+      animationClass: 'euiPoplist',
       listWidth: null,
       listHeight: '80',
       listRowHeight: '20',
@@ -35,21 +36,26 @@ define(
         }
       }),
       hide: function() {
-        this.setProperties({
-          isOpen: false,
-          highlightedIndex: -1
+        return this.animateOut({
+          target: this.get('targetObject').$(),
+          complete: (function(_this) {
+            return function() {
+              return _this.breakdown();
+            };
+          })(this)
         });
-        $(window).unbind('.emberui');
-        this.$().unbind('.emberui');
-        this.get('previousFocus').focus();
-        $('body').removeClass('eui-poplist-open');
-        return this.animationsDidComplete().then((function(_this) {
-          return function() {
-            return _this.destroy();
-          };
-        })(this));
       },
-      didInsertElement: function() {
+      setup: (function() {
+        this.setPoplistWidth();
+        Em.run.next(this, function() {
+          return this.$().position({
+            my: "right top",
+            at: "right bottom",
+            of: this.get('targetObject').$(),
+            collision: 'flipfit'
+          });
+        });
+        this.animateIn();
         this.set('isOpen', true);
         this.set('previousFocus', $(document.activeElement));
         Ember.run.next(this, function() {
@@ -59,7 +65,34 @@ define(
         Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
-        return $('body').addClass('eui-poplist-open');
+        $('body').addClass('eui-poplist-open');
+        return Ember.run.next(this, function() {
+          return $(window).on('click.emberui', (function(_this) {
+            return function(event) {
+              if (!$(event.target).parents('.eui-poplist').length) {
+                event.preventDefault();
+                $(window).off(event);
+                return _this.hide();
+              }
+            };
+          })(this));
+        });
+      }).on('didInsertElement'),
+      breakdown: function() {
+        this.setProperties({
+          isOpen: false,
+          highlightedIndex: -1
+        });
+        this.get('previousFocus').focus();
+        $('body').removeClass('eui-poplist-open');
+        return this.destroy();
+      },
+      setPoplistWidth: function() {
+        var element, elementWidthMinuspoplistPadding, poplistElement;
+        element = this.get('targetObject').$();
+        poplistElement = this.$();
+        elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
+        return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
       },
       focusOnSearch: function() {
         return this.$().find('input:first').focus();
@@ -251,39 +284,7 @@ define(
         poplist.container = poplist.get('targetObject.container');
         poplist.appendTo('.ember-application');
         poplist.updateListHeight();
-        Ember.run.next(this, function() {
-          return this.position(options.targetObject, poplist);
-        });
         return poplist;
-      },
-      position: function(targetObject, poplist) {
-        var element, elementHeight, elementPositionLeft, elementPositionTop, elementWidth, elementWidthMinuspoplistPadding, offset, poplistElement, poplistHorizontalPadding, poplistPositionLeft, poplistPositionTop, poplistWidth, windowScrollLeft, windowScrollTop;
-        element = targetObject.$();
-        poplistElement = poplist.$();
-        offset = element.offset();
-        elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
-        poplistElement.css('min-width', elementWidthMinuspoplistPadding);
-        elementPositionTop = offset.top - element.scrollTop();
-        elementPositionLeft = offset.left - element.scrollLeft();
-        elementHeight = element.height();
-        elementWidth = element.width();
-        poplistWidth = poplistElement.width();
-        poplistHorizontalPadding = parseFloat(poplistElement.css('paddingLeft')) + parseFloat(poplistElement.css('paddingRight'));
-        windowScrollTop = $(window).scrollTop();
-        windowScrollLeft = $(window).scrollLeft();
-        poplistPositionTop = elementPositionTop + elementHeight - windowScrollTop;
-        poplistPositionLeft = elementPositionLeft + elementWidth - poplistWidth - poplistHorizontalPadding - windowScrollLeft;
-        poplistElement.css('top', poplistPositionTop);
-        poplistElement.css('left', poplistPositionLeft);
-        $(window).bind('scroll.emberui', function() {
-          return poplist.hide();
-        });
-        return $(window).bind('click.emberui', function(event) {
-          if (!$(event.target).parents('.eui-poplist').length) {
-            event.preventDefault();
-            return poplist.hide();
-          }
-        });
       }
     });
 

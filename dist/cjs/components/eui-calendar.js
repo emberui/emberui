@@ -1,18 +1,6 @@
 "use strict";
 var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
-var calendar, cpFormatMoment;
-
-cpFormatMoment = function(key, format) {
-  return Em.computed('key', function() {
-    var date;
-    date = this.get(key);
-    if (date) {
-      return date.format(format);
-    } else {
-      return null;
-    }
-  });
-};
+var calendar;
 
 calendar = Em.Component.extend(styleSupport, {
   tagName: 'eui-calendar',
@@ -234,9 +222,15 @@ calendar = Em.Component.extend(styleSupport, {
     }
     return false;
   }).property('isNextMonthBeyondMax', 'isNextMonthInFuture', 'disableFuture'),
-  prevMonthLabel: cpFormatMoment('prevMonth', 'MMMM YYYY'),
-  nextMonthLabel: cpFormatMoment('nextMonth', 'MMMM YYYY'),
-  monthLabel: cpFormatMoment('month', 'MMMM YYYY')
+  prevMonthLabel: Em.computed('prevMonth', function() {
+    return this.get('prevMonth').format('MMMM YYYY');
+  }),
+  nextMonthLabel: Em.computed('nextMonth', function() {
+    return this.get('nextMonth').format('MMMM YYYY');
+  }),
+  monthLabel: Em.computed('month', function() {
+    return this.get('month').format('MMMM YYYY');
+  })
 });
 
  exports["default"] = calendar;

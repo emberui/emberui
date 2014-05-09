@@ -1,74 +1,92 @@
 define(
-  ["../mixins/style-support","../mixins/animations-did-complete","../mixins/modal-behaviour","../templates/eui-modal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
+  ["../mixins/style-support","../mixins/animation-support","../templates/eui-modal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
-    var animationsDidComplete = __dependency2__["default"] || __dependency2__;
-    var modalBehaviour = __dependency3__["default"] || __dependency3__;
-    var modalLayout = __dependency4__["default"] || __dependency4__;
+    var animationSupport = __dependency2__["default"] || __dependency2__;
+    var modalLayout = __dependency3__["default"] || __dependency3__;
     var modal;
 
-    modal = Em.Component.extend(styleSupport, animationsDidComplete, modalBehaviour, {
+    modal = Em.Component.extend(styleSupport, animationSupport, {
       layout: modalLayout,
       tagName: 'eui-modal',
       classNames: ['eui-modal'],
       classNameBindings: ['class'],
+      attributeBindings: ['tabindex'],
       "class": null,
+      animationClass: 'euiModal',
       previousFocus: null,
       tabindex: 0,
       programmatic: false,
       isClosing: false,
       renderModal: false,
-      open: Ember.computed('renderModal', function(key, value) {
+      open: Ember.computed(function(key, value) {
         if (arguments.length === 2) {
           if (value) {
             this.set('renderModal', value);
-          } else {
-            if (this.get('renderModal')) {
-              this.hide();
-            }
+          } else if (this.get('renderModal')) {
+            this.hide();
           }
           return value;
         } else {
           value = this.get('renderModal');
           return value;
         }
-      }),
+      }).property('renderModal'),
+      hide: function() {
+        return this.animateOut({
+          complete: (function(_this) {
+            return function() {
+              return _this.breakdown();
+            };
+          })(this)
+        });
+      },
       didInsertElement: function() {
         if (this.get('programmatic')) {
-          this.set('previousFocus', $(document.activeElement));
-          this.$().focus();
-          return $('body').addClass('eui-modal-open');
+          return this.setup();
         }
       },
       didOpenModal: (function() {
         if (this.get('renderModal')) {
-          this.$().focus();
-          return $('body').addClass('eui-modal-open');
+          return this.setup();
         }
       }).observes('renderModal'),
-      hide: function() {
-        this.set('isClosing', true);
-        return this.animationsDidComplete().then((function(_this) {
-          return function() {
-            return _this.remove();
-          };
-        })(this));
+      setup: function() {
+        this.animateIn();
+        this.set('previousFocus', $(document.activeElement));
+        this.$().focus();
+        return $('body').toggleClass('eui-modal-open');
       },
-      remove: function() {
+      breakdown: function() {
         var _ref;
         if ((_ref = this.get('previousFocus')) != null) {
           _ref.focus();
         }
-        $('body').removeClass('eui-modal-open');
+        $('body').toggleClass('eui-modal-open');
         if (this.get('programmatic')) {
           return this.destroy();
         } else {
-          return this.setProperties({
-            isClosing: false,
-            renderModal: false
-          });
+          return this.set('renderModal', false);
         }
+      },
+      willDestroy: function() {
+        return $('body').removeClass('eui-modal-open');
+      },
+      constrainTabNavigationToModal: function(event) {
+        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
+        if (!this.get('open')) {
+          return;
+        }
+        activeElement = document.activeElement;
+        tabbable = this.$(':tabbable');
+        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
+        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement && event.shiftKey;
+        if (!leavingFinalTabbable) {
+          return;
+        }
+        event.preventDefault();
+        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
       },
       actions: {
         cancel: function(context) {

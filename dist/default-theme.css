@@ -30,58 +30,6 @@
   100% {
     opacity: 0.4; } }
 
-/* Slide Down */
-@-webkit-keyframes eui-slidedown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate(0px, -10px);
-    transform: translate(0px, -10px); }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translate(0px, 0px);
-    transform: translate(0px, 0px); } }
-
-/* Slide Down */
-@keyframes eui-slidedown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate(0px, -10px);
-    -ms-transform: translate(0px, -10px);
-    transform: translate(0px, -10px); }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: translate(0px, 0px);
-    -ms-transform: translate(0px, 0px);
-    transform: translate(0px, 0px); } }
-
-/* Slide Down from Zero */
-@-webkit-keyframes eui-slidezerodown {
-  0% {
-    opacity: 1;
-    -webkit-transform: translate(0px, 0px);
-    transform: translate(0px, 0px); }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: translate(0px, 10px);
-    transform: translate(0px, 10px); } }
-
-/* Slide Down from Zero */
-@keyframes eui-slidezerodown {
-  0% {
-    opacity: 1;
-    -webkit-transform: translate(0px, 0px);
-    -ms-transform: translate(0px, 0px);
-    transform: translate(0px, 0px); }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: translate(0px, 10px);
-    -ms-transform: translate(0px, 10px);
-    transform: translate(0px, 10px); } }
-
 /* Error Glow */
 @-webkit-keyframes eui-error-highlight {
   0% {
@@ -129,194 +77,6 @@
     border-color: #7fb5ff;
     -webkit-box-shadow: 0px 0px 4px #0090ff, inset 0px 2px 3px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 0px 4px #0090ff, inset 0px 2px 3px rgba(0, 0, 0, 0.1); } }
-
-/* Modal Overlay Fade In */
-@-webkit-keyframes eui-modaloverlay-fadein {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-/* Modal Overlay Fade In */
-@keyframes eui-modaloverlay-fadein {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-/* Modal Overlay Fade Out */
-@-webkit-keyframes eui-modaloverlay-fadeout {
-  0% {
-    opacity: 1; }
-
-  100% {
-    opacity: 0; } }
-
-/* Modal Overlay Fade Out */
-@keyframes eui-modaloverlay-fadeout {
-  0% {
-    opacity: 1; }
-
-  100% {
-    opacity: 0; } }
-
-/* Full Modal Zoom In */
-@-webkit-keyframes eui-fullmodal-zoomin {
-  0% {
-    -webkit-transform: scale(5);
-    transform: scale(5);
-    opacity: 0; }
-
-  100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; } }
-
-/* Full Modal Zoom In */
-@keyframes eui-fullmodal-zoomin {
-  0% {
-    -webkit-transform: scale(5);
-    -ms-transform: scale(5);
-    transform: scale(5);
-    opacity: 0; }
-
-  100% {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; } }
-
-/* Full Modal Zoom Out */
-@-webkit-keyframes eui-fullmodal-zoomout {
-  0% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; }
-
-  100% {
-    -webkit-transform: scale(5);
-    transform: scale(5);
-    opacity: 0; } }
-
-/* Full Modal Zoom Out */
-@keyframes eui-fullmodal-zoomout {
-  0% {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; }
-
-  100% {
-    -webkit-transform: scale(5);
-    -ms-transform: scale(5);
-    transform: scale(5);
-    opacity: 0; } }
-
-/* Default Modal Zoom In */
-@-webkit-keyframes eui-defaultmodal-zoomin {
-  0% {
-    -webkit-transform: scale(0.5);
-    transform: scale(0.5);
-    opacity: 0; }
-
-  100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; } }
-
-/* Default Modal Zoom In */
-@keyframes eui-defaultmodal-zoomin {
-  0% {
-    -webkit-transform: scale(0.5);
-    -ms-transform: scale(0.5);
-    transform: scale(0.5);
-    opacity: 0; }
-
-  100% {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; } }
-
-/* Default Modal Zoom Out */
-@-webkit-keyframes eui-defaultmodal-zoomout {
-  0% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; }
-
-  100% {
-    -webkit-transform: scale(0.5);
-    transform: scale(0.5);
-    opacity: 0; } }
-
-/* Default Modal Zoom Out */
-@keyframes eui-defaultmodal-zoomout {
-  0% {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; }
-
-  100% {
-    -webkit-transform: scale(0.5);
-    -ms-transform: scale(0.5);
-    transform: scale(0.5);
-    opacity: 0; } }
-
-/* poplist Flyin */
-@-webkit-keyframes eui-flyin {
-  0% {
-    -webkit-transform: scale(0.7);
-    transform: scale(0.7);
-    opacity: 0; }
-
-  100% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; } }
-
-/* poplist Flyin */
-@keyframes eui-flyin {
-  0% {
-    -webkit-transform: scale(0.7);
-    -ms-transform: scale(0.7);
-    transform: scale(0.7);
-    opacity: 0; }
-
-  100% {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-    opacity: 1; } }
-
-/* poplist zoom into top */
-@-webkit-keyframes eui-zoomupandin {
-  0% {
-    opacity: 1;
-    -webkit-transform: translate(0px, 0px) scale(1);
-    transform: translate(0px, 0px) scale(1); }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: translate(0px, -60%) scale(0.3);
-    transform: translate(0px, -60%) scale(0.3); } }
-
-/* poplist zoom into top */
-@keyframes eui-zoomupandin {
-  0% {
-    opacity: 1;
-    -webkit-transform: translate(0px, 0px) scale(1);
-    -ms-transform: translate(0px, 0px) scale(1);
-    transform: translate(0px, 0px) scale(1); }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: translate(0px, -60%) scale(0.3);
-    -ms-transform: translate(0px, -60%) scale(0.3);
-    transform: translate(0px, -60%) scale(0.3); } }
 
 .eui-singlebutton, .eui-groupbutton {
   display: inline-block;
@@ -484,11 +244,19 @@
       -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15);
       box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.15); }
 
+/* ERROR */
+.eui-error .eui-button .eui-button-form {
+  background: #ff7f7f !important;
+  -webkit-box-shadow: 0px 0px 4px #ff0000;
+  box-shadow: 0px 0px 4px #ff0000;
+  outline: none;
+  -webkit-animation: eui-error-highlight 0.2s 1;
+  animation: eui-error-highlight 0.2s 1; }
+
 /*
   * STYLES
   *
   * Default
-  * Popup
   *
   */
 .eui-calendar.eui-default {
@@ -529,60 +297,6 @@
       width: -webkit-calc(100% / 7);
       width: calc(100% / 7);
       float: left; }
-
-.eui-calendar.eui-popup {
-  position: fixed;
-  z-index: 1000005;
-  border-radius: 3px;
-  padding: 1px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.25)));
-  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
-  -webkit-box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-name: eui-flyin;
-  animation-name: eui-flyin; }
-  .eui-calendar.eui-popup .eui-calendar-wrapper {
-    background: #ffffff;
-    border-radius: 3px;
-    border: none; }
-  .eui-calendar.eui-popup .eui-previous, .eui-calendar.eui-popup .eui-next {
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    top: 7.5px;
-    left: 7.5px;
-    color: #39a6e9;
-    border-radius: 3px;
-    font-size: 18px;
-    -webkit-transition: background 0.2s;
-    transition: background 0.2s;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.7); }
-    .eui-calendar.eui-popup .eui-previous:hover, .eui-calendar.eui-popup .eui-next:hover {
-      background: #ebf6fd; }
-    .eui-calendar.eui-popup .eui-previous:disabled, .eui-calendar.eui-popup .eui-next:disabled {
-      color: #e2e2e2; }
-  .eui-calendar.eui-popup .eui-next {
-    left: auto;
-    right: 7.5px; }
-  .eui-calendar.eui-popup .eui-month-container .eui-month-frame {
-    padding: 0 5px;
-    border-right: solid 1px #e5e5e5; }
-  .eui-calendar.eui-popup .eui-month-container:last-of-type .eui-month-frame {
-    border-right: 0px; }
-  .eui-calendar.eui-popup .eui-month-container .eui-daysofweek {
-    padding: 0px 5px;
-    margin: 0 -5px; }
-    .eui-calendar.eui-popup .eui-month-container .eui-daysofweek .eui-nameofday {
-      width: -webkit-calc(100% / 7);
-      width: calc(100% / 7);
-      float: left; }
-
-.eui-closing .eui-calendar.eui-popup {
-  -webkit-animation: eui-zoomupandin 0.2s 1;
-  animation: eui-zoomupandin 0.2s 1; }
 
 .eui-checkbox-form {
   display: inline-block;
@@ -895,52 +609,29 @@
   * STYLES
   *
   * default: default
+  # full: takes up entire screen
   *
   */
 .eui-modal.eui-default .eui-overlay {
   background-image: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.3) 100%);
-  background-image: radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.3) 100%);
-  -webkit-animation: eui-modaloverlay-fadein 0.4s 1;
-  animation: eui-modaloverlay-fadein 0.4s 1; }
+  background-image: radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.3) 100%); }
 .eui-modal.eui-default .eui-modalobject {
   border-radius: 7px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.2)));
   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.2) 100%);
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.2) 100%);
   padding: 1px;
-  -webkit-animation: eui-defaultmodal-zoomin 0.15s 1;
-  animation: eui-defaultmodal-zoomin 0.15s 1;
   -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2); }
 .eui-modal.eui-default .eui-modalobject-wrapper {
   border-radius: 7px;
   background: #ffffff; }
-.eui-modal.eui-default.eui-closing .eui-overlay {
-  opacity: 0;
-  -webkit-animation: eui-modaloverlay-fadeout 0.4s 1;
-  animation: eui-modaloverlay-fadeout 0.4s 1; }
-.eui-modal.eui-default.eui-closing .eui-modalobject {
-  opacity: 0;
-  -webkit-animation: eui-defaultmodal-zoomout 0.15s 1;
-  animation: eui-defaultmodal-zoomout 0.15s 1; }
 .eui-modal.eui-full .eui-overlay {
   background: #ffffff;
   background-image: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.2) 150%);
-  background-image: radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.2) 150%);
-  -webkit-animation: eui-modaloverlay-fadein 0.4s 1;
-  animation: eui-modaloverlay-fadein 0.4s 1; }
+  background-image: radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.2) 150%); }
 .eui-modal.eui-full .eui-modalobject {
-  -webkit-animation: eui-fullmodal-zoomin 0.15s 1;
-  animation: eui-fullmodal-zoomin 0.15s 1;
   background: none; }
-.eui-modal.eui-full.eui-closing .eui-overlay {
-  opacity: 0;
-  -webkit-animation: eui-modaloverlay-fadeout 0.4s 1 reverse;
-  animation: eui-modaloverlay-fadeout 0.4s 1 reverse; }
-.eui-modal.eui-full.eui-closing .eui-modalobject {
-  opacity: 0;
-  -webkit-animation: eui-fullmodal-zoomout 0.15s 1;
-  animation: eui-fullmodal-zoomout 0.15s 1; }
 
 .eui-poplist {
   border: none; }
@@ -966,10 +657,11 @@
 /*
   * STYLES
   *
-  * bubble: for use with dropbutton
+  * default: for use with dropbutton
+  * fluing: for use with select
   *
   */
-.eui-poplist.eui-bubble {
+.eui-poplist.eui-default {
   border-radius: 3px;
   padding: 1px;
   margin-top: -2px;
@@ -978,13 +670,9 @@
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   -webkit-box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  -webkit-animation-duration: 0.2s;
-  animation-duration: 0.2s;
-  -webkit-animation-name: eui-slidedown;
-  animation-name: eui-slidedown;
   max-height: -webkit-calc(100% - 100px);
   max-height: calc(100% - 100px); }
-  .eui-poplist.eui-bubble:before {
+  .eui-poplist.eui-default:before {
     content: "";
     position: absolute;
     top: -5px;
@@ -992,7 +680,7 @@
     border-bottom: solid 5px rgba(0, 0, 0, 0.1);
     border-right: solid 5px transparent;
     border-left: solid 5px transparent; }
-  .eui-poplist.eui-bubble:after {
+  .eui-poplist.eui-default:after {
     content: "";
     position: absolute;
     top: -4px;
@@ -1000,21 +688,18 @@
     border-bottom: solid 5px #ffffff;
     border-right: solid 5px transparent;
     border-left: solid 5px transparent; }
-  .eui-poplist.eui-bubble .eui-poplistwrapper {
+  .eui-poplist.eui-default .eui-poplistwrapper {
     background: #ffffff;
     border-radius: 3px;
     padding: 5px 0; }
-  .eui-poplist.eui-bubble .eui-option {
+  .eui-poplist.eui-default .eui-option {
     padding: 0 7.5px; }
-    .eui-poplist.eui-bubble .eui-option.eui-hover {
+    .eui-poplist.eui-default .eui-option.eui-hover {
       background-image: -webkit-gradient(linear, left top, left bottom, from(#1493dc), to(#64bcf7));
       background-image: -webkit-linear-gradient(top, #1493dc 0%, #64bcf7 100%);
       background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
       color: #ffffff;
       text-shadow: 0px 1px rgba(0, 0, 0, 0.35); }
-  .eui-poplist.eui-bubble.eui-closing {
-    -webkit-animation: eui-slidezerodown 0.2s 1;
-    animation: eui-slidezerodown 0.2s 1; }
 .eui-poplist.eui-flyin {
   border-radius: 3px;
   padding: 1px;
@@ -1024,10 +709,6 @@
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   -webkit-box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-name: eui-flyin;
-  animation-name: eui-flyin;
   max-height: -webkit-calc(100% - 100px);
   max-height: calc(100% - 100px); }
   .eui-poplist.eui-flyin .eui-poplistwrapper {
@@ -1060,6 +741,3 @@
       text-shadow: 0px 1px rgba(0, 0, 0, 0.35); }
       .eui-poplist.eui-flyin .eui-option.eui-hover:before {
         color: #aed4f3; }
-  .eui-poplist.eui-flyin.eui-closing {
-    -webkit-animation: eui-zoomupandin 0.2s 1;
-    animation: eui-zoomupandin 0.2s 1; }

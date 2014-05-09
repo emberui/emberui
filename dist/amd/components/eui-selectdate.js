@@ -1,26 +1,63 @@
 define(
-  ["../mixins/disabled-support","../mixins/width-support","../mixins/error-support","../mixins/animations-did-complete","../mixins/modal-behaviour","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
+  ["../mixins/disabled-support","../mixins/width-support","../mixins/error-support","../components/eui-popcal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var disabledSupport = __dependency1__["default"] || __dependency1__;
     var widthSupport = __dependency2__["default"] || __dependency2__;
     var errorSupport = __dependency3__["default"] || __dependency3__;
-    var animationsDidComplete = __dependency4__["default"] || __dependency4__;
-    var modalBehaviour = __dependency5__["default"] || __dependency5__;
+    var popcalComponent = __dependency4__["default"] || __dependency4__;
     var select;
 
-    select = Em.Component.extend(disabledSupport, errorSupport, animationsDidComplete, modalBehaviour, widthSupport, {
+    select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-selectdate',
       classNames: ['eui-selectdate'],
       classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class'],
       style: 'default',
       size: 'medium',
+      calendarStyle: 'default',
+      popcalIsOpen: false,
       dateRange: false,
       formatting: {
         yearFormat: "YYYY",
         monthFormat: "MMMM",
         dayFormat: "D"
       },
+      value: Em.computed('selection.@each', function(key, value) {
+        var selection;
+        selection = this.get('selection');
+        if (arguments.length === 2) {
+          if (!value) {
+            this.set('selection', value);
+            return value;
+          }
+          if (Em.isArray(value)) {
+            this.set('selection', value.map(function(v) {
+              return moment(v);
+            }));
+          } else {
+            this.set('selection', moment(value));
+          }
+          return value;
+        } else {
+          if (!selection) {
+            if (this.get('dateRange')) {
+              return [];
+            } else {
+              return null;
+            }
+          }
+          if (Em.isArray(selection)) {
+            return selection.map(function(date) {
+              return date.format('X');
+            });
+          } else {
+            return selection.format('X');
+          }
+        }
+      }),
+      calculateInitalValue: (function() {
+        return this.notifyPropertyChange('value');
+      }).on('didInsertElement'),
       isPlaceholder: Em.computed('selection', function() {
         var selection;
         selection = this.get('selection');
@@ -33,68 +70,23 @@ define(
         return true;
       }),
       actions: {
-        toggleCalendar: function() {
-          if (this.get('open')) {
-            return this.send('closeCalendar');
-          } else {
-            return this.send('openCalendar');
-          }
-        },
-        closeCalendar: function(options) {
-          var closeCalendar, dateRange, selection;
-          dateRange = this.get('dateRange');
-          selection = this.get('selection');
-          closeCalendar = false;
-          if (dateRange) {
-            if (selection && selection.get('length') > 1) {
-              closeCalendar = true;
-            } else if (selection && selection.get('length') === 1 && options && options.forceClose === true) {
-              this.resetSelection();
-              closeCalendar = true;
-            } else if (selection.get('length') === 0 && options && options.forceClose === true) {
-              closeCalendar = true;
-            }
-          } else if (selection) {
-            closeCalendar = true;
-          } else if (options && options.forceClose === true) {
-            closeCalendar = true;
-          }
-          if (closeCalendar) {
-            $(window).unbind('.emberui');
-            return this.hide();
-          }
-        },
         openCalendar: function() {
-          this.set('open', true);
-          Ember.run.next(this, function() {
-            return this.positionCalendar();
-          });
-          this.set('_selection', this.get('selection'));
-          return Ember.run.next(this, function() {
-            return $(window).on('click.emberui', (function(_this) {
-              return function(event) {
-                if (!_this.$('eui-calendar').find($(event.target)).length) {
-                  event.preventDefault();
-                  $(_this).off(event);
-                  return _this.send('closeCalendar', {
-                    forceClose: true
-                  });
-                }
-              };
-            })(this));
-          });
+          if (!this.get('popcalIsOpen')) {
+            return popcalComponent.show({
+              targetObject: this,
+              isOpenBinding: 'targetObject.popcalIsOpen',
+              selectionBinding: 'targetObject.selection',
+              dateRangeBinding: 'targetObject.dateRange',
+              disablePastBinding: 'targetObject.disablePast',
+              disableFutureBinding: 'targetObject.disableFuture',
+              maxPastDateBinding: 'targetObject.maxPastDate',
+              maxFutureDateBinding: 'targetObject.maxFutureDate',
+              disabledDatesBinding: 'targetObject.disabledDates',
+              styleBinding: 'targetObject.calendarStyle',
+              animationStyle: this.get('animationStyle')
+            });
+          }
         }
-      },
-      positionCalendar: function() {
-        return this.$().find('eui-calendar').position({
-          my: "center top",
-          at: "center bottom",
-          of: this.$(),
-          collision: 'flipfit'
-        });
-      },
-      resetSelection: function() {
-        return this.set('selection', this.get('_selection'));
       },
       keyDown: function(event) {
         if (event.keyCode === 27) {

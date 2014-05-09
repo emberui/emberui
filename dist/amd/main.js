@@ -1,6 +1,6 @@
 define(
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./utilities/tabbable-selector","./utilities/position","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./utilities/tabbable-selector","./utilities/position","./animations/popcal-close-default","./animations/popcal-open-default","./animations/modal-close-default","./animations/modal-open-default","./animations/modal-close-full","./animations/modal-open-full","./animations/poplist-close-default","./animations/poplist-open-default","./animations/poplist-close-flyin","./animations/poplist-open-flyin","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __dependency31__, __dependency32__, __dependency33__, __dependency34__, __dependency35__, __dependency36__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -40,6 +40,10 @@ define(
     var EuiCalendarComponent = __dependency21__["default"] || __dependency21__;
     var EuiCalendarTemplate = __dependency22__["default"] || __dependency22__;
 
+    var EuiPopcalComponent = __dependency23__["default"] || __dependency23__;
+    var EuiPopcalTemplate = __dependency24__["default"] || __dependency24__;
+
+
 
     Ember.Application.initializer({
       name: 'emberui',
@@ -70,6 +74,9 @@ define(
         container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
         container.register('component:eui-selectdate', EuiSelectDateComponent);
 
+        container.register('template:components/eui-popcal', EuiPopcalTemplate);
+        container.register('component:eui-popcal', EuiPopcalComponent);
+
         container.register('template:components/eui-textarea', EuiTextareaTemplate);
         container.register('component:eui-textarea', EuiTextareaComponent);
 
@@ -79,6 +86,8 @@ define(
         container.register('component:eui-calendar', EuiCalendarComponent);
       }
     });
+
+    Ember.libraries.register('EmberUI', '0.1.0');
 
     __exports__.EuiButtonComponent = EuiButtonComponent;
     __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
@@ -92,4 +101,5 @@ define(
     __exports__.EuiTextareaComponent = EuiTextareaComponent;
     __exports__.EuiMonthComponent = EuiMonthComponent;
     __exports__.EuiCalendarComponent = EuiCalendarComponent;
+    __exports__.EuiPopcalComponent = EuiPopcalComponent;
   });
