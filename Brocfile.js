@@ -12,7 +12,7 @@ var lib                 = 'lib';
 var scss                = 'scss';
 
 function filterES6Modules(tree, opts) {
-  return mergeTrees(vndFilterES6Modules(tree, opts));
+  return vndFilterES6Modules(tree, opts);
 }
 
 var styles = compileSass([scss], 'emberui.scss', 'emberui.css');
