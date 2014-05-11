@@ -311,7 +311,11 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     classNames: ['eui-options']
     height: Ember.computed.alias 'controller.listHeight'
     rowHeight: Ember.computed.alias 'controller.listRowHeight'
-
+    attributeBindings: [
+      'role'
+      'isSelected:aria-selected'
+    ]
+    role: 'option'
 
     setup: (->
       # Prevents mouse scroll events from passing through to the div

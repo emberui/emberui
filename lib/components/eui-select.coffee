@@ -5,6 +5,12 @@
 
 select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-select'
+  attributeBindings: [
+    'poplistIsOpen:aria-expanded'
+    'role'
+  ]
+  role: 'menu'
+  
   classNames: ['eui-select']
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
 
