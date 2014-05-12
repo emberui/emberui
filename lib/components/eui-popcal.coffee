@@ -101,7 +101,7 @@ popcal = Em.Component.extend styleSupport, animationSupport,
 
   # Catch and handle key presses
 
-  keyDown: (event) ->
+  keyUp: (event) ->
     # ESC
     if event.keyCode == 27
       @hide()
