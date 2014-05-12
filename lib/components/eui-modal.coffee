@@ -143,7 +143,7 @@ modal = Em.Component.extend styleSupport, animationSupport,
 
   # Catch and handle key presses
 
-  keyDown: (event) ->
+  keyUp: (event) ->
     # TAB
     @constrainTabNavigationToModal(event) if event.keyCode == 9
 

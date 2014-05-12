@@ -98,7 +98,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
   # Catch and handle key presses
 
-  keyDown: (event) ->
+  keyUp: (event) ->
     # ESC
     if event.keyCode == 27
       @send 'closeCalendar', {forceClose: true}

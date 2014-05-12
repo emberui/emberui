@@ -241,7 +241,7 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     40: 'downArrowPressed'
 
 
-  keyDown: (event) ->
+  keyUp: (event) ->
     keyMap = @get 'KEY_MAP'
     method = keyMap[event.which]
     @get(method)?.apply(this, arguments) if method

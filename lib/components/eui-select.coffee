@@ -121,7 +121,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
   # Down Arrow Key opens poplist
 
-  keyDown: (event) ->
+  keyUp: (event) ->
     if event.which == 40
       event.preventDefault()
       @click()
