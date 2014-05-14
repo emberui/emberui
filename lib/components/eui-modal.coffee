@@ -3,7 +3,7 @@
 `import modalLayout from '../templates/eui-modal'`
 
 modal = Em.Component.extend styleSupport, animationSupport,
-  layout: modalLayout
+  layout: 'eui-modal'
   tagName: 'eui-modal'
   classNames: ['eui-modal']
   classNameBindings: ['class']
@@ -159,6 +159,7 @@ modal.reopenClass
   show: (options = {}) ->
     options.renderModal = true
     options.programmatic = true
+    options.layout = modalLayout
 
     modal = this.create options
     modal.container = modal.get('targetObject.container')
