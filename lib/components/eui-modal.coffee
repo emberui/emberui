@@ -41,6 +41,11 @@ modal = Em.Component.extend styleSupport, animationSupport,
   renderModal: false
 
 
+  # Determines if the user can close the modal with ESC
+
+  enforceModality: false
+
+
   # Proxy for renderModal. Allows us to animate the modal closing by delaying
   # the setting of renderModal until the animation is done playing. Used for
   # inline modal creation.
@@ -50,7 +55,7 @@ modal = Em.Component.extend styleSupport, animationSupport,
     if arguments.length is 2
       if value
         @set 'renderModal', value
-        
+
         # Initiate setup on next run loop so we can be sure modal has been
         # inserter into the DOM
         Em.run.next @, -> @setup()
@@ -150,7 +155,8 @@ modal = Em.Component.extend styleSupport, animationSupport,
     # ESC
     if event.keyCode == 27
       @sendAction 'cancel'
-      @hide()
+      unless @get 'enforceModality'
+        @hide()
 
 
 modal.reopenClass
