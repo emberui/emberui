@@ -300,6 +300,13 @@ poplist = Em.Component.extend styleSupport, animationSupport,
   # List View
 
   listView: Ember.ListView.extend
+    attributeBindings: [
+      'role'
+      'tabindex'
+    ]
+    role: 'menu'
+    tabindex: '-1'
+    
     # Overriding this temporarily to fix the scrollbars in Firefox
     # Remove once https://github.com/emberjs/list-view/pull/113 is integrated
     css:
@@ -311,12 +318,7 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     classNames: ['eui-options']
     height: Ember.computed.alias 'controller.listHeight'
     rowHeight: Ember.computed.alias 'controller.listRowHeight'
-    attributeBindings: [
-      'role'
-      'isSelected:aria-selected'
-    ]
-    role: 'option'
-
+    
     setup: (->
       # Prevents mouse scroll events from passing through to the div
       # behind the poplist when listView is scrolled to the end. Fixes
@@ -340,6 +342,13 @@ poplist = Em.Component.extend styleSupport, animationSupport,
       classNames: ['eui-option']
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
       template: itemViewClassTemplate
+      attributeBindings: [
+        'role'
+        'isSelected:aria-selected'
+        'tabindex'
+      ]
+      role: 'menuitem'
+      tabindex: '-1'
 
 
       # creates Label property based on specified labelPath

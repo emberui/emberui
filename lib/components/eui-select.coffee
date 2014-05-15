@@ -6,13 +6,12 @@
 select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-select'
   attributeBindings: [
-    'poplistIsOpen:aria-expanded'
     'ariaHasPopup:aria-haspopup'
     'role'
     'tabindex'
     'ariaOwns:aria-owns'
   ]
-  role: 'menu'
+  role: 'button'
   ariaHasPopup: true
   tabindex: 0
   ariaOwns: (->
