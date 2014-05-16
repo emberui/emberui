@@ -30,7 +30,8 @@ define("emberui/animations/modal-close-default",
         return jQuery.velocity.animate(call.element[0], call.properties, call.options);
       });
     };
-  });define("emberui/animations/modal-close-full",
+  });
+define("emberui/animations/modal-close-full",
   [],
   function() {
     "use strict";
@@ -62,7 +63,8 @@ define("emberui/animations/modal-close-default",
         return jQuery.velocity.animate(call.element[0], call.properties, call.options);
       });
     };
-  });define("emberui/animations/modal-open-default",
+  });
+define("emberui/animations/modal-open-default",
   [],
   function() {
     "use strict";
@@ -94,7 +96,8 @@ define("emberui/animations/modal-close-default",
         return jQuery.velocity.animate(call.element[0], call.properties, call.options);
       });
     };
-  });define("emberui/animations/modal-open-full",
+  });
+define("emberui/animations/modal-open-full",
   [],
   function() {
     "use strict";
@@ -126,7 +129,8 @@ define("emberui/animations/modal-close-default",
         return jQuery.velocity.animate(call.element[0], call.properties, call.options);
       });
     };
-  });define("emberui/animations/popcal-close-default",
+  });
+define("emberui/animations/popcal-close-default",
   [],
   function() {
     "use strict";
@@ -154,7 +158,8 @@ define("emberui/animations/modal-close-default",
         complete: options.complete
       });
     };
-  });define("emberui/animations/popcal-open-default",
+  });
+define("emberui/animations/popcal-open-default",
   [],
   function() {
     "use strict";
@@ -167,7 +172,8 @@ define("emberui/animations/modal-close-default",
         duration: options.duration || 100
       });
     };
-  });define("emberui/animations/poplist-close-default",
+  });
+define("emberui/animations/poplist-close-default",
   [],
   function() {
     "use strict";
@@ -180,7 +186,8 @@ define("emberui/animations/modal-close-default",
         complete: options.complete
       });
     };
-  });define("emberui/animations/poplist-close-flyin",
+  });
+define("emberui/animations/poplist-close-flyin",
   [],
   function() {
     "use strict";
@@ -208,7 +215,8 @@ define("emberui/animations/modal-close-default",
         complete: options.complete
       });
     };
-  });define("emberui/animations/poplist-open-default",
+  });
+define("emberui/animations/poplist-open-default",
   [],
   function() {
     "use strict";
@@ -220,7 +228,8 @@ define("emberui/animations/modal-close-default",
         duration: options.duration || 200
       });
     };
-  });define("emberui/animations/poplist-open-flyin",
+  });
+define("emberui/animations/poplist-open-flyin",
   [],
   function() {
     "use strict";
@@ -233,7 +242,8 @@ define("emberui/animations/modal-close-default",
         duration: options.duration || 100
       });
     };
-  });define("emberui/components/eui-button",
+  });
+define("emberui/components/eui-button",
   ["../mixins/style-support","../mixins/size-support","../mixins/disabled-support","../mixins/width-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -262,7 +272,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = button;
-  });define("emberui/components/eui-calendar",
+  });
+define("emberui/components/eui-calendar",
   ["../mixins/style-support","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -501,7 +512,8 @@ define("emberui/animations/modal-close-default",
     });
 
      __exports__["default"] = calendar;
-  });define("emberui/components/eui-checkbox",
+  });
+define("emberui/components/eui-checkbox",
   ["../mixins/error-support","../mixins/style-support","../mixins/size-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -523,7 +535,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = checkbox;
-  });define("emberui/components/eui-dropbutton",
+  });
+define("emberui/components/eui-dropbutton",
   ["../mixins/style-support","../mixins/size-support","../components/eui-poplist","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -575,7 +588,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = dropbutton;
-  });define("emberui/components/eui-input",
+  });
+define("emberui/components/eui-input",
   ["../mixins/error-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","../mixins/width-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
     "use strict";
@@ -593,7 +607,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = input;
-  });define("emberui/components/eui-modal",
+  });
+define("emberui/components/eui-modal",
   ["../mixins/style-support","../mixins/animation-support","../templates/eui-modal","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -603,7 +618,7 @@ define("emberui/animations/modal-close-default",
     var modal;
 
     modal = Em.Component.extend(styleSupport, animationSupport, {
-      layout: modalLayout,
+      layout: 'eui-modal',
       tagName: 'eui-modal',
       classNames: ['eui-modal'],
       classNameBindings: ['class'],
@@ -615,10 +630,14 @@ define("emberui/animations/modal-close-default",
       programmatic: false,
       isClosing: false,
       renderModal: false,
+      enforceModality: false,
       open: Ember.computed(function(key, value) {
         if (arguments.length === 2) {
           if (value) {
             this.set('renderModal', value);
+            Em.run.next(this, function() {
+              return this.setup();
+            });
           } else if (this.get('renderModal')) {
             this.hide();
           }
@@ -642,11 +661,6 @@ define("emberui/animations/modal-close-default",
           return this.setup();
         }
       },
-      didOpenModal: (function() {
-        if (this.get('renderModal')) {
-          return this.setup();
-        }
-      }).observes('renderModal'),
       setup: function() {
         this.animateIn();
         this.set('previousFocus', $(document.activeElement));
@@ -693,13 +707,15 @@ define("emberui/animations/modal-close-default",
           return this.hide();
         }
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         if (event.keyCode === 9) {
           this.constrainTabNavigationToModal(event);
         }
         if (event.keyCode === 27) {
           this.sendAction('cancel');
-          return this.hide();
+          if (!this.get('enforceModality')) {
+            return this.hide();
+          }
         }
       }
     });
@@ -711,6 +727,7 @@ define("emberui/animations/modal-close-default",
         }
         options.renderModal = true;
         options.programmatic = true;
+        options.layout = modalLayout;
         modal = this.create(options);
         modal.container = modal.get('targetObject.container');
         modal.appendTo('body');
@@ -719,7 +736,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = modal;
-  });define("emberui/components/eui-month",
+  });
+define("emberui/components/eui-month",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -858,7 +876,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = month;
-  });define("emberui/components/eui-popcal",
+  });
+define("emberui/components/eui-popcal",
   ["../mixins/style-support","../mixins/animation-support","../templates/eui-popcal","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
@@ -934,7 +953,7 @@ define("emberui/animations/modal-close-default",
           }
         }
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         if (event.keyCode === 27) {
           return this.hide();
         }
@@ -954,7 +973,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = popcal;
-  });define("emberui/components/eui-poplist",
+  });
+define("emberui/components/eui-poplist",
   ["../mixins/style-support","../mixins/animation-support","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -1124,7 +1144,7 @@ define("emberui/animations/modal-close-default",
         38: 'upArrowPressed',
         40: 'downArrowPressed'
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         var keyMap, method, _ref;
         keyMap = this.get('KEY_MAP');
         method = keyMap[event.which];
@@ -1245,7 +1265,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = poplist;
-  });define("emberui/components/eui-select",
+  });
+define("emberui/components/eui-select",
   ["../components/eui-poplist","../mixins/disabled-support","../mixins/error-support","../mixins/width-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -1347,7 +1368,7 @@ define("emberui/animations/modal-close-default",
           });
         }
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         if (event.which === 40) {
           event.preventDefault();
           return this.click();
@@ -1357,7 +1378,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = select;
-  });define("emberui/components/eui-selectdate",
+  });
+define("emberui/components/eui-selectdate",
   ["../mixins/disabled-support","../mixins/width-support","../mixins/error-support","../components/eui-popcal","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -1447,7 +1469,7 @@ define("emberui/animations/modal-close-default",
           }
         }
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         if (event.keyCode === 27) {
           this.send('closeCalendar', {
             forceClose: true
@@ -1505,7 +1527,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = select;
-  });define("emberui/components/eui-textarea",
+  });
+define("emberui/components/eui-textarea",
   ["../mixins/error-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
@@ -1541,7 +1564,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = textarea;
-  });define("emberui",
+  });
+define("emberui",
   ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./utilities/tabbable-selector","./utilities/position","./animations/popcal-close-default","./animations/popcal-open-default","./animations/modal-close-default","./animations/modal-open-default","./animations/modal-close-full","./animations/modal-open-full","./animations/poplist-close-default","./animations/poplist-open-default","./animations/poplist-close-flyin","./animations/poplist-open-flyin","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __dependency31__, __dependency32__, __dependency33__, __dependency34__, __dependency35__, __dependency36__, __exports__) {
     "use strict";
@@ -1645,7 +1669,8 @@ define("emberui/animations/modal-close-default",
     __exports__.EuiMonthComponent = EuiMonthComponent;
     __exports__.EuiCalendarComponent = EuiCalendarComponent;
     __exports__.EuiPopcalComponent = EuiPopcalComponent;
-  });define("emberui/mixins/animation-support",
+  });
+define("emberui/mixins/animation-support",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1717,7 +1742,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = animationSupport;
-  });define("emberui/mixins/disabled-support",
+  });
+define("emberui/mixins/disabled-support",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1734,7 +1760,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = disabledsupport;
-  });define("emberui/mixins/error-support",
+  });
+define("emberui/mixins/error-support",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1781,7 +1808,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = errorSupport;
-  });define("emberui/mixins/size-support",
+  });
+define("emberui/mixins/size-support",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1796,7 +1824,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = sizesupport;
-  });define("emberui/mixins/style-support",
+  });
+define("emberui/mixins/style-support",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1811,7 +1840,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = stylesupport;
-  });define("emberui/mixins/text-support",
+  });
+define("emberui/mixins/text-support",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1844,7 +1874,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = textsupport;
-  });define("emberui/mixins/width-support",
+  });
+define("emberui/mixins/width-support",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -1866,7 +1897,8 @@ define("emberui/animations/modal-close-default",
     });
 
     __exports__["default"] = widthsupport;
-  });define("emberui/templates/eui-button",
+  });
+define("emberui/templates/eui-button",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -1925,7 +1957,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-calendar",
+  });
+define("emberui/templates/eui-calendar",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2001,7 +2034,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-checkbox",
+  });
+define("emberui/templates/eui-checkbox",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2040,7 +2074,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-dropbutton",
+  });
+define("emberui/templates/eui-dropbutton",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2103,7 +2138,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-input",
+  });
+define("emberui/templates/eui-input",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2156,7 +2192,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-modal",
+  });
+define("emberui/templates/eui-modal",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2202,7 +2239,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-popcal",
+  });
+define("emberui/templates/eui-popcal",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2228,7 +2266,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-poplist-option",
+  });
+define("emberui/templates/eui-poplist-option",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2245,7 +2284,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-poplist",
+  });
+define("emberui/templates/eui-poplist",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2289,7 +2329,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-select",
+  });
+define("emberui/templates/eui-select",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2325,7 +2366,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-selectdate",
+  });
+define("emberui/templates/eui-selectdate",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2362,7 +2404,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/templates/eui-textarea",
+  });
+define("emberui/templates/eui-textarea",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
@@ -2415,7 +2458,8 @@ define("emberui/animations/modal-close-default",
       return buffer;
       
     });
-  });define("emberui/utilities/position",
+  });
+define("emberui/utilities/position",
   [],
   function() {
     "use strict";
@@ -2915,7 +2959,8 @@ define("emberui/animations/modal-close-default",
     })();
 
     }( jQuery ) );
-  });define("emberui/utilities/tabbable-selector",
+  });
+define("emberui/utilities/tabbable-selector",
   [],
   function() {
     "use strict";

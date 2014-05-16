@@ -100,7 +100,7 @@ define(
           });
         }
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         if (event.which === 40) {
           event.preventDefault();
           return this.click();

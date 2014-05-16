@@ -85,7 +85,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       }
     }
   },
-  keyDown: function(event) {
+  keyUp: function(event) {
     if (event.keyCode === 27) {
       this.send('closeCalendar', {
         forceClose: true

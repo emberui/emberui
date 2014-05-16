@@ -5,7 +5,7 @@ var modalLayout = require("../templates/eui-modal")["default"] || require("../te
 var modal;
 
 modal = Em.Component.extend(styleSupport, animationSupport, {
-  layout: modalLayout,
+  layout: 'eui-modal',
   tagName: 'eui-modal',
   classNames: ['eui-modal'],
   classNameBindings: ['class'],
@@ -17,10 +17,14 @@ modal = Em.Component.extend(styleSupport, animationSupport, {
   programmatic: false,
   isClosing: false,
   renderModal: false,
+  enforceModality: false,
   open: Ember.computed(function(key, value) {
     if (arguments.length === 2) {
       if (value) {
         this.set('renderModal', value);
+        Em.run.next(this, function() {
+          return this.setup();
+        });
       } else if (this.get('renderModal')) {
         this.hide();
       }
@@ -44,11 +48,6 @@ modal = Em.Component.extend(styleSupport, animationSupport, {
       return this.setup();
     }
   },
-  didOpenModal: (function() {
-    if (this.get('renderModal')) {
-      return this.setup();
-    }
-  }).observes('renderModal'),
   setup: function() {
     this.animateIn();
     this.set('previousFocus', $(document.activeElement));
@@ -95,13 +94,15 @@ modal = Em.Component.extend(styleSupport, animationSupport, {
       return this.hide();
     }
   },
-  keyDown: function(event) {
+  keyUp: function(event) {
     if (event.keyCode === 9) {
       this.constrainTabNavigationToModal(event);
     }
     if (event.keyCode === 27) {
       this.sendAction('cancel');
-      return this.hide();
+      if (!this.get('enforceModality')) {
+        return this.hide();
+      }
     }
   }
 });
@@ -113,6 +114,7 @@ modal.reopenClass({
     }
     options.renderModal = true;
     options.programmatic = true;
+    options.layout = modalLayout;
     modal = this.create(options);
     modal.container = modal.get('targetObject.container');
     modal.appendTo('body');

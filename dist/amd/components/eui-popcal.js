@@ -74,7 +74,7 @@ define(
           }
         }
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         if (event.keyCode === 27) {
           return this.hide();
         }

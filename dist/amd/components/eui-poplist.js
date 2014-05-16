@@ -168,7 +168,7 @@ define(
         38: 'upArrowPressed',
         40: 'downArrowPressed'
       },
-      keyDown: function(event) {
+      keyUp: function(event) {
         var keyMap, method, _ref;
         keyMap = this.get('KEY_MAP');
         method = keyMap[event.which];
