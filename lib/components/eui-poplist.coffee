@@ -165,7 +165,7 @@ poplist = Em.Component.extend styleSupport, animationSupport,
   # up with multiple items highlighted.
 
   searchStringDidChange: (->
-    @set 'highlightedIndex', 0 if @get 'searchString'
+    @set 'highlightedIndex', -1 if @get 'searchString'
   ).observes 'searchString'
 
 
@@ -349,7 +349,10 @@ poplist = Em.Component.extend styleSupport, animationSupport,
       ]
       role: 'menuitem'
       tabindex: '-1'
-
+          
+      focusWhenHighlighted: (->
+        @$().focus() if @get('isHighlighted')
+      ).observes 'isHighlighted'
 
       # creates Label property based on specified labelPath
 
