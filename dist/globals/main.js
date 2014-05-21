@@ -223,6 +223,8 @@ var button;
 
 button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, {
   classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+  attributeBindings: ['role', 'label:aria-label', 'disabled:aria-disabled'],
+  role: 'button',
   tagName: 'eui-button',
   label: null,
   icon: null,
@@ -240,7 +242,7 @@ button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
 });
 
 exports["default"] = button;
-},{"../mixins/disabled-support":25,"../mixins/size-support":27,"../mixins/style-support":28,"../mixins/width-support":30}],12:[function(_dereq_,module,exports){
+},{"../mixins/disabled-support":26,"../mixins/size-support":28,"../mixins/style-support":29,"../mixins/width-support":31}],12:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var calendar;
@@ -477,7 +479,7 @@ calendar = Em.Component.extend(styleSupport, {
 });
 
  exports["default"] = calendar;
-},{"../mixins/style-support":28}],13:[function(_dereq_,module,exports){
+},{"../mixins/style-support":29}],13:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
@@ -486,6 +488,8 @@ var checkbox;
 
 checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
   classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class'],
+  attributeBindings: ['role', 'value:aria-checked', 'disabled:aria-disabled'],
+  role: 'checkbox',
   tagName: 'eui-checkbox',
   value: false,
   disabled: false,
@@ -497,7 +501,7 @@ checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
 });
 
 exports["default"] = checkbox;
-},{"../mixins/error-support":26,"../mixins/size-support":27,"../mixins/style-support":28}],14:[function(_dereq_,module,exports){
+},{"../mixins/error-support":27,"../mixins/size-support":28,"../mixins/style-support":29}],14:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -547,7 +551,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
 });
 
 exports["default"] = dropbutton;
-},{"../components/eui-poplist":19,"../mixins/size-support":27,"../mixins/style-support":28}],15:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/size-support":28,"../mixins/style-support":29}],15:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -563,7 +567,7 @@ input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport
 });
 
 exports["default"] = input;
-},{"../mixins/error-support":26,"../mixins/size-support":27,"../mixins/style-support":28,"../mixins/text-support":29,"../mixins/width-support":30}],16:[function(_dereq_,module,exports){
+},{"../mixins/error-support":27,"../mixins/size-support":28,"../mixins/style-support":29,"../mixins/text-support":30,"../mixins/width-support":31}],16:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
@@ -689,7 +693,7 @@ modal.reopenClass({
 });
 
 exports["default"] = modal;
-},{"../mixins/animation-support":24,"../mixins/style-support":28,"../templates/eui-modal":36}],17:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":25,"../mixins/style-support":29,"../templates/eui-modal":37}],17:[function(_dereq_,module,exports){
 "use strict";
 var DATE_SLOT_HBS, containsDate, forEachSlot, month;
 
@@ -920,7 +924,7 @@ popcal.reopenClass({
 });
 
 exports["default"] = popcal;
-},{"../mixins/animation-support":24,"../mixins/style-support":28,"../templates/eui-popcal":37}],19:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":25,"../mixins/style-support":29,"../templates/eui-popcal":38}],19:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
@@ -1209,7 +1213,7 @@ poplist.reopenClass({
 });
 
 exports["default"] = poplist;
-},{"../mixins/animation-support":24,"../mixins/style-support":28,"../templates/eui-poplist":39,"../templates/eui-poplist-option":38}],20:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":25,"../mixins/style-support":29,"../templates/eui-poplist":40,"../templates/eui-poplist-option":39}],20:[function(_dereq_,module,exports){
 "use strict";
 var poplistComponent = _dereq_("../components/eui-poplist")["default"] || _dereq_("../components/eui-poplist");
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
@@ -1319,7 +1323,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
 });
 
 exports["default"] = select;
-},{"../components/eui-poplist":19,"../mixins/disabled-support":25,"../mixins/error-support":26,"../mixins/width-support":30}],21:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":31}],21:[function(_dereq_,module,exports){
 "use strict";
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
 var widthSupport = _dereq_("../mixins/width-support")["default"] || _dereq_("../mixins/width-support");
@@ -1465,7 +1469,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
 });
 
 exports["default"] = select;
-},{"../components/eui-popcal":18,"../mixins/disabled-support":25,"../mixins/error-support":26,"../mixins/width-support":30}],22:[function(_dereq_,module,exports){
+},{"../components/eui-popcal":18,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":31}],22:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -1499,7 +1503,86 @@ textarea = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupp
 });
 
 exports["default"] = textarea;
-},{"../mixins/error-support":26,"../mixins/size-support":27,"../mixins/style-support":28,"../mixins/text-support":29}],23:[function(_dereq_,module,exports){
+},{"../mixins/error-support":27,"../mixins/size-support":28,"../mixins/style-support":29,"../mixins/text-support":30}],23:[function(_dereq_,module,exports){
+"use strict";
+var EuiButtonComponent = _dereq_("../components/eui-button")["default"] || _dereq_("../components/eui-button");
+var EuiButtonTemplate = _dereq_("../templates/eui-button")["default"] || _dereq_("../templates/eui-button");
+
+var EuiCheckboxComponent = _dereq_("../components/eui-checkbox")["default"] || _dereq_("../components/eui-checkbox");
+var EuiCheckboxTemplate = _dereq_("../templates/eui-checkbox")["default"] || _dereq_("../templates/eui-checkbox");
+
+var EuiDropbuttonComponent = _dereq_("../components/eui-dropbutton")["default"] || _dereq_("../components/eui-dropbutton");
+var EuiDropbuttonTemplate = _dereq_("../templates/eui-dropbutton")["default"] || _dereq_("../templates/eui-dropbutton");
+
+var EuiInputComponent = _dereq_("../components/eui-input")["default"] || _dereq_("../components/eui-input");
+var EuiInputTemplate = _dereq_("../templates/eui-input")["default"] || _dereq_("../templates/eui-input");
+
+var EuiModalComponent = _dereq_("../components/eui-modal")["default"] || _dereq_("../components/eui-modal");
+var EuiModalTemplate = _dereq_("../templates/eui-modal")["default"] || _dereq_("../templates/eui-modal");
+
+var EuiPoplistComponent = _dereq_("../components/eui-poplist")["default"] || _dereq_("../components/eui-poplist");
+var EuiPoplistTemplate = _dereq_("../templates/eui-poplist")["default"] || _dereq_("../templates/eui-poplist");
+var EuiPoplistOptionTemplate = _dereq_("../templates/eui-poplist-option")["default"] || _dereq_("../templates/eui-poplist-option");
+
+var EuiSelectComponent = _dereq_("../components/eui-select")["default"] || _dereq_("../components/eui-select");
+var EuiSelectTemplate = _dereq_("../templates/eui-select")["default"] || _dereq_("../templates/eui-select");
+
+var EuiSelectDateComponent = _dereq_("../components/eui-selectdate")["default"] || _dereq_("../components/eui-selectdate");
+var EuiSelectDateTemplate = _dereq_("../templates/eui-selectdate")["default"] || _dereq_("../templates/eui-selectdate");
+
+var EuiTextareaComponent = _dereq_("../components/eui-textarea")["default"] || _dereq_("../components/eui-textarea");
+var EuiTextareaTemplate = _dereq_("../templates/eui-textarea")["default"] || _dereq_("../templates/eui-textarea");
+
+var EuiMonthComponent = _dereq_("../components/eui-month")["default"] || _dereq_("../components/eui-month");
+
+var EuiCalendarComponent = _dereq_("../components/eui-calendar")["default"] || _dereq_("../components/eui-calendar");
+var EuiCalendarTemplate = _dereq_("../templates/eui-calendar")["default"] || _dereq_("../templates/eui-calendar");
+
+var EuiPopcalComponent = _dereq_("../components/eui-popcal")["default"] || _dereq_("../components/eui-popcal");
+var EuiPopcalTemplate = _dereq_("../templates/eui-popcal")["default"] || _dereq_("../templates/eui-popcal");
+
+exports["default"] = {
+  name: 'emberui',
+
+  initialize: function(container) {
+    container.register('template:components/eui-button', EuiButtonTemplate);
+    container.register('component:eui-button', EuiButtonComponent);
+
+    container.register('template:components/eui-checkbox', EuiCheckboxTemplate);
+    container.register('component:eui-checkbox', EuiCheckboxComponent);
+
+    container.register('template:components/eui-dropbutton', EuiDropbuttonTemplate);
+    container.register('component:eui-dropbutton', EuiDropbuttonComponent);
+
+    container.register('template:components/eui-input', EuiInputTemplate);
+    container.register('component:eui-input', EuiInputComponent);
+
+    container.register('template:components/eui-modal', EuiModalTemplate);
+    container.register('component:eui-modal', EuiModalComponent);
+
+    container.register('template:components/eui-poplist', EuiPoplistTemplate);
+    container.register('template:components/eui-poplist-opion', EuiPoplistOptionTemplate);
+    container.register('component:eui-poplist', EuiPoplistComponent);
+
+    container.register('template:components/eui-select', EuiSelectTemplate);
+    container.register('component:eui-select', EuiSelectComponent);
+
+    container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
+    container.register('component:eui-selectdate', EuiSelectDateComponent);
+
+    container.register('template:components/eui-popcal', EuiPopcalTemplate);
+    container.register('component:eui-popcal', EuiPopcalComponent);
+
+    container.register('template:components/eui-textarea', EuiTextareaTemplate);
+    container.register('component:eui-textarea', EuiTextareaComponent);
+
+    container.register('component:eui-month', EuiMonthComponent);
+
+    container.register('template:components/eui-calendar', EuiCalendarTemplate);
+    container.register('component:eui-calendar', EuiCalendarComponent);
+  }
+};
+},{"../components/eui-button":11,"../components/eui-calendar":12,"../components/eui-checkbox":13,"../components/eui-dropbutton":14,"../components/eui-input":15,"../components/eui-modal":16,"../components/eui-month":17,"../components/eui-popcal":18,"../components/eui-poplist":19,"../components/eui-select":20,"../components/eui-selectdate":21,"../components/eui-textarea":22,"../templates/eui-button":32,"../templates/eui-calendar":33,"../templates/eui-checkbox":34,"../templates/eui-dropbutton":35,"../templates/eui-input":36,"../templates/eui-modal":37,"../templates/eui-popcal":38,"../templates/eui-poplist":40,"../templates/eui-poplist-option":39,"../templates/eui-select":41,"../templates/eui-selectdate":42,"../templates/eui-textarea":43}],24:[function(_dereq_,module,exports){
 "use strict";
 /*!
 EmberUI (c) 2014 Jaco Joubert
@@ -1543,51 +1626,14 @@ var EuiPopcalComponent = _dereq_("./components/eui-popcal")["default"] || _dereq
 var EuiPopcalTemplate = _dereq_("./templates/eui-popcal")["default"] || _dereq_("./templates/eui-popcal");
 
 _dereq_("./utilities/tabbable-selector");_dereq_("./utilities/position");_dereq_("./animations/popcal-close-default");_dereq_("./animations/popcal-open-default");_dereq_("./animations/modal-close-default");_dereq_("./animations/modal-open-default");_dereq_("./animations/modal-close-full");_dereq_("./animations/modal-open-full");_dereq_("./animations/poplist-close-default");_dereq_("./animations/poplist-open-default");_dereq_("./animations/poplist-close-flyin");_dereq_("./animations/poplist-open-flyin");
+var EuiInitializer = _dereq_("./initializers/eui-initializer")["default"] || _dereq_("./initializers/eui-initializer");
 
-Ember.Application.initializer({
-  name: 'emberui',
 
-  initialize: function(container) {
-    container.register('template:components/eui-button', EuiButtonTemplate);
-    container.register('component:eui-button', EuiButtonComponent);
+Ember.Application.initializer(EuiInitializer);
 
-    container.register('template:components/eui-checkbox', EuiCheckboxTemplate);
-    container.register('component:eui-checkbox', EuiCheckboxComponent);
+Ember.libraries.register('EmberUI', '0.1.3');
 
-    container.register('template:components/eui-dropbutton', EuiDropbuttonTemplate);
-    container.register('component:eui-dropbutton', EuiDropbuttonComponent);
-
-    container.register('template:components/eui-input', EuiInputTemplate);
-    container.register('component:eui-input', EuiInputComponent);
-
-    container.register('template:components/eui-modal', EuiModalTemplate);
-    container.register('component:eui-modal', EuiModalComponent);
-
-    container.register('template:components/eui-poplist', EuiPoplistTemplate);
-    container.register('template:components/eui-poplist-opion', EuiPoplistOptionTemplate);
-    container.register('component:eui-poplist', EuiPoplistComponent);
-
-    container.register('template:components/eui-select', EuiSelectTemplate);
-    container.register('component:eui-select', EuiSelectComponent);
-
-    container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
-    container.register('component:eui-selectdate', EuiSelectDateComponent);
-
-    container.register('template:components/eui-popcal', EuiPopcalTemplate);
-    container.register('component:eui-popcal', EuiPopcalComponent);
-
-    container.register('template:components/eui-textarea', EuiTextareaTemplate);
-    container.register('component:eui-textarea', EuiTextareaComponent);
-
-    container.register('component:eui-month', EuiMonthComponent);
-
-    container.register('template:components/eui-calendar', EuiCalendarTemplate);
-    container.register('component:eui-calendar', EuiCalendarComponent);
-  }
-});
-
-Ember.libraries.register('EmberUI', '0.1.0');
-
+exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;
 exports.EuiCheckboxComponent = EuiCheckboxComponent;
 exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
@@ -1601,7 +1647,7 @@ exports.EuiTextareaComponent = EuiTextareaComponent;
 exports.EuiMonthComponent = EuiMonthComponent;
 exports.EuiCalendarComponent = EuiCalendarComponent;
 exports.EuiPopcalComponent = EuiPopcalComponent;
-},{"./animations/modal-close-default":1,"./animations/modal-close-full":2,"./animations/modal-open-default":3,"./animations/modal-open-full":4,"./animations/popcal-close-default":5,"./animations/popcal-open-default":6,"./animations/poplist-close-default":7,"./animations/poplist-close-flyin":8,"./animations/poplist-open-default":9,"./animations/poplist-open-flyin":10,"./components/eui-button":11,"./components/eui-calendar":12,"./components/eui-checkbox":13,"./components/eui-dropbutton":14,"./components/eui-input":15,"./components/eui-modal":16,"./components/eui-month":17,"./components/eui-popcal":18,"./components/eui-poplist":19,"./components/eui-select":20,"./components/eui-selectdate":21,"./components/eui-textarea":22,"./templates/eui-button":31,"./templates/eui-calendar":32,"./templates/eui-checkbox":33,"./templates/eui-dropbutton":34,"./templates/eui-input":35,"./templates/eui-modal":36,"./templates/eui-popcal":37,"./templates/eui-poplist":39,"./templates/eui-poplist-option":38,"./templates/eui-select":40,"./templates/eui-selectdate":41,"./templates/eui-textarea":42,"./utilities/position":43,"./utilities/tabbable-selector":44}],24:[function(_dereq_,module,exports){
+},{"./animations/modal-close-default":1,"./animations/modal-close-full":2,"./animations/modal-open-default":3,"./animations/modal-open-full":4,"./animations/popcal-close-default":5,"./animations/popcal-open-default":6,"./animations/poplist-close-default":7,"./animations/poplist-close-flyin":8,"./animations/poplist-open-default":9,"./animations/poplist-open-flyin":10,"./components/eui-button":11,"./components/eui-calendar":12,"./components/eui-checkbox":13,"./components/eui-dropbutton":14,"./components/eui-input":15,"./components/eui-modal":16,"./components/eui-month":17,"./components/eui-popcal":18,"./components/eui-poplist":19,"./components/eui-select":20,"./components/eui-selectdate":21,"./components/eui-textarea":22,"./initializers/eui-initializer":23,"./templates/eui-button":32,"./templates/eui-calendar":33,"./templates/eui-checkbox":34,"./templates/eui-dropbutton":35,"./templates/eui-input":36,"./templates/eui-modal":37,"./templates/eui-popcal":38,"./templates/eui-poplist":40,"./templates/eui-poplist-option":39,"./templates/eui-select":41,"./templates/eui-selectdate":42,"./templates/eui-textarea":43,"./utilities/position":44,"./utilities/tabbable-selector":45}],25:[function(_dereq_,module,exports){
 "use strict";
 var animationSupport;
 
@@ -1671,7 +1717,7 @@ animationSupport = Em.Mixin.create({
 });
 
 exports["default"] = animationSupport;
-},{}],25:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 "use strict";
 var disabledsupport;
 
@@ -1686,7 +1732,7 @@ disabledsupport = Em.Mixin.create({
 });
 
 exports["default"] = disabledsupport;
-},{}],26:[function(_dereq_,module,exports){
+},{}],27:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport;
 
@@ -1731,7 +1777,7 @@ errorSupport = Em.Mixin.create({
 });
 
 exports["default"] = errorSupport;
-},{}],27:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 "use strict";
 var sizesupport;
 
@@ -1744,7 +1790,7 @@ sizesupport = Em.Mixin.create({
 });
 
 exports["default"] = sizesupport;
-},{}],28:[function(_dereq_,module,exports){
+},{}],29:[function(_dereq_,module,exports){
 "use strict";
 var stylesupport;
 
@@ -1757,7 +1803,7 @@ stylesupport = Em.Mixin.create({
 });
 
 exports["default"] = stylesupport;
-},{}],29:[function(_dereq_,module,exports){
+},{}],30:[function(_dereq_,module,exports){
 "use strict";
 var textsupport;
 
@@ -1788,7 +1834,7 @@ textsupport = Em.Mixin.create({
 });
 
 exports["default"] = textsupport;
-},{}],30:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 "use strict";
 var widthsupport;
 
@@ -1808,7 +1854,7 @@ widthsupport = Em.Mixin.create({
 });
 
 exports["default"] = widthsupport;
-},{}],31:[function(_dereq_,module,exports){
+},{}],32:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1865,7 +1911,7 @@ function program5(depth0,data) {
   return buffer;
   
 });
-},{}],32:[function(_dereq_,module,exports){
+},{}],33:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1939,7 +1985,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],33:[function(_dereq_,module,exports){
+},{}],34:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1976,7 +2022,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],34:[function(_dereq_,module,exports){
+},{}],35:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2037,7 +2083,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],35:[function(_dereq_,module,exports){
+},{}],36:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2088,7 +2134,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],36:[function(_dereq_,module,exports){
+},{}],37:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2132,7 +2178,7 @@ function program4(depth0,data) {
   return buffer;
   
 });
-},{}],37:[function(_dereq_,module,exports){
+},{}],38:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2156,7 +2202,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-},{}],38:[function(_dereq_,module,exports){
+},{}],39:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2171,7 +2217,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-},{}],39:[function(_dereq_,module,exports){
+},{}],40:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2213,7 +2259,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],40:[function(_dereq_,module,exports){
+},{}],41:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2247,7 +2293,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],41:[function(_dereq_,module,exports){
+},{}],42:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2282,7 +2328,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],42:[function(_dereq_,module,exports){
+},{}],43:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2333,7 +2379,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],43:[function(_dereq_,module,exports){
+},{}],44:[function(_dereq_,module,exports){
 "use strict";
 /*! jQuery UI - v1.10.4 - 2014-04-28
 * http://jqueryui.com
@@ -2831,7 +2877,7 @@ $.ui.position = {
 })();
 
 }( jQuery ) );
-},{}],44:[function(_dereq_,module,exports){
+},{}],45:[function(_dereq_,module,exports){
 "use strict";
 /*!
  * Copied from ic-modal which is adapted from jQuery UI core
@@ -2871,6 +2917,6 @@ if (!$.expr[':'].tabbable) {
     return ( isTabIndexNaN || tabIndex >= 0 ) && focusable( element, !isTabIndexNaN );
   }
 };
-},{}]},{},[23])
-(23)
+},{}]},{},[24])
+(24)
 });

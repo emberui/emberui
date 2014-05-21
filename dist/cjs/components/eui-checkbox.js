@@ -6,6 +6,8 @@ var checkbox;
 
 checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
   classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class'],
+  attributeBindings: ['role', 'value:aria-checked', 'disabled:aria-disabled'],
+  role: 'checkbox',
   tagName: 'eui-checkbox',
   value: false,
   disabled: false,

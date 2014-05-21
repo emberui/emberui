@@ -41,51 +41,14 @@ var EuiPopcalComponent = require("./components/eui-popcal")["default"] || requir
 var EuiPopcalTemplate = require("./templates/eui-popcal")["default"] || require("./templates/eui-popcal");
 
 require("./utilities/tabbable-selector");require("./utilities/position");require("./animations/popcal-close-default");require("./animations/popcal-open-default");require("./animations/modal-close-default");require("./animations/modal-open-default");require("./animations/modal-close-full");require("./animations/modal-open-full");require("./animations/poplist-close-default");require("./animations/poplist-open-default");require("./animations/poplist-close-flyin");require("./animations/poplist-open-flyin");
+var EuiInitializer = require("./initializers/eui-initializer")["default"] || require("./initializers/eui-initializer");
 
-Ember.Application.initializer({
-  name: 'emberui',
 
-  initialize: function(container) {
-    container.register('template:components/eui-button', EuiButtonTemplate);
-    container.register('component:eui-button', EuiButtonComponent);
+Ember.Application.initializer(EuiInitializer);
 
-    container.register('template:components/eui-checkbox', EuiCheckboxTemplate);
-    container.register('component:eui-checkbox', EuiCheckboxComponent);
+Ember.libraries.register('EmberUI', '0.1.3');
 
-    container.register('template:components/eui-dropbutton', EuiDropbuttonTemplate);
-    container.register('component:eui-dropbutton', EuiDropbuttonComponent);
-
-    container.register('template:components/eui-input', EuiInputTemplate);
-    container.register('component:eui-input', EuiInputComponent);
-
-    container.register('template:components/eui-modal', EuiModalTemplate);
-    container.register('component:eui-modal', EuiModalComponent);
-
-    container.register('template:components/eui-poplist', EuiPoplistTemplate);
-    container.register('template:components/eui-poplist-opion', EuiPoplistOptionTemplate);
-    container.register('component:eui-poplist', EuiPoplistComponent);
-
-    container.register('template:components/eui-select', EuiSelectTemplate);
-    container.register('component:eui-select', EuiSelectComponent);
-
-    container.register('template:components/eui-selectdate', EuiSelectDateTemplate);
-    container.register('component:eui-selectdate', EuiSelectDateComponent);
-
-    container.register('template:components/eui-popcal', EuiPopcalTemplate);
-    container.register('component:eui-popcal', EuiPopcalComponent);
-
-    container.register('template:components/eui-textarea', EuiTextareaTemplate);
-    container.register('component:eui-textarea', EuiTextareaComponent);
-
-    container.register('component:eui-month', EuiMonthComponent);
-
-    container.register('template:components/eui-calendar', EuiCalendarTemplate);
-    container.register('component:eui-calendar', EuiCalendarComponent);
-  }
-});
-
-Ember.libraries.register('EmberUI', '0.1.0');
-
+exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;
 exports.EuiCheckboxComponent = EuiCheckboxComponent;
 exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
