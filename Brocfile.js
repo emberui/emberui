@@ -46,7 +46,7 @@ lib = filterCoffeeScript(lib, {
 lib = filterES6Modules(lib, {
   global:      'eui',
   packageName: 'emberui',
-  main:        'main',
+  main:        'emberui',
 
   shim: {
     ember:      'Ember',
