@@ -105,7 +105,7 @@ Here's an example: `git commit -m "Close #52 – Fix controller and viewbindings
 
 ## Building and running the project
 
-`$ npm install -g broccoli`
+`$ npm install -g broccoli-cli`
 
 `$ npm install -g testem`
 
