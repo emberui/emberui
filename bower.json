@@ -4,7 +4,7 @@
   "main": [
     "dist/emberui.css",
     "dist/default-theme.css",
-    "dist/globals/main.js"
+    "dist/globals/emberui.js"
   ],
   "authors": [
     "Jaco Joubert <jaco@venn.lc>"

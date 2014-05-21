@@ -20,12 +20,12 @@ fi
 sed -i -r 's/^  "version": "[0-9]+\.[0-9]+\.[0-9]+",/  "version": "'$VERSION'",/g' bower.json
 
 # update lib file
-sed -i -r 's/^Ember.libraries.register\("EmberUI", "[0-9]+\.[0-9]+\.[0-9]+"\);/Ember.libraries.register("EmberUI", "'$VERSION'");/g' lib/main.js
+sed -i -r 's/^Ember.libraries.register\("EmberUI", "[0-9]+\.[0-9]+\.[0-9]+"\);/Ember.libraries.register("EmberUI", "'$VERSION'");/g' lib/emberui.js
 
 rm -rf dist && broccoli build dist
 git add -A dist
 git add bower.json
-git add lib/main.js
+git add lib/emberui.js
 git commit -m "Version bump $VERSION"
 git tag -a "v$VERSION" -m "v$VERSION"
 git push origin master
