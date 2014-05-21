@@ -46,7 +46,7 @@ var EuiInitializer = require("./initializers/eui-initializer")["default"] || req
 
 Ember.Application.initializer(EuiInitializer);
 
-Ember.libraries.register('EmberUI', '0.1.3');
+Ember.libraries.register("EmberUI", "0.2.0");
 
 exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;
