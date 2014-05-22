@@ -70,10 +70,12 @@ poplist = Em.Component.extend styleSupport, animationSupport,
 
 
   hide: ->
-    @animateOut({
-      target: @get('targetObject').$()
-      complete: => @breakdown()
-    })
+    # Only hide if a targetOject exists to hide in the first place
+    if @get('targetObject')? 
+      @animateOut({
+        target: @get('targetObject').$()
+        complete: => @breakdown()
+      })
 
 
   setup: (->
