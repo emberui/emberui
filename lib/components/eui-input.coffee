@@ -10,4 +10,12 @@ input = Em.Component.extend errorSupport, textSupport, styleSupport, sizeSupport
 
   maxlength: null
 
+  # Action to call if user presses enter
+  action: null
+
+  actions:
+    enter: (context) ->
+      if @get 'action'
+        @sendAction 'action', context
+
 `export default input`
