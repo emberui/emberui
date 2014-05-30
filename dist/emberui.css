@@ -1,12 +1,6 @@
-.eui-modal-open {
-  overflow: hidden; }
-  .eui-modal-open.ember-application > .ember-view:first-of-type, .eui-modal-open .ember-application > .ember-view:first-of-type {
-    overflow: hidden; }
-
-@media (min-device-width: 320px) and (max-device-width: 480px) {
-  .ember-application > .ember-view:first-of-type {
-    height: 100%;
-    overflow: scroll; } }
+.ember-application > .ember-view:first-of-type {
+  height: 100%;
+  overflow: scroll; }
 
 .eui-singlebutton, .eui-groupbutton {
   display: inline-block;
@@ -354,6 +348,11 @@
   .eui-modal .eui-modalobject-wrapper {
     height: 100%;
     width: 100%; }
+
+.eui-modal-open {
+  overflow: hidden; }
+  .eui-modal-open.ember-application > .ember-view:first-of-type, .eui-modal-open .ember-application > .ember-view:first-of-type {
+    overflow: hidden; }
 
 .eui-select {
   display: inline-block;

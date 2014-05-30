@@ -9,7 +9,15 @@ var input;
 input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
   classNameBindings: [':eui-input'],
   tagName: 'eui-input',
-  maxlength: null
+  maxlength: null,
+  action: null,
+  actions: {
+    enter: function(context) {
+      if (this.get('action')) {
+        return this.sendAction('action', context);
+      }
+    }
+  }
 });
 
 exports["default"] = input;

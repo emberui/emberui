@@ -563,7 +563,15 @@ var input;
 input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
   classNameBindings: [':eui-input'],
   tagName: 'eui-input',
-  maxlength: null
+  maxlength: null,
+  action: null,
+  actions: {
+    enter: function(context) {
+      if (this.get('action')) {
+        return this.sendAction('action', context);
+      }
+    }
+  }
 });
 
 exports["default"] = input;
@@ -867,11 +875,10 @@ popcal = Em.Component.extend(styleSupport, animationSupport, {
       collision: 'flipfit'
     });
     Ember.run.next(this, function() {
-      return $(window).on('click.emberui', (function(_this) {
+      return $(window).one('click.emberui', (function(_this) {
         return function(event) {
-          if (!$(event.target).parents('.eui-popcal').length) {
+          if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-popcal').length) {
             event.preventDefault();
-            $(window).off(event);
             return _this.hide();
           }
         };
@@ -991,11 +998,10 @@ poplist = Em.Component.extend(styleSupport, animationSupport, {
     });
     $('body').addClass('eui-poplist-open');
     return Ember.run.next(this, function() {
-      return $(window).on('click.emberui', (function(_this) {
+      return $(window).one('click.emberui', (function(_this) {
         return function(event) {
-          if (!$(event.target).parents('.eui-poplist').length) {
+          if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-poplist').length) {
             event.preventDefault();
-            $(window).off(event);
             return _this.hide();
           }
         };
@@ -1552,7 +1558,7 @@ var EuiInitializer = _dereq_("./initializers/eui-initializer")["default"] || _de
 
 Ember.Application.initializer(EuiInitializer);
 
-Ember.libraries.register("EmberUI", "0.2.0");
+Ember.libraries.register("EmberUI", "0.2.1");
 
 exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;
@@ -2125,8 +2131,9 @@ function program3(depth0,data) {
     'name': ("name"),
     'disabled': ("disabled"),
     'maxlength': ("maxlength"),
-    'tabindex': ("tabindex")
-  },hashTypes:{'type': "ID",'value': "ID",'name': "ID",'disabled': "ID",'maxlength': "ID",'tabindex': "ID"},hashContexts:{'type': depth0,'value': depth0,'name': depth0,'disabled': depth0,'maxlength': depth0,'tabindex': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+    'tabindex': ("tabindex"),
+    'action': ("enter")
+  },hashTypes:{'type': "ID",'value': "ID",'name': "ID",'disabled': "ID",'maxlength': "ID",'tabindex': "ID",'action': "STRING"},hashContexts:{'type': depth0,'value': depth0,'name': depth0,'disabled': depth0,'maxlength': depth0,'tabindex': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n</div>\n\n");
   stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }

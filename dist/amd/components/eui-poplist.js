@@ -67,11 +67,10 @@ define(
         });
         $('body').addClass('eui-poplist-open');
         return Ember.run.next(this, function() {
-          return $(window).on('click.emberui', (function(_this) {
+          return $(window).one('click.emberui', (function(_this) {
             return function(event) {
-              if (!$(event.target).parents('.eui-poplist').length) {
+              if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-poplist').length) {
                 event.preventDefault();
-                $(window).off(event);
                 return _this.hide();
               }
             };
