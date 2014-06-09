@@ -2,11 +2,9 @@
 
 mobileDetection = Em.Mixin.create
   isMobileDevice: (->
-    devicePixelRatio = window.devicePixelRatio || 1
-    width = window.innerWidth / devicePixelRatio
-    height = window.innerHeight / devicePixelRatio
-
-    return width <= 800 && height <= 600
+    width = window.innerWidth
+    height = window.innerHeight
+    return true if width <= 800 || height <= 800
   ).property()
 
 `export default mobileDetection`
