@@ -44,7 +44,6 @@
     margin-top: -2px;
     background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-    max-height: calc(100% - 100px);
 
     &:before {
       content: "";
@@ -89,7 +88,6 @@
     margin-top: -2px;
     background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
     box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
-    max-height: calc(100% - 100px);
 
     .eui-poplistwrapper {
       background: #ffffff;

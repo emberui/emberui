@@ -1,12 +1,13 @@
 `import styleSupport from '../mixins/style-support'`
 `import animationSupport from '../mixins/animation-support'`
+`import mobileDetection from '../mixins/mobile-detection'`
 `import poplistLayout from '../templates/eui-poplist'`
 `import itemViewClassTemplate from '../templates/eui-poplist-option'`
 
-poplist = Em.Component.extend styleSupport, animationSupport,
+poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   layout: poplistLayout
   classNames: ['eui-poplist']
-  classNameBindings: ['isOpen::eui-closing']
+  classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch']
   attributeBindings: ['tabindex']
   tagName: 'eui-poplist'
 
@@ -23,7 +24,8 @@ poplist = Em.Component.extend styleSupport, animationSupport,
   # Controls the vertical height and row height for the list-view component
 
   listHeight: '80'
-  listRowHeight: '20'
+  listRowHeight: Ember.computed 'isMobileDevice', ->
+    if @get 'isMobileDevice' then return '30' else return '20'
 
 
   # Path to the string that should be used as the label
@@ -77,15 +79,22 @@ poplist = Em.Component.extend styleSupport, animationSupport,
 
 
   setup: (->
-    @setPoplistWidth()
+    @setPoplistMinWidth()
 
     # Positions calendar using fixed positioning
-    Em.run.next @, -> @.$().position {
-      my: "right top",
-      at: "right bottom",
-      of: @get('targetObject').$(),
-      collision: 'flipfit'
-    }
+    if @get('isMobileDevice') && @get('fullscreenMobile')
+      Em.run.next @, -> @.$().position {
+        my: "center center",
+        at: "center center",
+        of: $(window)
+      }
+    else
+      Em.run.next @, -> @.$().position {
+        my: "right top",
+        at: "right bottom",
+        of: @get('targetObject').$(),
+        collision: 'flipfit'
+      }
 
     @animateIn()
 
@@ -132,7 +141,7 @@ poplist = Em.Component.extend styleSupport, animationSupport,
   # Set poplist width to the user specified width, but enforce a min width of
   # the parent button
 
-  setPoplistWidth: ->
+  setPoplistMinWidth: ->
     element = @get('targetObject').$()
     poplistElement = @.$()
 
@@ -144,18 +153,21 @@ poplist = Em.Component.extend styleSupport, animationSupport,
     poplistElement.css('min-width', elementWidthMinuspoplistPadding)
 
 
-  # Focuses on search input so we can catch key input
-
-  focusOnSearch: ->
-    @$().find('input:first').focus()
-
-
   # Because we are manually setting other css on the element we can't use
   # bindings to update it automatically and have to do so manually
 
   updateListWidthCss: ->
-    listWidth = @get 'listWidth'
-    @.$().css 'width', listWidth
+    if @get('isMobileDevice') && @get('fullscreenMobile')
+      @.$().css 'width', '80%'
+    else
+      listWidth = @get 'listWidth'
+      @.$().css 'width', listWidth
+
+
+  # Focuses on search input so we can catch key input
+
+  focusOnSearch: ->
+    @$().find('input:first').focus()
 
 
   # Set the selection back to the first option if the users changes the search
