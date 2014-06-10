@@ -28,6 +28,11 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     if @get 'isMobileDevice' then return '30' else return '20'
 
 
+  # Controls whether poplist should be a modal if opened on a mobile device
+
+  modalOnMobile: false
+
+
   # Path to the string that should be used as the label
 
   labelPath: 'label'
@@ -82,7 +87,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     @setPoplistMinWidth()
 
     # Positions calendar using fixed positioning
-    if @get('isMobileDevice') && @get('fullscreenMobile')
+    if @get('isMobileDevice') && @get('modalOnMobile')
       Em.run.next @, -> @.$().position {
         my: "center center",
         at: "center center",
@@ -157,7 +162,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   # bindings to update it automatically and have to do so manually
 
   updateListWidthCss: ->
-    if @get('isMobileDevice') && @get('fullscreenMobile')
+    if @get('isMobileDevice') && @get('modalOnMobile')
       @.$().css 'width', '80%'
     else
       listWidth = @get 'listWidth'

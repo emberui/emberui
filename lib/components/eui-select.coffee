@@ -115,7 +115,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
         optionsBinding: 'targetObject.optionsWithBlank'
         labelPathBinding: 'targetObject.labelPath'
         style: 'flyin'
-        fullscreenMobile: true
+        modalOnMobile: true
         listWidth: @get 'listWidth'
         animationStyle: @get 'animationStyle'
 
