@@ -48,7 +48,7 @@ define(
 
     Ember.Application.initializer(EuiInitializer);
 
-    Ember.libraries.register("EmberUI", "0.2.2");
+    Ember.libraries.register("EmberUI", "0.2.3");
 
     __exports__.EuiInitializer = EuiInitializer;
     __exports__.EuiButtonComponent = EuiButtonComponent;
