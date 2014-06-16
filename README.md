@@ -47,12 +47,12 @@ https://github.com/emberui/emberui/tree/master/dist
   "dependencies": {
     "handlebars": "~1.1.2",
     "jquery": "^1.11.1",
-    "ember": "~1.5.0",
+    "ember": "^1.5.0",
     "ember-resolver": "~0.1.1",
     "ic-ajax": "~0.3.0",
     "loader.js": "git://github.com/stefanpenner/loader.js",
-    "ember-listview": "https://github.com/geekingreen/ember-list-view.git#master",
-    "emberui": "git@github.com:emberui/emberui.git",
+    "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
+    "emberui": "^0.3.1",
     "momentjs": "~2.6.0",
     "twix": "~0.4.0",
     "velocity": "~0.9.0"
