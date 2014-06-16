@@ -40,13 +40,12 @@ var EuiCalendarTemplate = require("./templates/eui-calendar")["default"] || requ
 var EuiPopcalComponent = require("./components/eui-popcal")["default"] || require("./components/eui-popcal");
 var EuiPopcalTemplate = require("./templates/eui-popcal")["default"] || require("./templates/eui-popcal");
 
-require("./utilities/tabbable-selector");require("./utilities/position");require("./animations/popcal-close-default");require("./animations/popcal-open-default");require("./animations/modal-close-default");require("./animations/modal-open-default");require("./animations/modal-close-full");require("./animations/modal-open-full");require("./animations/poplist-close-default");require("./animations/poplist-open-default");require("./animations/poplist-close-flyin");require("./animations/poplist-open-flyin");
 var EuiInitializer = require("./initializers/eui-initializer")["default"] || require("./initializers/eui-initializer");
 
 
 Ember.Application.initializer(EuiInitializer);
 
-Ember.libraries.register("EmberUI", "0.2.1");
+Ember.libraries.register("EmberUI", "0.2.2");
 
 exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;

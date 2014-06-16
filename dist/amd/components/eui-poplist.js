@@ -1,23 +1,31 @@
 define(
-  ["../mixins/style-support","../mixins/animation-support","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
+  ["../mixins/style-support","../mixins/animation-support","../mixins/mobile-detection","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
     var animationSupport = __dependency2__["default"] || __dependency2__;
-    var poplistLayout = __dependency3__["default"] || __dependency3__;
-    var itemViewClassTemplate = __dependency4__["default"] || __dependency4__;
+    var mobileDetection = __dependency3__["default"] || __dependency3__;
+    var poplistLayout = __dependency4__["default"] || __dependency4__;
+    var itemViewClassTemplate = __dependency5__["default"] || __dependency5__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, animationSupport, {
+    poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
       layout: poplistLayout,
       classNames: ['eui-poplist'],
-      classNameBindings: ['isOpen::eui-closing'],
+      classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch'],
       attributeBindings: ['tabindex'],
       tagName: 'eui-poplist',
       animationClass: 'euiPoplist',
       listWidth: null,
       listHeight: '80',
-      listRowHeight: '20',
+      listRowHeight: Ember.computed('isMobileDevice', function() {
+        if (this.get('isMobileDevice')) {
+          return '30';
+        } else {
+          return '20';
+        }
+      }),
+      modalOnMobile: false,
       labelPath: 'label',
       options: null,
       searchString: null,
@@ -46,15 +54,25 @@ define(
         });
       },
       setup: (function() {
-        this.setPoplistWidth();
-        Em.run.next(this, function() {
-          return this.$().position({
-            my: "right top",
-            at: "right bottom",
-            of: this.get('targetObject').$(),
-            collision: 'flipfit'
+        this.setPoplistMinWidth();
+        if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
+          Em.run.next(this, function() {
+            return this.$().position({
+              my: "center center",
+              at: "center center",
+              of: $(window)
+            });
           });
-        });
+        } else {
+          Em.run.next(this, function() {
+            return this.$().position({
+              my: "right top",
+              at: "right bottom",
+              of: this.get('targetObject').$(),
+              collision: 'flipfit'
+            });
+          });
+        }
         this.animateIn();
         this.set('isOpen', true);
         this.set('previousFocus', $(document.activeElement));
@@ -86,20 +104,24 @@ define(
         $('body').removeClass('eui-poplist-open');
         return this.destroy();
       },
-      setPoplistWidth: function() {
+      setPoplistMinWidth: function() {
         var element, elementWidthMinuspoplistPadding, poplistElement;
         element = this.get('targetObject').$();
         poplistElement = this.$();
         elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
         return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
       },
-      focusOnSearch: function() {
-        return this.$().find('input:first').focus();
-      },
       updateListWidthCss: function() {
         var listWidth;
-        listWidth = this.get('listWidth');
-        return this.$().css('width', listWidth);
+        if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
+          return this.$().css('width', '80%');
+        } else {
+          listWidth = this.get('listWidth');
+          return this.$().css('width', listWidth);
+        }
+      },
+      focusOnSearch: function() {
+        return this.$().find('input:first').focus();
       },
       searchStringDidChange: (function() {
         if (this.get('searchString')) {

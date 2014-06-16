@@ -663,9 +663,7 @@
   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   -webkit-box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  max-height: -webkit-calc(100% - 100px);
-  max-height: calc(100% - 100px); }
+  box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2); }
   .eui-poplist.eui-default:before {
     content: "";
     position: absolute;
@@ -702,9 +700,7 @@
   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   -webkit-box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
-  max-height: -webkit-calc(100% - 100px);
-  max-height: calc(100% - 100px); }
+  box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2); }
   .eui-poplist.eui-flyin .eui-poplistwrapper {
     background: #ffffff;
     border-radius: 3px;

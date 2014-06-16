@@ -986,25 +986,33 @@ define("emberui/components/eui-popcal",
     __exports__["default"] = popcal;
   });
 define("emberui/components/eui-poplist",
-  ["../mixins/style-support","../mixins/animation-support","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
+  ["../mixins/style-support","../mixins/animation-support","../mixins/mobile-detection","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
     var animationSupport = __dependency2__["default"] || __dependency2__;
-    var poplistLayout = __dependency3__["default"] || __dependency3__;
-    var itemViewClassTemplate = __dependency4__["default"] || __dependency4__;
+    var mobileDetection = __dependency3__["default"] || __dependency3__;
+    var poplistLayout = __dependency4__["default"] || __dependency4__;
+    var itemViewClassTemplate = __dependency5__["default"] || __dependency5__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, animationSupport, {
+    poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
       layout: poplistLayout,
       classNames: ['eui-poplist'],
-      classNameBindings: ['isOpen::eui-closing'],
+      classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch'],
       attributeBindings: ['tabindex'],
       tagName: 'eui-poplist',
       animationClass: 'euiPoplist',
       listWidth: null,
       listHeight: '80',
-      listRowHeight: '20',
+      listRowHeight: Ember.computed('isMobileDevice', function() {
+        if (this.get('isMobileDevice')) {
+          return '30';
+        } else {
+          return '20';
+        }
+      }),
+      modalOnMobile: false,
       labelPath: 'label',
       options: null,
       searchString: null,
@@ -1033,15 +1041,25 @@ define("emberui/components/eui-poplist",
         });
       },
       setup: (function() {
-        this.setPoplistWidth();
-        Em.run.next(this, function() {
-          return this.$().position({
-            my: "right top",
-            at: "right bottom",
-            of: this.get('targetObject').$(),
-            collision: 'flipfit'
+        this.setPoplistMinWidth();
+        if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
+          Em.run.next(this, function() {
+            return this.$().position({
+              my: "center center",
+              at: "center center",
+              of: $(window)
+            });
           });
-        });
+        } else {
+          Em.run.next(this, function() {
+            return this.$().position({
+              my: "right top",
+              at: "right bottom",
+              of: this.get('targetObject').$(),
+              collision: 'flipfit'
+            });
+          });
+        }
         this.animateIn();
         this.set('isOpen', true);
         this.set('previousFocus', $(document.activeElement));
@@ -1073,20 +1091,24 @@ define("emberui/components/eui-poplist",
         $('body').removeClass('eui-poplist-open');
         return this.destroy();
       },
-      setPoplistWidth: function() {
+      setPoplistMinWidth: function() {
         var element, elementWidthMinuspoplistPadding, poplistElement;
         element = this.get('targetObject').$();
         poplistElement = this.$();
         elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
         return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
       },
-      focusOnSearch: function() {
-        return this.$().find('input:first').focus();
-      },
       updateListWidthCss: function() {
         var listWidth;
-        listWidth = this.get('listWidth');
-        return this.$().css('width', listWidth);
+        if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
+          return this.$().css('width', '80%');
+        } else {
+          listWidth = this.get('listWidth');
+          return this.$().css('width', listWidth);
+        }
+      },
+      focusOnSearch: function() {
+        return this.$().find('input:first').focus();
       },
       searchStringDidChange: (function() {
         if (this.get('searchString')) {
@@ -1373,6 +1395,7 @@ define("emberui/components/eui-select",
             optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
             style: 'flyin',
+            modalOnMobile: true,
             listWidth: this.get('listWidth'),
             animationStyle: this.get('animationStyle')
           });
@@ -1576,8 +1599,8 @@ define("emberui/components/eui-textarea",
     __exports__["default"] = textarea;
   });
 define("emberui",
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./utilities/tabbable-selector","./utilities/position","./animations/popcal-close-default","./animations/popcal-open-default","./animations/modal-close-default","./animations/modal-open-default","./animations/modal-close-full","./animations/modal-open-full","./animations/poplist-close-default","./animations/poplist-open-default","./animations/poplist-close-flyin","./animations/poplist-open-flyin","./initializers/eui-initializer","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __dependency31__, __dependency32__, __dependency33__, __dependency34__, __dependency35__, __dependency36__, __dependency37__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./initializers/eui-initializer","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -1620,13 +1643,12 @@ define("emberui",
     var EuiPopcalComponent = __dependency23__["default"] || __dependency23__;
     var EuiPopcalTemplate = __dependency24__["default"] || __dependency24__;
 
-
-    var EuiInitializer = __dependency37__["default"] || __dependency37__;
+    var EuiInitializer = __dependency25__["default"] || __dependency25__;
 
 
     Ember.Application.initializer(EuiInitializer);
 
-    Ember.libraries.register("EmberUI", "0.2.1");
+    Ember.libraries.register("EmberUI", "0.2.2");
 
     __exports__.EuiInitializer = EuiInitializer;
     __exports__.EuiButtonComponent = EuiButtonComponent;
@@ -1644,44 +1666,45 @@ define("emberui",
     __exports__.EuiPopcalComponent = EuiPopcalComponent;
   });
 define("emberui/initializers/eui-initializer",
-  ["../components/eui-button","../templates/eui-button","../components/eui-checkbox","../templates/eui-checkbox","../components/eui-dropbutton","../templates/eui-dropbutton","../components/eui-input","../templates/eui-input","../components/eui-modal","../templates/eui-modal","../components/eui-poplist","../templates/eui-poplist","../templates/eui-poplist-option","../components/eui-select","../templates/eui-select","../components/eui-selectdate","../templates/eui-selectdate","../components/eui-textarea","../templates/eui-textarea","../components/eui-month","../components/eui-calendar","../templates/eui-calendar","../components/eui-popcal","../templates/eui-popcal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __exports__) {
+  ["../utilities/tabbable-selector","../utilities/position","../animations/popcal-close-default","../animations/popcal-open-default","../animations/modal-close-default","../animations/modal-open-default","../animations/modal-close-full","../animations/modal-open-full","../animations/poplist-close-default","../animations/poplist-open-default","../animations/poplist-close-flyin","../animations/poplist-open-flyin","../components/eui-button","../templates/eui-button","../components/eui-checkbox","../templates/eui-checkbox","../components/eui-dropbutton","../templates/eui-dropbutton","../components/eui-input","../templates/eui-input","../components/eui-modal","../templates/eui-modal","../components/eui-poplist","../templates/eui-poplist","../templates/eui-poplist-option","../components/eui-select","../templates/eui-select","../components/eui-selectdate","../templates/eui-selectdate","../components/eui-textarea","../templates/eui-textarea","../components/eui-month","../components/eui-calendar","../templates/eui-calendar","../components/eui-popcal","../templates/eui-popcal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __dependency31__, __dependency32__, __dependency33__, __dependency34__, __dependency35__, __dependency36__, __exports__) {
     "use strict";
-    var EuiButtonComponent = __dependency1__["default"] || __dependency1__;
-    var EuiButtonTemplate = __dependency2__["default"] || __dependency2__;
 
-    var EuiCheckboxComponent = __dependency3__["default"] || __dependency3__;
-    var EuiCheckboxTemplate = __dependency4__["default"] || __dependency4__;
+    var EuiButtonComponent = __dependency13__["default"] || __dependency13__;
+    var EuiButtonTemplate = __dependency14__["default"] || __dependency14__;
 
-    var EuiDropbuttonComponent = __dependency5__["default"] || __dependency5__;
-    var EuiDropbuttonTemplate = __dependency6__["default"] || __dependency6__;
+    var EuiCheckboxComponent = __dependency15__["default"] || __dependency15__;
+    var EuiCheckboxTemplate = __dependency16__["default"] || __dependency16__;
 
-    var EuiInputComponent = __dependency7__["default"] || __dependency7__;
-    var EuiInputTemplate = __dependency8__["default"] || __dependency8__;
+    var EuiDropbuttonComponent = __dependency17__["default"] || __dependency17__;
+    var EuiDropbuttonTemplate = __dependency18__["default"] || __dependency18__;
 
-    var EuiModalComponent = __dependency9__["default"] || __dependency9__;
-    var EuiModalTemplate = __dependency10__["default"] || __dependency10__;
+    var EuiInputComponent = __dependency19__["default"] || __dependency19__;
+    var EuiInputTemplate = __dependency20__["default"] || __dependency20__;
 
-    var EuiPoplistComponent = __dependency11__["default"] || __dependency11__;
-    var EuiPoplistTemplate = __dependency12__["default"] || __dependency12__;
-    var EuiPoplistOptionTemplate = __dependency13__["default"] || __dependency13__;
+    var EuiModalComponent = __dependency21__["default"] || __dependency21__;
+    var EuiModalTemplate = __dependency22__["default"] || __dependency22__;
 
-    var EuiSelectComponent = __dependency14__["default"] || __dependency14__;
-    var EuiSelectTemplate = __dependency15__["default"] || __dependency15__;
+    var EuiPoplistComponent = __dependency23__["default"] || __dependency23__;
+    var EuiPoplistTemplate = __dependency24__["default"] || __dependency24__;
+    var EuiPoplistOptionTemplate = __dependency25__["default"] || __dependency25__;
 
-    var EuiSelectDateComponent = __dependency16__["default"] || __dependency16__;
-    var EuiSelectDateTemplate = __dependency17__["default"] || __dependency17__;
+    var EuiSelectComponent = __dependency26__["default"] || __dependency26__;
+    var EuiSelectTemplate = __dependency27__["default"] || __dependency27__;
 
-    var EuiTextareaComponent = __dependency18__["default"] || __dependency18__;
-    var EuiTextareaTemplate = __dependency19__["default"] || __dependency19__;
+    var EuiSelectDateComponent = __dependency28__["default"] || __dependency28__;
+    var EuiSelectDateTemplate = __dependency29__["default"] || __dependency29__;
 
-    var EuiMonthComponent = __dependency20__["default"] || __dependency20__;
+    var EuiTextareaComponent = __dependency30__["default"] || __dependency30__;
+    var EuiTextareaTemplate = __dependency31__["default"] || __dependency31__;
 
-    var EuiCalendarComponent = __dependency21__["default"] || __dependency21__;
-    var EuiCalendarTemplate = __dependency22__["default"] || __dependency22__;
+    var EuiMonthComponent = __dependency32__["default"] || __dependency32__;
 
-    var EuiPopcalComponent = __dependency23__["default"] || __dependency23__;
-    var EuiPopcalTemplate = __dependency24__["default"] || __dependency24__;
+    var EuiCalendarComponent = __dependency33__["default"] || __dependency33__;
+    var EuiCalendarTemplate = __dependency34__["default"] || __dependency34__;
+
+    var EuiPopcalComponent = __dependency35__["default"] || __dependency35__;
+    var EuiPopcalTemplate = __dependency36__["default"] || __dependency36__;
 
     __exports__["default"] = {
       name: 'emberui',
@@ -1863,6 +1886,22 @@ define("emberui/mixins/error-support",
     });
 
     __exports__["default"] = errorSupport;
+  });
+define("emberui/mixins/mobile-detection",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var mobileDetection;
+
+    mobileDetection = Em.Mixin.create({
+      isMobileDevice: (function() {
+        if (window.innerWidth <= 540 || window.innerHeight <= 540) {
+          return true;
+        }
+      }).property()
+    });
+
+    __exports__["default"] = mobileDetection;
   });
 define("emberui/mixins/size-support",
   ["exports"],

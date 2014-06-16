@@ -242,7 +242,7 @@ button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
 });
 
 exports["default"] = button;
-},{"../mixins/disabled-support":26,"../mixins/size-support":28,"../mixins/style-support":29,"../mixins/width-support":31}],12:[function(_dereq_,module,exports){
+},{"../mixins/disabled-support":26,"../mixins/size-support":29,"../mixins/style-support":30,"../mixins/width-support":32}],12:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var calendar;
@@ -479,7 +479,7 @@ calendar = Em.Component.extend(styleSupport, {
 });
 
  exports["default"] = calendar;
-},{"../mixins/style-support":29}],13:[function(_dereq_,module,exports){
+},{"../mixins/style-support":30}],13:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
@@ -501,7 +501,7 @@ checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
 });
 
 exports["default"] = checkbox;
-},{"../mixins/error-support":27,"../mixins/size-support":28,"../mixins/style-support":29}],14:[function(_dereq_,module,exports){
+},{"../mixins/error-support":27,"../mixins/size-support":29,"../mixins/style-support":30}],14:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -551,7 +551,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
 });
 
 exports["default"] = dropbutton;
-},{"../components/eui-poplist":19,"../mixins/size-support":28,"../mixins/style-support":29}],15:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/size-support":29,"../mixins/style-support":30}],15:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -575,7 +575,7 @@ input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport
 });
 
 exports["default"] = input;
-},{"../mixins/error-support":27,"../mixins/size-support":28,"../mixins/style-support":29,"../mixins/text-support":30,"../mixins/width-support":31}],16:[function(_dereq_,module,exports){
+},{"../mixins/error-support":27,"../mixins/size-support":29,"../mixins/style-support":30,"../mixins/text-support":31,"../mixins/width-support":32}],16:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
@@ -701,7 +701,7 @@ modal.reopenClass({
 });
 
 exports["default"] = modal;
-},{"../mixins/animation-support":25,"../mixins/style-support":29,"../templates/eui-modal":37}],17:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":25,"../mixins/style-support":30,"../templates/eui-modal":38}],17:[function(_dereq_,module,exports){
 "use strict";
 var DATE_SLOT_HBS, containsDate, forEachSlot, month;
 
@@ -931,24 +931,32 @@ popcal.reopenClass({
 });
 
 exports["default"] = popcal;
-},{"../mixins/animation-support":25,"../mixins/style-support":29,"../templates/eui-popcal":38}],19:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":25,"../mixins/style-support":30,"../templates/eui-popcal":39}],19:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
+var mobileDetection = _dereq_("../mixins/mobile-detection")["default"] || _dereq_("../mixins/mobile-detection");
 var poplistLayout = _dereq_("../templates/eui-poplist")["default"] || _dereq_("../templates/eui-poplist");
 var itemViewClassTemplate = _dereq_("../templates/eui-poplist-option")["default"] || _dereq_("../templates/eui-poplist-option");
 var poplist;
 
-poplist = Em.Component.extend(styleSupport, animationSupport, {
+poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
   layout: poplistLayout,
   classNames: ['eui-poplist'],
-  classNameBindings: ['isOpen::eui-closing'],
+  classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch'],
   attributeBindings: ['tabindex'],
   tagName: 'eui-poplist',
   animationClass: 'euiPoplist',
   listWidth: null,
   listHeight: '80',
-  listRowHeight: '20',
+  listRowHeight: Ember.computed('isMobileDevice', function() {
+    if (this.get('isMobileDevice')) {
+      return '30';
+    } else {
+      return '20';
+    }
+  }),
+  modalOnMobile: false,
   labelPath: 'label',
   options: null,
   searchString: null,
@@ -977,15 +985,25 @@ poplist = Em.Component.extend(styleSupport, animationSupport, {
     });
   },
   setup: (function() {
-    this.setPoplistWidth();
-    Em.run.next(this, function() {
-      return this.$().position({
-        my: "right top",
-        at: "right bottom",
-        of: this.get('targetObject').$(),
-        collision: 'flipfit'
+    this.setPoplistMinWidth();
+    if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
+      Em.run.next(this, function() {
+        return this.$().position({
+          my: "center center",
+          at: "center center",
+          of: $(window)
+        });
       });
-    });
+    } else {
+      Em.run.next(this, function() {
+        return this.$().position({
+          my: "right top",
+          at: "right bottom",
+          of: this.get('targetObject').$(),
+          collision: 'flipfit'
+        });
+      });
+    }
     this.animateIn();
     this.set('isOpen', true);
     this.set('previousFocus', $(document.activeElement));
@@ -1017,20 +1035,24 @@ poplist = Em.Component.extend(styleSupport, animationSupport, {
     $('body').removeClass('eui-poplist-open');
     return this.destroy();
   },
-  setPoplistWidth: function() {
+  setPoplistMinWidth: function() {
     var element, elementWidthMinuspoplistPadding, poplistElement;
     element = this.get('targetObject').$();
     poplistElement = this.$();
     elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
     return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
   },
-  focusOnSearch: function() {
-    return this.$().find('input:first').focus();
-  },
   updateListWidthCss: function() {
     var listWidth;
-    listWidth = this.get('listWidth');
-    return this.$().css('width', listWidth);
+    if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
+      return this.$().css('width', '80%');
+    } else {
+      listWidth = this.get('listWidth');
+      return this.$().css('width', listWidth);
+    }
+  },
+  focusOnSearch: function() {
+    return this.$().find('input:first').focus();
   },
   searchStringDidChange: (function() {
     if (this.get('searchString')) {
@@ -1219,7 +1241,7 @@ poplist.reopenClass({
 });
 
 exports["default"] = poplist;
-},{"../mixins/animation-support":25,"../mixins/style-support":29,"../templates/eui-poplist":40,"../templates/eui-poplist-option":39}],20:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":25,"../mixins/mobile-detection":28,"../mixins/style-support":30,"../templates/eui-poplist":41,"../templates/eui-poplist-option":40}],20:[function(_dereq_,module,exports){
 "use strict";
 var poplistComponent = _dereq_("../components/eui-poplist")["default"] || _dereq_("../components/eui-poplist");
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
@@ -1314,6 +1336,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
         optionsBinding: 'targetObject.optionsWithBlank',
         labelPathBinding: 'targetObject.labelPath',
         style: 'flyin',
+        modalOnMobile: true,
         listWidth: this.get('listWidth'),
         animationStyle: this.get('animationStyle')
       });
@@ -1329,7 +1352,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
 });
 
 exports["default"] = select;
-},{"../components/eui-poplist":19,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":31}],21:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":32}],21:[function(_dereq_,module,exports){
 "use strict";
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
 var widthSupport = _dereq_("../mixins/width-support")["default"] || _dereq_("../mixins/width-support");
@@ -1475,7 +1498,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
 });
 
 exports["default"] = select;
-},{"../components/eui-popcal":18,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":31}],22:[function(_dereq_,module,exports){
+},{"../components/eui-popcal":18,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":32}],22:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -1509,7 +1532,7 @@ textarea = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupp
 });
 
 exports["default"] = textarea;
-},{"../mixins/error-support":27,"../mixins/size-support":28,"../mixins/style-support":29,"../mixins/text-support":30}],23:[function(_dereq_,module,exports){
+},{"../mixins/error-support":27,"../mixins/size-support":29,"../mixins/style-support":30,"../mixins/text-support":31}],23:[function(_dereq_,module,exports){
 "use strict";
 /*!
 EmberUI (c) 2014 Jaco Joubert
@@ -1552,13 +1575,12 @@ var EuiCalendarTemplate = _dereq_("./templates/eui-calendar")["default"] || _der
 var EuiPopcalComponent = _dereq_("./components/eui-popcal")["default"] || _dereq_("./components/eui-popcal");
 var EuiPopcalTemplate = _dereq_("./templates/eui-popcal")["default"] || _dereq_("./templates/eui-popcal");
 
-_dereq_("./utilities/tabbable-selector");_dereq_("./utilities/position");_dereq_("./animations/popcal-close-default");_dereq_("./animations/popcal-open-default");_dereq_("./animations/modal-close-default");_dereq_("./animations/modal-open-default");_dereq_("./animations/modal-close-full");_dereq_("./animations/modal-open-full");_dereq_("./animations/poplist-close-default");_dereq_("./animations/poplist-open-default");_dereq_("./animations/poplist-close-flyin");_dereq_("./animations/poplist-open-flyin");
 var EuiInitializer = _dereq_("./initializers/eui-initializer")["default"] || _dereq_("./initializers/eui-initializer");
 
 
 Ember.Application.initializer(EuiInitializer);
 
-Ember.libraries.register("EmberUI", "0.2.1");
+Ember.libraries.register("EmberUI", "0.2.2");
 
 exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;
@@ -1574,8 +1596,9 @@ exports.EuiTextareaComponent = EuiTextareaComponent;
 exports.EuiMonthComponent = EuiMonthComponent;
 exports.EuiCalendarComponent = EuiCalendarComponent;
 exports.EuiPopcalComponent = EuiPopcalComponent;
-},{"./animations/modal-close-default":1,"./animations/modal-close-full":2,"./animations/modal-open-default":3,"./animations/modal-open-full":4,"./animations/popcal-close-default":5,"./animations/popcal-open-default":6,"./animations/poplist-close-default":7,"./animations/poplist-close-flyin":8,"./animations/poplist-open-default":9,"./animations/poplist-open-flyin":10,"./components/eui-button":11,"./components/eui-calendar":12,"./components/eui-checkbox":13,"./components/eui-dropbutton":14,"./components/eui-input":15,"./components/eui-modal":16,"./components/eui-month":17,"./components/eui-popcal":18,"./components/eui-poplist":19,"./components/eui-select":20,"./components/eui-selectdate":21,"./components/eui-textarea":22,"./initializers/eui-initializer":24,"./templates/eui-button":32,"./templates/eui-calendar":33,"./templates/eui-checkbox":34,"./templates/eui-dropbutton":35,"./templates/eui-input":36,"./templates/eui-modal":37,"./templates/eui-popcal":38,"./templates/eui-poplist":40,"./templates/eui-poplist-option":39,"./templates/eui-select":41,"./templates/eui-selectdate":42,"./templates/eui-textarea":43,"./utilities/position":44,"./utilities/tabbable-selector":45}],24:[function(_dereq_,module,exports){
+},{"./components/eui-button":11,"./components/eui-calendar":12,"./components/eui-checkbox":13,"./components/eui-dropbutton":14,"./components/eui-input":15,"./components/eui-modal":16,"./components/eui-month":17,"./components/eui-popcal":18,"./components/eui-poplist":19,"./components/eui-select":20,"./components/eui-selectdate":21,"./components/eui-textarea":22,"./initializers/eui-initializer":24,"./templates/eui-button":33,"./templates/eui-calendar":34,"./templates/eui-checkbox":35,"./templates/eui-dropbutton":36,"./templates/eui-input":37,"./templates/eui-modal":38,"./templates/eui-popcal":39,"./templates/eui-poplist":41,"./templates/eui-poplist-option":40,"./templates/eui-select":42,"./templates/eui-selectdate":43,"./templates/eui-textarea":44}],24:[function(_dereq_,module,exports){
 "use strict";
+_dereq_("../utilities/tabbable-selector");_dereq_("../utilities/position");_dereq_("../animations/popcal-close-default");_dereq_("../animations/popcal-open-default");_dereq_("../animations/modal-close-default");_dereq_("../animations/modal-open-default");_dereq_("../animations/modal-close-full");_dereq_("../animations/modal-open-full");_dereq_("../animations/poplist-close-default");_dereq_("../animations/poplist-open-default");_dereq_("../animations/poplist-close-flyin");_dereq_("../animations/poplist-open-flyin");
 var EuiButtonComponent = _dereq_("../components/eui-button")["default"] || _dereq_("../components/eui-button");
 var EuiButtonTemplate = _dereq_("../templates/eui-button")["default"] || _dereq_("../templates/eui-button");
 
@@ -1653,7 +1676,7 @@ exports["default"] = {
     container.register('component:eui-calendar', EuiCalendarComponent);
   }
 };
-},{"../components/eui-button":11,"../components/eui-calendar":12,"../components/eui-checkbox":13,"../components/eui-dropbutton":14,"../components/eui-input":15,"../components/eui-modal":16,"../components/eui-month":17,"../components/eui-popcal":18,"../components/eui-poplist":19,"../components/eui-select":20,"../components/eui-selectdate":21,"../components/eui-textarea":22,"../templates/eui-button":32,"../templates/eui-calendar":33,"../templates/eui-checkbox":34,"../templates/eui-dropbutton":35,"../templates/eui-input":36,"../templates/eui-modal":37,"../templates/eui-popcal":38,"../templates/eui-poplist":40,"../templates/eui-poplist-option":39,"../templates/eui-select":41,"../templates/eui-selectdate":42,"../templates/eui-textarea":43}],25:[function(_dereq_,module,exports){
+},{"../animations/modal-close-default":1,"../animations/modal-close-full":2,"../animations/modal-open-default":3,"../animations/modal-open-full":4,"../animations/popcal-close-default":5,"../animations/popcal-open-default":6,"../animations/poplist-close-default":7,"../animations/poplist-close-flyin":8,"../animations/poplist-open-default":9,"../animations/poplist-open-flyin":10,"../components/eui-button":11,"../components/eui-calendar":12,"../components/eui-checkbox":13,"../components/eui-dropbutton":14,"../components/eui-input":15,"../components/eui-modal":16,"../components/eui-month":17,"../components/eui-popcal":18,"../components/eui-poplist":19,"../components/eui-select":20,"../components/eui-selectdate":21,"../components/eui-textarea":22,"../templates/eui-button":33,"../templates/eui-calendar":34,"../templates/eui-checkbox":35,"../templates/eui-dropbutton":36,"../templates/eui-input":37,"../templates/eui-modal":38,"../templates/eui-popcal":39,"../templates/eui-poplist":41,"../templates/eui-poplist-option":40,"../templates/eui-select":42,"../templates/eui-selectdate":43,"../templates/eui-textarea":44,"../utilities/position":45,"../utilities/tabbable-selector":46}],25:[function(_dereq_,module,exports){
 "use strict";
 var animationSupport;
 
@@ -1785,6 +1808,19 @@ errorSupport = Em.Mixin.create({
 exports["default"] = errorSupport;
 },{}],28:[function(_dereq_,module,exports){
 "use strict";
+var mobileDetection;
+
+mobileDetection = Em.Mixin.create({
+  isMobileDevice: (function() {
+    if (window.innerWidth <= 540 || window.innerHeight <= 540) {
+      return true;
+    }
+  }).property()
+});
+
+exports["default"] = mobileDetection;
+},{}],29:[function(_dereq_,module,exports){
+"use strict";
 var sizesupport;
 
 sizesupport = Em.Mixin.create({
@@ -1796,7 +1832,7 @@ sizesupport = Em.Mixin.create({
 });
 
 exports["default"] = sizesupport;
-},{}],29:[function(_dereq_,module,exports){
+},{}],30:[function(_dereq_,module,exports){
 "use strict";
 var stylesupport;
 
@@ -1809,7 +1845,7 @@ stylesupport = Em.Mixin.create({
 });
 
 exports["default"] = stylesupport;
-},{}],30:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 "use strict";
 var textsupport;
 
@@ -1840,7 +1876,7 @@ textsupport = Em.Mixin.create({
 });
 
 exports["default"] = textsupport;
-},{}],31:[function(_dereq_,module,exports){
+},{}],32:[function(_dereq_,module,exports){
 "use strict";
 var widthsupport;
 
@@ -1860,7 +1896,7 @@ widthsupport = Em.Mixin.create({
 });
 
 exports["default"] = widthsupport;
-},{}],32:[function(_dereq_,module,exports){
+},{}],33:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1917,7 +1953,7 @@ function program5(depth0,data) {
   return buffer;
   
 });
-},{}],33:[function(_dereq_,module,exports){
+},{}],34:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1991,7 +2027,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],34:[function(_dereq_,module,exports){
+},{}],35:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2028,7 +2064,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],35:[function(_dereq_,module,exports){
+},{}],36:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2089,7 +2125,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],36:[function(_dereq_,module,exports){
+},{}],37:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2141,7 +2177,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],37:[function(_dereq_,module,exports){
+},{}],38:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2185,7 +2221,7 @@ function program4(depth0,data) {
   return buffer;
   
 });
-},{}],38:[function(_dereq_,module,exports){
+},{}],39:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2209,7 +2245,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-},{}],39:[function(_dereq_,module,exports){
+},{}],40:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2224,7 +2260,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-},{}],40:[function(_dereq_,module,exports){
+},{}],41:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2266,7 +2302,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],41:[function(_dereq_,module,exports){
+},{}],42:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2300,7 +2336,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],42:[function(_dereq_,module,exports){
+},{}],43:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2335,7 +2371,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],43:[function(_dereq_,module,exports){
+},{}],44:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2386,7 +2422,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],44:[function(_dereq_,module,exports){
+},{}],45:[function(_dereq_,module,exports){
 "use strict";
 /*! jQuery UI - v1.10.4 - 2014-04-28
 * http://jqueryui.com
@@ -2884,7 +2920,7 @@ $.ui.position = {
 })();
 
 }( jQuery ) );
-},{}],45:[function(_dereq_,module,exports){
+},{}],46:[function(_dereq_,module,exports){
 "use strict";
 /*!
  * Copied from ic-modal which is adapted from jQuery UI core

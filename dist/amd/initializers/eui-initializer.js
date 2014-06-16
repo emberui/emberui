@@ -1,42 +1,43 @@
 define(
-  ["../components/eui-button","../templates/eui-button","../components/eui-checkbox","../templates/eui-checkbox","../components/eui-dropbutton","../templates/eui-dropbutton","../components/eui-input","../templates/eui-input","../components/eui-modal","../templates/eui-modal","../components/eui-poplist","../templates/eui-poplist","../templates/eui-poplist-option","../components/eui-select","../templates/eui-select","../components/eui-selectdate","../templates/eui-selectdate","../components/eui-textarea","../templates/eui-textarea","../components/eui-month","../components/eui-calendar","../templates/eui-calendar","../components/eui-popcal","../templates/eui-popcal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __exports__) {
+  ["../utilities/tabbable-selector","../utilities/position","../animations/popcal-close-default","../animations/popcal-open-default","../animations/modal-close-default","../animations/modal-open-default","../animations/modal-close-full","../animations/modal-open-full","../animations/poplist-close-default","../animations/poplist-open-default","../animations/poplist-close-flyin","../animations/poplist-open-flyin","../components/eui-button","../templates/eui-button","../components/eui-checkbox","../templates/eui-checkbox","../components/eui-dropbutton","../templates/eui-dropbutton","../components/eui-input","../templates/eui-input","../components/eui-modal","../templates/eui-modal","../components/eui-poplist","../templates/eui-poplist","../templates/eui-poplist-option","../components/eui-select","../templates/eui-select","../components/eui-selectdate","../templates/eui-selectdate","../components/eui-textarea","../templates/eui-textarea","../components/eui-month","../components/eui-calendar","../templates/eui-calendar","../components/eui-popcal","../templates/eui-popcal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __dependency31__, __dependency32__, __dependency33__, __dependency34__, __dependency35__, __dependency36__, __exports__) {
     "use strict";
-    var EuiButtonComponent = __dependency1__["default"] || __dependency1__;
-    var EuiButtonTemplate = __dependency2__["default"] || __dependency2__;
 
-    var EuiCheckboxComponent = __dependency3__["default"] || __dependency3__;
-    var EuiCheckboxTemplate = __dependency4__["default"] || __dependency4__;
+    var EuiButtonComponent = __dependency13__["default"] || __dependency13__;
+    var EuiButtonTemplate = __dependency14__["default"] || __dependency14__;
 
-    var EuiDropbuttonComponent = __dependency5__["default"] || __dependency5__;
-    var EuiDropbuttonTemplate = __dependency6__["default"] || __dependency6__;
+    var EuiCheckboxComponent = __dependency15__["default"] || __dependency15__;
+    var EuiCheckboxTemplate = __dependency16__["default"] || __dependency16__;
 
-    var EuiInputComponent = __dependency7__["default"] || __dependency7__;
-    var EuiInputTemplate = __dependency8__["default"] || __dependency8__;
+    var EuiDropbuttonComponent = __dependency17__["default"] || __dependency17__;
+    var EuiDropbuttonTemplate = __dependency18__["default"] || __dependency18__;
 
-    var EuiModalComponent = __dependency9__["default"] || __dependency9__;
-    var EuiModalTemplate = __dependency10__["default"] || __dependency10__;
+    var EuiInputComponent = __dependency19__["default"] || __dependency19__;
+    var EuiInputTemplate = __dependency20__["default"] || __dependency20__;
 
-    var EuiPoplistComponent = __dependency11__["default"] || __dependency11__;
-    var EuiPoplistTemplate = __dependency12__["default"] || __dependency12__;
-    var EuiPoplistOptionTemplate = __dependency13__["default"] || __dependency13__;
+    var EuiModalComponent = __dependency21__["default"] || __dependency21__;
+    var EuiModalTemplate = __dependency22__["default"] || __dependency22__;
 
-    var EuiSelectComponent = __dependency14__["default"] || __dependency14__;
-    var EuiSelectTemplate = __dependency15__["default"] || __dependency15__;
+    var EuiPoplistComponent = __dependency23__["default"] || __dependency23__;
+    var EuiPoplistTemplate = __dependency24__["default"] || __dependency24__;
+    var EuiPoplistOptionTemplate = __dependency25__["default"] || __dependency25__;
 
-    var EuiSelectDateComponent = __dependency16__["default"] || __dependency16__;
-    var EuiSelectDateTemplate = __dependency17__["default"] || __dependency17__;
+    var EuiSelectComponent = __dependency26__["default"] || __dependency26__;
+    var EuiSelectTemplate = __dependency27__["default"] || __dependency27__;
 
-    var EuiTextareaComponent = __dependency18__["default"] || __dependency18__;
-    var EuiTextareaTemplate = __dependency19__["default"] || __dependency19__;
+    var EuiSelectDateComponent = __dependency28__["default"] || __dependency28__;
+    var EuiSelectDateTemplate = __dependency29__["default"] || __dependency29__;
 
-    var EuiMonthComponent = __dependency20__["default"] || __dependency20__;
+    var EuiTextareaComponent = __dependency30__["default"] || __dependency30__;
+    var EuiTextareaTemplate = __dependency31__["default"] || __dependency31__;
 
-    var EuiCalendarComponent = __dependency21__["default"] || __dependency21__;
-    var EuiCalendarTemplate = __dependency22__["default"] || __dependency22__;
+    var EuiMonthComponent = __dependency32__["default"] || __dependency32__;
 
-    var EuiPopcalComponent = __dependency23__["default"] || __dependency23__;
-    var EuiPopcalTemplate = __dependency24__["default"] || __dependency24__;
+    var EuiCalendarComponent = __dependency33__["default"] || __dependency33__;
+    var EuiCalendarTemplate = __dependency34__["default"] || __dependency34__;
+
+    var EuiPopcalComponent = __dependency35__["default"] || __dependency35__;
+    var EuiPopcalTemplate = __dependency36__["default"] || __dependency36__;
 
     __exports__["default"] = {
       name: 'emberui',

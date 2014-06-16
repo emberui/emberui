@@ -95,6 +95,7 @@ define(
             optionsBinding: 'targetObject.optionsWithBlank',
             labelPathBinding: 'targetObject.labelPath',
             style: 'flyin',
+            modalOnMobile: true,
             listWidth: this.get('listWidth'),
             animationStyle: this.get('animationStyle')
           });
