@@ -5,19 +5,7 @@
 
 select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-select'
-  attributeBindings: [
-    'ariaHasPopup:aria-haspopup'
-    'role'
-    'tabindex'
-    'ariaOwns:aria-owns'
-  ]
-  role: 'button'
-  ariaHasPopup: true
-  tabindex: 0
-  ariaOwns: (->
-    @get('poplist.elementId')
-  ).property 'poplist'
-  
+
   classNames: ['eui-select']
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
 
@@ -31,6 +19,20 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   valuePath: 'value'
 
   _selection: null
+
+
+  # WAI-ARIA support values
+
+  ariaHasPopup: true
+
+  ariaOwns: (->
+    @get('poplist.elementId')
+  ).property 'poplist'
+
+
+  # Holds a reference to the poplist component when it is open
+
+  poplist: null
 
 
   # Width of the poplist
@@ -132,7 +134,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
         animationStyle: @get 'animationStyle'
 
 
-  # Down Arrow Key opens poplist
+  # Down Arrow Key
 
   keyDown: (event) ->
     if event.which == 40
