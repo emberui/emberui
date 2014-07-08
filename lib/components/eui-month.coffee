@@ -42,6 +42,7 @@ month = Em.Component.extend
   disabledDates: null
 
   init: ->
+    @set 'maxPastDate', @get 'context.maxPastDate'
     @_super()
 
     unless @get 'selection'
@@ -118,11 +119,12 @@ month = Em.Component.extend
   applyOptionsForDate: (options, date) ->
     disabledDates = @get 'disabledDates'
     selection = @get 'selection'
+    maxPastDate = @get 'maxPastDate'
 
     if moment().isSame(date, 'day')
       options.classNames.push('eui-today')
 
-    if disabledDates && containsDate(disabledDates, date)
+    if (disabledDates && containsDate(disabledDates, date)) || (maxPastDate && date.isBefore(maxPastDate, 'day'))
       options.classNames.push('eui-disabled')
 
     if selection && containsDate(selection, date)
