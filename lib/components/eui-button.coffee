@@ -19,6 +19,9 @@ button = Em.Component.extend styleSupport, sizeSupport, disabledSupport, widthSu
   type: 'button'
   width: 'auto'
 
+  ariaOwns: null
+  ariaHaspopup: null
+
   click: (event) ->
     event.preventDefault()
     @sendAction('action', @get('context'))

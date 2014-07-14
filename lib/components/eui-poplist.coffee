@@ -260,8 +260,13 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   keyUp: (event) ->
     keyMap = @get 'KEY_MAP'
     method = keyMap[event.which]
-    @get(method)?.apply(this, arguments) if method
-
+    # Execute if found in KeyMap - otherwise send focus back to search.
+    # This is necessary because we send focus to highlighted elements, and
+    # always highlight the first filtered option after the search value changes
+    if method
+      @get(method)?.apply(this, arguments)
+    else
+      @focusOnSearch()
 
   escapePressed: (event) ->
     @hide()
@@ -316,6 +321,10 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   # List View
 
   listView: Ember.ListView.extend
+    attributeBindings: ['role', 'tabindex']
+    role: 'menu'
+    tabindex: '-1'
+
     # Overriding this temporarily to fix the scrollbars in Firefox
     # Remove once https://github.com/emberjs/list-view/pull/113 is integrated
     css:
@@ -327,7 +336,6 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     classNames: ['eui-options']
     height: Ember.computed.alias 'controller.listHeight'
     rowHeight: Ember.computed.alias 'controller.listRowHeight'
-
 
     setup: (->
       # Prevents mouse scroll events from passing through to the div
@@ -352,7 +360,24 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
       classNames: ['eui-option']
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
       template: itemViewClassTemplate
+      attributeBindings: ['role', 'tabindex']
+      role: 'menuitem'
+      tabindex: '0'
 
+      isHighlightedDidChange: (->
+        # Focussing the highlighted item is necessary for screen readers to work.
+        #
+        # Calling focus immediately is expensive. When holding up/down a arrow keys,
+        # this actually causes the highlighted option to lag outside of the scrolled
+        # portion of the list. Performance is maintained by placing it in the next run loop.
+
+        Ember.run.next =>
+          @$().focus() if @get('isHighlighted')
+      ).observes 'isHighlighted'
+
+      initializeIsHighlighted: (->
+        @isHighlightedDidChange()
+      ).on 'init'
 
       # creates Label property based on specified labelPath
 
