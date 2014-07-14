@@ -235,6 +235,8 @@ button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
   "class": null,
   type: 'button',
   width: 'auto',
+  ariaOwns: null,
+  ariaHaspopup: null,
   click: function(event) {
     event.preventDefault();
     return this.sendAction('action', this.get('context'));
@@ -242,7 +244,7 @@ button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSu
 });
 
 exports["default"] = button;
-},{"../mixins/disabled-support":26,"../mixins/size-support":29,"../mixins/style-support":30,"../mixins/width-support":32}],12:[function(_dereq_,module,exports){
+},{"../mixins/disabled-support":27,"../mixins/size-support":30,"../mixins/style-support":31,"../mixins/width-support":33}],12:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var calendar;
@@ -479,7 +481,7 @@ calendar = Em.Component.extend(styleSupport, {
 });
 
  exports["default"] = calendar;
-},{"../mixins/style-support":30}],13:[function(_dereq_,module,exports){
+},{"../mixins/style-support":31}],13:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
@@ -501,7 +503,7 @@ checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
 });
 
 exports["default"] = checkbox;
-},{"../mixins/error-support":27,"../mixins/size-support":29,"../mixins/style-support":30}],14:[function(_dereq_,module,exports){
+},{"../mixins/error-support":28,"../mixins/size-support":30,"../mixins/style-support":31}],14:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var sizeSupport = _dereq_("../mixins/size-support")["default"] || _dereq_("../mixins/size-support");
@@ -551,7 +553,7 @@ dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
 });
 
 exports["default"] = dropbutton;
-},{"../components/eui-poplist":19,"../mixins/size-support":29,"../mixins/style-support":30}],15:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/size-support":30,"../mixins/style-support":31}],15:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -575,7 +577,7 @@ input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport
 });
 
 exports["default"] = input;
-},{"../mixins/error-support":27,"../mixins/size-support":29,"../mixins/style-support":30,"../mixins/text-support":31,"../mixins/width-support":32}],16:[function(_dereq_,module,exports){
+},{"../mixins/error-support":28,"../mixins/size-support":30,"../mixins/style-support":31,"../mixins/text-support":32,"../mixins/width-support":33}],16:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
@@ -701,7 +703,7 @@ modal.reopenClass({
 });
 
 exports["default"] = modal;
-},{"../mixins/animation-support":25,"../mixins/style-support":30,"../templates/eui-modal":38}],17:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":26,"../mixins/style-support":31,"../templates/eui-modal":39}],17:[function(_dereq_,module,exports){
 "use strict";
 var DATE_SLOT_HBS, containsDate, forEachSlot, month;
 
@@ -752,6 +754,8 @@ month = Em.Component.extend({
   month: null,
   selection: null,
   disabledDates: null,
+  maxPastDate: null,
+  maxFutureDate: null,
   init: function() {
     this._super();
     if (!this.get('selection')) {
@@ -822,13 +826,15 @@ month = Em.Component.extend({
     });
   },
   applyOptionsForDate: function(options, date) {
-    var disabledDates, selection;
+    var disabledDates, maxFutureDate, maxPastDate, selection;
     disabledDates = this.get('disabledDates');
     selection = this.get('selection');
+    maxPastDate = this.get('maxPastDate');
+    maxFutureDate = this.get('maxFutureDate');
     if (moment().isSame(date, 'day')) {
       options.classNames.push('eui-today');
     }
-    if (disabledDates && containsDate(disabledDates, date)) {
+    if ((disabledDates && containsDate(disabledDates, date)) || (maxPastDate && date.isBefore(maxPastDate, 'day')) || (maxFutureDate && date.isAfter(maxFutureDate, 'day'))) {
       options.classNames.push('eui-disabled');
     }
     if (selection && containsDate(selection, date)) {
@@ -931,7 +937,7 @@ popcal.reopenClass({
 });
 
 exports["default"] = popcal;
-},{"../mixins/animation-support":25,"../mixins/style-support":30,"../templates/eui-popcal":39}],19:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":26,"../mixins/style-support":31,"../templates/eui-popcal":40}],19:[function(_dereq_,module,exports){
 "use strict";
 var styleSupport = _dereq_("../mixins/style-support")["default"] || _dereq_("../mixins/style-support");
 var animationSupport = _dereq_("../mixins/animation-support")["default"] || _dereq_("../mixins/animation-support");
@@ -1126,6 +1132,8 @@ poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
     method = keyMap[event.which];
     if (method) {
       return (_ref = this.get(method)) != null ? _ref.apply(this, arguments) : void 0;
+    } else {
+      return this.focusOnSearch();
     }
   },
   escapePressed: function(event) {
@@ -1166,6 +1174,9 @@ poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
     return this.set('highlightedIndex', newIndex);
   },
   listView: Ember.ListView.extend({
+    attributeBindings: ['role', 'tabindex'],
+    role: 'menu',
+    tabindex: '-1',
     css: {
       position: 'relative',
       overflow: 'auto',
@@ -1194,6 +1205,21 @@ poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
       classNames: ['eui-option'],
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected'],
       template: itemViewClassTemplate,
+      attributeBindings: ['role', 'tabindex'],
+      role: 'menuitem',
+      tabindex: '0',
+      isHighlightedDidChange: (function() {
+        return Ember.run.next((function(_this) {
+          return function() {
+            if (_this.get('isHighlighted')) {
+              return _this.$().focus();
+            }
+          };
+        })(this));
+      }).observes('isHighlighted'),
+      initializeIsHighlighted: (function() {
+        return this.isHighlightedDidChange();
+      }).on('init'),
       labelPathDidChange: (function() {
         var labelPath;
         labelPath = this.get('controller.labelPath');
@@ -1241,7 +1267,7 @@ poplist.reopenClass({
 });
 
 exports["default"] = poplist;
-},{"../mixins/animation-support":25,"../mixins/mobile-detection":28,"../mixins/style-support":30,"../templates/eui-poplist":41,"../templates/eui-poplist-option":40}],20:[function(_dereq_,module,exports){
+},{"../mixins/animation-support":26,"../mixins/mobile-detection":29,"../mixins/style-support":31,"../templates/eui-poplist":42,"../templates/eui-poplist-option":41}],20:[function(_dereq_,module,exports){
 "use strict";
 var poplistComponent = _dereq_("../components/eui-poplist")["default"] || _dereq_("../components/eui-poplist");
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
@@ -1261,6 +1287,11 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
   labelPath: 'label',
   valuePath: 'value',
   _selection: null,
+  ariaHasPopup: true,
+  ariaOwns: (function() {
+    return this.get('poplist.elementId');
+  }).property('poplist'),
+  poplist: null,
   listWidth: 'auto',
   nullValue: new Object(),
   optionsWithBlank: (function() {
@@ -1329,7 +1360,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
   }).on('init'),
   click: function() {
     if (!this.get('poplistIsOpen')) {
-      return poplistComponent.show({
+      return this.set('poplist', poplistComponent.show({
         targetObject: this,
         isOpenBinding: 'targetObject.poplistIsOpen',
         selectionBinding: 'targetObject._selection',
@@ -1339,7 +1370,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
         modalOnMobile: true,
         listWidth: this.get('listWidth'),
         animationStyle: this.get('animationStyle')
-      });
+      }));
     }
   },
   keyUp: function(event) {
@@ -1352,7 +1383,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
 });
 
 exports["default"] = select;
-},{"../components/eui-poplist":19,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":32}],21:[function(_dereq_,module,exports){
+},{"../components/eui-poplist":19,"../mixins/disabled-support":27,"../mixins/error-support":28,"../mixins/width-support":33}],21:[function(_dereq_,module,exports){
 "use strict";
 var disabledSupport = _dereq_("../mixins/disabled-support")["default"] || _dereq_("../mixins/disabled-support");
 var widthSupport = _dereq_("../mixins/width-support")["default"] || _dereq_("../mixins/width-support");
@@ -1498,7 +1529,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
 });
 
 exports["default"] = select;
-},{"../components/eui-popcal":18,"../mixins/disabled-support":26,"../mixins/error-support":27,"../mixins/width-support":32}],22:[function(_dereq_,module,exports){
+},{"../components/eui-popcal":18,"../mixins/disabled-support":27,"../mixins/error-support":28,"../mixins/width-support":33}],22:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport = _dereq_("../mixins/error-support")["default"] || _dereq_("../mixins/error-support");
 var textSupport = _dereq_("../mixins/text-support")["default"] || _dereq_("../mixins/text-support");
@@ -1532,7 +1563,7 @@ textarea = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupp
 });
 
 exports["default"] = textarea;
-},{"../mixins/error-support":27,"../mixins/size-support":29,"../mixins/style-support":30,"../mixins/text-support":31}],23:[function(_dereq_,module,exports){
+},{"../mixins/error-support":28,"../mixins/size-support":30,"../mixins/style-support":31,"../mixins/text-support":32}],23:[function(_dereq_,module,exports){
 "use strict";
 /*!
 EmberUI (c) 2014 Jaco Joubert
@@ -1576,11 +1607,22 @@ var EuiPopcalComponent = _dereq_("./components/eui-popcal")["default"] || _dereq
 var EuiPopcalTemplate = _dereq_("./templates/eui-popcal")["default"] || _dereq_("./templates/eui-popcal");
 
 var EuiInitializer = _dereq_("./initializers/eui-initializer")["default"] || _dereq_("./initializers/eui-initializer");
+var EuiWaiAriaInitializer = _dereq_("./initializers/eui-wai-aria-initializer")["default"] || _dereq_("./initializers/eui-wai-aria-initializer");
 
 
 Ember.Application.initializer(EuiInitializer);
+Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.2.3");
+Ember.libraries.register("EmberUI", "0.3.0");
+
+Ember.TextSupport.reopen({
+    attributeBindings: [
+      'aria-expanded',
+      'aria-autocomplete',
+      'aria-owns',
+      'aria-activedescendant'
+    ]
+});
 
 exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;
@@ -1596,7 +1638,7 @@ exports.EuiTextareaComponent = EuiTextareaComponent;
 exports.EuiMonthComponent = EuiMonthComponent;
 exports.EuiCalendarComponent = EuiCalendarComponent;
 exports.EuiPopcalComponent = EuiPopcalComponent;
-},{"./components/eui-button":11,"./components/eui-calendar":12,"./components/eui-checkbox":13,"./components/eui-dropbutton":14,"./components/eui-input":15,"./components/eui-modal":16,"./components/eui-month":17,"./components/eui-popcal":18,"./components/eui-poplist":19,"./components/eui-select":20,"./components/eui-selectdate":21,"./components/eui-textarea":22,"./initializers/eui-initializer":24,"./templates/eui-button":33,"./templates/eui-calendar":34,"./templates/eui-checkbox":35,"./templates/eui-dropbutton":36,"./templates/eui-input":37,"./templates/eui-modal":38,"./templates/eui-popcal":39,"./templates/eui-poplist":41,"./templates/eui-poplist-option":40,"./templates/eui-select":42,"./templates/eui-selectdate":43,"./templates/eui-textarea":44}],24:[function(_dereq_,module,exports){
+},{"./components/eui-button":11,"./components/eui-calendar":12,"./components/eui-checkbox":13,"./components/eui-dropbutton":14,"./components/eui-input":15,"./components/eui-modal":16,"./components/eui-month":17,"./components/eui-popcal":18,"./components/eui-poplist":19,"./components/eui-select":20,"./components/eui-selectdate":21,"./components/eui-textarea":22,"./initializers/eui-initializer":24,"./initializers/eui-wai-aria-initializer":25,"./templates/eui-button":34,"./templates/eui-calendar":35,"./templates/eui-checkbox":36,"./templates/eui-dropbutton":37,"./templates/eui-input":38,"./templates/eui-modal":39,"./templates/eui-popcal":40,"./templates/eui-poplist":42,"./templates/eui-poplist-option":41,"./templates/eui-select":43,"./templates/eui-selectdate":44,"./templates/eui-textarea":45}],24:[function(_dereq_,module,exports){
 "use strict";
 _dereq_("../utilities/tabbable-selector");_dereq_("../utilities/position");_dereq_("../animations/popcal-close-default");_dereq_("../animations/popcal-open-default");_dereq_("../animations/modal-close-default");_dereq_("../animations/modal-open-default");_dereq_("../animations/modal-close-full");_dereq_("../animations/modal-open-full");_dereq_("../animations/poplist-close-default");_dereq_("../animations/poplist-open-default");_dereq_("../animations/poplist-close-flyin");_dereq_("../animations/poplist-open-flyin");
 var EuiButtonComponent = _dereq_("../components/eui-button")["default"] || _dereq_("../components/eui-button");
@@ -1676,7 +1718,25 @@ exports["default"] = {
     container.register('component:eui-calendar', EuiCalendarComponent);
   }
 };
-},{"../animations/modal-close-default":1,"../animations/modal-close-full":2,"../animations/modal-open-default":3,"../animations/modal-open-full":4,"../animations/popcal-close-default":5,"../animations/popcal-open-default":6,"../animations/poplist-close-default":7,"../animations/poplist-close-flyin":8,"../animations/poplist-open-default":9,"../animations/poplist-open-flyin":10,"../components/eui-button":11,"../components/eui-calendar":12,"../components/eui-checkbox":13,"../components/eui-dropbutton":14,"../components/eui-input":15,"../components/eui-modal":16,"../components/eui-month":17,"../components/eui-popcal":18,"../components/eui-poplist":19,"../components/eui-select":20,"../components/eui-selectdate":21,"../components/eui-textarea":22,"../templates/eui-button":33,"../templates/eui-calendar":34,"../templates/eui-checkbox":35,"../templates/eui-dropbutton":36,"../templates/eui-input":37,"../templates/eui-modal":38,"../templates/eui-popcal":39,"../templates/eui-poplist":41,"../templates/eui-poplist-option":40,"../templates/eui-select":42,"../templates/eui-selectdate":43,"../templates/eui-textarea":44,"../utilities/position":45,"../utilities/tabbable-selector":46}],25:[function(_dereq_,module,exports){
+},{"../animations/modal-close-default":1,"../animations/modal-close-full":2,"../animations/modal-open-default":3,"../animations/modal-open-full":4,"../animations/popcal-close-default":5,"../animations/popcal-open-default":6,"../animations/poplist-close-default":7,"../animations/poplist-close-flyin":8,"../animations/poplist-open-default":9,"../animations/poplist-open-flyin":10,"../components/eui-button":11,"../components/eui-calendar":12,"../components/eui-checkbox":13,"../components/eui-dropbutton":14,"../components/eui-input":15,"../components/eui-modal":16,"../components/eui-month":17,"../components/eui-popcal":18,"../components/eui-poplist":19,"../components/eui-select":20,"../components/eui-selectdate":21,"../components/eui-textarea":22,"../templates/eui-button":34,"../templates/eui-calendar":35,"../templates/eui-checkbox":36,"../templates/eui-dropbutton":37,"../templates/eui-input":38,"../templates/eui-modal":39,"../templates/eui-popcal":40,"../templates/eui-poplist":42,"../templates/eui-poplist-option":41,"../templates/eui-select":43,"../templates/eui-selectdate":44,"../templates/eui-textarea":45,"../utilities/position":46,"../utilities/tabbable-selector":47}],25:[function(_dereq_,module,exports){
+"use strict";
+var Ember = window.Ember["default"] || window.Ember;
+
+exports["default"] = {
+  name: 'emberui-wai-aria',
+
+  initialize: function(container) {
+    Ember.TextSupport.reopen({
+      attributeBindings: [
+        'aria-expanded',
+        'aria-autocomplete',
+        'aria-owns',
+        'aria-activedescendant'
+      ]
+    });
+  }
+};
+},{}],26:[function(_dereq_,module,exports){
 "use strict";
 var animationSupport;
 
@@ -1746,7 +1806,7 @@ animationSupport = Em.Mixin.create({
 });
 
 exports["default"] = animationSupport;
-},{}],26:[function(_dereq_,module,exports){
+},{}],27:[function(_dereq_,module,exports){
 "use strict";
 var disabledsupport;
 
@@ -1761,7 +1821,7 @@ disabledsupport = Em.Mixin.create({
 });
 
 exports["default"] = disabledsupport;
-},{}],27:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 "use strict";
 var errorSupport;
 
@@ -1806,7 +1866,7 @@ errorSupport = Em.Mixin.create({
 });
 
 exports["default"] = errorSupport;
-},{}],28:[function(_dereq_,module,exports){
+},{}],29:[function(_dereq_,module,exports){
 "use strict";
 var mobileDetection;
 
@@ -1819,7 +1879,7 @@ mobileDetection = Em.Mixin.create({
 });
 
 exports["default"] = mobileDetection;
-},{}],29:[function(_dereq_,module,exports){
+},{}],30:[function(_dereq_,module,exports){
 "use strict";
 var sizesupport;
 
@@ -1832,7 +1892,7 @@ sizesupport = Em.Mixin.create({
 });
 
 exports["default"] = sizesupport;
-},{}],30:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 "use strict";
 var stylesupport;
 
@@ -1845,7 +1905,7 @@ stylesupport = Em.Mixin.create({
 });
 
 exports["default"] = stylesupport;
-},{}],31:[function(_dereq_,module,exports){
+},{}],32:[function(_dereq_,module,exports){
 "use strict";
 var textsupport;
 
@@ -1876,7 +1936,7 @@ textsupport = Em.Mixin.create({
 });
 
 exports["default"] = textsupport;
-},{}],32:[function(_dereq_,module,exports){
+},{}],33:[function(_dereq_,module,exports){
 "use strict";
 var widthsupport;
 
@@ -1896,7 +1956,7 @@ widthsupport = Em.Mixin.create({
 });
 
 exports["default"] = widthsupport;
-},{}],33:[function(_dereq_,module,exports){
+},{}],34:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1935,8 +1995,11 @@ function program5(depth0,data) {
   data.buffer.push("<button ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'disabled': ("isDisabled"),
-    'type': ("type")
-  },hashTypes:{'disabled': "STRING",'type': "STRING"},hashContexts:{'disabled': depth0,'type': depth0},contexts:[],types:[],data:data})));
+    'type': ("type"),
+    'aria-owns': ("ariaOwns"),
+    'aria-haspopup': ("ariaHaspopup"),
+    'aria-label': ("label")
+  },hashTypes:{'disabled': "STRING",'type': "STRING",'aria-owns': "STRING",'aria-haspopup': "STRING",'aria-label': "ID"},hashContexts:{'disabled': depth0,'type': depth0,'aria-owns': depth0,'aria-haspopup': depth0,'aria-label': depth0},contexts:[],types:[],data:data})));
   data.buffer.push("></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      ");
   stack1 = helpers['if'].call(depth0, "icon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -1953,7 +2016,7 @@ function program5(depth0,data) {
   return buffer;
   
 });
-},{}],34:[function(_dereq_,module,exports){
+},{}],35:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -1972,8 +2035,10 @@ function program1(depth0,data) {
     'month': ("prevMonth"),
     'selection': ("_selection"),
     'disabledDates': ("disabledDates"),
+    'maxPastDate': ("maxPastDate"),
+    'maxFutureDate': ("maxFutureDate"),
     'select': ("dateSelected")
-  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
   data.buffer.push("\n      </div>\n    </div>\n  ");
   return buffer;
   }
@@ -1989,8 +2054,10 @@ function program3(depth0,data) {
     'month': ("nextMonth"),
     'selection': ("_selection"),
     'disabledDates': ("disabledDates"),
+    'maxPastDate': ("maxPastDate"),
+    'maxFutureDate': ("maxFutureDate"),
     'select': ("dateSelected")
-  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
   data.buffer.push("\n      </div>\n    </div>\n  ");
   return buffer;
   }
@@ -2018,8 +2085,10 @@ function program3(depth0,data) {
     'month': ("month"),
     'selection': ("_selection"),
     'disabledDates': ("disabledDates"),
+    'maxPastDate': ("maxPastDate"),
+    'maxFutureDate': ("maxFutureDate"),
     'select': ("dateSelected")
-  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
   data.buffer.push("\n    </div>\n  </div>\n\n  ");
   stack1 = helpers['if'].call(depth0, "showNextMonth", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2027,7 +2096,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],35:[function(_dereq_,module,exports){
+},{}],36:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2064,7 +2133,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],36:[function(_dereq_,module,exports){
+},{}],37:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2125,7 +2194,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],37:[function(_dereq_,module,exports){
+},{}],38:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2177,7 +2246,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],38:[function(_dereq_,module,exports){
+},{}],39:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2221,7 +2290,7 @@ function program4(depth0,data) {
   return buffer;
   
 });
-},{}],39:[function(_dereq_,module,exports){
+},{}],40:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2245,7 +2314,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-},{}],40:[function(_dereq_,module,exports){
+},{}],41:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2260,7 +2329,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-},{}],41:[function(_dereq_,module,exports){
+},{}],42:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2293,8 +2362,10 @@ function program3(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'class': ("eui-search"),
     'valueBinding': ("searchString"),
-    'size': ("1")
-  },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+    'size': ("1"),
+    'ariaRole': ("combobox"),
+    'aria-autocomplete': ("list")
+  },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING",'ariaRole': "STRING",'aria-autocomplete': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0,'ariaRole': depth0,'aria-autocomplete': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n  </div>\n\n  ");
   stack1 = helpers['if'].call(depth0, "hasNoOptions", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2302,7 +2373,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],42:[function(_dereq_,module,exports){
+},{}],43:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2327,8 +2398,10 @@ function program1(depth0,data) {
     'size': ("size"),
     'width': ("100%"),
     'classBinding': (":eui-select poplistIsOpen:eui-active"),
-    'icon': ("eui-icon")
-  },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'icon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'icon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+    'icon': ("eui-icon"),
+    'ariaOwns': ("ariaOwns"),
+    'ariaHaspopup': ("ariaHasPopup")
+  },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'icon': "STRING",'ariaOwns': "ID",'ariaHaspopup': "ID"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'icon': depth0,'ariaOwns': depth0,'ariaHaspopup': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
   data.buffer.push("\n\n");
   stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2336,7 +2409,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],43:[function(_dereq_,module,exports){
+},{}],44:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2371,7 +2444,7 @@ function program1(depth0,data) {
   return buffer;
   
 });
-},{}],44:[function(_dereq_,module,exports){
+},{}],45:[function(_dereq_,module,exports){
 "use strict";
 var Ember = window.Ember["default"] || window.Ember;
 exports["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
@@ -2422,7 +2495,7 @@ function program3(depth0,data) {
   return buffer;
   
 });
-},{}],45:[function(_dereq_,module,exports){
+},{}],46:[function(_dereq_,module,exports){
 "use strict";
 /*! jQuery UI - v1.10.4 - 2014-04-28
 * http://jqueryui.com
@@ -2920,7 +2993,7 @@ $.ui.position = {
 })();
 
 }( jQuery ) );
-},{}],46:[function(_dereq_,module,exports){
+},{}],47:[function(_dereq_,module,exports){
 "use strict";
 /*!
  * Copied from ic-modal which is adapted from jQuery UI core

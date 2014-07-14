@@ -22,6 +22,8 @@ define(
       "class": null,
       type: 'button',
       width: 'auto',
+      ariaOwns: null,
+      ariaHaspopup: null,
       click: function(event) {
         event.preventDefault();
         return this.sendAction('action', this.get('context'));

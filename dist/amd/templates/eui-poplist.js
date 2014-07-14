@@ -33,8 +33,10 @@ define(
       data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
         'class': ("eui-search"),
         'valueBinding': ("searchString"),
-        'size': ("1")
-      },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+        'size': ("1"),
+        'ariaRole': ("combobox"),
+        'aria-autocomplete': ("list")
+      },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING",'ariaRole': "STRING",'aria-autocomplete': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0,'ariaRole': depth0,'aria-autocomplete': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
       data.buffer.push("\n  </div>\n\n  ");
       stack1 = helpers['if'].call(depth0, "hasNoOptions", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }

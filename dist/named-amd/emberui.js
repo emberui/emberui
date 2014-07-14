@@ -267,6 +267,8 @@ define("emberui/components/eui-button",
       "class": null,
       type: 'button',
       width: 'auto',
+      ariaOwns: null,
+      ariaHaspopup: null,
       click: function(event) {
         event.preventDefault();
         return this.sendAction('action', this.get('context'));
@@ -802,6 +804,8 @@ define("emberui/components/eui-month",
       month: null,
       selection: null,
       disabledDates: null,
+      maxPastDate: null,
+      maxFutureDate: null,
       init: function() {
         this._super();
         if (!this.get('selection')) {
@@ -872,13 +876,15 @@ define("emberui/components/eui-month",
         });
       },
       applyOptionsForDate: function(options, date) {
-        var disabledDates, selection;
+        var disabledDates, maxFutureDate, maxPastDate, selection;
         disabledDates = this.get('disabledDates');
         selection = this.get('selection');
+        maxPastDate = this.get('maxPastDate');
+        maxFutureDate = this.get('maxFutureDate');
         if (moment().isSame(date, 'day')) {
           options.classNames.push('eui-today');
         }
-        if (disabledDates && containsDate(disabledDates, date)) {
+        if ((disabledDates && containsDate(disabledDates, date)) || (maxPastDate && date.isBefore(maxPastDate, 'day')) || (maxFutureDate && date.isAfter(maxFutureDate, 'day'))) {
           options.classNames.push('eui-disabled');
         }
         if (selection && containsDate(selection, date)) {
@@ -1182,6 +1188,8 @@ define("emberui/components/eui-poplist",
         method = keyMap[event.which];
         if (method) {
           return (_ref = this.get(method)) != null ? _ref.apply(this, arguments) : void 0;
+        } else {
+          return this.focusOnSearch();
         }
       },
       escapePressed: function(event) {
@@ -1222,6 +1230,9 @@ define("emberui/components/eui-poplist",
         return this.set('highlightedIndex', newIndex);
       },
       listView: Ember.ListView.extend({
+        attributeBindings: ['role', 'tabindex'],
+        role: 'menu',
+        tabindex: '-1',
         css: {
           position: 'relative',
           overflow: 'auto',
@@ -1250,6 +1261,21 @@ define("emberui/components/eui-poplist",
           classNames: ['eui-option'],
           classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected'],
           template: itemViewClassTemplate,
+          attributeBindings: ['role', 'tabindex'],
+          role: 'menuitem',
+          tabindex: '0',
+          isHighlightedDidChange: (function() {
+            return Ember.run.next((function(_this) {
+              return function() {
+                if (_this.get('isHighlighted')) {
+                  return _this.$().focus();
+                }
+              };
+            })(this));
+          }).observes('isHighlighted'),
+          initializeIsHighlighted: (function() {
+            return this.isHighlightedDidChange();
+          }).on('init'),
           labelPathDidChange: (function() {
             var labelPath;
             labelPath = this.get('controller.labelPath');
@@ -1320,6 +1346,11 @@ define("emberui/components/eui-select",
       labelPath: 'label',
       valuePath: 'value',
       _selection: null,
+      ariaHasPopup: true,
+      ariaOwns: (function() {
+        return this.get('poplist.elementId');
+      }).property('poplist'),
+      poplist: null,
       listWidth: 'auto',
       nullValue: new Object(),
       optionsWithBlank: (function() {
@@ -1388,7 +1419,7 @@ define("emberui/components/eui-select",
       }).on('init'),
       click: function() {
         if (!this.get('poplistIsOpen')) {
-          return poplistComponent.show({
+          return this.set('poplist', poplistComponent.show({
             targetObject: this,
             isOpenBinding: 'targetObject.poplistIsOpen',
             selectionBinding: 'targetObject._selection',
@@ -1398,7 +1429,7 @@ define("emberui/components/eui-select",
             modalOnMobile: true,
             listWidth: this.get('listWidth'),
             animationStyle: this.get('animationStyle')
-          });
+          }));
         }
       },
       keyUp: function(event) {
@@ -1599,8 +1630,8 @@ define("emberui/components/eui-textarea",
     __exports__["default"] = textarea;
   });
 define("emberui",
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./initializers/eui-initializer","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./initializers/eui-initializer","./initializers/eui-wai-aria-initializer","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -1644,11 +1675,22 @@ define("emberui",
     var EuiPopcalTemplate = __dependency24__["default"] || __dependency24__;
 
     var EuiInitializer = __dependency25__["default"] || __dependency25__;
+    var EuiWaiAriaInitializer = __dependency26__["default"] || __dependency26__;
 
 
     Ember.Application.initializer(EuiInitializer);
+    Ember.Application.initializer(EuiWaiAriaInitializer);
 
-    Ember.libraries.register("EmberUI", "0.2.3");
+    Ember.libraries.register("EmberUI", "0.3.0");
+
+    Ember.TextSupport.reopen({
+        attributeBindings: [
+          'aria-expanded',
+          'aria-autocomplete',
+          'aria-owns',
+          'aria-activedescendant'
+        ]
+    });
 
     __exports__.EuiInitializer = EuiInitializer;
     __exports__.EuiButtonComponent = EuiButtonComponent;
@@ -1745,6 +1787,27 @@ define("emberui/initializers/eui-initializer",
 
         container.register('template:components/eui-calendar', EuiCalendarTemplate);
         container.register('component:eui-calendar', EuiCalendarComponent);
+      }
+    };
+  });
+define("emberui/initializers/eui-wai-aria-initializer",
+  ["ember","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    var Ember = __dependency1__["default"] || __dependency1__;
+
+    __exports__["default"] = {
+      name: 'emberui-wai-aria',
+
+      initialize: function(container) {
+        Ember.TextSupport.reopen({
+          attributeBindings: [
+            'aria-expanded',
+            'aria-autocomplete',
+            'aria-owns',
+            'aria-activedescendant'
+          ]
+        });
       }
     };
   });
@@ -2033,8 +2096,11 @@ define("emberui/templates/eui-button",
       data.buffer.push("<button ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
         'disabled': ("isDisabled"),
-        'type': ("type")
-      },hashTypes:{'disabled': "STRING",'type': "STRING"},hashContexts:{'disabled': depth0,'type': depth0},contexts:[],types:[],data:data})));
+        'type': ("type"),
+        'aria-owns': ("ariaOwns"),
+        'aria-haspopup': ("ariaHaspopup"),
+        'aria-label': ("label")
+      },hashTypes:{'disabled': "STRING",'type': "STRING",'aria-owns': "STRING",'aria-haspopup': "STRING",'aria-label': "ID"},hashContexts:{'disabled': depth0,'type': depth0,'aria-owns': depth0,'aria-haspopup': depth0,'aria-label': depth0},contexts:[],types:[],data:data})));
       data.buffer.push("></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      ");
       stack1 = helpers['if'].call(depth0, "icon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2073,8 +2139,10 @@ define("emberui/templates/eui-calendar",
         'month': ("prevMonth"),
         'selection': ("_selection"),
         'disabledDates': ("disabledDates"),
+        'maxPastDate': ("maxPastDate"),
+        'maxFutureDate': ("maxFutureDate"),
         'select': ("dateSelected")
-      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
       data.buffer.push("\n      </div>\n    </div>\n  ");
       return buffer;
       }
@@ -2090,8 +2158,10 @@ define("emberui/templates/eui-calendar",
         'month': ("nextMonth"),
         'selection': ("_selection"),
         'disabledDates': ("disabledDates"),
+        'maxPastDate': ("maxPastDate"),
+        'maxFutureDate': ("maxFutureDate"),
         'select': ("dateSelected")
-      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
       data.buffer.push("\n      </div>\n    </div>\n  ");
       return buffer;
       }
@@ -2119,8 +2189,10 @@ define("emberui/templates/eui-calendar",
         'month': ("month"),
         'selection': ("_selection"),
         'disabledDates': ("disabledDates"),
+        'maxPastDate': ("maxPastDate"),
+        'maxFutureDate': ("maxFutureDate"),
         'select': ("dateSelected")
-      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+      },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
       data.buffer.push("\n    </div>\n  </div>\n\n  ");
       stack1 = helpers['if'].call(depth0, "showNextMonth", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2415,8 +2487,10 @@ define("emberui/templates/eui-poplist",
       data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
         'class': ("eui-search"),
         'valueBinding': ("searchString"),
-        'size': ("1")
-      },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+        'size': ("1"),
+        'ariaRole': ("combobox"),
+        'aria-autocomplete': ("list")
+      },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING",'ariaRole': "STRING",'aria-autocomplete': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0,'ariaRole': depth0,'aria-autocomplete': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
       data.buffer.push("\n  </div>\n\n  ");
       stack1 = helpers['if'].call(depth0, "hasNoOptions", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2452,8 +2526,10 @@ define("emberui/templates/eui-select",
         'size': ("size"),
         'width': ("100%"),
         'classBinding': (":eui-select poplistIsOpen:eui-active"),
-        'icon': ("eui-icon")
-      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'icon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'icon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+        'icon': ("eui-icon"),
+        'ariaOwns': ("ariaOwns"),
+        'ariaHaspopup': ("ariaHasPopup")
+      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'icon': "STRING",'ariaOwns': "ID",'ariaHaspopup': "ID"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'icon': depth0,'ariaOwns': depth0,'ariaHaspopup': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n");
       stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }

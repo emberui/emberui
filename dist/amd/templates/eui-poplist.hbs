@@ -1,6 +1,6 @@
 <div class="eui-poplistwrapper">
   <div {{bind-attr class=":eui-search-wrapper searchString:eui-active"}}>
-    {{input class="eui-search" valueBinding="searchString" size="1"}}
+    {{input class="eui-search" valueBinding="searchString" size="1" ariaRole="combobox" aria-autocomplete="list"}}
   </div>
 
   {{#if hasNoOptions}}

@@ -16,8 +16,10 @@ function program1(depth0,data) {
     'month': ("prevMonth"),
     'selection': ("_selection"),
     'disabledDates': ("disabledDates"),
+    'maxPastDate': ("maxPastDate"),
+    'maxFutureDate': ("maxFutureDate"),
     'select': ("dateSelected")
-  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
   data.buffer.push("\n      </div>\n    </div>\n  ");
   return buffer;
   }
@@ -33,8 +35,10 @@ function program3(depth0,data) {
     'month': ("nextMonth"),
     'selection': ("_selection"),
     'disabledDates': ("disabledDates"),
+    'maxPastDate': ("maxPastDate"),
+    'maxFutureDate': ("maxFutureDate"),
     'select': ("dateSelected")
-  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
   data.buffer.push("\n      </div>\n    </div>\n  ");
   return buffer;
   }
@@ -62,8 +66,10 @@ function program3(depth0,data) {
     'month': ("month"),
     'selection': ("_selection"),
     'disabledDates': ("disabledDates"),
+    'maxPastDate': ("maxPastDate"),
+    'maxFutureDate': ("maxFutureDate"),
     'select': ("dateSelected")
-  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
+  },hashTypes:{'month': "ID",'selection': "ID",'disabledDates': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'select': "STRING"},hashContexts:{'month': depth0,'selection': depth0,'disabledDates': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'select': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-month", options))));
   data.buffer.push("\n    </div>\n  </div>\n\n  ");
   stack1 = helpers['if'].call(depth0, "showNextMonth", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }

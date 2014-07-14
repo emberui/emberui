@@ -48,6 +48,8 @@ month = Em.Component.extend({
   month: null,
   selection: null,
   disabledDates: null,
+  maxPastDate: null,
+  maxFutureDate: null,
   init: function() {
     this._super();
     if (!this.get('selection')) {
@@ -118,13 +120,15 @@ month = Em.Component.extend({
     });
   },
   applyOptionsForDate: function(options, date) {
-    var disabledDates, selection;
+    var disabledDates, maxFutureDate, maxPastDate, selection;
     disabledDates = this.get('disabledDates');
     selection = this.get('selection');
+    maxPastDate = this.get('maxPastDate');
+    maxFutureDate = this.get('maxFutureDate');
     if (moment().isSame(date, 'day')) {
       options.classNames.push('eui-today');
     }
-    if (disabledDates && containsDate(disabledDates, date)) {
+    if ((disabledDates && containsDate(disabledDates, date)) || (maxPastDate && date.isBefore(maxPastDate, 'day')) || (maxFutureDate && date.isAfter(maxFutureDate, 'day'))) {
       options.classNames.push('eui-disabled');
     }
     if (selection && containsDate(selection, date)) {

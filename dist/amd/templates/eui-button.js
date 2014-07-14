@@ -39,8 +39,11 @@ define(
       data.buffer.push("<button ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
         'disabled': ("isDisabled"),
-        'type': ("type")
-      },hashTypes:{'disabled': "STRING",'type': "STRING"},hashContexts:{'disabled': depth0,'type': depth0},contexts:[],types:[],data:data})));
+        'type': ("type"),
+        'aria-owns': ("ariaOwns"),
+        'aria-haspopup': ("ariaHaspopup"),
+        'aria-label': ("label")
+      },hashTypes:{'disabled': "STRING",'type': "STRING",'aria-owns': "STRING",'aria-haspopup': "STRING",'aria-label': "ID"},hashContexts:{'disabled': depth0,'type': depth0,'aria-owns': depth0,'aria-haspopup': depth0,'aria-label': depth0},contexts:[],types:[],data:data})));
       data.buffer.push("></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      ");
       stack1 = helpers['if'].call(depth0, "icon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }

@@ -190,6 +190,9 @@
     .eui-poplist .eui-option.eui-hover {
       background: #32a2e6;
       color: #ffffff; }
+    .eui-poplist .eui-option:focus {
+      outline: none;
+      border: none; }
   .eui-poplist.eui-touch .eui-option {
     height: 30px;
     line-height: 30px; }
@@ -359,6 +362,8 @@
   -ms-user-select: none;
   user-select: none;
   cursor: pointer;
+  outline: none;
+  border: none;
   /* Disabled */
   /* Active */ }
   .eui-select .eui-wrapper {

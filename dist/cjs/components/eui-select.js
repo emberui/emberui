@@ -17,6 +17,11 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
   labelPath: 'label',
   valuePath: 'value',
   _selection: null,
+  ariaHasPopup: true,
+  ariaOwns: (function() {
+    return this.get('poplist.elementId');
+  }).property('poplist'),
+  poplist: null,
   listWidth: 'auto',
   nullValue: new Object(),
   optionsWithBlank: (function() {
@@ -85,7 +90,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
   }).on('init'),
   click: function() {
     if (!this.get('poplistIsOpen')) {
-      return poplistComponent.show({
+      return this.set('poplist', poplistComponent.show({
         targetObject: this,
         isOpenBinding: 'targetObject.poplistIsOpen',
         selectionBinding: 'targetObject._selection',
@@ -95,7 +100,7 @@ select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
         modalOnMobile: true,
         listWidth: this.get('listWidth'),
         animationStyle: this.get('animationStyle')
-      });
+      }));
     }
   },
   keyUp: function(event) {

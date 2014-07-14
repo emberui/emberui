@@ -41,11 +41,22 @@ var EuiPopcalComponent = require("./components/eui-popcal")["default"] || requir
 var EuiPopcalTemplate = require("./templates/eui-popcal")["default"] || require("./templates/eui-popcal");
 
 var EuiInitializer = require("./initializers/eui-initializer")["default"] || require("./initializers/eui-initializer");
+var EuiWaiAriaInitializer = require("./initializers/eui-wai-aria-initializer")["default"] || require("./initializers/eui-wai-aria-initializer");
 
 
 Ember.Application.initializer(EuiInitializer);
+Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.2.3");
+Ember.libraries.register("EmberUI", "0.3.0");
+
+Ember.TextSupport.reopen({
+    attributeBindings: [
+      'aria-expanded',
+      'aria-autocomplete',
+      'aria-owns',
+      'aria-activedescendant'
+    ]
+});
 
 exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;

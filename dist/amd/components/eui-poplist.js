@@ -195,6 +195,8 @@ define(
         method = keyMap[event.which];
         if (method) {
           return (_ref = this.get(method)) != null ? _ref.apply(this, arguments) : void 0;
+        } else {
+          return this.focusOnSearch();
         }
       },
       escapePressed: function(event) {
@@ -235,6 +237,9 @@ define(
         return this.set('highlightedIndex', newIndex);
       },
       listView: Ember.ListView.extend({
+        attributeBindings: ['role', 'tabindex'],
+        role: 'menu',
+        tabindex: '-1',
         css: {
           position: 'relative',
           overflow: 'auto',
@@ -263,6 +268,21 @@ define(
           classNames: ['eui-option'],
           classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected'],
           template: itemViewClassTemplate,
+          attributeBindings: ['role', 'tabindex'],
+          role: 'menuitem',
+          tabindex: '0',
+          isHighlightedDidChange: (function() {
+            return Ember.run.next((function(_this) {
+              return function() {
+                if (_this.get('isHighlighted')) {
+                  return _this.$().focus();
+                }
+              };
+            })(this));
+          }).observes('isHighlighted'),
+          initializeIsHighlighted: (function() {
+            return this.isHighlightedDidChange();
+          }).on('init'),
           labelPathDidChange: (function() {
             var labelPath;
             labelPath = this.get('controller.labelPath');
