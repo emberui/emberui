@@ -8,7 +8,7 @@
     "vendor/ember-list-view/index.js",
     "vendor/moment/moment.js",
     "vendor/Velocity.js/jquery.velocity.js",
-    "http://localhost:4200/globals/main.js",
+    "http://localhost:4200/globals/emberui.js",
     "vendor/ember-qunit/dist/globals/main.js",
     "/vendor/twix/bin/twix.js",
     "test/test-helper.js",
