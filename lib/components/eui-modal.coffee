@@ -26,7 +26,7 @@ modal = Em.Component.extend styleSupport, animationSupport,
 
 
   # If the dialog was created programatically we set this to true which renders
-  # the view specified by the user instead of yielding.
+  # the view or template specified by the user instead of yielding.
 
   programmatic: false
 
@@ -45,6 +45,9 @@ modal = Em.Component.extend styleSupport, animationSupport,
 
   enforceModality: false
 
+  viewClass: Ember.computed 'contentViewClass', ->
+    # TODO: deprecate contentViewClass
+    @get('contentViewClass') or Ember.View.extend({template: @get('template')})
 
   # Proxy for renderModal. Allows us to animate the modal closing by delaying
   # the setting of renderModal until the animation is done playing. Used for
