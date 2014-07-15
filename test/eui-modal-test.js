@@ -45,3 +45,16 @@ test('renders content properties to the DOM', function() {
 
   equal($('h1:contains("smurfs")').length, 1);
 });
+
+test('renders content properties to the DOM without "content" prefix', function() {
+  expect(1);
+
+  Ember.run(function() {
+    modal.show({
+      template: Ember.Handlebars.compile("<h1>{{title}}</h1>"),
+      controller: { title: 'fraggles' }
+    });
+  });
+
+  equal($('h1:contains("fraggles")').length, 1);
+});

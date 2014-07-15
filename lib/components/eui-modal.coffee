@@ -169,6 +169,8 @@ modal.reopenClass
     options.renderModal = true
     options.programmatic = true
     options.layout = modalLayout
+    options.targetObject = options.controller
+    delete options.controller
 
     modal = this.create options
     modal.container = modal.get('targetObject.container')

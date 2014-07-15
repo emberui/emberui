@@ -7,7 +7,7 @@
         <div class="eui-modalobject">
           <div class="eui-modalobject-wrapper">
             {{#if programmatic}}
-              {{view viewClass contentBinding="content"}}
+              {{view viewClass controller=targetObject content=content}}
             {{else}}
               {{yield}}
             {{/if}}
