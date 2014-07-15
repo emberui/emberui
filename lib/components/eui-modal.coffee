@@ -45,9 +45,8 @@ modal = Em.Component.extend styleSupport, animationSupport,
 
   enforceModality: false
 
-  viewClass: Ember.computed 'contentViewClass', ->
-    # TODO: deprecate contentViewClass
-    @get('contentViewClass') or Ember.View.extend({template: @get('template')})
+  viewClass: Ember.computed 'template', ->
+    Ember.View.extend({template: @get('template')})
 
   # Proxy for renderModal. Allows us to animate the modal closing by delaying
   # the setting of renderModal until the animation is done playing. Used for
@@ -171,6 +170,10 @@ modal.reopenClass
     options.layout = modalLayout
     options.targetObject = options.controller
     delete options.controller
+    options.viewClass = options.view or options.contentViewClass
+    delete options.viewClass unless options.viewClass
+    delete options.view
+    delete options.contentViewClass
 
     modal = this.create options
     modal.container = modal.get('targetObject.container')

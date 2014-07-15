@@ -16,6 +16,22 @@ test('renders view with template to the DOM', function() {
   equal($('h1:contains("boglins")').length, 1);
 });
 
+test('renders view with template to the DOM using view property', function() {
+  expect(1);
+  var modalView = Ember.View.extend({
+    template: Handlebars.compile("<h1>gremlins</h1>")
+  });
+
+  Ember.run(function() {
+    modal.show({
+      view: modalView,
+      content: {}
+    });
+  });
+
+  equal($('h1:contains("gremlins")').length, 1);
+});
+
 test('renders template with no view to the DOM', function() {
   expect(1);
 
