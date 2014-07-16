@@ -168,15 +168,16 @@ modal.reopenClass
     options.renderModal = true
     options.programmatic = true
     options.layout = modalLayout
-    options.targetObject = options.controller
+    options.kontroller = options.controller
     delete options.controller
     options.viewClass = options.view or options.contentViewClass
     delete options.viewClass unless options.viewClass
     delete options.view
     delete options.contentViewClass
 
-    modal = this.create options
-    modal.container = modal.get('targetObject.container')
+    modal = @create options
+    modal.set('kontroller.target', modal) if modal.get('kontroller')
+    modal.container = @container
     modal.appendTo 'body'
     modal
 
