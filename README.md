@@ -46,9 +46,9 @@ https://github.com/emberui/emberui/tree/master/dist
   "name": "your-project",
   "dependencies": {
     "handlebars": "~1.1.2",
-    "jquery": "~1.9.1",
+    "jquery": "^1.11.1",
     "ember": "~1.5.0",
-    "ember-resolver": "git://github.com/stefanpenner/ember-jj-abrams-resolver.git#master",
+    "ember-resolver": "~0.1.1",
     "ic-ajax": "~0.3.0",
     "loader.js": "git://github.com/stefanpenner/loader.js",
     "ember-listview": "https://github.com/geekingreen/ember-list-view.git#master",

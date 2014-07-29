@@ -18,11 +18,10 @@
     "**/.*"
   ],
   "dependencies": {
-    "jquery": "~1.9.1",
+    "jquery": "^1.11.1",
     "qunit": "~1.12.0",
     "ember": "~1.5.0",
-    "ember-data": "~1.0.0-beta.7",
-    "ember-resolver": "git://github.com/stefanpenner/ember-jj-abrams-resolver.git#master",
+    "ember-resolver": "~0.1.1",
     "ic-ajax": "~0.3.0",
     "ember-testing-httpRespond": "~0.1.1",
     "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
