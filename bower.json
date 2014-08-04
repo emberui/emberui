@@ -22,7 +22,6 @@
     "qunit": "~1.12.0",
     "ember": "^1.5.0",
     "ember-resolver": "~0.1.1",
-    "ic-ajax": "~0.3.0",
     "ember-testing-httpRespond": "~0.1.1",
     "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
     "moment": "~2.6.0",
