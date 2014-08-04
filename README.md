@@ -31,7 +31,7 @@ EmberUI is still an alpha project but is being actively developed and stabilizin
 Get some
 ========
 
-http://emberjs.jsbin.com/zuric
+http://emberjs.jsbin.com/hisogu
 
 **or**
 
