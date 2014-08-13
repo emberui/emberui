@@ -147,11 +147,13 @@ modal = Em.Component.extend styleSupport, animationSupport,
 
 
   # Catch and handle key presses
-
-  keyUp: (event) ->
+  # Tab key must be under keyDown so we can catch the event before it happens
+  keyDown: (event) ->
     # TAB
     @constrainTabNavigationToModal(event) if event.keyCode == 9
 
+  # If Esc is not under keyUp multiple events can get triggered under Safari
+  keyUp: (event) ->
     # ESC
     if event.keyCode == 27
       @sendAction 'cancel'
