@@ -94,10 +94,12 @@ modal = Em.Component.extend(styleSupport, animationSupport, {
       return this.hide();
     }
   },
-  keyUp: function(event) {
+  keyDown: function(event) {
     if (event.keyCode === 9) {
-      this.constrainTabNavigationToModal(event);
+      return this.constrainTabNavigationToModal(event);
     }
+  },
+  keyUp: function(event) {
     if (event.keyCode === 27) {
       this.sendAction('cancel');
       if (!this.get('enforceModality')) {

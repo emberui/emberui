@@ -223,8 +223,6 @@ var button;
 
 button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, {
   classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
-  attributeBindings: ['role', 'label:aria-label', 'disabled:aria-disabled'],
-  role: 'button',
   tagName: 'eui-button',
   label: null,
   icon: null,
@@ -674,10 +672,12 @@ modal = Em.Component.extend(styleSupport, animationSupport, {
       return this.hide();
     }
   },
-  keyUp: function(event) {
+  keyDown: function(event) {
     if (event.keyCode === 9) {
-      this.constrainTabNavigationToModal(event);
+      return this.constrainTabNavigationToModal(event);
     }
+  },
+  keyUp: function(event) {
     if (event.keyCode === 27) {
       this.sendAction('cancel');
       if (!this.get('enforceModality')) {
@@ -1613,7 +1613,7 @@ var EuiWaiAriaInitializer = _dereq_("./initializers/eui-wai-aria-initializer")["
 Ember.Application.initializer(EuiInitializer);
 Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.3.1");
+Ember.libraries.register("EmberUI", "0.3.2");
 
 Ember.TextSupport.reopen({
     attributeBindings: [
