@@ -24,4 +24,4 @@ $.Velocity.Sequences.euiModalOpenFull = (element, options) ->
   ]
 
   jQuery.each calls, (i, call) ->
-    jQuery.velocity.animate call.element[0], call.properties, call.options
+    $.Velocity.animate call.element[0], call.properties, call.options

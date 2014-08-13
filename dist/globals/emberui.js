@@ -25,7 +25,7 @@ $.Velocity.Sequences.euiModalCloseDefault = function(element, options) {
     }
   ];
   return $.each(calls, function(i, call) {
-    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+    return $.Velocity.animate(call.element[0], call.properties, call.options);
   });
 };
 },{}],2:[function(_dereq_,module,exports){
@@ -55,7 +55,7 @@ $.Velocity.Sequences.euiModalCloseFull = function(element, options) {
     }
   ];
   return $.each(calls, function(i, call) {
-    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+    return $.Velocity.animate(call.element[0], call.properties, call.options);
   });
 };
 },{}],3:[function(_dereq_,module,exports){
@@ -85,7 +85,7 @@ $.Velocity.Sequences.euiModalOpenDefault = function(element, options) {
     }
   ];
   return jQuery.each(calls, function(i, call) {
-    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+    return $.Velocity.animate(call.element[0], call.properties, call.options);
   });
 };
 },{}],4:[function(_dereq_,module,exports){
@@ -115,7 +115,7 @@ $.Velocity.Sequences.euiModalOpenFull = function(element, options) {
     }
   ];
   return jQuery.each(calls, function(i, call) {
-    return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+    return $.Velocity.animate(call.element[0], call.properties, call.options);
   });
 };
 },{}],5:[function(_dereq_,module,exports){
@@ -1613,7 +1613,7 @@ var EuiWaiAriaInitializer = _dereq_("./initializers/eui-wai-aria-initializer")["
 Ember.Application.initializer(EuiInitializer);
 Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.3.4");
+Ember.libraries.register("EmberUI", "0.3.5");
 
 Ember.TextSupport.reopen({
     attributeBindings: [

@@ -27,7 +27,7 @@ define("emberui/animations/modal-close-default",
         }
       ];
       return $.each(calls, function(i, call) {
-        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+        return $.Velocity.animate(call.element[0], call.properties, call.options);
       });
     };
   });
@@ -60,7 +60,7 @@ define("emberui/animations/modal-close-full",
         }
       ];
       return $.each(calls, function(i, call) {
-        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+        return $.Velocity.animate(call.element[0], call.properties, call.options);
       });
     };
   });
@@ -93,7 +93,7 @@ define("emberui/animations/modal-open-default",
         }
       ];
       return jQuery.each(calls, function(i, call) {
-        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+        return $.Velocity.animate(call.element[0], call.properties, call.options);
       });
     };
   });
@@ -126,7 +126,7 @@ define("emberui/animations/modal-open-full",
         }
       ];
       return jQuery.each(calls, function(i, call) {
-        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+        return $.Velocity.animate(call.element[0], call.properties, call.options);
       });
     };
   });
@@ -1681,7 +1681,7 @@ define("emberui",
     Ember.Application.initializer(EuiInitializer);
     Ember.Application.initializer(EuiWaiAriaInitializer);
 
-    Ember.libraries.register("EmberUI", "0.3.4");
+    Ember.libraries.register("EmberUI", "0.3.5");
 
     Ember.TextSupport.reopen({
         attributeBindings: [

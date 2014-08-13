@@ -27,7 +27,7 @@ define(
         }
       ];
       return jQuery.each(calls, function(i, call) {
-        return jQuery.velocity.animate(call.element[0], call.properties, call.options);
+        return $.Velocity.animate(call.element[0], call.properties, call.options);
       });
     };
   });

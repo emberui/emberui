@@ -50,7 +50,7 @@ define(
     Ember.Application.initializer(EuiInitializer);
     Ember.Application.initializer(EuiWaiAriaInitializer);
 
-    Ember.libraries.register("EmberUI", "0.3.4");
+    Ember.libraries.register("EmberUI", "0.3.5");
 
     Ember.TextSupport.reopen({
         attributeBindings: [
