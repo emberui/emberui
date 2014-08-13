@@ -2,7 +2,7 @@ define(
   [],
   function() {
     "use strict";
-    jQuery.velocity.Sequences.euiModalOpenDefault = function(element, options) {
+    $.Velocity.Sequences.euiModalOpenDefault = function(element, options) {
       var calls;
       calls = [
         {

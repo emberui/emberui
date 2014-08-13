@@ -1,4 +1,4 @@
-$.velocity.Sequences.euiModalCloseFull = (element, options) ->
+$.Velocity.Sequences.euiModalCloseFull = (element, options) ->
   calls = [
     {
       element: $(element).find('.eui-modalobject')

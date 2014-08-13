@@ -1,5 +1,5 @@
 "use strict";
-$.velocity.Sequences.euiModalCloseDefault = function(element, options) {
+$.Velocity.Sequences.euiModalCloseDefault = function(element, options) {
   var calls;
   calls = [
     {

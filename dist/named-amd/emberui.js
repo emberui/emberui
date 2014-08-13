@@ -2,7 +2,7 @@ define("emberui/animations/modal-close-default",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiModalCloseDefault = function(element, options) {
+    $.Velocity.Sequences.euiModalCloseDefault = function(element, options) {
       var calls;
       calls = [
         {
@@ -35,7 +35,7 @@ define("emberui/animations/modal-close-full",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiModalCloseFull = function(element, options) {
+    $.Velocity.Sequences.euiModalCloseFull = function(element, options) {
       var calls;
       calls = [
         {
@@ -68,7 +68,7 @@ define("emberui/animations/modal-open-default",
   [],
   function() {
     "use strict";
-    jQuery.velocity.Sequences.euiModalOpenDefault = function(element, options) {
+    $.Velocity.Sequences.euiModalOpenDefault = function(element, options) {
       var calls;
       calls = [
         {
@@ -101,7 +101,7 @@ define("emberui/animations/modal-open-full",
   [],
   function() {
     "use strict";
-    jQuery.velocity.Sequences.euiModalOpenFull = function(element, options) {
+    $.Velocity.Sequences.euiModalOpenFull = function(element, options) {
       var calls;
       calls = [
         {
@@ -134,8 +134,8 @@ define("emberui/animations/popcal-close-default",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [0, 1],
         scaleX: [0, 1],
         scaleY: [0, 1],
@@ -163,8 +163,8 @@ define("emberui/animations/popcal-open-default",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [1, 0],
         scaleX: [1, 0.7],
         scaleY: [1, 0.7]
@@ -177,8 +177,8 @@ define("emberui/animations/poplist-close-default",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [0, 1],
         marginTop: ["6px", "-4px"]
       }, {
@@ -191,8 +191,8 @@ define("emberui/animations/poplist-close-flyin",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [0, 1],
         scaleX: [0, 1],
         scaleY: [0, 1],
@@ -220,8 +220,8 @@ define("emberui/animations/poplist-open-default",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [1, 0],
         marginTop: ["-4px", "-14px"]
       }, {
@@ -233,8 +233,8 @@ define("emberui/animations/poplist-open-flyin",
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPoplistOpenFlyin = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPoplistOpenFlyin = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [1, 0],
         scaleX: [1, 0.7],
         scaleY: [1, 0.7]
@@ -1829,7 +1829,7 @@ define("emberui/mixins/animation-support",
         }
         style = "" + component + "Open" + style;
         backupStyle = "" + component + "OpenDefault";
-        if ($.velocity.Sequences.hasOwnProperty(style)) {
+        if ($.Velocity.Sequences.hasOwnProperty(style)) {
           return style;
         } else {
           return backupStyle;
@@ -1844,7 +1844,7 @@ define("emberui/mixins/animation-support",
         }
         style = "" + component + "Close" + style;
         backupStyle = "" + component + "CloseDefault";
-        if ($.velocity.Sequences.hasOwnProperty(style)) {
+        if ($.Velocity.Sequences.hasOwnProperty(style)) {
           return style;
         } else {
           return backupStyle;

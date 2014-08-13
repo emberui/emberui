@@ -2,8 +2,8 @@ define(
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [0, 1],
         scaleX: [0, 1],
         scaleY: [0, 1],

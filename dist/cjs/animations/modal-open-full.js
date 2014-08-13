@@ -1,5 +1,5 @@
 "use strict";
-jQuery.velocity.Sequences.euiModalOpenFull = function(element, options) {
+$.Velocity.Sequences.euiModalOpenFull = function(element, options) {
   var calls;
   calls = [
     {

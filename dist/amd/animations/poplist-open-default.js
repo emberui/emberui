@@ -2,8 +2,8 @@ define(
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
-      return $.velocity.animate(element, {
+    $.Velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
+      return $.Velocity.animate(element, {
         opacity: [1, 0],
         marginTop: ["-4px", "-14px"]
       }, {

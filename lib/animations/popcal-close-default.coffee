@@ -1,5 +1,5 @@
-$.velocity.Sequences.euiPopcalCloseDefault = (element, options) ->
-  $.velocity.animate element, {
+$.Velocity.Sequences.euiPopcalCloseDefault = (element, options) ->
+  $.Velocity.animate element, {
     opacity: [0, 1]
     scaleX: [0, 1]
     scaleY: [0, 1]

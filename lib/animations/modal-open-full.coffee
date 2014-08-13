@@ -1,4 +1,4 @@
-jQuery.velocity.Sequences.euiModalOpenFull = (element, options) ->
+$.Velocity.Sequences.euiModalOpenFull = (element, options) ->
   calls = [
     {
       element: $(element).find('.eui-modalobject')

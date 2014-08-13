@@ -1,6 +1,6 @@
 "use strict";
-$.velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
-  return $.velocity.animate(element, {
+$.Velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
+  return $.Velocity.animate(element, {
     opacity: [0, 1],
     scaleX: [0, 1],
     scaleY: [0, 1],

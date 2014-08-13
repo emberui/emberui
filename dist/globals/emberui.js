@@ -1,6 +1,6 @@
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.eui=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiModalCloseDefault = function(element, options) {
+$.Velocity.Sequences.euiModalCloseDefault = function(element, options) {
   var calls;
   calls = [
     {
@@ -30,7 +30,7 @@ $.velocity.Sequences.euiModalCloseDefault = function(element, options) {
 };
 },{}],2:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiModalCloseFull = function(element, options) {
+$.Velocity.Sequences.euiModalCloseFull = function(element, options) {
   var calls;
   calls = [
     {
@@ -60,7 +60,7 @@ $.velocity.Sequences.euiModalCloseFull = function(element, options) {
 };
 },{}],3:[function(_dereq_,module,exports){
 "use strict";
-jQuery.velocity.Sequences.euiModalOpenDefault = function(element, options) {
+$.Velocity.Sequences.euiModalOpenDefault = function(element, options) {
   var calls;
   calls = [
     {
@@ -90,7 +90,7 @@ jQuery.velocity.Sequences.euiModalOpenDefault = function(element, options) {
 };
 },{}],4:[function(_dereq_,module,exports){
 "use strict";
-jQuery.velocity.Sequences.euiModalOpenFull = function(element, options) {
+$.Velocity.Sequences.euiModalOpenFull = function(element, options) {
   var calls;
   calls = [
     {
@@ -120,8 +120,8 @@ jQuery.velocity.Sequences.euiModalOpenFull = function(element, options) {
 };
 },{}],5:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
-  return $.velocity.animate(element, {
+$.Velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
+  return $.Velocity.animate(element, {
     opacity: [0, 1],
     scaleX: [0, 1],
     scaleY: [0, 1],
@@ -146,8 +146,8 @@ $.velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
 };
 },{}],6:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
-  return $.velocity.animate(element, {
+$.Velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
+  return $.Velocity.animate(element, {
     opacity: [1, 0],
     scaleX: [1, 0.7],
     scaleY: [1, 0.7]
@@ -157,8 +157,8 @@ $.velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
 };
 },{}],7:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
-  return $.velocity.animate(element, {
+$.Velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
+  return $.Velocity.animate(element, {
     opacity: [0, 1],
     marginTop: ["6px", "-4px"]
   }, {
@@ -168,8 +168,8 @@ $.velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
 };
 },{}],8:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
-  return $.velocity.animate(element, {
+$.Velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
+  return $.Velocity.animate(element, {
     opacity: [0, 1],
     scaleX: [0, 1],
     scaleY: [0, 1],
@@ -194,8 +194,8 @@ $.velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
 };
 },{}],9:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
-  return $.velocity.animate(element, {
+$.Velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
+  return $.Velocity.animate(element, {
     opacity: [1, 0],
     marginTop: ["-4px", "-14px"]
   }, {
@@ -204,8 +204,8 @@ $.velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
 };
 },{}],10:[function(_dereq_,module,exports){
 "use strict";
-$.velocity.Sequences.euiPoplistOpenFlyin = function(element, options) {
-  return $.velocity.animate(element, {
+$.Velocity.Sequences.euiPoplistOpenFlyin = function(element, options) {
+  return $.Velocity.animate(element, {
     opacity: [1, 0],
     scaleX: [1, 0.7],
     scaleY: [1, 0.7]
@@ -1752,7 +1752,7 @@ animationSupport = Em.Mixin.create({
     }
     style = "" + component + "Open" + style;
     backupStyle = "" + component + "OpenDefault";
-    if ($.velocity.Sequences.hasOwnProperty(style)) {
+    if ($.Velocity.Sequences.hasOwnProperty(style)) {
       return style;
     } else {
       return backupStyle;
@@ -1767,7 +1767,7 @@ animationSupport = Em.Mixin.create({
     }
     style = "" + component + "Close" + style;
     backupStyle = "" + component + "CloseDefault";
-    if ($.velocity.Sequences.hasOwnProperty(style)) {
+    if ($.Velocity.Sequences.hasOwnProperty(style)) {
       return style;
     } else {
       return backupStyle;

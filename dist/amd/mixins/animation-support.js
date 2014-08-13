@@ -16,7 +16,7 @@ define(
         }
         style = "" + component + "Open" + style;
         backupStyle = "" + component + "OpenDefault";
-        if ($.velocity.Sequences.hasOwnProperty(style)) {
+        if ($.Velocity.Sequences.hasOwnProperty(style)) {
           return style;
         } else {
           return backupStyle;
@@ -31,7 +31,7 @@ define(
         }
         style = "" + component + "Close" + style;
         backupStyle = "" + component + "CloseDefault";
-        if ($.velocity.Sequences.hasOwnProperty(style)) {
+        if ($.Velocity.Sequences.hasOwnProperty(style)) {
           return style;
         } else {
           return backupStyle;

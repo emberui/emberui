@@ -2,7 +2,7 @@ define(
   [],
   function() {
     "use strict";
-    $.velocity.Sequences.euiModalCloseFull = function(element, options) {
+    $.Velocity.Sequences.euiModalCloseFull = function(element, options) {
       var calls;
       calls = [
         {
