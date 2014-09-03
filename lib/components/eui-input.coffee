@@ -9,6 +9,7 @@ input = Em.Component.extend errorSupport, textSupport, styleSupport, sizeSupport
   tagName: 'eui-input'
 
   maxlength: null
+  type: 'text'
 
   # Action to call if user presses enter
   action: null
