@@ -108,8 +108,10 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
 
     # Focus on search input to ensure we can catch keyboard input. Do this after
     # the poplist is positioned to ensure it is visible. Failure to do so will
-    # result in the page scrolling and closing the poplist
-    Ember.run.next this, -> @focusOnSearch()
+    # result in the page scrolling and closing the poplist. Don't do this on
+    # mobile because old android versions will open up the keyboard.
+    unless @get 'isMobileDevice'
+      Ember.run.next this, -> @focusOnSearch()
 
     # Set poplist width
     @updateListWidthCss()
