@@ -13,6 +13,7 @@ define(
       classNameBindings: [':eui-input'],
       tagName: 'eui-input',
       maxlength: null,
+      type: 'text',
       action: null,
       actions: {
         enter: function(context) {

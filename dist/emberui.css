@@ -1,6 +1,6 @@
 .ember-application > div.ember-view:first-of-type {
   height: 100%;
-  overflow: scroll; }
+  overflow: auto; }
 
 .eui-singlebutton, .eui-groupbutton {
   display: inline-block;

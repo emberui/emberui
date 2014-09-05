@@ -10,6 +10,7 @@ input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport
   classNameBindings: [':eui-input'],
   tagName: 'eui-input',
   maxlength: null,
+  type: 'text',
   action: null,
   actions: {
     enter: function(context) {

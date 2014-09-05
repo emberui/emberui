@@ -73,9 +73,11 @@ poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
     this.animateIn();
     this.set('isOpen', true);
     this.set('previousFocus', $(document.activeElement));
-    Ember.run.next(this, function() {
-      return this.focusOnSearch();
-    });
+    if (!this.get('isMobileDevice')) {
+      Ember.run.next(this, function() {
+        return this.focusOnSearch();
+      });
+    }
     this.updateListWidthCss();
     Ember.run.next(this, function() {
       return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);

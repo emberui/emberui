@@ -564,6 +564,7 @@ input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport
   classNameBindings: [':eui-input'],
   tagName: 'eui-input',
   maxlength: null,
+  type: 'text',
   action: null,
   actions: {
     enter: function(context) {
@@ -1013,9 +1014,11 @@ poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
     this.animateIn();
     this.set('isOpen', true);
     this.set('previousFocus', $(document.activeElement));
-    Ember.run.next(this, function() {
-      return this.focusOnSearch();
-    });
+    if (!this.get('isMobileDevice')) {
+      Ember.run.next(this, function() {
+        return this.focusOnSearch();
+      });
+    }
     this.updateListWidthCss();
     Ember.run.next(this, function() {
       return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
@@ -1613,7 +1616,7 @@ var EuiWaiAriaInitializer = _dereq_("./initializers/eui-wai-aria-initializer")["
 Ember.Application.initializer(EuiInitializer);
 Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.3.5");
+Ember.libraries.register("EmberUI", "0.3.6");
 
 Ember.TextSupport.reopen({
     attributeBindings: [
