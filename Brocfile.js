@@ -26,18 +26,11 @@ var templates = pickFiles(lib, {
   destDir: '/templates'
 });
 
-//instrument.print(templates)
 templates = templateCompiler(templates, {
   module: true
 });
 
 lib = mergeTrees([lib, templates]);
-/*
-lib = filterTemplates(lib, {
-  extensions: ['hbs'],
-  compileFunction: 'Ember.Handlebars.compile'
-});
-*/
 
 lib = filterCoffeeScript(lib, {
   bare: true
