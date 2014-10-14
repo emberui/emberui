@@ -1,7 +1,9 @@
-DATE_SLOT_HBS = Handlebars.compile(
-  '<li class="{{classNames}}" data-date="{{jsonDate}}">' +
-    '{{date}}' +
-  '</li>')
+precompileTemplate = Handlebars.compile
+
+DATE_SLOT_HBS = precompileTemplate('
+  <li class="{{unbound classNames}}" data-date="{{unbound jsonDate}}">
+    {{unbound date}}
+  </li>')
 
 
 containsDate = (dates, date) ->
@@ -96,6 +98,11 @@ month = Em.Component.extend
     unless month
       return
 
+    data = {
+      buffer: buff
+      view: view
+    }
+
     renderSlot = (slot) ->
       attrs
 
@@ -108,7 +115,7 @@ month = Em.Component.extend
 
         view.applyOptionsForDate(attrs, slot)
         attrs.classNames = attrs.classNames.join(' ')
-        buff.push(DATE_SLOT_HBS(attrs))
+        buff.push(DATE_SLOT_HBS(attrs, { data: data }))
 
       else
         buff.push('<li class="eui-slot eui-empty"></li>')
