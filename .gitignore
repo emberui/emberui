@@ -16,5 +16,5 @@
 .DS_Store
 Thumbs.db
 /coverage/*
-
+deploy-build.sh
 *~

@@ -31,8 +31,5 @@
   "devDependencies": {
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
     "ember-qunit": "0.1.7"
-  },
-  "resolutions": {
-    "ember": "~1.5.0"
   }
 }

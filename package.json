@@ -2,6 +2,9 @@
   "name": "emberui",
   "namespace": "emberui",
   "version": "0.3.6",
+  "ember-addon": {
+    "main": "ember-addon/index.js"
+  },
   "scripts": {
     "postinstall": "bower install"
   },
@@ -14,6 +17,13 @@
     "url": "https://twitter.com/jaco_says",
     "email": "jaco@venn.lc"
   },
+  "keywords": [
+    "ember",
+    "component",
+    "ui",
+    "widget",
+    "ember-addon"
+  ],
   "license": "MIT",
   "devDependencies": {
     "bower": "1.3.2",

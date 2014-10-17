@@ -1,6 +1,6 @@
 `import styleSupport from '../mixins/style-support'`
 `import animationSupport from '../mixins/animation-support'`
-`import popcalLayout from '../templates/eui-popcal'`
+`import popcalLayout from '../templates/components/eui-popcal'`
 
 popcal = Em.Component.extend styleSupport, animationSupport,
   layout: popcalLayout

@@ -1,8 +1,8 @@
 `import styleSupport from '../mixins/style-support'`
 `import animationSupport from '../mixins/animation-support'`
 `import mobileDetection from '../mixins/mobile-detection'`
-`import poplistLayout from '../templates/eui-poplist'`
-`import itemViewClassTemplate from '../templates/eui-poplist-option'`
+`import poplistLayout from '../templates/components/eui-poplist'`
+`import itemViewClassTemplate from '../templates/components/eui-poplist-option'`
 
 poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   layout: poplistLayout
