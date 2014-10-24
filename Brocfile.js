@@ -6,6 +6,7 @@ var compileSass         = require('broccoli-sass');
 var autoprefixer        = require('broccoli-autoprefixer');
 var mergeTrees = require('broccoli-merge-trees');
 var templateCompiler = require('broccoli-ember-hbs-template-compiler');
+var inlineTemplateCompiler = require('broccoli-ember-inline-template-compiler');
 var instrument = require('broccoli-debug').instrument;
 
 var lib                 = 'lib';
@@ -26,22 +27,17 @@ var templates = pickFiles(lib, {
   destDir: '/templates'
 });
 
-//instrument.print(templates)
 templates = templateCompiler(templates, {
   module: true
 });
 
 lib = mergeTrees([lib, templates]);
-/*
-lib = filterTemplates(lib, {
-  extensions: ['hbs'],
-  compileFunction: 'Ember.Handlebars.compile'
-});
-*/
 
 lib = filterCoffeeScript(lib, {
   bare: true
 });
+
+lib = inlineTemplateCompiler(lib);
 
 lib = filterES6Modules(lib, {
   global:      'eui',
