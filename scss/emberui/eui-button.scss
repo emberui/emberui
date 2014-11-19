@@ -32,6 +32,13 @@ eui-button {
 
   .eui-label {
     font-style: normal;
+    position: relative;
+  }
+
+  .eui-label-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   // TODO: Remove + script when ember 1.8 works with emberui

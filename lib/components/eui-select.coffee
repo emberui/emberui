@@ -5,10 +5,9 @@
 
 select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-select'
-
-  classNames: ['eui-select']
   classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
 
+  baseClass: 'select'
   style: 'default'
   size: 'medium'
 
@@ -19,6 +18,13 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   valuePath: 'value'
 
   _selection: null
+
+  selectClass: Ember.computed 'size', 'style', ->
+    baseClass = @get 'baseClass'
+    size = @get 'size'
+    style = @get 'style'
+
+    return "eui-#{baseClass}-button-#{size}-#{style}"
 
 
   # WAI-ARIA support values
