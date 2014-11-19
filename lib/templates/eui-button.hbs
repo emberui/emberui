@@ -1,18 +1,18 @@
 <button {{bind-attr disabled="isDisabled" type="type" aria-owns="ariaOwns" aria-haspopup="ariaHaspopup" aria-label=label}}></button>
 
-<div class="eui-button-form">
-  <div class="eui-wrapper">
-    <i>
-      {{#if icon}}
-        <b {{bind-attr class='icon'}}></b>
+<div class="eui-component">
+  <div class="eui-component-wrapper">
+    <div class="eui-label">
+      {{#if leadingIcon}}
+        <b {{bind-attr class=":eui-leading-icon leadingIcon"}}></b>
       {{/if}}
 
       {{label}}
 
       {{#if trailingIcon}}
-        <b {{bind-attr class='trailingIcon'}}></b>
+        <b {{bind-attr class=":eui-trailing-icon trailingIcon"}}></b>
       {{/if}}
-    </i>
+    </div>
 
     {{#if loading}}
       <ul class="eui-loading-animation">

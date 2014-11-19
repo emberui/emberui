@@ -2,8 +2,8 @@ disabledsupport = Em.Mixin.create
   classNameBindings: ['isDisabled:eui-disabled']
   disabled: false
 
-  isDisabled:  Em.computed 'disabled', 'loading', ->
-    if @get('disabled') or @get('loading')
-      return true
+  isDisabled:  Em.computed 'disabled', ->
+    return true if @get('disabled')
+      
 
 `export default disabledsupport`

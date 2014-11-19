@@ -1,24 +1,5 @@
-.eui-singlebutton,
-.eui-groupbutton {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.eui-groupbutton {
-  .eui-button {
-    &.eui-primaryaction {
-      float: left;
-
-    }
-
-    &.eui-trigger {
-      float: left;
-      border-left: solid 1px #d4d4d4;
-    }
-  }
-}
-
-.eui-button {
+eui-button {
+  position: relative;
   display: inline-block;
   vertical-align: middle;
   user-select: none;
@@ -31,7 +12,7 @@
     left: -9000px;
   }
 
-  .eui-button-form {
+  .eui-component {
     position: relative;
     border: none;
     padding: 0;
@@ -40,12 +21,16 @@
     outline: none;
   }
 
-  .eui-wrapper {
+  .eui-component-wrapper {
     position: relative;
     text-align: center;
+    border-radius: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  i {
+  .eui-label {
     font-style: normal;
   }
 
@@ -54,76 +39,17 @@
     pointer-events: none;
     color: #ababab;
   }
-}
 
-/* SIZES & ICONS */
-.eui-button {
-  &.eui-tiny {
-    .eui-button-form {
-      padding: 0 5px;
-      line-height: 18px;
-      font-size: 9px;
-    }
-  }
-
-  &.eui-small {
-    .eui-button-form {
-      padding: 0 13px;
-      line-height: 25px;
-      font-size: 11px;
-    }
-
-    &.eui-no-label {
-      .eui-button-form {
-        padding: 0px;
-      }
-
-      .eui-wrapper {
-        padding: 0 6px;
-      }
-    }
-  }
-
-  &.eui-medium {
-    .eui-button-form {
-      padding: 0 25px;
-      line-height: 35px;
-      font-size: 14px;
-    }
-
-    &.eui-no-label {
-      .eui-button-form {
-        padding: 0px;
-      }
-
-      .eui-wrapper {
-        padding: 0 12px;
-      }
-    }
-  }
-
-  &.eui-large {
-    .eui-button-form {
-      padding: 0 35px;
-      line-height: 45px;
-      font-size: 17px;
-    }
-
-    &.eui-no-label {
-      .eui-button-form {
-        padding: 0px;
-      }
-
-      .eui-wrapper {
-        padding: 0 15px;
-      }
-    }
+  /* Loading */
+  &.eui-loading {
+    pointer-events: none;
   }
 }
+
 
 /* LOADING */
-.eui-button.eui-loading {
-  i {
+eui-button.eui-loading {
+  .eui-label {
     opacity: 0;
   }
 
@@ -149,7 +75,7 @@
       height: 7px;
       padding: 0;
       border: none;
-      margin: 0;
+      margin: -4px 0 0 0;
       opacity: 0.4;
       border-radius: 7px;
       box-shadow: 1px 1px rgba(255,255,255,0.1);
