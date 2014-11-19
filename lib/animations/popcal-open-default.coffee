@@ -1,4 +1,4 @@
-$.Velocity.Sequences.euiPopcalOpenDefault = (element, options) ->
+$.Velocity.Redirects.euiPopcalOpenDefault = (element, options) ->
   $.Velocity.animate element, {
     opacity: [1, 0]
     scaleX: [1, 0.7]

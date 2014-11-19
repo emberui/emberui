@@ -1,4 +1,4 @@
-$.Velocity.Sequences.euiModalCloseDefault = (element, options) ->
+$.Velocity.Redirects.euiModalCloseDefault = (element, options) ->
   calls = [
     {
       element: $(element).find('.eui-modalobject')

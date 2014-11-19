@@ -1,4 +1,4 @@
-$.Velocity.Sequences.euiPoplistOpenFlyin = (element, options) ->
+$.Velocity.Redirects.euiPoplistOpenFlyin = (element, options) ->
   $.Velocity.animate element, {
     opacity: [1, 0]
     scaleX: [1, 0.7]
