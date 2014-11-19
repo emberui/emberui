@@ -7,7 +7,9 @@
         <b {{bind-attr class=":eui-leading-icon leadingIcon"}}></b>
       {{/if}}
 
-      {{label}}
+      {{#if label}}
+        <span>{{label}}</span>
+      {{/if}}
 
       {{#if trailingIcon}}
         <b {{bind-attr class=":eui-trailing-icon trailingIcon"}}></b>
