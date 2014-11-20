@@ -1,15 +1,15 @@
-.eui-selectdate {
+eui-selectdate {
   display: inline-block;
   vertical-align: middle;
   user-select: none;
   cursor: pointer;
   outline: none;
 
-  .eui-wrapper {
+  .eui-component-wrapper {
     text-align: left
   }
 
-  b.eui-icon {
+  .eui-trailing-icon {
     position: absolute;
     right: 8px;
     top: 0px;
@@ -17,13 +17,14 @@
     padding-left: 7px;
 
     &:before {
-      content: "\f0d8\A\f0d7";
+      content: "\f106\A\f107";
       font-family: "FontAwesome";
       display: inline-block;
       line-height: 0.8em;
       white-space: pre;
       text-align: center;
       vertical-align: middle;
+      margin-top: -2px;
     }
   }
 
@@ -33,53 +34,12 @@
   }
 
   &.eui-placeholder {
-    i {
+    .eui-label-value {
       opacity: 0.6;
     }
   }
 
-  /* Active */
-  .eui-active b.eui-icon {
-    top: 1px;
-  }
-}
-
-
-/* SIZES & ICONS */
-.eui-selectdate .eui-button {
-  &.eui-tiny {
-    .eui-wrapper {
-      padding: 0 15px 0 5px;
-    }
-
-    b.eui-icon {
-      right: 5px;
-    }
-  }
-
-  &.eui-small {
-    .eui-wrapper {
-      padding: 0 20px 0 10px;
-    }
-  }
-
-  &.eui-medium {
-    .eui-wrapper {
-      padding: 0 25px 0 10px;
-    }
-
-    b.eui-icon {
-      right: 9px;
-    }
-  }
-
-  &.eui-large {
-    .eui-wrapper {
-      padding: 0 30px 0 10px;
-    }
-
-    b.eui-icon {
-      right: 11px;
-    }
+  .eui-trailing-icon {
+    opacity: 0.4;
   }
 }

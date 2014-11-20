@@ -34,13 +34,13 @@ eui-select {
     pointer-events: none;
   }
 
-  .eui-trailing-icon {
-    opacity: 0.4;
-  }
-
   &.eui-placeholder {
     .eui-label-value {
       opacity: 0.6;
     }
+  }
+
+  .eui-trailing-icon {
+    opacity: 0.4;
   }
 }

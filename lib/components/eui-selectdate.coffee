@@ -5,9 +5,9 @@
 
 select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-selectdate'
-  classNames: ['eui-selectdate']
   classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class']
 
+  baseClass: 'select'
   style: 'default'
   size: 'medium'
   calendarStyle: 'default'
@@ -15,6 +15,13 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   popcalIsOpen: false
 
   dateRange: false
+
+  selectClass: Ember.computed 'size', 'style', ->
+    baseClass = @get 'baseClass'
+    size = @get 'size'
+    style = @get 'style'
+
+    return "eui-#{baseClass}-button-#{size}-#{style}"
 
 
   # Settings used when formatting the date
