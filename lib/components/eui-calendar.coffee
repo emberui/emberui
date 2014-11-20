@@ -1,8 +1,10 @@
-`import styleSupport from '../mixins/style-support'`
+`import className from '../mixins/class-name'`
 
-calendar = Em.Component.extend styleSupport,
+calendar = Em.Component.extend className,
   tagName: 'eui-calendar'
-  classNames: 'eui-calendar'
+
+  baseClass: 'calendar'
+  style: 'default'
 
   showNextMonth:       true
   showPrevMonth:       false

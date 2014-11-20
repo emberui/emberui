@@ -14,7 +14,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
 
   baseClass: 'poplist'
   style: 'default'
-  size: 'medium'
 
   animationClass: 'euiPoplist'
 
@@ -157,11 +156,13 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
   # bindings to update it automatically and have to do so manually
 
   updateListWidthCss: ->
+    component = @.$().find('.eui-component')
+
     if @get('isMobileDevice') && @get('modalOnMobile')
-      @.$().css 'width', '80%'
+      component.css 'width', '80%'
     else
       listWidth = @get 'listWidth'
-      @.$().css 'width', listWidth
+      component.css 'width', listWidth
 
 
   # Focuses on search input so we can catch key input
