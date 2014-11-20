@@ -6,6 +6,8 @@ button = Em.Component.extend className, disabledSupport, widthSupport,
   classNameBindings: ['loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class']
   baseClass: 'button'
   tagName: 'eui-button'
+  style: 'default'
+  size: 'medium'
 
   label: null
   leadingIcon: null
