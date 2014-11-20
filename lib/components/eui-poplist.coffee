@@ -326,11 +326,8 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
     role: 'menu'
     tabindex: '-1'
 
-    # Overriding this temporarily to fix the scrollbars in Firefox
-    # Remove once https://github.com/emberjs/list-view/pull/113 is integrated
     css:
       position: 'relative'
-      overflow: 'auto'
       '-webkit-overflow-scrolling': 'touch'
       'overflow-scrolling': 'touch'
 
