@@ -6,7 +6,9 @@
 input = Em.Component.extend errorSupport, textSupport, className, widthSupport,
   tagName: 'eui-input'
   baseClass: 'input'
-
+  style: 'default'
+  size: 'medium'
+  
   maxlength: null
   type: 'text'
 
