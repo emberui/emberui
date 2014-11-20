@@ -36,9 +36,11 @@ eui-button {
   }
 
   .eui-label-value {
+    display: inline-block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    vertical-align: top;
   }
 
   // TODO: Remove + script when ember 1.8 works with emberui

@@ -1,11 +1,15 @@
-<div class="eui-poplistwrapper">
-  <div {{bind-attr class=":eui-search-wrapper searchString:eui-active"}}>
-    {{input class="eui-search" valueBinding="searchString" size="1" ariaRole="combobox" aria-autocomplete="list"}}
-  </div>
+<div class="eui-component">
+  <div class="eui-component-wrapper">
+    <div {{bind-attr class=":eui-search-wrapper searchString:eui-active"}}>
+      {{input class="eui-search" valueBinding="searchString" size="1" ariaRole="combobox" aria-autocomplete="list"}}
+    </div>
 
-  {{#if hasNoOptions}}
-    <div class="eui-nooptions">No results found.</div>
-  {{else}}
-    {{view listView contentBinding="filteredOptions"}}
-  {{/if}}
+    {{#if hasNoOptions}}
+      <div class="eui-nooptions">No results found.</div>
+    {{else}}
+      {{view listView contentBinding="filteredOptions"}}
+    {{/if}}
+  </div>
 </div>
+
+<div class="eui-overlay" {{action "hidePoplist"}}></div>

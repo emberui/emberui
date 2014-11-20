@@ -1,15 +1,19 @@
-`import styleSupport from '../mixins/style-support'`
+`import className from '../mixins/class-name'`
 `import animationSupport from '../mixins/animation-support'`
 `import mobileDetection from '../mixins/mobile-detection'`
 `import poplistLayout from '../templates/eui-poplist'`
 `import itemViewClassTemplate from '../templates/eui-poplist-option'`
 
-poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
+poplist = Em.Component.extend className, animationSupport, mobileDetection,
   layout: poplistLayout
   classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch']
   attributeBindings: ['tabindex']
   tagName: 'eui-poplist'
+
+  baseClass: 'poplist'
+  style: 'default'
+  size: 'medium'
 
   animationClass: 'euiPoplist'
 
@@ -86,15 +90,17 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   setup: (->
     @setPoplistMinWidth()
 
+    component = @.$().find('.eui-component')
+
     # Positions calendar using fixed positioning
     if @get('isMobileDevice') && @get('modalOnMobile')
-      Em.run.next @, -> @.$().position {
+      Em.run.next @, -> component.position {
         my: "center center",
         at: "center center",
         of: $(window)
       }
     else
-      Em.run.next @, -> @.$().position {
+      Em.run.next @, -> component.position {
         my: "right top",
         at: "right bottom",
         of: @get('targetObject').$(),
@@ -122,15 +128,6 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     # Add a class to the body element of the page so we can disable page
     # scrolling on mobile
     $('body').addClass('eui-poplist-open')
-
-    # Bind to click event so we can close the poplist if the user click outside
-    # it
-    Ember.run.next @, ->
-      $(window).one 'click.emberui', (event) =>
-        if @get('targetObject')? && !$(event.target).parents('.eui-poplist').length
-          event.preventDefault()
-          @hide()
-
   ).on 'didInsertElement'
 
 
@@ -150,7 +147,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
 
   setPoplistMinWidth: ->
     element = @get('targetObject').$()
-    poplistElement = @.$()
+    poplistElement = @.$().find('.eui-component')
 
     elementWidthMinuspoplistPadding =
       element.width() -
@@ -288,6 +285,11 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   upArrowPressed: (event) ->
     event.preventDefault() # Don't let the page scroll down
     @adjustHighlight(-1)
+
+
+  actions:
+    hidePoplist: ->
+      @hide()
 
 
   # Method to highlight the next or previous item in the list. It will ensure
