@@ -11,8 +11,8 @@
 
 /* Label Transition */
 @mixin eui-button-label-transition {
-  .eui-label {
-    transition: opacity 0.2s;
+  .eui-label-value {
+    transition: opacity 0.5s;
   }
 }
 
