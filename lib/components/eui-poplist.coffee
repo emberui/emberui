@@ -253,7 +253,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
     40: 'downArrowPressed'
 
 
-  keyUp: (event) ->
+  keyDown: (event) ->
     keyMap = @get 'KEY_MAP'
     method = keyMap[event.which]
     # Execute if found in KeyMap - otherwise send focus back to search.
