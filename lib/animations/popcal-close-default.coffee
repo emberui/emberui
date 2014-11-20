@@ -1,5 +1,7 @@
 $.Velocity.Redirects.euiPopcalCloseDefault = (element, options) ->
-  $.Velocity.animate element, {
+  component = $(element).find('.eui-component')
+
+  $.Velocity.animate component, {
     opacity: [0, 1]
     scaleX: [0, 1]
     scaleY: [0, 1]

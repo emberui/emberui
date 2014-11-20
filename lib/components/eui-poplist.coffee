@@ -1,10 +1,11 @@
 `import className from '../mixins/class-name'`
 `import animationSupport from '../mixins/animation-support'`
 `import mobileDetection from '../mixins/mobile-detection'`
+`import preventPageScroll from '../mixins/prevent-page-scroll'`
 `import poplistLayout from '../templates/eui-poplist'`
 `import itemViewClassTemplate from '../templates/eui-poplist-option'`
 
-poplist = Em.Component.extend className, animationSupport, mobileDetection,
+poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll,
   layout: poplistLayout
   classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch']
@@ -124,7 +125,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection,
     # Ensure the selected option is visible and center it
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
 
-    @preventPageScroll()
+    @disablePageScroll()
   ).on 'didInsertElement'
 
 
@@ -133,9 +134,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection,
 
     @get('previousFocus').focus()
 
-    # Remove scroll event on scroller
-    @.$().find('.eui-overlay--scroller').unbind('scroll')
-
+    @enablePageScroll()
     @destroy()
 
 
@@ -163,18 +162,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection,
     else
       listWidth = @get 'listWidth'
       @.$().css 'width', listWidth
-
-
-  # Prevent scrolling while poplist is open. We have to use a hack with eui-enabled
-  # to move the scroller off-screen so we can crop out the scrollbars that is visible.
-  # If we do it when we show it osx shows the scrollbars regardless.
-  preventPageScroll: ->
-    scroller = @.$().find('.eui-overlay--scroller')
-
-    scroller.scrollTop(5000).scrollLeft(5000).addClass('eui-enabled')
-
-    scroller.scroll ->
-      $(@).scrollTop(5000).scrollLeft(5000)
 
 
   # Focuses on search input so we can catch key input

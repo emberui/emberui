@@ -3,32 +3,6 @@ eui-poplist {
     opacity: 0;
   }
 
-  .eui-overlay {
-    position: fixed;
-    z-index: 1000000;
-    background: rgba(0, 0, 0, 0);
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-  }
-
-  .eui-overlay--scroller {
-    height: calc(100% + 30px);
-    width: calc(100% + 30px);
-    overflow: auto;
-
-    &.eui-enabled {
-      transform: translate(30px, 30px);
-    }
-  }
-
-  .eui-overlay--scroller-content {
-    height: 10000px;
-    width: 10000px;
-  }
-
   .eui-component {
     display: block;
     position: fixed;
