@@ -1,12 +1,13 @@
 `import errorSupport from '../mixins/error-support'`
-`import styleSupport from '../mixins/style-support'`
-`import sizeSupport from '../mixins/size-support'`
+`import className from '../mixins/class-name'`
 
-checkbox = Em.Component.extend errorSupport, styleSupport, sizeSupport,
+checkbox = Em.Component.extend errorSupport, className,
   classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class']
   attributeBindings: ['role', 'value:aria-checked', 'disabled:aria-disabled']
-  role: 'checkbox'
+  baseClass: 'checkbox'
   tagName: 'eui-checkbox'
+
+  role: 'checkbox'
 
   value: false
   disabled: false
