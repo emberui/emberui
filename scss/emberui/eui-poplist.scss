@@ -11,6 +11,22 @@ eui-poplist {
     width: 100vw;
     top: 0;
     left: 0;
+    overflow: hidden;
+  }
+
+  .eui-overlay--scroller {
+    height: calc(100% + 30px);
+    width: calc(100% + 30px);
+    overflow: auto;
+
+    &.eui-enabled {
+      transform: translate(30px, 30px);
+    }
+  }
+
+  .eui-overlay--scroller-content {
+    height: 10000px;
+    width: 10000px;
   }
 
   .eui-component {
@@ -84,16 +100,5 @@ eui-poplist {
     width: 100%;
     box-sizing: border-box;
     padding: 0 5px 5px 5px;
-  }
-}
-
-// Disables page scrolling when poplist is open
-.eui-poplist-open {
-  overflow: hidden;
-
-  // Required for mobile
-  &.ember-application > div.ember-view:first-of-type,
-  .ember-application > div.ember-view:first-of-type {
-    overflow: hidden;
   }
 }

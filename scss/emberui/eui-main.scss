@@ -1,5 +1,0 @@
-// Help prevents page scrolling on mobile when modal or poplist is open
-.ember-application > div.ember-view:first-of-type {
-  height: 100%;
-  overflow: auto;
-}

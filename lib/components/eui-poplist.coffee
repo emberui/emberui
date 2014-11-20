@@ -125,9 +125,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection,
     # Ensure the selected option is visible and center it
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
 
-    # Add a class to the body element of the page so we can disable page
-    # scrolling on mobile
-    $('body').addClass('eui-poplist-open')
+    @preventPageScroll()
   ).on 'didInsertElement'
 
 
@@ -138,6 +136,9 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection,
 
     # Remove class set on body to disable mobile scrolling
     $('body').removeClass('eui-poplist-open')
+
+    # Remove scroll event on scroller
+    @.$().find('.eui-overlay--scroller').unbind('scroll')
 
     @destroy()
 
@@ -166,6 +167,18 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection,
     else
       listWidth = @get 'listWidth'
       @.$().css 'width', listWidth
+
+
+  # Prevent scrolling while poplist is open. We have to use a hack with eui-enabled
+  # to move the scroller off-screen so we can crop out the scrollbars that is visible.
+  # If we do it when we show it osx shows the scrollbars regardless.
+  preventPageScroll: ->
+    scroller = @.$().find('.eui-overlay--scroller')
+
+    scroller.scrollTop(5000).scrollLeft(5000).addClass('eui-enabled')
+
+    scroller.scroll ->
+      $(@).scrollTop(5000).scrollLeft(5000)
 
 
   # Focuses on search input so we can catch key input
