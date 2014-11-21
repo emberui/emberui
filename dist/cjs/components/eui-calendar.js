@@ -1,10 +1,11 @@
 "use strict";
-var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
+var className = require("../mixins/class-name")["default"] || require("../mixins/class-name");
 var calendar;
 
-calendar = Em.Component.extend(styleSupport, {
+calendar = Em.Component.extend(className, {
   tagName: 'eui-calendar',
-  classNames: 'eui-calendar',
+  baseClass: 'calendar',
+  style: 'default',
   showNextMonth: true,
   showPrevMonth: false,
   disabledDates: null,

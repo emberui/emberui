@@ -2,8 +2,10 @@ define(
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPopcalOpenDefault = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [1, 0],
         scaleX: [1, 0.7],
         scaleY: [1, 0.7]

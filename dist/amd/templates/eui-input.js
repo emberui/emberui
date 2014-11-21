@@ -32,7 +32,7 @@ define(
       return buffer;
       }
 
-      data.buffer.push("<div class=\"eui-wrapper\">\n  ");
+      data.buffer.push("<div class=\"eui-component-wrapper\">\n  ");
       stack1 = helpers['if'].call(depth0, "placeholderVisible", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n  ");

@@ -2,9 +2,26 @@ define(
   ["exports"],
   function(__exports__) {
     "use strict";
-    var DATE_SLOT_HBS, containsDate, forEachSlot, month;
+    var DATE_SLOT_HBS, containsDate, forEachSlot, month, precompileTemplate;
 
-    DATE_SLOT_HBS = Handlebars.compile('<li class="{{classNames}}" data-date="{{jsonDate}}">' + '{{date}}' + '</li>');
+    precompileTemplate = Handlebars.compile;
+
+    DATE_SLOT_HBS = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', escapeExpression=this.escapeExpression;
+
+
+      data.buffer.push("<li class=\"");
+      data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "classNames", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push("\" data-date=\"");
+      data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "jsonDate", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push("\"> ");
+      data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "date", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push(" </li>");
+      return buffer;
+      
+    });
 
     containsDate = function(dates, date) {
       if (!dates || !Em.get(dates, 'length')) {
@@ -96,12 +113,16 @@ define(
         return this.setSelection();
       },
       render: function(buff) {
-        var renderSlot, view;
+        var data, renderSlot, view;
         month = this.get('month');
         view = this;
         if (!month) {
           return;
         }
+        data = {
+          buffer: buff,
+          view: view
+        };
         renderSlot = function(slot) {
           attrs;
           var attrs;
@@ -113,7 +134,9 @@ define(
             };
             view.applyOptionsForDate(attrs, slot);
             attrs.classNames = attrs.classNames.join(' ');
-            return buff.push(DATE_SLOT_HBS(attrs));
+            return buff.push(DATE_SLOT_HBS(attrs, {
+              data: data
+            }));
           } else {
             return buff.push('<li class="eui-slot eui-empty"></li>');
           }

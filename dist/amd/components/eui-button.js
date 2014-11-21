@@ -1,18 +1,20 @@
 define(
-  ["../mixins/style-support","../mixins/size-support","../mixins/disabled-support","../mixins/width-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
+  ["../mixins/class-name","../mixins/disabled-support","../mixins/width-support","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
-    var sizeSupport = __dependency2__["default"] || __dependency2__;
-    var disabledSupport = __dependency3__["default"] || __dependency3__;
-    var widthSupport = __dependency4__["default"] || __dependency4__;
+    var className = __dependency1__["default"] || __dependency1__;
+    var disabledSupport = __dependency2__["default"] || __dependency2__;
+    var widthSupport = __dependency3__["default"] || __dependency3__;
     var button;
 
-    button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, {
-      classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+    button = Em.Component.extend(className, disabledSupport, widthSupport, {
+      classNameBindings: ['loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+      baseClass: 'button',
       tagName: 'eui-button',
+      style: 'default',
+      size: 'medium',
       label: null,
-      icon: null,
+      leadingIcon: null,
       trailingIcon: null,
       loading: null,
       disabled: null,

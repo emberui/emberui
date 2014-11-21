@@ -2,8 +2,10 @@ define(
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPoplistCloseFlyin = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [0, 1],
         scaleX: [0, 1],
         scaleY: [0, 1],
@@ -12,8 +14,8 @@ define(
           if (!options.target) {
             return ["0px", "0px"];
           }
-          offset = $(element).height() / 2 + options.target.height();
-          popcalOffset = $(element).offset().top;
+          offset = component.height() / 2 + options.target.height();
+          popcalOffset = component.offset().top;
           buttonOffset = options.target.offset().top;
           direction = '+';
           if ((buttonOffset - popcalOffset) < 1) {

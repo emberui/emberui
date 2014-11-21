@@ -1,20 +1,23 @@
 define(
-  ["../mixins/style-support","../mixins/animation-support","../mixins/mobile-detection","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
+  ["../mixins/class-name","../mixins/animation-support","../mixins/mobile-detection","../mixins/prevent-page-scroll","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
+    var className = __dependency1__["default"] || __dependency1__;
     var animationSupport = __dependency2__["default"] || __dependency2__;
     var mobileDetection = __dependency3__["default"] || __dependency3__;
-    var poplistLayout = __dependency4__["default"] || __dependency4__;
-    var itemViewClassTemplate = __dependency5__["default"] || __dependency5__;
+    var preventPageScroll = __dependency4__["default"] || __dependency4__;
+    var poplistLayout = __dependency5__["default"] || __dependency5__;
+    var itemViewClassTemplate = __dependency6__["default"] || __dependency6__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
+    poplist = Em.Component.extend(className, animationSupport, mobileDetection, preventPageScroll, {
       layout: poplistLayout,
       classNames: ['eui-poplist'],
       classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch'],
       attributeBindings: ['tabindex'],
       tagName: 'eui-poplist',
+      baseClass: 'poplist',
+      style: 'default',
       animationClass: 'euiPoplist',
       listWidth: null,
       listHeight: '80',
@@ -54,10 +57,12 @@ define(
         });
       },
       setup: (function() {
+        var component;
         this.setPoplistMinWidth();
+        component = this.$().find('.eui-component');
         if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
           Em.run.next(this, function() {
-            return this.$().position({
+            return component.position({
               my: "center center",
               at: "center center",
               of: $(window)
@@ -65,7 +70,7 @@ define(
           });
         } else {
           Em.run.next(this, function() {
-            return this.$().position({
+            return component.position({
               my: "right top",
               at: "right bottom",
               of: this.get('targetObject').$(),
@@ -85,17 +90,7 @@ define(
         Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
-        $('body').addClass('eui-poplist-open');
-        return Ember.run.next(this, function() {
-          return $(window).one('click.emberui', (function(_this) {
-            return function(event) {
-              if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-poplist').length) {
-                event.preventDefault();
-                return _this.hide();
-              }
-            };
-          })(this));
-        });
+        return this.disablePageScroll();
       }).on('didInsertElement'),
       breakdown: function() {
         this.setProperties({
@@ -103,23 +98,24 @@ define(
           highlightedIndex: -1
         });
         this.get('previousFocus').focus();
-        $('body').removeClass('eui-poplist-open');
+        this.enablePageScroll();
         return this.destroy();
       },
       setPoplistMinWidth: function() {
         var element, elementWidthMinuspoplistPadding, poplistElement;
         element = this.get('targetObject').$();
-        poplistElement = this.$();
+        poplistElement = this.$().find('.eui-component');
         elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
         return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
       },
       updateListWidthCss: function() {
-        var listWidth;
+        var component, listWidth;
+        component = this.$().find('.eui-component');
         if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
-          return this.$().css('width', '80%');
+          return component.css('width', '80%');
         } else {
           listWidth = this.get('listWidth');
-          return this.$().css('width', listWidth);
+          return component.css('width', listWidth);
         }
       },
       focusOnSearch: function() {
@@ -191,7 +187,7 @@ define(
         38: 'upArrowPressed',
         40: 'downArrowPressed'
       },
-      keyUp: function(event) {
+      keyDown: function(event) {
         var keyMap, method, _ref;
         keyMap = this.get('KEY_MAP');
         method = keyMap[event.which];
@@ -216,6 +212,11 @@ define(
       upArrowPressed: function(event) {
         event.preventDefault();
         return this.adjustHighlight(-1);
+      },
+      actions: {
+        hidePoplist: function() {
+          return this.hide();
+        }
       },
       adjustHighlight: function(indexAdjustment) {
         var highlightedIndex, newIndex, options, optionsLength;
@@ -244,7 +245,6 @@ define(
         tabindex: '-1',
         css: {
           position: 'relative',
-          overflow: 'auto',
           '-webkit-overflow-scrolling': 'touch',
           'overflow-scrolling': 'touch'
         },

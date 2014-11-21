@@ -10,13 +10,20 @@ define(
 
     select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-selectdate',
-      classNames: ['eui-selectdate'],
       classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class'],
+      baseClass: 'select',
       style: 'default',
       size: 'medium',
       calendarStyle: 'default',
       popcalIsOpen: false,
       dateRange: false,
+      selectClass: Ember.computed('size', 'style', function() {
+        var baseClass, size, style;
+        baseClass = this.get('baseClass');
+        size = this.get('size');
+        style = this.get('style');
+        return "eui-" + baseClass + "-button-" + size + "-" + style;
+      }),
       formatting: {
         yearFormat: "YYYY",
         monthFormat: "MMMM",

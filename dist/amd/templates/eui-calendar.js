@@ -46,7 +46,7 @@ define(
       return buffer;
       }
 
-      data.buffer.push("<div class=\"eui-calendar-wrapper\">\n  <button ");
+      data.buffer.push("<div class=\"eui-component-wrapper\">\n  <button ");
       data.buffer.push(escapeExpression(helpers.action.call(depth0, "prev", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
       data.buffer.push(" ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{

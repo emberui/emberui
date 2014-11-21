@@ -24,11 +24,11 @@ define(
         'style': ("style"),
         'size': ("size"),
         'width': ("100%"),
-        'classBinding': (":eui-select poplistIsOpen:eui-active"),
-        'icon': ("eui-icon"),
+        'classBinding': (":eui-select selectClass poplistIsOpen:eui-active"),
+        'trailingIcon': ("eui-icon"),
         'ariaOwns': ("ariaOwns"),
         'ariaHaspopup': ("ariaHasPopup")
-      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'icon': "STRING",'ariaOwns': "ID",'ariaHaspopup': "ID"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'icon': depth0,'ariaOwns': depth0,'ariaHaspopup': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'trailingIcon': "STRING",'ariaOwns': "ID",'ariaHaspopup': "ID"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'trailingIcon': depth0,'ariaOwns': depth0,'ariaHaspopup': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n");
       stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }

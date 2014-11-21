@@ -1,13 +1,14 @@
 define(
-  ["../mixins/style-support","exports"],
+  ["../mixins/class-name","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
+    var className = __dependency1__["default"] || __dependency1__;
     var calendar;
 
-    calendar = Em.Component.extend(styleSupport, {
+    calendar = Em.Component.extend(className, {
       tagName: 'eui-calendar',
-      classNames: 'eui-calendar',
+      baseClass: 'calendar',
+      style: 'default',
       showNextMonth: true,
       showPrevMonth: false,
       disabledDates: null,

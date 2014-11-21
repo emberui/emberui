@@ -1,7 +1,7 @@
 {
   "name": "emberui",
   "namespace": "emberui",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "scripts": {
     "postinstall": "bower install"
   },

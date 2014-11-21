@@ -1,5 +1,5 @@
 "use strict";
-require("../utilities/tabbable-selector");require("../utilities/position");require("../animations/popcal-close-default");require("../animations/popcal-open-default");require("../animations/modal-close-default");require("../animations/modal-open-default");require("../animations/modal-close-full");require("../animations/modal-open-full");require("../animations/poplist-close-default");require("../animations/poplist-open-default");require("../animations/poplist-close-flyin");require("../animations/poplist-open-flyin");
+require("../utilities/tabbable-selector");require("../utilities/position");require("../animations/popcal-close-default");require("../animations/popcal-open-default");require("../animations/poplist-close-default");require("../animations/poplist-open-default");require("../animations/poplist-close-flyin");require("../animations/poplist-open-flyin");
 var EuiButtonComponent = require("../components/eui-button")["default"] || require("../components/eui-button");
 var EuiButtonTemplate = require("../templates/eui-button")["default"] || require("../templates/eui-button");
 
@@ -11,9 +11,6 @@ var EuiDropbuttonTemplate = require("../templates/eui-dropbutton")["default"] ||
 
 var EuiInputComponent = require("../components/eui-input")["default"] || require("../components/eui-input");
 var EuiInputTemplate = require("../templates/eui-input")["default"] || require("../templates/eui-input");
-
-var EuiModalComponent = require("../components/eui-modal")["default"] || require("../components/eui-modal");
-var EuiModalTemplate = require("../templates/eui-modal")["default"] || require("../templates/eui-modal");
 
 var EuiPoplistComponent = require("../components/eui-poplist")["default"] || require("../components/eui-poplist");
 var EuiPoplistTemplate = require("../templates/eui-poplist")["default"] || require("../templates/eui-poplist");
@@ -51,9 +48,6 @@ exports["default"] = {
 
     container.register('template:components/eui-input', EuiInputTemplate);
     container.register('component:eui-input', EuiInputComponent);
-
-    container.register('template:components/eui-modal', EuiModalTemplate);
-    container.register('component:eui-modal', EuiModalComponent);
 
     container.register('template:components/eui-poplist', EuiPoplistTemplate);
     container.register('template:components/eui-poplist-opion', EuiPoplistOptionTemplate);

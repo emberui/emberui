@@ -1,141 +1,11 @@
-define("emberui/animations/modal-close-default",
-  [],
-  function() {
-    "use strict";
-    $.Velocity.Sequences.euiModalCloseDefault = function(element, options) {
-      var calls;
-      calls = [
-        {
-          element: $(element).find('.eui-modalobject'),
-          properties: {
-            opacity: [0, 1],
-            scaleX: [0.5, 1],
-            scaleY: [0.5, 1]
-          },
-          options: {
-            duration: 200
-          }
-        }, {
-          element: $(element).find('.eui-overlay'),
-          properties: {
-            opacity: [0, 1]
-          },
-          options: {
-            duration: 400,
-            complete: options.complete
-          }
-        }
-      ];
-      return $.each(calls, function(i, call) {
-        return $.Velocity.animate(call.element[0], call.properties, call.options);
-      });
-    };
-  });
-define("emberui/animations/modal-close-full",
-  [],
-  function() {
-    "use strict";
-    $.Velocity.Sequences.euiModalCloseFull = function(element, options) {
-      var calls;
-      calls = [
-        {
-          element: $(element).find('.eui-modalobject'),
-          properties: {
-            opacity: [0, 1],
-            scaleX: [5, 1],
-            scaleY: [5, 1]
-          },
-          options: {
-            duration: 200
-          }
-        }, {
-          element: $(element).find('.eui-overlay'),
-          properties: {
-            opacity: [0, 1]
-          },
-          options: {
-            duration: 400,
-            complete: options.complete
-          }
-        }
-      ];
-      return $.each(calls, function(i, call) {
-        return $.Velocity.animate(call.element[0], call.properties, call.options);
-      });
-    };
-  });
-define("emberui/animations/modal-open-default",
-  [],
-  function() {
-    "use strict";
-    $.Velocity.Sequences.euiModalOpenDefault = function(element, options) {
-      var calls;
-      calls = [
-        {
-          element: $(element).find('.eui-modalobject'),
-          properties: {
-            opacity: [1, 0],
-            scaleX: [1, 0.5],
-            scaleY: [1, 0.5]
-          },
-          options: {
-            duration: 200
-          }
-        }, {
-          element: $(element).find('.eui-overlay'),
-          properties: {
-            opacity: [1, 0]
-          },
-          options: {
-            duration: 400,
-            complete: options.complete
-          }
-        }
-      ];
-      return jQuery.each(calls, function(i, call) {
-        return $.Velocity.animate(call.element[0], call.properties, call.options);
-      });
-    };
-  });
-define("emberui/animations/modal-open-full",
-  [],
-  function() {
-    "use strict";
-    $.Velocity.Sequences.euiModalOpenFull = function(element, options) {
-      var calls;
-      calls = [
-        {
-          element: $(element).find('.eui-modalobject'),
-          properties: {
-            opacity: [1, 0],
-            scaleX: [1, 0.5],
-            scaleY: [1, 0.5]
-          },
-          options: {
-            duration: 200
-          }
-        }, {
-          element: $(element).find('.eui-overlay'),
-          properties: {
-            opacity: [1, 0]
-          },
-          options: {
-            duration: 400,
-            complete: options.complete
-          }
-        }
-      ];
-      return jQuery.each(calls, function(i, call) {
-        return $.Velocity.animate(call.element[0], call.properties, call.options);
-      });
-    };
-  });
 define("emberui/animations/popcal-close-default",
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPopcalCloseDefault = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPopcalCloseDefault = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [0, 1],
         scaleX: [0, 1],
         scaleY: [0, 1],
@@ -163,8 +33,10 @@ define("emberui/animations/popcal-open-default",
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPopcalOpenDefault = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPopcalOpenDefault = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [1, 0],
         scaleX: [1, 0.7],
         scaleY: [1, 0.7]
@@ -177,8 +49,10 @@ define("emberui/animations/poplist-close-default",
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPoplistCloseDefault = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPoplistCloseDefault = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [0, 1],
         marginTop: ["6px", "-4px"]
       }, {
@@ -191,8 +65,10 @@ define("emberui/animations/poplist-close-flyin",
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPoplistCloseFlyin = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPoplistCloseFlyin = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [0, 1],
         scaleX: [0, 1],
         scaleY: [0, 1],
@@ -201,8 +77,8 @@ define("emberui/animations/poplist-close-flyin",
           if (!options.target) {
             return ["0px", "0px"];
           }
-          offset = $(element).height() / 2 + options.target.height();
-          popcalOffset = $(element).offset().top;
+          offset = component.height() / 2 + options.target.height();
+          popcalOffset = component.offset().top;
           buttonOffset = options.target.offset().top;
           direction = '+';
           if ((buttonOffset - popcalOffset) < 1) {
@@ -220,8 +96,10 @@ define("emberui/animations/poplist-open-default",
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPoplistOpenDefault = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [1, 0],
         marginTop: ["-4px", "-14px"]
       }, {
@@ -233,8 +111,10 @@ define("emberui/animations/poplist-open-flyin",
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPoplistOpenFlyin = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPoplistOpenFlyin = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [1, 0],
         scaleX: [1, 0.7],
         scaleY: [1, 0.7]
@@ -244,20 +124,22 @@ define("emberui/animations/poplist-open-flyin",
     };
   });
 define("emberui/components/eui-button",
-  ["../mixins/style-support","../mixins/size-support","../mixins/disabled-support","../mixins/width-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
+  ["../mixins/class-name","../mixins/disabled-support","../mixins/width-support","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
-    var sizeSupport = __dependency2__["default"] || __dependency2__;
-    var disabledSupport = __dependency3__["default"] || __dependency3__;
-    var widthSupport = __dependency4__["default"] || __dependency4__;
+    var className = __dependency1__["default"] || __dependency1__;
+    var disabledSupport = __dependency2__["default"] || __dependency2__;
+    var widthSupport = __dependency3__["default"] || __dependency3__;
     var button;
 
-    button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, {
-      classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+    button = Em.Component.extend(className, disabledSupport, widthSupport, {
+      classNameBindings: ['loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+      baseClass: 'button',
       tagName: 'eui-button',
+      style: 'default',
+      size: 'medium',
       label: null,
-      icon: null,
+      leadingIcon: null,
       trailingIcon: null,
       loading: null,
       disabled: null,
@@ -276,15 +158,16 @@ define("emberui/components/eui-button",
     __exports__["default"] = button;
   });
 define("emberui/components/eui-calendar",
-  ["../mixins/style-support","exports"],
+  ["../mixins/class-name","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
+    var className = __dependency1__["default"] || __dependency1__;
     var calendar;
 
-    calendar = Em.Component.extend(styleSupport, {
+    calendar = Em.Component.extend(className, {
       tagName: 'eui-calendar',
-      classNames: 'eui-calendar',
+      baseClass: 'calendar',
+      style: 'default',
       showNextMonth: true,
       showPrevMonth: false,
       disabledDates: null,
@@ -516,19 +399,21 @@ define("emberui/components/eui-calendar",
      __exports__["default"] = calendar;
   });
 define("emberui/components/eui-checkbox",
-  ["../mixins/error-support","../mixins/style-support","../mixins/size-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/error-support","../mixins/class-name","exports"],
+  function(__dependency1__, __dependency2__, __exports__) {
     "use strict";
     var errorSupport = __dependency1__["default"] || __dependency1__;
-    var styleSupport = __dependency2__["default"] || __dependency2__;
-    var sizeSupport = __dependency3__["default"] || __dependency3__;
+    var className = __dependency2__["default"] || __dependency2__;
     var checkbox;
 
-    checkbox = Em.Component.extend(errorSupport, styleSupport, sizeSupport, {
+    checkbox = Em.Component.extend(errorSupport, className, {
       classNameBindings: [':eui-checkbox', 'value:eui-checked', 'disabled:eui-disabled', 'class'],
       attributeBindings: ['role', 'value:aria-checked', 'disabled:aria-disabled'],
-      role: 'checkbox',
+      baseClass: 'checkbox',
+      style: 'default',
+      size: 'medium',
       tagName: 'eui-checkbox',
+      role: 'checkbox',
       value: false,
       disabled: false,
       click: function() {
@@ -551,7 +436,6 @@ define("emberui/components/eui-dropbutton",
 
     dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
       tagName: 'eui-dropbutton',
-      classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton'],
       poplistIsOpen: false,
       listWidth: 'auto',
       primaryAction: Em.computed('options', function() {
@@ -594,19 +478,20 @@ define("emberui/components/eui-dropbutton",
     __exports__["default"] = dropbutton;
   });
 define("emberui/components/eui-input",
-  ["../mixins/error-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","../mixins/width-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
+  ["../mixins/class-name","../mixins/error-support","../mixins/text-support","../mixins/width-support","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
-    var errorSupport = __dependency1__["default"] || __dependency1__;
-    var textSupport = __dependency2__["default"] || __dependency2__;
-    var styleSupport = __dependency3__["default"] || __dependency3__;
-    var sizeSupport = __dependency4__["default"] || __dependency4__;
-    var widthSupport = __dependency5__["default"] || __dependency5__;
+    var className = __dependency1__["default"] || __dependency1__;
+    var errorSupport = __dependency2__["default"] || __dependency2__;
+    var textSupport = __dependency3__["default"] || __dependency3__;
+    var widthSupport = __dependency4__["default"] || __dependency4__;
     var input;
 
-    input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
-      classNameBindings: [':eui-input'],
+    input = Em.Component.extend(errorSupport, textSupport, className, widthSupport, {
       tagName: 'eui-input',
+      baseClass: 'input',
+      style: 'default',
+      size: 'medium',
       maxlength: null,
       type: 'text',
       action: null,
@@ -621,144 +506,30 @@ define("emberui/components/eui-input",
 
     __exports__["default"] = input;
   });
-define("emberui/components/eui-modal",
-  ["../mixins/style-support","../mixins/animation-support","../templates/eui-modal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
-    "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
-    var animationSupport = __dependency2__["default"] || __dependency2__;
-    var modalLayout = __dependency3__["default"] || __dependency3__;
-    var modal;
-
-    modal = Em.Component.extend(styleSupport, animationSupport, {
-      layout: 'eui-modal',
-      tagName: 'eui-modal',
-      classNames: ['eui-modal'],
-      classNameBindings: ['class'],
-      attributeBindings: ['tabindex'],
-      "class": null,
-      animationClass: 'euiModal',
-      previousFocus: null,
-      tabindex: 0,
-      programmatic: false,
-      isClosing: false,
-      renderModal: false,
-      enforceModality: false,
-      open: Ember.computed(function(key, value) {
-        if (arguments.length === 2) {
-          if (value) {
-            this.set('renderModal', value);
-            Em.run.next(this, function() {
-              return this.setup();
-            });
-          } else if (this.get('renderModal')) {
-            this.hide();
-          }
-          return value;
-        } else {
-          value = this.get('renderModal');
-          return value;
-        }
-      }).property('renderModal'),
-      hide: function() {
-        return this.animateOut({
-          complete: (function(_this) {
-            return function() {
-              return _this.breakdown();
-            };
-          })(this)
-        });
-      },
-      didInsertElement: function() {
-        if (this.get('programmatic')) {
-          return this.setup();
-        }
-      },
-      setup: function() {
-        this.animateIn();
-        this.set('previousFocus', $(document.activeElement));
-        this.$().focus();
-        return $('body').toggleClass('eui-modal-open');
-      },
-      breakdown: function() {
-        var _ref;
-        if ((_ref = this.get('previousFocus')) != null) {
-          _ref.focus();
-        }
-        $('body').toggleClass('eui-modal-open');
-        if (this.get('programmatic')) {
-          return this.destroy();
-        } else {
-          return this.set('renderModal', false);
-        }
-      },
-      willDestroy: function() {
-        return $('body').removeClass('eui-modal-open');
-      },
-      constrainTabNavigationToModal: function(event) {
-        var activeElement, finalTabbable, leavingFinalTabbable, tabbable;
-        if (!this.get('open')) {
-          return;
-        }
-        activeElement = document.activeElement;
-        tabbable = this.$(':tabbable');
-        finalTabbable = tabbable[event.shiftKey && 'first' || 'last']()[0];
-        leavingFinalTabbable = finalTabbable === activeElement || this.get('element') === activeElement && event.shiftKey;
-        if (!leavingFinalTabbable) {
-          return;
-        }
-        event.preventDefault();
-        return tabbable[event.shiftKey && 'last' || 'first']()[0].focus();
-      },
-      actions: {
-        cancel: function(context) {
-          this.sendAction('cancel', context);
-          return this.hide();
-        },
-        accept: function(context) {
-          this.sendAction('accept', context);
-          return this.hide();
-        }
-      },
-      keyDown: function(event) {
-        if (event.keyCode === 9) {
-          return this.constrainTabNavigationToModal(event);
-        }
-      },
-      keyUp: function(event) {
-        if (event.keyCode === 27) {
-          this.sendAction('cancel');
-          if (!this.get('enforceModality')) {
-            return this.hide();
-          }
-        }
-      }
-    });
-
-    modal.reopenClass({
-      show: function(options) {
-        if (options == null) {
-          options = {};
-        }
-        options.renderModal = true;
-        options.programmatic = true;
-        options.layout = modalLayout;
-        modal = this.create(options);
-        modal.container = modal.get('targetObject.container');
-        modal.appendTo('body');
-        return modal;
-      }
-    });
-
-    __exports__["default"] = modal;
-  });
 define("emberui/components/eui-month",
   ["exports"],
   function(__exports__) {
     "use strict";
-    var DATE_SLOT_HBS, containsDate, forEachSlot, month;
+    var DATE_SLOT_HBS, containsDate, forEachSlot, month, precompileTemplate;
 
-    DATE_SLOT_HBS = Handlebars.compile('<li class="{{classNames}}" data-date="{{jsonDate}}">' + '{{date}}' + '</li>');
+    precompileTemplate = Handlebars.compile;
+
+    DATE_SLOT_HBS = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+    this.compilerInfo = [4,'>= 1.0.0'];
+    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+      var buffer = '', escapeExpression=this.escapeExpression;
+
+
+      data.buffer.push("<li class=\"");
+      data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "classNames", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push("\" data-date=\"");
+      data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "jsonDate", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push("\"> ");
+      data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "date", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push(" </li>");
+      return buffer;
+      
+    });
 
     containsDate = function(dates, date) {
       if (!dates || !Em.get(dates, 'length')) {
@@ -850,12 +621,16 @@ define("emberui/components/eui-month",
         return this.setSelection();
       },
       render: function(buff) {
-        var renderSlot, view;
+        var data, renderSlot, view;
         month = this.get('month');
         view = this;
         if (!month) {
           return;
         }
+        data = {
+          buffer: buff,
+          view: view
+        };
         renderSlot = function(slot) {
           attrs;
           var attrs;
@@ -867,7 +642,9 @@ define("emberui/components/eui-month",
             };
             view.applyOptionsForDate(attrs, slot);
             attrs.classNames = attrs.classNames.join(' ');
-            return buff.push(DATE_SLOT_HBS(attrs));
+            return buff.push(DATE_SLOT_HBS(attrs, {
+              data: data
+            }));
           } else {
             return buff.push('<li class="eui-slot eui-empty"></li>');
           }
@@ -897,15 +674,16 @@ define("emberui/components/eui-month",
     __exports__["default"] = month;
   });
 define("emberui/components/eui-popcal",
-  ["../mixins/style-support","../mixins/animation-support","../templates/eui-popcal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/style-support","../mixins/animation-support","../templates/eui-popcal","../mixins/prevent-page-scroll","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
     var animationSupport = __dependency2__["default"] || __dependency2__;
     var popcalLayout = __dependency3__["default"] || __dependency3__;
+    var preventPageScroll = __dependency4__["default"] || __dependency4__;
     var popcal;
 
-    popcal = Em.Component.extend(styleSupport, animationSupport, {
+    popcal = Em.Component.extend(styleSupport, animationSupport, preventPageScroll, {
       layout: popcalLayout,
       classNames: ['eui-popcal'],
       attributeBindings: ['tabindex'],
@@ -928,30 +706,20 @@ define("emberui/components/eui-popcal",
         this.set('previousFocus', $(document.activeElement));
         this.set('isOpen', true);
         this.set('_selection', this.get('selection'));
-        this.$().position({
+        this.$().find('.eui-component').position({
           my: "center top",
           at: "center bottom",
           of: this.get('targetObject').$(),
           collision: 'flipfit'
         });
-        Ember.run.next(this, function() {
-          return $(window).one('click.emberui', (function(_this) {
-            return function(event) {
-              if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-popcal').length) {
-                event.preventDefault();
-                return _this.hide();
-              }
-            };
-          })(this));
-        });
         this.$().focus();
-        return $('body').addClass('eui-popcal-open');
+        return this.disablePageScroll();
       }).on('didInsertElement'),
       breakdown: function() {
         var _ref;
         this.get('previousFocus').focus();
         this.set('isOpen', false);
-        $('body').removeClass('eui-popcal-open');
+        this.enablePageScroll();
         if (!(this.get('dateRange') && ((_ref = this.get('_selection')) != null ? _ref.get('length') : void 0) === 1)) {
           this.set('selection', this.get('_selection'));
         }
@@ -969,6 +737,9 @@ define("emberui/components/eui-popcal",
           } else if (selection) {
             return this.hide();
           }
+        },
+        hidePopcal: function() {
+          return this.hide();
         }
       },
       keyUp: function(event) {
@@ -993,22 +764,25 @@ define("emberui/components/eui-popcal",
     __exports__["default"] = popcal;
   });
 define("emberui/components/eui-poplist",
-  ["../mixins/style-support","../mixins/animation-support","../mixins/mobile-detection","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __exports__) {
+  ["../mixins/class-name","../mixins/animation-support","../mixins/mobile-detection","../mixins/prevent-page-scroll","../templates/eui-poplist","../templates/eui-poplist-option","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
     "use strict";
-    var styleSupport = __dependency1__["default"] || __dependency1__;
+    var className = __dependency1__["default"] || __dependency1__;
     var animationSupport = __dependency2__["default"] || __dependency2__;
     var mobileDetection = __dependency3__["default"] || __dependency3__;
-    var poplistLayout = __dependency4__["default"] || __dependency4__;
-    var itemViewClassTemplate = __dependency5__["default"] || __dependency5__;
+    var preventPageScroll = __dependency4__["default"] || __dependency4__;
+    var poplistLayout = __dependency5__["default"] || __dependency5__;
+    var itemViewClassTemplate = __dependency6__["default"] || __dependency6__;
     var poplist;
 
-    poplist = Em.Component.extend(styleSupport, animationSupport, mobileDetection, {
+    poplist = Em.Component.extend(className, animationSupport, mobileDetection, preventPageScroll, {
       layout: poplistLayout,
       classNames: ['eui-poplist'],
       classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch'],
       attributeBindings: ['tabindex'],
       tagName: 'eui-poplist',
+      baseClass: 'poplist',
+      style: 'default',
       animationClass: 'euiPoplist',
       listWidth: null,
       listHeight: '80',
@@ -1048,10 +822,12 @@ define("emberui/components/eui-poplist",
         });
       },
       setup: (function() {
+        var component;
         this.setPoplistMinWidth();
+        component = this.$().find('.eui-component');
         if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
           Em.run.next(this, function() {
-            return this.$().position({
+            return component.position({
               my: "center center",
               at: "center center",
               of: $(window)
@@ -1059,7 +835,7 @@ define("emberui/components/eui-poplist",
           });
         } else {
           Em.run.next(this, function() {
-            return this.$().position({
+            return component.position({
               my: "right top",
               at: "right bottom",
               of: this.get('targetObject').$(),
@@ -1079,17 +855,7 @@ define("emberui/components/eui-poplist",
         Ember.run.next(this, function() {
           return this.scrollToSelection(this.get('options').indexOf(this.get('selection')), true);
         });
-        $('body').addClass('eui-poplist-open');
-        return Ember.run.next(this, function() {
-          return $(window).one('click.emberui', (function(_this) {
-            return function(event) {
-              if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-poplist').length) {
-                event.preventDefault();
-                return _this.hide();
-              }
-            };
-          })(this));
-        });
+        return this.disablePageScroll();
       }).on('didInsertElement'),
       breakdown: function() {
         this.setProperties({
@@ -1097,23 +863,24 @@ define("emberui/components/eui-poplist",
           highlightedIndex: -1
         });
         this.get('previousFocus').focus();
-        $('body').removeClass('eui-poplist-open');
+        this.enablePageScroll();
         return this.destroy();
       },
       setPoplistMinWidth: function() {
         var element, elementWidthMinuspoplistPadding, poplistElement;
         element = this.get('targetObject').$();
-        poplistElement = this.$();
+        poplistElement = this.$().find('.eui-component');
         elementWidthMinuspoplistPadding = element.width() - parseFloat(poplistElement.css('paddingLeft')) - parseFloat(poplistElement.css('paddingRight'));
         return poplistElement.css('min-width', elementWidthMinuspoplistPadding);
       },
       updateListWidthCss: function() {
-        var listWidth;
+        var component, listWidth;
+        component = this.$().find('.eui-component');
         if (this.get('isMobileDevice') && this.get('modalOnMobile')) {
-          return this.$().css('width', '80%');
+          return component.css('width', '80%');
         } else {
           listWidth = this.get('listWidth');
-          return this.$().css('width', listWidth);
+          return component.css('width', listWidth);
         }
       },
       focusOnSearch: function() {
@@ -1185,7 +952,7 @@ define("emberui/components/eui-poplist",
         38: 'upArrowPressed',
         40: 'downArrowPressed'
       },
-      keyUp: function(event) {
+      keyDown: function(event) {
         var keyMap, method, _ref;
         keyMap = this.get('KEY_MAP');
         method = keyMap[event.which];
@@ -1210,6 +977,11 @@ define("emberui/components/eui-poplist",
       upArrowPressed: function(event) {
         event.preventDefault();
         return this.adjustHighlight(-1);
+      },
+      actions: {
+        hidePoplist: function() {
+          return this.hide();
+        }
       },
       adjustHighlight: function(indexAdjustment) {
         var highlightedIndex, newIndex, options, optionsLength;
@@ -1238,7 +1010,6 @@ define("emberui/components/eui-poplist",
         tabindex: '-1',
         css: {
           position: 'relative',
-          overflow: 'auto',
           '-webkit-overflow-scrolling': 'touch',
           'overflow-scrolling': 'touch'
         },
@@ -1339,8 +1110,8 @@ define("emberui/components/eui-select",
 
     select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-select',
-      classNames: ['eui-select'],
       classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class'],
+      baseClass: 'select',
       style: 'default',
       size: 'medium',
       poplistIsOpen: false,
@@ -1349,6 +1120,13 @@ define("emberui/components/eui-select",
       labelPath: 'label',
       valuePath: 'value',
       _selection: null,
+      selectClass: Ember.computed('size', 'style', function() {
+        var baseClass, size, style;
+        baseClass = this.get('baseClass');
+        size = this.get('size');
+        style = this.get('style');
+        return "eui-" + baseClass + "-button-" + size + "-" + style;
+      }),
       ariaHasPopup: true,
       ariaOwns: (function() {
         return this.get('poplist.elementId');
@@ -1458,13 +1236,20 @@ define("emberui/components/eui-selectdate",
 
     select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-selectdate',
-      classNames: ['eui-selectdate'],
       classNameBindings: ['isDisabled:eui-disabled', 'isPlaceholder::eui-placeholder', 'class'],
+      baseClass: 'select',
       style: 'default',
       size: 'medium',
       calendarStyle: 'default',
       popcalIsOpen: false,
       dateRange: false,
+      selectClass: Ember.computed('size', 'style', function() {
+        var baseClass, size, style;
+        baseClass = this.get('baseClass');
+        size = this.get('size');
+        style = this.get('style');
+        return "eui-" + baseClass + "-button-" + size + "-" + style;
+      }),
       formatting: {
         yearFormat: "YYYY",
         monthFormat: "MMMM",
@@ -1596,19 +1381,18 @@ define("emberui/components/eui-selectdate",
     __exports__["default"] = select;
   });
 define("emberui/components/eui-textarea",
-  ["../mixins/error-support","../mixins/text-support","../mixins/style-support","../mixins/size-support","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
+  ["../mixins/class-name","../mixins/error-support","../mixins/text-support","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
-    var errorSupport = __dependency1__["default"] || __dependency1__;
-    var textSupport = __dependency2__["default"] || __dependency2__;
-    var styleSupport = __dependency3__["default"] || __dependency3__;
-    var sizeSupport = __dependency4__["default"] || __dependency4__;
+    var className = __dependency1__["default"] || __dependency1__;
+    var errorSupport = __dependency2__["default"] || __dependency2__;
+    var textSupport = __dependency3__["default"] || __dependency3__;
     var textarea;
 
-    textarea = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, {
-      classNameBindings: [':eui-textarea'],
+    textarea = Em.Component.extend(errorSupport, textSupport, className, {
       attributeBindings: ['computedWidthAndHeight:style'],
       tagName: 'eui-textarea',
+      baseClass: 'input',
       height: null,
       computedWidthAndHeight: Em.computed('size', 'width', 'height', function() {
         var height, heights, width, widths;
@@ -1633,8 +1417,8 @@ define("emberui/components/eui-textarea",
     __exports__["default"] = textarea;
   });
 define("emberui",
-  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-modal","./templates/eui-modal","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./initializers/eui-initializer","./initializers/eui-wai-aria-initializer","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __exports__) {
+  ["./components/eui-button","./templates/eui-button","./components/eui-checkbox","./templates/eui-checkbox","./components/eui-dropbutton","./templates/eui-dropbutton","./components/eui-input","./templates/eui-input","./components/eui-poplist","./templates/eui-poplist","./templates/eui-poplist-option","./components/eui-select","./templates/eui-select","./components/eui-selectdate","./templates/eui-selectdate","./components/eui-textarea","./templates/eui-textarea","./components/eui-month","./components/eui-calendar","./templates/eui-calendar","./components/eui-popcal","./templates/eui-popcal","./initializers/eui-initializer","./initializers/eui-wai-aria-initializer","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __exports__) {
     "use strict";
     /*!
     EmberUI (c) 2014 Jaco Joubert
@@ -1653,38 +1437,35 @@ define("emberui",
     var EuiInputComponent = __dependency7__["default"] || __dependency7__;
     var EuiInputTemplate = __dependency8__["default"] || __dependency8__;
 
-    var EuiModalComponent = __dependency9__["default"] || __dependency9__;
-    var EuiModalTemplate = __dependency10__["default"] || __dependency10__;
+    var EuiPoplistComponent = __dependency9__["default"] || __dependency9__;
+    var EuiPoplistTemplate = __dependency10__["default"] || __dependency10__;
+    var EuiPoplistOptionTemplate = __dependency11__["default"] || __dependency11__;
 
-    var EuiPoplistComponent = __dependency11__["default"] || __dependency11__;
-    var EuiPoplistTemplate = __dependency12__["default"] || __dependency12__;
-    var EuiPoplistOptionTemplate = __dependency13__["default"] || __dependency13__;
+    var EuiSelectComponent = __dependency12__["default"] || __dependency12__;
+    var EuiSelectTemplate = __dependency13__["default"] || __dependency13__;
 
-    var EuiSelectComponent = __dependency14__["default"] || __dependency14__;
-    var EuiSelectTemplate = __dependency15__["default"] || __dependency15__;
+    var EuiSelectDateComponent = __dependency14__["default"] || __dependency14__;
+    var EuiSelectDateTemplate = __dependency15__["default"] || __dependency15__;
 
-    var EuiSelectDateComponent = __dependency16__["default"] || __dependency16__;
-    var EuiSelectDateTemplate = __dependency17__["default"] || __dependency17__;
+    var EuiTextareaComponent = __dependency16__["default"] || __dependency16__;
+    var EuiTextareaTemplate = __dependency17__["default"] || __dependency17__;
 
-    var EuiTextareaComponent = __dependency18__["default"] || __dependency18__;
-    var EuiTextareaTemplate = __dependency19__["default"] || __dependency19__;
+    var EuiMonthComponent = __dependency18__["default"] || __dependency18__;
 
-    var EuiMonthComponent = __dependency20__["default"] || __dependency20__;
+    var EuiCalendarComponent = __dependency19__["default"] || __dependency19__;
+    var EuiCalendarTemplate = __dependency20__["default"] || __dependency20__;
 
-    var EuiCalendarComponent = __dependency21__["default"] || __dependency21__;
-    var EuiCalendarTemplate = __dependency22__["default"] || __dependency22__;
+    var EuiPopcalComponent = __dependency21__["default"] || __dependency21__;
+    var EuiPopcalTemplate = __dependency22__["default"] || __dependency22__;
 
-    var EuiPopcalComponent = __dependency23__["default"] || __dependency23__;
-    var EuiPopcalTemplate = __dependency24__["default"] || __dependency24__;
-
-    var EuiInitializer = __dependency25__["default"] || __dependency25__;
-    var EuiWaiAriaInitializer = __dependency26__["default"] || __dependency26__;
+    var EuiInitializer = __dependency23__["default"] || __dependency23__;
+    var EuiWaiAriaInitializer = __dependency24__["default"] || __dependency24__;
 
 
     Ember.Application.initializer(EuiInitializer);
     Ember.Application.initializer(EuiWaiAriaInitializer);
 
-    Ember.libraries.register("EmberUI", "0.3.6");
+    Ember.libraries.register("EmberUI", "0.4.0");
 
     Ember.TextSupport.reopen({
         attributeBindings: [
@@ -1701,7 +1482,6 @@ define("emberui",
     __exports__.EuiDropbuttonComponent = EuiDropbuttonComponent;
     __exports__.EuiInputComponent = EuiInputComponent;
     __exports__.EuiInputTemplate = EuiInputTemplate;
-    __exports__.EuiModalComponent = EuiModalComponent;
     __exports__.EuiPoplistComponent = EuiPoplistComponent;
     __exports__.EuiSelectComponent = EuiSelectComponent;
     __exports__.EuiSelectDateComponent = EuiSelectDateComponent;
@@ -1711,45 +1491,42 @@ define("emberui",
     __exports__.EuiPopcalComponent = EuiPopcalComponent;
   });
 define("emberui/initializers/eui-initializer",
-  ["../utilities/tabbable-selector","../utilities/position","../animations/popcal-close-default","../animations/popcal-open-default","../animations/modal-close-default","../animations/modal-open-default","../animations/modal-close-full","../animations/modal-open-full","../animations/poplist-close-default","../animations/poplist-open-default","../animations/poplist-close-flyin","../animations/poplist-open-flyin","../components/eui-button","../templates/eui-button","../components/eui-checkbox","../templates/eui-checkbox","../components/eui-dropbutton","../templates/eui-dropbutton","../components/eui-input","../templates/eui-input","../components/eui-modal","../templates/eui-modal","../components/eui-poplist","../templates/eui-poplist","../templates/eui-poplist-option","../components/eui-select","../templates/eui-select","../components/eui-selectdate","../templates/eui-selectdate","../components/eui-textarea","../templates/eui-textarea","../components/eui-month","../components/eui-calendar","../templates/eui-calendar","../components/eui-popcal","../templates/eui-popcal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __dependency31__, __dependency32__, __dependency33__, __dependency34__, __dependency35__, __dependency36__, __exports__) {
+  ["../utilities/tabbable-selector","../utilities/position","../animations/popcal-close-default","../animations/popcal-open-default","../animations/poplist-close-default","../animations/poplist-open-default","../animations/poplist-close-flyin","../animations/poplist-open-flyin","../components/eui-button","../templates/eui-button","../components/eui-checkbox","../templates/eui-checkbox","../components/eui-dropbutton","../templates/eui-dropbutton","../components/eui-input","../templates/eui-input","../components/eui-poplist","../templates/eui-poplist","../templates/eui-poplist-option","../components/eui-select","../templates/eui-select","../components/eui-selectdate","../templates/eui-selectdate","../components/eui-textarea","../templates/eui-textarea","../components/eui-month","../components/eui-calendar","../templates/eui-calendar","../components/eui-popcal","../templates/eui-popcal","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __dependency9__, __dependency10__, __dependency11__, __dependency12__, __dependency13__, __dependency14__, __dependency15__, __dependency16__, __dependency17__, __dependency18__, __dependency19__, __dependency20__, __dependency21__, __dependency22__, __dependency23__, __dependency24__, __dependency25__, __dependency26__, __dependency27__, __dependency28__, __dependency29__, __dependency30__, __exports__) {
     "use strict";
 
-    var EuiButtonComponent = __dependency13__["default"] || __dependency13__;
-    var EuiButtonTemplate = __dependency14__["default"] || __dependency14__;
+    var EuiButtonComponent = __dependency9__["default"] || __dependency9__;
+    var EuiButtonTemplate = __dependency10__["default"] || __dependency10__;
 
-    var EuiCheckboxComponent = __dependency15__["default"] || __dependency15__;
-    var EuiCheckboxTemplate = __dependency16__["default"] || __dependency16__;
+    var EuiCheckboxComponent = __dependency11__["default"] || __dependency11__;
+    var EuiCheckboxTemplate = __dependency12__["default"] || __dependency12__;
 
-    var EuiDropbuttonComponent = __dependency17__["default"] || __dependency17__;
-    var EuiDropbuttonTemplate = __dependency18__["default"] || __dependency18__;
+    var EuiDropbuttonComponent = __dependency13__["default"] || __dependency13__;
+    var EuiDropbuttonTemplate = __dependency14__["default"] || __dependency14__;
 
-    var EuiInputComponent = __dependency19__["default"] || __dependency19__;
-    var EuiInputTemplate = __dependency20__["default"] || __dependency20__;
+    var EuiInputComponent = __dependency15__["default"] || __dependency15__;
+    var EuiInputTemplate = __dependency16__["default"] || __dependency16__;
 
-    var EuiModalComponent = __dependency21__["default"] || __dependency21__;
-    var EuiModalTemplate = __dependency22__["default"] || __dependency22__;
+    var EuiPoplistComponent = __dependency17__["default"] || __dependency17__;
+    var EuiPoplistTemplate = __dependency18__["default"] || __dependency18__;
+    var EuiPoplistOptionTemplate = __dependency19__["default"] || __dependency19__;
 
-    var EuiPoplistComponent = __dependency23__["default"] || __dependency23__;
-    var EuiPoplistTemplate = __dependency24__["default"] || __dependency24__;
-    var EuiPoplistOptionTemplate = __dependency25__["default"] || __dependency25__;
+    var EuiSelectComponent = __dependency20__["default"] || __dependency20__;
+    var EuiSelectTemplate = __dependency21__["default"] || __dependency21__;
 
-    var EuiSelectComponent = __dependency26__["default"] || __dependency26__;
-    var EuiSelectTemplate = __dependency27__["default"] || __dependency27__;
+    var EuiSelectDateComponent = __dependency22__["default"] || __dependency22__;
+    var EuiSelectDateTemplate = __dependency23__["default"] || __dependency23__;
 
-    var EuiSelectDateComponent = __dependency28__["default"] || __dependency28__;
-    var EuiSelectDateTemplate = __dependency29__["default"] || __dependency29__;
+    var EuiTextareaComponent = __dependency24__["default"] || __dependency24__;
+    var EuiTextareaTemplate = __dependency25__["default"] || __dependency25__;
 
-    var EuiTextareaComponent = __dependency30__["default"] || __dependency30__;
-    var EuiTextareaTemplate = __dependency31__["default"] || __dependency31__;
+    var EuiMonthComponent = __dependency26__["default"] || __dependency26__;
 
-    var EuiMonthComponent = __dependency32__["default"] || __dependency32__;
+    var EuiCalendarComponent = __dependency27__["default"] || __dependency27__;
+    var EuiCalendarTemplate = __dependency28__["default"] || __dependency28__;
 
-    var EuiCalendarComponent = __dependency33__["default"] || __dependency33__;
-    var EuiCalendarTemplate = __dependency34__["default"] || __dependency34__;
-
-    var EuiPopcalComponent = __dependency35__["default"] || __dependency35__;
-    var EuiPopcalTemplate = __dependency36__["default"] || __dependency36__;
+    var EuiPopcalComponent = __dependency29__["default"] || __dependency29__;
+    var EuiPopcalTemplate = __dependency30__["default"] || __dependency30__;
 
     __exports__["default"] = {
       name: 'emberui',
@@ -1766,9 +1543,6 @@ define("emberui/initializers/eui-initializer",
 
         container.register('template:components/eui-input', EuiInputTemplate);
         container.register('component:eui-input', EuiInputComponent);
-
-        container.register('template:components/eui-modal', EuiModalTemplate);
-        container.register('component:eui-modal', EuiModalComponent);
 
         container.register('template:components/eui-poplist', EuiPoplistTemplate);
         container.register('template:components/eui-poplist-opion', EuiPoplistOptionTemplate);
@@ -1832,7 +1606,7 @@ define("emberui/mixins/animation-support",
         }
         style = "" + component + "Open" + style;
         backupStyle = "" + component + "OpenDefault";
-        if ($.Velocity.Sequences.hasOwnProperty(style)) {
+        if ($.Velocity.Redirects.hasOwnProperty(style)) {
           return style;
         } else {
           return backupStyle;
@@ -1847,7 +1621,7 @@ define("emberui/mixins/animation-support",
         }
         style = "" + component + "Close" + style;
         backupStyle = "" + component + "CloseDefault";
-        if ($.Velocity.Sequences.hasOwnProperty(style)) {
+        if ($.Velocity.Redirects.hasOwnProperty(style)) {
           return style;
         } else {
           return backupStyle;
@@ -1887,6 +1661,29 @@ define("emberui/mixins/animation-support",
 
     __exports__["default"] = animationSupport;
   });
+define("emberui/mixins/class-name",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var classname;
+
+    classname = Em.Mixin.create({
+      classNameBindings: ['className'],
+      className: Em.computed('size', 'style', function() {
+        var baseClass, size, style;
+        baseClass = this.get('baseClass');
+        size = this.get('size');
+        style = this.get('style');
+        if (size) {
+          return "eui-" + baseClass + "-" + size + "-" + style;
+        } else {
+          return "eui-" + baseClass + "-" + style;
+        }
+      })
+    });
+
+    __exports__["default"] = classname;
+  });
 define("emberui/mixins/disabled-support",
   ["exports"],
   function(__exports__) {
@@ -1896,8 +1693,8 @@ define("emberui/mixins/disabled-support",
     disabledsupport = Em.Mixin.create({
       classNameBindings: ['isDisabled:eui-disabled'],
       disabled: false,
-      isDisabled: Em.computed('disabled', 'loading', function() {
-        if (this.get('disabled') || this.get('loading')) {
+      isDisabled: Em.computed('disabled', function() {
+        if (this.get('disabled')) {
           return true;
         }
       })
@@ -1968,6 +1765,28 @@ define("emberui/mixins/mobile-detection",
     });
 
     __exports__["default"] = mobileDetection;
+  });
+define("emberui/mixins/prevent-page-scroll",
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var preventPageScroll;
+
+    preventPageScroll = Em.Mixin.create({
+      disablePageScroll: function() {
+        var net;
+        net = this.$().find('.eui-scroller--net');
+        net.scrollTop(5000).scrollLeft(5000).addClass('eui-enabled');
+        return net.scroll(function() {
+          return $(this).scrollTop(5000).scrollLeft(5000);
+        });
+      },
+      enablePageScroll: function() {
+        return this.$().find('.eui-scroller--net').unbind('scroll');
+      }
+    });
+
+    __exports__["default"] = preventPageScroll;
   });
 define("emberui/mixins/size-support",
   ["exports"],
@@ -2073,7 +1892,7 @@ define("emberui/templates/eui-button",
       var buffer = '';
       data.buffer.push("\n        <b ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-        'class': ("icon")
+        'class': (":eui-leading-icon leadingIcon")
       },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
       data.buffer.push("></b>\n      ");
       return buffer;
@@ -2081,16 +1900,26 @@ define("emberui/templates/eui-button",
 
     function program3(depth0,data) {
       
+      var buffer = '', stack1;
+      data.buffer.push("\n        <div class=\"eui-label-value\">");
+      stack1 = helpers._triageMustache.call(depth0, "label", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+      data.buffer.push("</div>\n      ");
+      return buffer;
+      }
+
+    function program5(depth0,data) {
+      
       var buffer = '';
       data.buffer.push("\n        <b ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-        'class': ("trailingIcon")
+        'class': (":eui-trailing-icon trailingIcon")
       },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
       data.buffer.push("></b>\n      ");
       return buffer;
       }
 
-    function program5(depth0,data) {
+    function program7(depth0,data) {
       
       
       data.buffer.push("\n      <ul class=\"eui-loading-animation\">\n        <li></li>\n        <li></li>\n        <li></li>\n      </ul>\n    ");
@@ -2104,17 +1933,17 @@ define("emberui/templates/eui-button",
         'aria-haspopup': ("ariaHaspopup"),
         'aria-label': ("label")
       },hashTypes:{'disabled': "STRING",'type': "STRING",'aria-owns': "STRING",'aria-haspopup': "STRING",'aria-label': "ID"},hashContexts:{'disabled': depth0,'type': depth0,'aria-owns': depth0,'aria-haspopup': depth0,'aria-label': depth0},contexts:[],types:[],data:data})));
-      data.buffer.push("></button>\n\n<div class=\"eui-button-form\">\n  <div class=\"eui-wrapper\">\n    <i>\n      ");
-      stack1 = helpers['if'].call(depth0, "icon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+      data.buffer.push("></button>\n\n<div class=\"eui-component\">\n  <div class=\"eui-component-wrapper\">\n    <div class=\"eui-label\">\n      ");
+      stack1 = helpers['if'].call(depth0, "leadingIcon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n\n      ");
-      stack1 = helpers._triageMustache.call(depth0, "label", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+      stack1 = helpers['if'].call(depth0, "label", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n\n      ");
-      stack1 = helpers['if'].call(depth0, "trailingIcon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+      stack1 = helpers['if'].call(depth0, "trailingIcon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-      data.buffer.push("\n    </i>\n\n    ");
-      stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+      data.buffer.push("\n    </div>\n\n    ");
+      stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n  </div>\n</div>\n");
       return buffer;
@@ -2169,7 +1998,7 @@ define("emberui/templates/eui-calendar",
       return buffer;
       }
 
-      data.buffer.push("<div class=\"eui-calendar-wrapper\">\n  <button ");
+      data.buffer.push("<div class=\"eui-component-wrapper\">\n  <button ");
       data.buffer.push(escapeExpression(helpers.action.call(depth0, "prev", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
       data.buffer.push(" ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
@@ -2231,9 +2060,9 @@ define("emberui/templates/eui-checkbox",
       },hashTypes:{'checked': "ID",'disabled': "ID"},hashContexts:{'checked': depth0,'disabled': depth0},contexts:[],types:[],data:data})));
       data.buffer.push(" />\n\n<div ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-        'class': (":eui-checkbox-form disabled:eui-disabled:eui-enabled")
+        'class': (":eui-component disabled:eui-disabled:eui-enabled")
       },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-      data.buffer.push(">\n  <div class=\"eui-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n");
+      data.buffer.push(">\n  <div class=\"eui-component-wrapper\">\n    <i class=\"eui-icon\"></i>\n  </div>\n</div>\n\n");
       stack1 = helpers._triageMustache.call(depth0, "label", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n\n");
@@ -2262,22 +2091,22 @@ define("emberui/templates/eui-dropbutton",
         'label': ("primaryAction.label"),
         'style': ("view.style"),
         'size': ("view.size"),
-        'icon': ("view.icon"),
+        'leadingIcon': ("view.icon"),
         'loading': ("view.loading"),
         'disabled': ("view.disabled"),
-        'class': ("eui-primaryaction"),
+        'class': ("eui-dropbutton--primary-action"),
         'action': ("primaryAction")
-      },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'icon': "ID",'loading': "ID",'disabled': "ID",'class': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'icon': depth0,'loading': depth0,'disabled': depth0,'class': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'leadingIcon': "ID",'loading': "ID",'disabled': "ID",'class': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'leadingIcon': depth0,'loading': depth0,'disabled': depth0,'class': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n  ");
       data.buffer.push(escapeExpression((helper = helpers['eui-button'] || (depth0 && depth0['eui-button']),options={hash:{
         'style': ("view.style"),
         'size': ("view.size"),
-        'icon': ("fa fa-caret-down"),
+        'leadingIcon': ("fa fa-angle-down"),
         'loading': (false),
         'disabled': ("view.disabled"),
-        'classBinding': (":eui-trigger poplistIsOpen:eui-active"),
+        'classBinding': (":eui-dropbutton--trigger poplistIsOpen:eui-active"),
         'action': ("toggleWindow")
-      },hashTypes:{'style': "ID",'size': "ID",'icon': "STRING",'loading': "BOOLEAN",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'style': depth0,'size': depth0,'icon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      },hashTypes:{'style': "ID",'size': "ID",'leadingIcon': "STRING",'loading': "BOOLEAN",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'style': depth0,'size': depth0,'leadingIcon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n");
       return buffer;
       }
@@ -2290,13 +2119,13 @@ define("emberui/templates/eui-dropbutton",
         'label': ("view.label"),
         'style': ("view.style"),
         'size': ("view.size"),
-        'icon': ("view.icon"),
-        'trailingIcon': ("fa fa-caret-down"),
+        'leadingIcon': ("view.icon"),
+        'trailingIcon': ("fa fa-angle-down"),
         'loading': ("view.loading"),
         'disabled': ("view.disabled"),
         'classBinding': ("poplistIsOpen:eui-active"),
         'action': ("toggleWindow")
-      },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'icon': "ID",'trailingIcon': "STRING",'loading': "ID",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'icon': depth0,'trailingIcon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      },hashTypes:{'label': "ID",'style': "ID",'size': "ID",'leadingIcon': "ID",'trailingIcon': "STRING",'loading': "ID",'disabled': "ID",'classBinding': "STRING",'action': "STRING"},hashContexts:{'label': depth0,'style': depth0,'size': depth0,'leadingIcon': depth0,'trailingIcon': depth0,'loading': depth0,'disabled': depth0,'classBinding': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n");
       return buffer;
       }
@@ -2342,7 +2171,7 @@ define("emberui/templates/eui-input",
       return buffer;
       }
 
-      data.buffer.push("<div class=\"eui-wrapper\">\n  ");
+      data.buffer.push("<div class=\"eui-component-wrapper\">\n  ");
       stack1 = helpers['if'].call(depth0, "placeholderVisible", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n  ");
@@ -2363,53 +2192,6 @@ define("emberui/templates/eui-input",
       
     });
   });
-define("emberui/templates/eui-modal",
-  ["ember","exports"],
-  function(__dependency1__, __exports__) {
-    "use strict";
-    var Ember = __dependency1__["default"] || __dependency1__;
-    __exports__["default"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-    this.compilerInfo = [4,'>= 1.0.0'];
-    helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-      var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
-
-    function program1(depth0,data) {
-      
-      var buffer = '', stack1;
-      data.buffer.push("\n  <div class=\"eui-modal-wrapper\">\n\n    <div class=\"eui-modal-table\">\n      <div class=\"eui-modal-cell\">\n\n        <div class=\"eui-modalobject\">\n          <div class=\"eui-modalobject-wrapper\">\n            ");
-      stack1 = helpers['if'].call(depth0, "programmatic", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
-      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-      data.buffer.push("\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n    <div class=\"eui-overlay\"></div>\n  </div>\n");
-      return buffer;
-      }
-    function program2(depth0,data) {
-      
-      var buffer = '';
-      data.buffer.push("\n              ");
-      data.buffer.push(escapeExpression(helpers.view.call(depth0, "contentViewClass", {hash:{
-        'contentBinding': ("content")
-      },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
-      data.buffer.push("\n            ");
-      return buffer;
-      }
-
-    function program4(depth0,data) {
-      
-      var buffer = '', stack1;
-      data.buffer.push("\n              ");
-      stack1 = helpers._triageMustache.call(depth0, "yield", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-      data.buffer.push("\n            ");
-      return buffer;
-      }
-
-      stack1 = helpers['if'].call(depth0, "renderModal", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
-      if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-      data.buffer.push("\n");
-      return buffer;
-      
-    });
-  });
 define("emberui/templates/eui-popcal",
   ["ember","exports"],
   function(__dependency1__, __exports__) {
@@ -2421,9 +2203,10 @@ define("emberui/templates/eui-popcal",
       var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
+      data.buffer.push("<div class=\"eui-component\">\n  ");
       data.buffer.push(escapeExpression((helper = helpers['eui-calendar'] || (depth0 && depth0['eui-calendar']),options={hash:{
         'selection': ("_selection"),
-        'allowMultipleBinding': ("dateRange"),
+        'allowMultiple': ("dateRange"),
         'selectAction': ("closeCalendar"),
         'disablePast': ("disablePast"),
         'disableFuture': ("disableFuture"),
@@ -2431,8 +2214,10 @@ define("emberui/templates/eui-popcal",
         'maxFutureDate': ("maxFutureDate"),
         'disabledDates': ("disabledDates"),
         'style': ("style")
-      },hashTypes:{'selection': "ID",'allowMultipleBinding': "STRING",'selectAction': "STRING",'disablePast': "ID",'disableFuture': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'disabledDates': "ID",'style': "ID"},hashContexts:{'selection': depth0,'allowMultipleBinding': depth0,'selectAction': depth0,'disablePast': depth0,'disableFuture': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'disabledDates': depth0,'style': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-calendar", options))));
-      data.buffer.push("\n");
+      },hashTypes:{'selection': "ID",'allowMultiple': "ID",'selectAction': "STRING",'disablePast': "ID",'disableFuture': "ID",'maxPastDate': "ID",'maxFutureDate': "ID",'disabledDates': "ID",'style': "ID"},hashContexts:{'selection': depth0,'allowMultiple': depth0,'selectAction': depth0,'disablePast': depth0,'disableFuture': depth0,'maxPastDate': depth0,'maxFutureDate': depth0,'disabledDates': depth0,'style': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-calendar", options))));
+      data.buffer.push("\n</div>\n\n<div class=\"eui-scroller\" ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "hidePopcal", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+      data.buffer.push(">\n  <div class=\"eui-scroller--net\">\n    <div class=\"eui-scroller--net-content\"></div>\n  </div>\n</div>\n");
       return buffer;
       
     });
@@ -2468,36 +2253,38 @@ define("emberui/templates/eui-poplist",
     function program1(depth0,data) {
       
       
-      data.buffer.push("\n    <div class=\"eui-nooptions\">No results found.</div>\n  ");
+      data.buffer.push("\n      <div class=\"eui-nooptions\">No results found.</div>\n    ");
       }
 
     function program3(depth0,data) {
       
       var buffer = '';
-      data.buffer.push("\n    ");
+      data.buffer.push("\n      ");
       data.buffer.push(escapeExpression(helpers.view.call(depth0, "listView", {hash:{
-        'contentBinding': ("filteredOptions")
-      },hashTypes:{'contentBinding': "STRING"},hashContexts:{'contentBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
-      data.buffer.push("\n  ");
+        'content': ("filteredOptions")
+      },hashTypes:{'content': "ID"},hashContexts:{'content': depth0},contexts:[depth0],types:["ID"],data:data})));
+      data.buffer.push("\n    ");
       return buffer;
       }
 
-      data.buffer.push("<div class=\"eui-poplistwrapper\">\n  <div ");
+      data.buffer.push("<div class=\"eui-component\">\n  <div class=\"eui-component-wrapper\">\n    <div ");
       data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
         'class': (":eui-search-wrapper searchString:eui-active")
       },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-      data.buffer.push(">\n    ");
+      data.buffer.push(">\n      ");
       data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
         'class': ("eui-search"),
-        'valueBinding': ("searchString"),
+        'value': ("searchString"),
         'size': ("1"),
         'ariaRole': ("combobox"),
         'aria-autocomplete': ("list")
-      },hashTypes:{'class': "STRING",'valueBinding': "STRING",'size': "STRING",'ariaRole': "STRING",'aria-autocomplete': "STRING"},hashContexts:{'class': depth0,'valueBinding': depth0,'size': depth0,'ariaRole': depth0,'aria-autocomplete': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-      data.buffer.push("\n  </div>\n\n  ");
+      },hashTypes:{'class': "STRING",'value': "ID",'size': "STRING",'ariaRole': "STRING",'aria-autocomplete': "STRING"},hashContexts:{'class': depth0,'value': depth0,'size': depth0,'ariaRole': depth0,'aria-autocomplete': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+      data.buffer.push("\n    </div>\n\n    ");
       stack1 = helpers['if'].call(depth0, "hasNoOptions", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-      data.buffer.push("\n</div>\n");
+      data.buffer.push("\n  </div>\n</div>\n\n<div class=\"eui-scroller\" ");
+      data.buffer.push(escapeExpression(helpers.action.call(depth0, "hidePoplist", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+      data.buffer.push(">\n  <div class=\"eui-scroller--net\">\n    <div class=\"eui-scroller--net-content\"></div>\n  </div>\n</div>\n");
       return buffer;
       
     });
@@ -2528,11 +2315,11 @@ define("emberui/templates/eui-select",
         'style': ("style"),
         'size': ("size"),
         'width': ("100%"),
-        'classBinding': (":eui-select poplistIsOpen:eui-active"),
-        'icon': ("eui-icon"),
+        'classBinding': (":eui-select selectClass poplistIsOpen:eui-active"),
+        'trailingIcon': ("eui-icon"),
         'ariaOwns': ("ariaOwns"),
         'ariaHaspopup': ("ariaHasPopup")
-      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'icon': "STRING",'ariaOwns': "ID",'ariaHaspopup': "ID"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'icon': depth0,'ariaOwns': depth0,'ariaHaspopup': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'trailingIcon': "STRING",'ariaOwns': "ID",'ariaHaspopup': "ID"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'trailingIcon': depth0,'ariaOwns': depth0,'ariaHaspopup': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n");
       stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2567,10 +2354,10 @@ define("emberui/templates/eui-selectdate",
         'style': ("style"),
         'size': ("size"),
         'width': ("100%"),
-        'classBinding': (":eui-select popcalIsOpen:eui-active"),
+        'classBinding': (":eui-select selectClass popcalIsOpen:eui-active"),
         'action': ("openCalendar"),
-        'icon': ("eui-icon")
-      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'action': "STRING",'icon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'action': depth0,'icon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
+        'trailingIcon': ("eui-icon")
+      },hashTypes:{'label': "ID",'disabled': "ID",'style': "ID",'size': "ID",'width': "STRING",'classBinding': "STRING",'action': "STRING",'trailingIcon': "STRING"},hashContexts:{'label': depth0,'disabled': depth0,'style': depth0,'size': depth0,'width': depth0,'classBinding': depth0,'action': depth0,'trailingIcon': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "eui-button", options))));
       data.buffer.push("\n\n");
       stack1 = helpers['if'].call(depth0, "errorMessage", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2613,7 +2400,7 @@ define("emberui/templates/eui-textarea",
       return buffer;
       }
 
-      data.buffer.push("<div class=\"eui-wrapper\">\n  ");
+      data.buffer.push("<div class=\"eui-component-wrapper\">\n  ");
       stack1 = helpers['if'].call(depth0, "placeholderVisible", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
       if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
       data.buffer.push("\n  ");

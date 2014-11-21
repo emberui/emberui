@@ -13,7 +13,7 @@ animationSupport = Em.Mixin.create({
     }
     style = "" + component + "Open" + style;
     backupStyle = "" + component + "OpenDefault";
-    if ($.Velocity.Sequences.hasOwnProperty(style)) {
+    if ($.Velocity.Redirects.hasOwnProperty(style)) {
       return style;
     } else {
       return backupStyle;
@@ -28,7 +28,7 @@ animationSupport = Em.Mixin.create({
     }
     style = "" + component + "Close" + style;
     backupStyle = "" + component + "CloseDefault";
-    if ($.Velocity.Sequences.hasOwnProperty(style)) {
+    if ($.Velocity.Redirects.hasOwnProperty(style)) {
       return style;
     } else {
       return backupStyle;

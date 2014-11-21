@@ -1,13 +1,14 @@
 define(
-  ["../mixins/style-support","../mixins/animation-support","../templates/eui-popcal","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+  ["../mixins/style-support","../mixins/animation-support","../templates/eui-popcal","../mixins/prevent-page-scroll","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __exports__) {
     "use strict";
     var styleSupport = __dependency1__["default"] || __dependency1__;
     var animationSupport = __dependency2__["default"] || __dependency2__;
     var popcalLayout = __dependency3__["default"] || __dependency3__;
+    var preventPageScroll = __dependency4__["default"] || __dependency4__;
     var popcal;
 
-    popcal = Em.Component.extend(styleSupport, animationSupport, {
+    popcal = Em.Component.extend(styleSupport, animationSupport, preventPageScroll, {
       layout: popcalLayout,
       classNames: ['eui-popcal'],
       attributeBindings: ['tabindex'],
@@ -30,30 +31,20 @@ define(
         this.set('previousFocus', $(document.activeElement));
         this.set('isOpen', true);
         this.set('_selection', this.get('selection'));
-        this.$().position({
+        this.$().find('.eui-component').position({
           my: "center top",
           at: "center bottom",
           of: this.get('targetObject').$(),
           collision: 'flipfit'
         });
-        Ember.run.next(this, function() {
-          return $(window).one('click.emberui', (function(_this) {
-            return function(event) {
-              if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-popcal').length) {
-                event.preventDefault();
-                return _this.hide();
-              }
-            };
-          })(this));
-        });
         this.$().focus();
-        return $('body').addClass('eui-popcal-open');
+        return this.disablePageScroll();
       }).on('didInsertElement'),
       breakdown: function() {
         var _ref;
         this.get('previousFocus').focus();
         this.set('isOpen', false);
-        $('body').removeClass('eui-popcal-open');
+        this.enablePageScroll();
         if (!(this.get('dateRange') && ((_ref = this.get('_selection')) != null ? _ref.get('length') : void 0) === 1)) {
           this.set('selection', this.get('_selection'));
         }
@@ -71,6 +62,9 @@ define(
           } else if (selection) {
             return this.hide();
           }
+        },
+        hidePopcal: function() {
+          return this.hide();
         }
       },
       keyUp: function(event) {

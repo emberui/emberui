@@ -2,9 +2,10 @@
 var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
 var animationSupport = require("../mixins/animation-support")["default"] || require("../mixins/animation-support");
 var popcalLayout = require("../templates/eui-popcal")["default"] || require("../templates/eui-popcal");
+var preventPageScroll = require("../mixins/prevent-page-scroll")["default"] || require("../mixins/prevent-page-scroll");
 var popcal;
 
-popcal = Em.Component.extend(styleSupport, animationSupport, {
+popcal = Em.Component.extend(styleSupport, animationSupport, preventPageScroll, {
   layout: popcalLayout,
   classNames: ['eui-popcal'],
   attributeBindings: ['tabindex'],
@@ -27,30 +28,20 @@ popcal = Em.Component.extend(styleSupport, animationSupport, {
     this.set('previousFocus', $(document.activeElement));
     this.set('isOpen', true);
     this.set('_selection', this.get('selection'));
-    this.$().position({
+    this.$().find('.eui-component').position({
       my: "center top",
       at: "center bottom",
       of: this.get('targetObject').$(),
       collision: 'flipfit'
     });
-    Ember.run.next(this, function() {
-      return $(window).one('click.emberui', (function(_this) {
-        return function(event) {
-          if ((_this.get('targetObject') != null) && !$(event.target).parents('.eui-popcal').length) {
-            event.preventDefault();
-            return _this.hide();
-          }
-        };
-      })(this));
-    });
     this.$().focus();
-    return $('body').addClass('eui-popcal-open');
+    return this.disablePageScroll();
   }).on('didInsertElement'),
   breakdown: function() {
     var _ref;
     this.get('previousFocus').focus();
     this.set('isOpen', false);
-    $('body').removeClass('eui-popcal-open');
+    this.enablePageScroll();
     if (!(this.get('dateRange') && ((_ref = this.get('_selection')) != null ? _ref.get('length') : void 0) === 1)) {
       this.set('selection', this.get('_selection'));
     }
@@ -68,6 +59,9 @@ popcal = Em.Component.extend(styleSupport, animationSupport, {
       } else if (selection) {
         return this.hide();
       }
+    },
+    hidePopcal: function() {
+      return this.hide();
     }
   },
   keyUp: function(event) {

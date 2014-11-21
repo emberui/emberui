@@ -1,15 +1,17 @@
 "use strict";
-var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
-var sizeSupport = require("../mixins/size-support")["default"] || require("../mixins/size-support");
+var className = require("../mixins/class-name")["default"] || require("../mixins/class-name");
 var disabledSupport = require("../mixins/disabled-support")["default"] || require("../mixins/disabled-support");
 var widthSupport = require("../mixins/width-support")["default"] || require("../mixins/width-support");
 var button;
 
-button = Em.Component.extend(styleSupport, sizeSupport, disabledSupport, widthSupport, {
-  classNameBindings: [':eui-button', 'loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+button = Em.Component.extend(className, disabledSupport, widthSupport, {
+  classNameBindings: ['loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+  baseClass: 'button',
   tagName: 'eui-button',
+  style: 'default',
+  size: 'medium',
   label: null,
-  icon: null,
+  leadingIcon: null,
   trailingIcon: null,
   loading: null,
   disabled: null,

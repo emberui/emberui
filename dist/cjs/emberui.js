@@ -16,9 +16,6 @@ var EuiDropbuttonTemplate = require("./templates/eui-dropbutton")["default"] || 
 var EuiInputComponent = require("./components/eui-input")["default"] || require("./components/eui-input");
 var EuiInputTemplate = require("./templates/eui-input")["default"] || require("./templates/eui-input");
 
-var EuiModalComponent = require("./components/eui-modal")["default"] || require("./components/eui-modal");
-var EuiModalTemplate = require("./templates/eui-modal")["default"] || require("./templates/eui-modal");
-
 var EuiPoplistComponent = require("./components/eui-poplist")["default"] || require("./components/eui-poplist");
 var EuiPoplistTemplate = require("./templates/eui-poplist")["default"] || require("./templates/eui-poplist");
 var EuiPoplistOptionTemplate = require("./templates/eui-poplist-option")["default"] || require("./templates/eui-poplist-option");
@@ -47,7 +44,7 @@ var EuiWaiAriaInitializer = require("./initializers/eui-wai-aria-initializer")["
 Ember.Application.initializer(EuiInitializer);
 Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.3.6");
+Ember.libraries.register("EmberUI", "0.4.0");
 
 Ember.TextSupport.reopen({
     attributeBindings: [
@@ -64,7 +61,6 @@ exports.EuiCheckboxComponent = EuiCheckboxComponent;
 exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
 exports.EuiInputComponent = EuiInputComponent;
 exports.EuiInputTemplate = EuiInputTemplate;
-exports.EuiModalComponent = EuiModalComponent;
 exports.EuiPoplistComponent = EuiPoplistComponent;
 exports.EuiSelectComponent = EuiSelectComponent;
 exports.EuiSelectDateComponent = EuiSelectDateComponent;

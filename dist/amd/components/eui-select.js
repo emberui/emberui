@@ -10,8 +10,8 @@ define(
 
     select = Em.Component.extend(disabledSupport, errorSupport, widthSupport, {
       tagName: 'eui-select',
-      classNames: ['eui-select'],
       classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class'],
+      baseClass: 'select',
       style: 'default',
       size: 'medium',
       poplistIsOpen: false,
@@ -20,6 +20,13 @@ define(
       labelPath: 'label',
       valuePath: 'value',
       _selection: null,
+      selectClass: Ember.computed('size', 'style', function() {
+        var baseClass, size, style;
+        baseClass = this.get('baseClass');
+        size = this.get('size');
+        style = this.get('style');
+        return "eui-" + baseClass + "-button-" + size + "-" + style;
+      }),
       ariaHasPopup: true,
       ariaOwns: (function() {
         return this.get('poplist.elementId');

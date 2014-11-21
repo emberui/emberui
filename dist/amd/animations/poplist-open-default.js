@@ -2,8 +2,10 @@ define(
   [],
   function() {
     "use strict";
-    $.Velocity.Sequences.euiPoplistOpenDefault = function(element, options) {
-      return $.Velocity.animate(element, {
+    $.Velocity.Redirects.euiPoplistOpenDefault = function(element, options) {
+      var component;
+      component = $(element).find('.eui-component');
+      return $.Velocity.animate(component, {
         opacity: [1, 0],
         marginTop: ["-4px", "-14px"]
       }, {

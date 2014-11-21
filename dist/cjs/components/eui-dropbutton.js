@@ -6,7 +6,6 @@ var dropbutton;
 
 dropbutton = Em.Component.extend(styleSupport, sizeSupport, {
   tagName: 'eui-dropbutton',
-  classNameBindings: ['primaryAction:eui-groupbutton:eui-singlebutton'],
   poplistIsOpen: false,
   listWidth: 'auto',
   primaryAction: Em.computed('options', function() {

@@ -51,7 +51,7 @@ https://github.com/emberui/emberui/tree/master/dist
     "ember-resolver": "~0.1.1",
     "loader.js": "git://github.com/stefanpenner/loader.js",
     "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
-    "emberui": "^0.3.6",
+    "emberui": "^0.4.0",
     "momentjs": "~2.6.0",
     "twix": "~0.4.0",
     "velocity": "~0.9.0"

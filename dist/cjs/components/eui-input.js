@@ -1,14 +1,15 @@
 "use strict";
+var className = require("../mixins/class-name")["default"] || require("../mixins/class-name");
 var errorSupport = require("../mixins/error-support")["default"] || require("../mixins/error-support");
 var textSupport = require("../mixins/text-support")["default"] || require("../mixins/text-support");
-var styleSupport = require("../mixins/style-support")["default"] || require("../mixins/style-support");
-var sizeSupport = require("../mixins/size-support")["default"] || require("../mixins/size-support");
 var widthSupport = require("../mixins/width-support")["default"] || require("../mixins/width-support");
 var input;
 
-input = Em.Component.extend(errorSupport, textSupport, styleSupport, sizeSupport, widthSupport, {
-  classNameBindings: [':eui-input'],
+input = Em.Component.extend(errorSupport, textSupport, className, widthSupport, {
   tagName: 'eui-input',
+  baseClass: 'input',
+  style: 'default',
+  size: 'medium',
   maxlength: null,
   type: 'text',
   action: null,
