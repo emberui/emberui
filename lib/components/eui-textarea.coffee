@@ -1,12 +1,11 @@
+`import className from '../mixins/class-name'`
 `import errorSupport from '../mixins/error-support'`
 `import textSupport from '../mixins/text-support'`
-`import styleSupport from '../mixins/style-support'`
-`import sizeSupport from '../mixins/size-support'`
 
-textarea = Em.Component.extend errorSupport, textSupport, styleSupport, sizeSupport,
-  classNameBindings: [':eui-textarea']
+textarea = Em.Component.extend errorSupport, textSupport, className,
   attributeBindings: ['computedWidthAndHeight:style']
   tagName: 'eui-textarea'
+  baseClass: 'input'
 
   height: null
 

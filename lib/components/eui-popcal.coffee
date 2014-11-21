@@ -1,8 +1,9 @@
 `import styleSupport from '../mixins/style-support'`
 `import animationSupport from '../mixins/animation-support'`
 `import popcalLayout from '../templates/eui-popcal'`
+`import preventPageScroll from '../mixins/prevent-page-scroll'`
 
-popcal = Em.Component.extend styleSupport, animationSupport,
+popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll,
   layout: popcalLayout
   classNames: ['eui-popcal']
   attributeBindings: ['tabindex']
@@ -42,28 +43,17 @@ popcal = Em.Component.extend styleSupport, animationSupport,
     @set '_selection', @get 'selection'
 
     # Positions calendar using fixed positioning
-    @.$().position {
+    @.$().find('.eui-component').position {
       my: "center top",
       at: "center bottom",
       of: @get('targetObject').$(),
       collision: 'flipfit'
     }
 
-    # Bind to click event so we can close the popcal if the user clicks outside
-    # it. Run next so popcal doesn't close immediately.
-    Ember.run.next @, ->
-      $(window).one 'click.emberui', (event) =>
-        if @get('targetObject')? && !$(event.target).parents('.eui-popcal').length
-          event.preventDefault()
-          @hide()
-
     # Focus on popcal to ensure we can catch keyboard input.
     @.$().focus()
 
-    # Add a class to the body element of the page so we can disable page
-    # scrolling on mobile
-    $('body').addClass('eui-popcal-open')
-
+    @disablePageScroll()
   ).on 'didInsertElement'
 
 
@@ -73,8 +63,7 @@ popcal = Em.Component.extend styleSupport, animationSupport,
     # Set status to closed
     @set 'isOpen', false
 
-    # Remove class set on body to disable mobile scrolling
-    $('body').removeClass('eui-popcal-open')
+    @enablePageScroll()
 
     # Update selection if it is valid
     unless @get('dateRange') and @get('_selection')?.get('length') is 1
@@ -96,6 +85,10 @@ popcal = Em.Component.extend styleSupport, animationSupport,
       # Close if single date mode and they have made a selection
       else if selection
         @hide()
+
+
+    hidePopcal: ->
+      @hide()
 
 
   # Catch and handle key presses

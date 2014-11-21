@@ -1,0 +1,172 @@
+/* Disabled State */
+@mixin eui-input-disabled-state {
+  input:disabled,
+  textarea:disabled {
+    background: #f9f9f9;
+    color: #777777;
+  }
+}
+
+/* Focus State */
+@mixin eui-input-focus-state {
+  input:focus,
+  textarea:focus {
+    margin: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: solid 1px #7fb5ff;
+    box-shadow:
+      0px 0px 4px #0090ff,
+      inset 0px 1px 2px rgba(0, 0, 0, 0.15);
+    outline: none;
+    animation: eui-focus-highlight 0.2s 1;
+  }
+}
+
+/* Error State */
+@mixin eui-input-error-state {
+  &.eui-error input,
+  &.eui-error textarea {
+    margin: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border: solid 1px #ff7f7f;
+    box-shadow:
+      0px 0px 4px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    animation: eui-error-highlight 0.2s 1;
+  }
+}
+
+
+/* Tiny */
+.eui-input-tiny-default {
+  border-radius: 3px;
+  font-size: 10px;
+  background: linear-gradient(to bottom,  rgba(0, 0, 0, 0.25) 0%,  rgba(0, 0, 0, 0.12) 100%);
+
+  .eui-component-wrapper {
+    border: 0px;
+    height: 18px;
+    line-height: 18px;
+  }
+
+  input,
+  textarea {
+    border-radius: 3px;
+    padding: 3px 4px;
+    font-size: inherit;
+    color: #303030;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.10);
+    background: #ffffff;
+  }
+
+  label {
+    padding: 0 4px;
+    color: #b9b9b9;
+  }
+
+  @include eui-input-disabled-state;
+  @include eui-input-focus-state;
+  @include eui-input-error-state;
+}
+
+
+/* Small */
+.eui-input-small-default {
+  border-radius: 3px;
+  font-size: 12px;
+  background: linear-gradient(to bottom,  rgba(0, 0, 0, 0.25) 0%,  rgba(0, 0, 0, 0.12) 100%);
+
+  .eui-component-wrapper {
+    border: 0px;
+    height: 25px;
+    line-height: 25px;
+  }
+
+  input,
+  textarea {
+    border-radius: 3px;
+    padding: 6px 5px;
+    font-size: inherit;
+    color: #303030;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.10);
+    background: #ffffff;
+  }
+
+  label {
+    padding: 0 5px;
+    color: #b9b9b9;
+  }
+
+  @include eui-input-disabled-state;
+  @include eui-input-focus-state;
+  @include eui-input-error-state;
+}
+
+
+/* Medium */
+.eui-input-medium-default {
+  border-radius: 4px;
+  font-size: 14px;
+  background: linear-gradient(to bottom,  rgba(0, 0, 0, 0.25) 0%,  rgba(0, 0, 0, 0.12) 100%);
+
+  .eui-component-wrapper {
+    border: 0px;
+    height: 35px;
+    line-height: 35px;
+  }
+
+  input,
+  textarea {
+    border-radius: 4px;
+    padding: 10px 7px;
+    font-size: inherit;
+    color: #303030;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.10);
+    background: #ffffff;
+  }
+
+  label {
+    padding: 0 7px;
+    color: #b9b9b9;
+  }
+
+  @include eui-input-disabled-state;
+  @include eui-input-focus-state;
+  @include eui-input-error-state;
+}
+
+
+/* Large */
+.eui-input-large-default {
+  border-radius: 5px;
+  font-size: 17px;
+  background: linear-gradient(to bottom,  rgba(0, 0, 0, 0.25) 0%,  rgba(0, 0, 0, 0.12) 100%);
+
+  .eui-component-wrapper {
+    border: 0px;
+    height: 45px;
+    line-height: 45px;
+  }
+
+  input,
+  textarea {
+    border-radius: 5px;
+    padding: 12px 9px;
+    font-size: inherit;
+    color: #303030;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.10);
+    background: #ffffff;
+  }
+
+  label {
+    padding: 0 9px;
+    color: #b9b9b9;
+  }
+
+  @include eui-input-disabled-state;
+  @include eui-input-focus-state;
+  @include eui-input-error-state;
+}

@@ -1,15 +1,19 @@
-`import styleSupport from '../mixins/style-support'`
+`import className from '../mixins/class-name'`
 `import animationSupport from '../mixins/animation-support'`
 `import mobileDetection from '../mixins/mobile-detection'`
+`import preventPageScroll from '../mixins/prevent-page-scroll'`
 `import poplistLayout from '../templates/eui-poplist'`
 `import itemViewClassTemplate from '../templates/eui-poplist-option'`
 
-poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
+poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll,
   layout: poplistLayout
   classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch']
   attributeBindings: ['tabindex']
   tagName: 'eui-poplist'
+
+  baseClass: 'poplist'
+  style: 'default'
 
   animationClass: 'euiPoplist'
 
@@ -86,15 +90,17 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   setup: (->
     @setPoplistMinWidth()
 
+    component = @.$().find('.eui-component')
+
     # Positions calendar using fixed positioning
     if @get('isMobileDevice') && @get('modalOnMobile')
-      Em.run.next @, -> @.$().position {
+      Em.run.next @, -> component.position {
         my: "center center",
         at: "center center",
         of: $(window)
       }
     else
-      Em.run.next @, -> @.$().position {
+      Em.run.next @, -> component.position {
         my: "right top",
         at: "right bottom",
         of: @get('targetObject').$(),
@@ -107,8 +113,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     @set 'previousFocus', $(document.activeElement)
 
     # Focus on search input to ensure we can catch keyboard input. Do this after
-    # the poplist is positioned to ensure it is visible. Failure to do so will
-    # result in the page scrolling and closing the poplist. Don't do this on
+    # the poplist is positioned to ensure it is visible. Don't do this on
     # mobile because old android versions will open up the keyboard.
     unless @get 'isMobileDevice'
       Ember.run.next this, -> @focusOnSearch()
@@ -119,18 +124,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     # Ensure the selected option is visible and center it
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
 
-    # Add a class to the body element of the page so we can disable page
-    # scrolling on mobile
-    $('body').addClass('eui-poplist-open')
-
-    # Bind to click event so we can close the poplist if the user click outside
-    # it
-    Ember.run.next @, ->
-      $(window).one 'click.emberui', (event) =>
-        if @get('targetObject')? && !$(event.target).parents('.eui-poplist').length
-          event.preventDefault()
-          @hide()
-
+    @disablePageScroll()
   ).on 'didInsertElement'
 
 
@@ -139,9 +133,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
 
     @get('previousFocus').focus()
 
-    # Remove class set on body to disable mobile scrolling
-    $('body').removeClass('eui-poplist-open')
-
+    @enablePageScroll()
     @destroy()
 
 
@@ -150,7 +142,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
 
   setPoplistMinWidth: ->
     element = @get('targetObject').$()
-    poplistElement = @.$()
+    poplistElement = @.$().find('.eui-component')
 
     elementWidthMinuspoplistPadding =
       element.width() -
@@ -164,11 +156,13 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   # bindings to update it automatically and have to do so manually
 
   updateListWidthCss: ->
+    component = @.$().find('.eui-component')
+
     if @get('isMobileDevice') && @get('modalOnMobile')
-      @.$().css 'width', '80%'
+      component.css 'width', '80%'
     else
       listWidth = @get 'listWidth'
-      @.$().css 'width', listWidth
+      component.css 'width', listWidth
 
 
   # Focuses on search input so we can catch key input
@@ -259,7 +253,7 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     40: 'downArrowPressed'
 
 
-  keyUp: (event) ->
+  keyDown: (event) ->
     keyMap = @get 'KEY_MAP'
     method = keyMap[event.which]
     # Execute if found in KeyMap - otherwise send focus back to search.
@@ -288,6 +282,11 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
   upArrowPressed: (event) ->
     event.preventDefault() # Don't let the page scroll down
     @adjustHighlight(-1)
+
+
+  actions:
+    hidePoplist: ->
+      @hide()
 
 
   # Method to highlight the next or previous item in the list. It will ensure
@@ -327,11 +326,8 @@ poplist = Em.Component.extend styleSupport, animationSupport, mobileDetection,
     role: 'menu'
     tabindex: '-1'
 
-    # Overriding this temporarily to fix the scrollbars in Firefox
-    # Remove once https://github.com/emberjs/list-view/pull/113 is integrated
     css:
       position: 'relative'
-      overflow: 'auto'
       '-webkit-overflow-scrolling': 'touch'
       'overflow-scrolling': 'touch'
 

@@ -1,0 +1,189 @@
+/* Component Base */
+@mixin eui-button-component-base($radius) {
+  .eui-component {
+    border-radius: $radius;
+    color: #1787e5;
+    background: linear-gradient(to bottom, #6fbcfc 0%, #408fd1 100%);
+    padding: 1px;
+    box-shadow: 0px 1px 1px rgba(9, 97, 170, 0.2);
+  }
+}
+
+/* Label Transition */
+@mixin eui-button-label-transition {
+  .eui-label-value {
+    transition: opacity 0.5s;
+  }
+}
+
+/* Active state */
+@mixin eui-button-active-state {
+  &:active,
+  &.eui-active,
+  button:active + {
+    .eui-component {
+      box-shadow: none;
+      background: linear-gradient(to bottom, #408fd1 0%, #6fbcfc 100%);
+
+      .eui-component-wrapper {
+        background: #fcfcfc;
+        box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.15);
+      }
+
+      .eui-label {
+        transform: translateY(1px);
+      }
+    }
+  }
+}
+
+/* Focus State */
+@mixin eui-button-focus-state {
+  button:focus + .eui-component {
+    background: rgba(0, 107, 255, 0.5);
+    box-shadow: 0px 0px 4px #0090ff;
+    z-index: 1;
+  }
+}
+
+/* Disabled State */
+@mixin eui-button-disabled-state {
+  &.eui-disabled {
+    .eui-component-wrapper {
+      background: rgba(249, 249, 249, 1);
+      color: rgba(0, 0, 0, 0.3)
+    }
+  }
+}
+
+/* Loading State */
+@mixin eui-button-loading-state {
+  .eui-loading-animation li {
+    box-shadow:
+      1px 1px 0px rgba(255, 255, 255, 1),
+      inset 0px 1px 0px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+
+
+/* Tiny */
+.eui-button-tiny-primary {
+  @include eui-button-component-base(3px);
+
+  .eui-component-wrapper {
+    height: 18px;
+    line-height: 18px;
+    font-size: 10px;
+    padding: 0 7px;
+    min-width: 8px;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  @include eui-button-label-transition;
+  @include eui-button-active-state;
+  @include eui-button-focus-state;
+  @include eui-button-disabled-state;
+  @include eui-button-loading-state;
+
+  &.eui-no-label {
+    .eui-leading-icon {
+      width: 0px;
+      margin-left: -8px;
+    }
+  }
+}
+
+/* Small */
+.eui-button-small-primary {
+  @include eui-button-component-base(3px);
+
+  .eui-component-wrapper {
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    padding: 0 11px;
+    min-width: 1px;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  @include eui-button-label-transition;
+  @include eui-button-active-state;
+  @include eui-button-focus-state;
+  @include eui-button-disabled-state;
+  @include eui-button-loading-state;
+
+  &.eui-no-label {
+    .eui-leading-icon {
+      width: 0px;
+      margin-left: -10px;
+    }
+  }
+}
+
+/* Medium */
+.eui-button-medium-primary {
+  @include eui-button-component-base(4px);
+
+  .eui-component-wrapper {
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    padding: 0 15px;
+    min-width: 5px;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  @include eui-button-label-transition;
+  @include eui-button-active-state;
+  @include eui-button-focus-state;
+  @include eui-button-disabled-state;
+  @include eui-button-loading-state;
+
+  &.eui-no-label {
+    .eui-leading-icon {
+      width: 0px;
+      margin-left: -12px;
+    }
+  }
+}
+
+/* Large */
+.eui-button-large-primary {
+  @include eui-button-component-base(5px);
+
+  .eui-component-wrapper {
+    height: 45px;
+    line-height: 45px;
+    font-size: 17px;
+    padding: 0 20px;
+    min-width: 5px;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  @include eui-button-label-transition;
+  @include eui-button-active-state;
+  @include eui-button-focus-state;
+  @include eui-button-disabled-state;
+  @include eui-button-loading-state;
+
+  &.eui-no-label {
+    .eui-leading-icon {
+      width: 0px;
+      margin-left: -15px;
+    }
+  }
+}
+
+
+
+
+
+/* error state for selects */
+.eui-error eui-button .eui-component {
+  background: #ff7f7f;
+  box-shadow: 0px 0px 4px #ff0000;
+  outline: none;
+  animation: eui-error-highlight 0.2s 1;
+}

@@ -1,5 +1,7 @@
 $.Velocity.Redirects.euiPoplistCloseDefault = (element, options) ->
-  $.Velocity.animate element, {
+  component = $(element).find('.eui-component')
+
+  $.Velocity.animate component, {
     opacity: [0, 1]
     marginTop: ["6px", "-4px"]
   }, {
