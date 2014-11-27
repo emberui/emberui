@@ -6,6 +6,8 @@ textarea = Em.Component.extend errorSupport, textSupport, className,
   attributeBindings: ['computedWidthAndHeight:style']
   tagName: 'eui-textarea'
   baseClass: 'input'
+  style: 'default'
+  size: 'medium'
 
   height: null
 
