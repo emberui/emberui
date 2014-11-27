@@ -11,6 +11,18 @@ function unwatchedTree(dir) {
   };
 }
 
+function initializeOptions(options) {
+  var defaultOptions = {
+    defaultTheme: true
+  };
+
+  for (var option in defaultOptions) {
+    if (!options.hasOwnProperty(option)) {
+      options[option] = defaultOptions[option];
+    }
+  }
+}
+
 module.exports = {
   name: 'EmberUi',
 
@@ -24,6 +36,9 @@ module.exports = {
   },
 
   included: function(app) {
+    var options = app.options.emberui || {};
+    initializeOptions(options);
+
     app.import(app.bowerDirectory + '/velocity/velocity.min.js');
     app.import(app.bowerDirectory + '/twix/bin/twix.js');
     app.import(app.bowerDirectory + '/moment/moment.js');
@@ -33,7 +48,12 @@ module.exports = {
         'emberui': ['default']
       }
     });
+
     app.import(app.bowerDirectory + '/emberui/dist/emberui.css');
+
+    if (options.defaultTheme) {
+      app.import(app.bowerDirectory + '/emberui/dist/default-theme.css');
+    }
   },
 
   config: function() {
