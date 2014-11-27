@@ -1343,6 +1343,8 @@ textarea = Em.Component.extend(errorSupport, textSupport, className, {
   attributeBindings: ['computedWidthAndHeight:style'],
   tagName: 'eui-textarea',
   baseClass: 'input',
+  style: 'default',
+  size: 'medium',
   height: null,
   computedWidthAndHeight: Em.computed('size', 'width', 'height', function() {
     var height, heights, width, widths;
@@ -1412,7 +1414,7 @@ var EuiWaiAriaInitializer = _dereq_("./initializers/eui-wai-aria-initializer")["
 Ember.Application.initializer(EuiInitializer);
 Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.4.0");
+Ember.libraries.register("EmberUI", "0.4.1");
 
 Ember.TextSupport.reopen({
     attributeBindings: [

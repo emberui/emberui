@@ -11,6 +11,8 @@ define(
       attributeBindings: ['computedWidthAndHeight:style'],
       tagName: 'eui-textarea',
       baseClass: 'input',
+      style: 'default',
+      size: 'medium',
       height: null,
       computedWidthAndHeight: Em.computed('size', 'width', 'height', function() {
         var height, heights, width, widths;
