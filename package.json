@@ -24,6 +24,9 @@
     "ember-addon"
   ],
   "license": "MIT",
+  "dependencies": {
+    "ember-cli-font-awesome": "0.0.4"
+  },
   "devDependencies": {
     "bower": "1.3.2",
     "broccoli": "^0.9.0",
