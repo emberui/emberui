@@ -27,7 +27,6 @@ module.exports = {
   name: 'EmberUi',
 
   treeFor: function(name) {
-    console.log(name);
     var treePath = path.join('node_modules', 'emberui',  name + '-addon');
 
     if (fs.existsSync(treePath)) {
@@ -45,7 +44,10 @@ module.exports = {
     app.import(app.bowerDirectory + '/ember-list-view/index.js');
     app.import(app.bowerDirectory + '/emberui/dist/named-amd/emberui.js', {
       exports: {
-        'emberui': ['default']
+        'emberui': [
+          'EuiInitializer',
+          'EuiWaiAriaInitializer'
+        ]
       }
     });
 
