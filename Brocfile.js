@@ -11,6 +11,7 @@ var instrument = require('broccoli-debug').instrument;
 
 var lib                 = 'lib';
 var scss                = 'scss';
+var fonts               = 'fonts';
 
 function filterES6Modules(tree, opts) {
   return vndFilterES6Modules(tree, opts);
@@ -29,6 +30,11 @@ var templates = pickFiles(lib, {
 
 templates = templateCompiler(templates, {
   module: true
+});
+
+var fonts = pickFiles(fonts, {
+  srcDir: '/',
+  destDir: '/fonts'
 });
 
 lib = mergeTrees([lib, templates]);
@@ -50,4 +56,4 @@ lib = filterES6Modules(lib, {
   }
 });
 
-module.exports = mergeTrees([lib, styles, defaultTheme]);
+module.exports = mergeTrees([lib, styles, defaultTheme, fonts]);
