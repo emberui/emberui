@@ -1,4 +1,5 @@
-import { EuiInitializer, EuiWaiAriaInitializer } from 'emberui';
+import EuiInitializer from 'emberui/initializers/eui-initializer';
+import EuiWaiAriaInitializer from 'emberui/initializers/eui-wai-aria-initializer';
 
 export default {
   name: 'emberui-initializer',

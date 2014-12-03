@@ -44,10 +44,8 @@ module.exports = {
     app.import(app.bowerDirectory + '/ember-list-view/index.js');
     app.import(app.bowerDirectory + '/emberui/dist/named-amd/emberui.js', {
       exports: {
-        'emberui': [
-          'EuiInitializer',
-          'EuiWaiAriaInitializer'
-        ]
+        'emberui/initializers/eui-initializer': ['default'],
+        'emberui/initializers/eui-wai-aria-initializer': ['default']
       }
     });
 
