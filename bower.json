@@ -18,21 +18,18 @@
     "**/.*"
   ],
   "dependencies": {
-    "jquery": ">1.11.1",
-    "qunit": "~1.12.0",
-    "ember": "<=1.7.0",
+    "jquery": "^1.11.1",
+    "qunit": "~1.15.0",
+    "ember": ">=1.5.0",
     "ember-resolver": "~0.1.1",
     "ember-testing-httpRespond": "~0.1.1",
     "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
-    "moment": "^2.6.0",
+    "moment": "~2.6.0",
     "twix": "~0.4.0",
-    "velocity": "^1.1.0"
+    "velocity": "~1.1.0"
   },
   "devDependencies": {
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
     "ember-qunit": "0.1.7"
-  },
-  "resolutions": {
-    "ember": "~1.5.0"
   }
 }
