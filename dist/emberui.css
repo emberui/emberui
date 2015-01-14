@@ -61,7 +61,6 @@ eui-button.eui-loading .eui-loading-animation {
   overflow: hidden;
   margin: 0;
   padding: 0 4px;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   list-style: none;
@@ -77,10 +76,8 @@ eui-button.eui-loading .eui-loading-animation {
     margin: -4px 0 0 0;
     opacity: 0.4;
     border-radius: 7px;
-    -webkit-box-shadow: 1px 1px rgba(255, 255, 255, 0.1);
     box-shadow: 1px 1px rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.2);
-    -webkit-transition: background 0.2s;
     transition: background 0.2s;
     -webkit-animation: eui-button-loading 1s infinite;
     animation: eui-button-loading 1s infinite; }
@@ -193,7 +190,6 @@ eui-poplist .eui-option {
   cursor: pointer;
   width: 100%;
   height: 20px;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   overflow: hidden;
@@ -223,7 +219,6 @@ eui-poplist .eui-search {
   outline: none;
   border: none;
   width: 100%;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0 5px 5px 5px; }
@@ -247,7 +242,6 @@ eui-input, eui-textarea {
     width: 100%;
     padding: 0;
     border: none;
-    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     resize: none;
@@ -264,7 +258,6 @@ eui-input, eui-textarea {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     text-align: left;
@@ -349,17 +342,12 @@ eui-selectdate {
     pointer-events: none;
     color: #d4d4d4; }
   .eui-month .eui-selected {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#1493dc), to(#64bcf7));
-    background-image: -webkit-linear-gradient(top, #1493dc 0%, #64bcf7 100%);
     background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
     color: #ffffff;
     text-shadow: 0px 1px rgba(0, 0, 0, 0.35);
-    -webkit-box-shadow: inset -1px 1px 1px rgba(0, 64, 98, 0.4);
     box-shadow: inset -1px 1px 1px rgba(0, 64, 98, 0.4); }
     .eui-month .eui-selected:hover {
       color: #ffffff;
-      background-image: -webkit-gradient(linear, left top, left bottom, from(#1493dc), to(#64bcf7));
-      background-image: -webkit-linear-gradient(top, #1493dc 0%, #64bcf7 100%);
       background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%); }
 
 eui-calendar {
@@ -422,7 +410,6 @@ eui-calendar {
     font-size: 13px;
     text-align: center; }
     eui-calendar .eui-daysofweek .eui-nameofday {
-      width: -webkit-calc(100% / 7);
       width: calc(100% / 7);
       float: left; }
 
@@ -430,12 +417,9 @@ eui-calendar {
   opacity: 0; }
 
 eui-popcal eui-calendar {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.25)));
-  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.25) 100%);
   border: none !important;
   padding: 1px;
-  -webkit-box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 3px 5.196px 20px 0px rgba(0, 0, 0, 0.2); }
 eui-popcal .eui-component {
   display: block;
@@ -459,9 +443,7 @@ eui-popcal .eui-component {
   transform: translate(-30px, -30px); }
 
 .eui-scroller--net {
-  height: -webkit-calc(100% + 30px);
   height: calc(100% + 30px);
-  width: -webkit-calc(100% + 30px);
   width: calc(100% + 30px);
   overflow: auto; }
   .eui-scroller--net.eui-enabled {

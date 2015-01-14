@@ -1467,7 +1467,7 @@ define("emberui",
     Ember.Application.initializer(EuiInitializer);
     Ember.Application.initializer(EuiWaiAriaInitializer);
 
-    Ember.libraries.register("EmberUI", "0.4.1");
+    Ember.libraries.register("EmberUI", "0.4.2");
 
     Ember.TextSupport.reopen({
         attributeBindings: [
@@ -1478,19 +1478,30 @@ define("emberui",
         ]
     });
 
-    __exports__.EuiInitializer = EuiInitializer;
     __exports__.EuiButtonComponent = EuiButtonComponent;
+    __exports__.EuiButtonTemplate = EuiButtonTemplate;
     __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
+    __exports__.EuiCheckboxTemplate = EuiCheckboxTemplate;
     __exports__.EuiDropbuttonComponent = EuiDropbuttonComponent;
+    __exports__.EuiDropbuttonTemplate = EuiDropbuttonTemplate;
     __exports__.EuiInputComponent = EuiInputComponent;
     __exports__.EuiInputTemplate = EuiInputTemplate;
     __exports__.EuiPoplistComponent = EuiPoplistComponent;
+    __exports__.EuiPoplistTemplate = EuiPoplistTemplate;
+    __exports__.EuiPoplistOptionTemplate = EuiPoplistOptionTemplate;
     __exports__.EuiSelectComponent = EuiSelectComponent;
+    __exports__.EuiSelectTemplate = EuiSelectTemplate;
     __exports__.EuiSelectDateComponent = EuiSelectDateComponent;
+    __exports__.EuiSelectDateTemplate = EuiSelectDateTemplate;
     __exports__.EuiTextareaComponent = EuiTextareaComponent;
+    __exports__.EuiTextareaTemplate = EuiTextareaTemplate;
     __exports__.EuiMonthComponent = EuiMonthComponent;
     __exports__.EuiCalendarComponent = EuiCalendarComponent;
+    __exports__.EuiCalendarTemplate = EuiCalendarTemplate;
     __exports__.EuiPopcalComponent = EuiPopcalComponent;
+    __exports__.EuiPopcalTemplate = EuiPopcalTemplate;
+    __exports__.EuiInitializer = EuiInitializer;
+    __exports__.EuiWaiAriaInitializer = EuiWaiAriaInitializer;
   });
 define("emberui/initializers/eui-initializer",
   ["../utilities/tabbable-selector","../utilities/position","../animations/popcal-close-default","../animations/popcal-open-default","../animations/poplist-close-default","../animations/poplist-open-default","../animations/poplist-close-flyin","../animations/poplist-open-flyin","../components/eui-button","../templates/eui-button","../components/eui-checkbox","../templates/eui-checkbox","../components/eui-dropbutton","../templates/eui-dropbutton","../components/eui-input","../templates/eui-input","../components/eui-poplist","../templates/eui-poplist","../templates/eui-poplist-option","../components/eui-select","../templates/eui-select","../components/eui-selectdate","../templates/eui-selectdate","../components/eui-textarea","../templates/eui-textarea","../components/eui-month","../components/eui-calendar","../templates/eui-calendar","../components/eui-popcal","../templates/eui-popcal","exports"],

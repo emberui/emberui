@@ -1414,7 +1414,7 @@ var EuiWaiAriaInitializer = _dereq_("./initializers/eui-wai-aria-initializer")["
 Ember.Application.initializer(EuiInitializer);
 Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.4.1");
+Ember.libraries.register("EmberUI", "0.4.2");
 
 Ember.TextSupport.reopen({
     attributeBindings: [
@@ -1425,19 +1425,30 @@ Ember.TextSupport.reopen({
     ]
 });
 
-exports.EuiInitializer = EuiInitializer;
 exports.EuiButtonComponent = EuiButtonComponent;
+exports.EuiButtonTemplate = EuiButtonTemplate;
 exports.EuiCheckboxComponent = EuiCheckboxComponent;
+exports.EuiCheckboxTemplate = EuiCheckboxTemplate;
 exports.EuiDropbuttonComponent = EuiDropbuttonComponent;
+exports.EuiDropbuttonTemplate = EuiDropbuttonTemplate;
 exports.EuiInputComponent = EuiInputComponent;
 exports.EuiInputTemplate = EuiInputTemplate;
 exports.EuiPoplistComponent = EuiPoplistComponent;
+exports.EuiPoplistTemplate = EuiPoplistTemplate;
+exports.EuiPoplistOptionTemplate = EuiPoplistOptionTemplate;
 exports.EuiSelectComponent = EuiSelectComponent;
+exports.EuiSelectTemplate = EuiSelectTemplate;
 exports.EuiSelectDateComponent = EuiSelectDateComponent;
+exports.EuiSelectDateTemplate = EuiSelectDateTemplate;
 exports.EuiTextareaComponent = EuiTextareaComponent;
+exports.EuiTextareaTemplate = EuiTextareaTemplate;
 exports.EuiMonthComponent = EuiMonthComponent;
 exports.EuiCalendarComponent = EuiCalendarComponent;
+exports.EuiCalendarTemplate = EuiCalendarTemplate;
 exports.EuiPopcalComponent = EuiPopcalComponent;
+exports.EuiPopcalTemplate = EuiPopcalTemplate;
+exports.EuiInitializer = EuiInitializer;
+exports.EuiWaiAriaInitializer = EuiWaiAriaInitializer;
 },{"./components/eui-button":7,"./components/eui-calendar":8,"./components/eui-checkbox":9,"./components/eui-dropbutton":10,"./components/eui-input":11,"./components/eui-month":12,"./components/eui-popcal":13,"./components/eui-poplist":14,"./components/eui-select":15,"./components/eui-selectdate":16,"./components/eui-textarea":17,"./initializers/eui-initializer":19,"./initializers/eui-wai-aria-initializer":20,"./templates/eui-button":31,"./templates/eui-calendar":32,"./templates/eui-checkbox":33,"./templates/eui-dropbutton":34,"./templates/eui-input":35,"./templates/eui-popcal":36,"./templates/eui-poplist":38,"./templates/eui-poplist-option":37,"./templates/eui-select":39,"./templates/eui-selectdate":40,"./templates/eui-textarea":41}],19:[function(_dereq_,module,exports){
 "use strict";
 _dereq_("../utilities/tabbable-selector");_dereq_("../utilities/position");_dereq_("../animations/popcal-close-default");_dereq_("../animations/popcal-open-default");_dereq_("../animations/poplist-close-default");_dereq_("../animations/poplist-open-default");_dereq_("../animations/poplist-close-flyin");_dereq_("../animations/poplist-open-flyin");

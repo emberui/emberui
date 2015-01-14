@@ -47,7 +47,7 @@ define(
     Ember.Application.initializer(EuiInitializer);
     Ember.Application.initializer(EuiWaiAriaInitializer);
 
-    Ember.libraries.register("EmberUI", "0.4.1");
+    Ember.libraries.register("EmberUI", "0.4.2");
 
     Ember.TextSupport.reopen({
         attributeBindings: [
@@ -58,17 +58,28 @@ define(
         ]
     });
 
-    __exports__.EuiInitializer = EuiInitializer;
     __exports__.EuiButtonComponent = EuiButtonComponent;
+    __exports__.EuiButtonTemplate = EuiButtonTemplate;
     __exports__.EuiCheckboxComponent = EuiCheckboxComponent;
+    __exports__.EuiCheckboxTemplate = EuiCheckboxTemplate;
     __exports__.EuiDropbuttonComponent = EuiDropbuttonComponent;
+    __exports__.EuiDropbuttonTemplate = EuiDropbuttonTemplate;
     __exports__.EuiInputComponent = EuiInputComponent;
     __exports__.EuiInputTemplate = EuiInputTemplate;
     __exports__.EuiPoplistComponent = EuiPoplistComponent;
+    __exports__.EuiPoplistTemplate = EuiPoplistTemplate;
+    __exports__.EuiPoplistOptionTemplate = EuiPoplistOptionTemplate;
     __exports__.EuiSelectComponent = EuiSelectComponent;
+    __exports__.EuiSelectTemplate = EuiSelectTemplate;
     __exports__.EuiSelectDateComponent = EuiSelectDateComponent;
+    __exports__.EuiSelectDateTemplate = EuiSelectDateTemplate;
     __exports__.EuiTextareaComponent = EuiTextareaComponent;
+    __exports__.EuiTextareaTemplate = EuiTextareaTemplate;
     __exports__.EuiMonthComponent = EuiMonthComponent;
     __exports__.EuiCalendarComponent = EuiCalendarComponent;
+    __exports__.EuiCalendarTemplate = EuiCalendarTemplate;
     __exports__.EuiPopcalComponent = EuiPopcalComponent;
+    __exports__.EuiPopcalTemplate = EuiPopcalTemplate;
+    __exports__.EuiInitializer = EuiInitializer;
+    __exports__.EuiWaiAriaInitializer = EuiWaiAriaInitializer;
   });
