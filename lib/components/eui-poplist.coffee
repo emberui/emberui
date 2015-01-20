@@ -9,7 +9,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
   layout: poplistLayout
   classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch']
-  attributeBindings: ['tabindex']
   tagName: 'eui-poplist'
 
   baseClass: 'poplist'
@@ -330,6 +329,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
       position: 'relative'
       '-webkit-overflow-scrolling': 'touch'
       'overflow-scrolling': 'touch'
+      overflow: 'auto'
 
     classNames: ['eui-options']
     height: Ember.computed.alias 'controller.listHeight'
