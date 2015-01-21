@@ -14,7 +14,6 @@ define(
       layout: poplistLayout,
       classNames: ['eui-poplist'],
       classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch'],
-      attributeBindings: ['tabindex'],
       tagName: 'eui-poplist',
       baseClass: 'poplist',
       style: 'default',
@@ -246,7 +245,8 @@ define(
         css: {
           position: 'relative',
           '-webkit-overflow-scrolling': 'touch',
-          'overflow-scrolling': 'touch'
+          'overflow-scrolling': 'touch',
+          overflow: 'auto'
         },
         classNames: ['eui-options'],
         height: Ember.computed.alias('controller.listHeight'),

@@ -44,7 +44,7 @@ var EuiWaiAriaInitializer = require("./initializers/eui-wai-aria-initializer")["
 Ember.Application.initializer(EuiInitializer);
 Ember.Application.initializer(EuiWaiAriaInitializer);
 
-Ember.libraries.register("EmberUI", "0.4.2");
+Ember.libraries.register("EmberUI", "0.5.0");
 
 Ember.TextSupport.reopen({
     attributeBindings: [
