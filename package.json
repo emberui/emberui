@@ -16,7 +16,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "bower": "1.3.2",
     "broccoli": "^0.9.0",
     "broccoli-autoprefixer": "^0.2.0",
     "broccoli-coffee": "0.1.0",
