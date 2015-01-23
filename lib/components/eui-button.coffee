@@ -23,8 +23,12 @@ button = Em.Component.extend className, disabledSupport, widthSupport,
   ariaHaspopup: null
 
   click: (event) ->
-    event.preventDefault()
-    @sendAction('action', @get('context'))
+    targetAction = @get 'action'
 
+    if targetAction
+      event.preventDefault()
+      @sendAction('action', @get('context'))
+    else
+      @_super(event)
 
 `export default button`
