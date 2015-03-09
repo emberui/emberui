@@ -1,0 +1,15 @@
+<div class="site-navigation">
+  <div class="container">
+    {{link-to "EmberUI" "index" class="logo"}}
+    <div class="show-links fa fa-bars fa-2x" {{action "toggleNavigation"}}></div>
+    <ul {{bind-attr class="showNavigation:active"}}>
+      <li>{{link-to "Documentation" "documentation"}}</li>
+      <li><a href="https://medium.com/emberui-updates/">Blog</a></li>
+      <li><a href="https://github.com/emberui/emberui">Fork it!</a></li>
+    </ul>
+  </div>
+</div>
+
+{{outlet}}
+
+<div class="site-navigation-bg"></div>

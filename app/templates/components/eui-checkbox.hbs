@@ -1,0 +1,19 @@
+<input type="checkbox" {{bind-attr checked=value disabled=disabled}} />
+
+<div {{bind-attr class=":eui-component disabled:eui-disabled:eui-enabled"}}>
+  <div class="eui-component-wrapper">
+    <i class="eui-icon"></i>
+  </div>
+</div>
+
+{{label}}
+
+{{#if errorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{errorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}

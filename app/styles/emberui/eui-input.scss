@@ -1,0 +1,56 @@
+eui-input,
+eui-textarea {
+  padding: 1px;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
+
+  .eui-component-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: solid 1px rgba(0,0,0,0.2);
+  }
+
+  input,
+  textarea {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    resize: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
+  }
+
+  label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    cursor: text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+    text-align: left;
+    color: #c6c6c6;
+  }
+
+  /* disabled */
+  input:disabled,
+  textarea:disabled {
+    background: #f6f6f6;
+    color: #777777;
+  }
+}
+
+eui-textarea .eui-component-wrapper {
+  height: 100% !important;
+}

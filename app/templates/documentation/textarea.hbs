@@ -1,0 +1,146 @@
+<h1>\{{eui-textarea}}</h1>
+
+<div class="intro">
+  A reimplementation of the standard browser textarea with added support for error handling.
+</div>
+
+<h2>Parameters</h2>
+
+<ul class="parameterindex">
+  <li class="header">Attributes</li>
+  <li><a href="#section-placeholder">placeholder</a></li>
+  <li><a href="#section-value">value</a></li>
+
+  <li class="header">Aesthetic</li>
+  <li><a href="#section-style">style</a></li>
+  <li><a href="#section-size">size</a></li>
+  <li><a href="#section-width">width</a></li>
+  <li><a href="#section-height">height</a></li>
+
+  <li class="header">States</li>
+  <li><a href="#section-disabled">disabled</a></li>
+
+  <li class="header">Error Handling</li>
+  <li><a href="#section-error">error</a></li>
+  <li><a href="#section-forceerrorcheck">forceErrorCheck</a></li>
+</ul>
+
+
+<h4 id="section-placeholder">placeholder <span>string</span></h4>
+<p>
+  Placeholder value for the textarea. Does not make use of the placeholder attribute, but instead reimplements the behaviour in html.
+</p>
+
+<pre>\{{eui-textarea placeholder='Message'}}</pre>
+
+<div class="output">
+  {{eui-textarea placeholder='Message'}}
+</div>
+
+
+<h4 id="section-value">value <span>string</span></h4>
+<p>
+  The value of the textarea.
+</p>
+
+<pre>\{{eui-textarea value='Hey John'}}</pre>
+
+<div class="output">
+  {{eui-textarea value='Hey John'}}
+</div>
+
+
+<h4 id="section-style">style <span>string</span></h4>
+<p>
+  Aesthetic style of the textarea.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>default (default)</li>
+</ul>
+
+
+<h4 id="section-size">size <span>string</span></h4>
+<p>
+  Controls the overall size of the textarea. Width is set via the width parameter.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>tiny</li>
+  <li>small</li>
+  <li>medium (default)</li>
+  <li>large</li>
+</ul>
+<p>
+  Additional sizes can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
+</p>
+
+<pre>\{{eui-textarea size='tiny'}}
+\{{eui-textarea size='small'}}
+\{{eui-textarea size='medium'}}
+\{{eui-textarea size='large'}}</pre>
+
+<div class="output">
+  {{eui-textarea size='tiny'}}
+  {{eui-textarea size='small'}}
+  {{eui-textarea size='medium'}}
+  {{eui-textarea size='large'}}
+</div>
+
+
+<h4 id="section-width">width <span>string</span></h4>
+<p>
+  Width of the textarea. You must pass in a CSS size value with the unit. Textarea uses CSS box-sizing to ensure precentage-based sizes are actual sizes.
+</p>
+
+<pre>\{{eui-textarea width='150px' placeholder='150px'}}
+\{{eui-textarea width='15em' placeholder='15em'}}
+\{{eui-textarea width='30%' placeholder='30%'}}</pre>
+
+<div class="output">
+  {{eui-textarea width='150px' placeholder='150px'}}
+  {{eui-textarea width='15em' placeholder='15em'}}
+  {{eui-textarea width='30%' placeholder='30%'}}
+</div>
+
+
+<h4 id="section-height">height <span>string</span></h4>
+<p>
+  Height of the textarea. You must pass in a CSS size value with the unit. Textarea uses CSS box-sizing to ensure precentage-based sizes are actual sizes.
+</p>
+
+<pre>\{{eui-textarea height='50px' placeholder='50px'}}
+\{{eui-textarea height='5em' placeholder='5em'}}</pre>
+
+<div class="output">
+  {{eui-textarea height='50px' placeholder='50px'}}
+  {{eui-textarea height='5em' placeholder='5em'}}
+</div>
+
+
+<h4 id="section-disabled">disabled <span>boolean</span></h4>
+<p>
+  Disables the textarea.
+</p>
+
+<pre>\{{eui-textarea placeholder='Message' disabled=true}}
+\{{eui-textarea value='Hey John' disabled=true}}</pre>
+
+<div class="output">
+  {{eui-textarea placeholder='Message' disabled=true}}
+  {{eui-textarea value='Hey John' disabled=true}}
+</div>
+
+
+<h4 id="section-error">error <span>boolean | string</span></h4>
+<p>
+  Responsible for validation and error handling. See {{link-to "Error Handling" "documentation.errorhandling"}}
+</p>
+
+
+<h4 id="section-forceerrorcheck">forceErrorCheck <span>boolean</span></h4>
+<p>
+  If set to <em>true</em> the textarea will force an error check, even if the value is blank.
+</p>

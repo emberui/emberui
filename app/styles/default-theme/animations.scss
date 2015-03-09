@@ -1,0 +1,41 @@
+/* Button Loading */
+@keyframes eui-button-loading {
+  0%   { opacity: 0.4; }
+  20%  { opacity: 0.4; }
+  50% { opacity: 1.0; }
+  100% { opacity: 0.4; }
+}
+
+
+/* Error Glow */
+@keyframes eui-error-highlight {
+  0% {
+    border-color: rgba(0,0,0,0.3);
+    box-shadow:
+      0px 0px 0px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border-color: #ff7f7f;
+    box-shadow:
+      0px 0px 4px #ff0000,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+/* Focus Glow */
+@keyframes eui-focus-highlight {
+  0% {
+    border-color: rgba(0,0,0,0.3);
+    box-shadow:
+      0px 0px 0px #456da5,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    border-color: #7fb5ff;
+    box-shadow:
+      0px 0px 4px #0090ff,
+      inset 0px 2px 3px rgba(0, 0, 0, 0.1);
+  }
+}

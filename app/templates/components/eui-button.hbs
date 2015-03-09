@@ -1,0 +1,27 @@
+<button {{bind-attr disabled="isDisabled" type="type" aria-owns="ariaOwns" aria-haspopup="ariaHaspopup" aria-label=label}}></button>
+
+<div class="eui-component">
+  <div class="eui-component-wrapper">
+    <div class="eui-label">
+      {{#if leadingIcon}}
+        <b {{bind-attr class=":eui-leading-icon leadingIcon"}}></b>
+      {{/if}}
+
+      {{#if label}}
+        <div class="eui-label-value">{{label}}</div>
+      {{/if}}
+
+      {{#if trailingIcon}}
+        <b {{bind-attr class=":eui-trailing-icon trailingIcon"}}></b>
+      {{/if}}
+    </div>
+
+    {{#if loading}}
+      <ul class="eui-loading-animation">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    {{/if}}
+  </div>
+</div>

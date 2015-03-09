@@ -1,0 +1,52 @@
+.eui-select-button-tiny-default,
+.eui-select-button-tiny-primary {
+  .eui-component-wrapper {
+    padding: 0 15px 0 5px;
+  }
+
+  .eui-trailing-icon {
+    right: -12px;
+
+    &:before {
+      line-height: 0.6em;
+    }
+  }
+}
+
+.eui-select-button-small-default,
+.eui-select-button-small-primary {
+  .eui-component-wrapper {
+    padding: 0 15px 0 5px;
+  }
+
+  .eui-trailing-icon {
+    right: -12px;
+  }
+}
+
+.eui-select-button-medium-default,
+.eui-select-button-medium-primary {
+  .eui-component-wrapper {
+    padding: 0 25px 0 10px;
+  }
+
+  .eui-trailing-icon {
+    right: -18px;
+  }
+}
+
+.eui-select-button-large-default,
+.eui-select-button-large-primary {
+  .eui-component-wrapper {
+    padding: 0 30px 0 10px;
+  }
+
+  .eui-trailing-icon {
+    right: -22px;
+
+    &:before {
+      line-height: 1em;
+      margin-top: -4px;
+    }
+  }
+}

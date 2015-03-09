@@ -1,0 +1,26 @@
+.eui-scroller {
+  position: fixed;
+  z-index: 1000000;
+  background: rgba(0, 0, 0, 0);
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transform: translate(-30px, -30px);
+}
+
+.eui-scroller--net {
+  height: calc(100% + 30px);
+  width: calc(100% + 30px);
+  overflow: auto;
+
+  &.eui-enabled {
+    transform: translate(30px, 30px);
+  }
+}
+
+.eui-scroller--net-content {
+  height: 10000px;
+  width: 10000px;
+}

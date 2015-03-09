@@ -1,0 +1,33 @@
+{{#if primaryAction}}
+  {{eui-button
+    label=primaryAction.label
+    style=view.style
+    size=view.size
+    leadingIcon=view.icon
+    loading=view.loading
+    disabled=view.disabled
+    class="eui-dropbutton--primary-action"
+    action="primaryAction"}}
+
+  {{eui-button
+    style=view.style
+    size=view.size
+    leadingIcon="fa fa-angle-down"
+    loading=false
+    disabled=view.disabled
+    classBinding=":eui-dropbutton--trigger poplistIsOpen:eui-active"
+    action="toggleWindow"}}
+
+{{else}}
+  {{eui-button
+    label=view.label
+    style=view.style
+    size=view.size
+    leadingIcon=view.icon
+    trailingIcon="fa fa-angle-down"
+    loading=view.loading
+    disabled=view.disabled
+    classBinding="poplistIsOpen:eui-active"
+    action="toggleWindow"}}
+
+{{/if}}

@@ -1,0 +1,19 @@
+eui-popcal {
+  eui-calendar {
+    background-image: linear-gradient(to bottom,
+      rgba(0,0,0,0.1) 0%,
+      rgba(0,0,0,0.25) 100%);
+    border: none !important;
+    padding: 1px;
+    box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+  }
+
+  .eui-component {
+    display: block;
+    position: fixed;
+    overflow: visible !important;
+    outline: none;
+    z-index: 1000001;
+    opacity: 0.01;
+  }
+}

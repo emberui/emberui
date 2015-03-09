@@ -1,0 +1,62 @@
+.eui-month {
+  width: 259px;
+  height: 222px;
+  overflow: auto;
+  list-style: none;
+  padding: 0 2px;
+  margin: 0;
+  font-size: 16px;
+  color: #474747;
+  user-select: none;
+
+  .eui-slot {
+    float: left;
+    width: 41px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    margin: 1px -2px;
+  }
+
+  .eui-day {
+    cursor: pointer;
+    border-radius: 3px;
+
+    &:hover {
+      color: #39a6e9;
+      background: #ebf6fd;
+    }
+  }
+
+  .eui-selected + .eui-day:hover:not(.eui-selected) {
+    width: 33px;
+    padding-right: 4px;
+    margin-left: 2px;
+  }
+
+  .eui-today {
+    font-weight: bold;
+    color: #f00000 !important;
+
+    &.eui-selected {
+      color: #fffebc !important;
+    }
+  }
+
+  .eui-disabled {
+    pointer-events: none;
+    color: #d4d4d4;
+  }
+
+  .eui-selected {
+    background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
+    color: #ffffff;
+    text-shadow: 0px 1px rgba(0,0,0,0.35);
+    box-shadow: inset -1px 1px 1px rgba(0,64,98,0.4);
+
+    &:hover {
+      color: #ffffff;
+      background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
+    }
+  }
+}

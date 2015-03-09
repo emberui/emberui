@@ -1,0 +1,16 @@
+<div class="eui-component-wrapper">
+  {{#if placeholderVisible}}
+    <label {{bind-attr for=inputId}}>{{placeholder}}</label>
+  {{/if}}
+  {{input type=type value=value name=name disabled=disabled maxlength=maxlength tabindex=tabindex action='enter'}}
+</div>
+
+{{#if errorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{errorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}

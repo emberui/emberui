@@ -1,0 +1,19 @@
+{{eui-button
+  label=view.label
+  disabled=disabled
+  style=style
+  size=size
+  width='100%'
+  classBinding=":eui-select selectClass popcalIsOpen:eui-active"
+  action="openCalendar"
+  trailingIcon="eui-icon"}}
+
+{{#if errorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{errorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}

@@ -1,0 +1,19 @@
+<div class="eui-component">
+  <div class="eui-component-wrapper">
+    <div {{bind-attr class=":eui-search-wrapper searchString:eui-active"}}>
+      {{input class="eui-search" value=searchString size="1" ariaRole="combobox" aria-autocomplete="list"}}
+    </div>
+
+    {{#if hasNoOptions}}
+      <div class="eui-nooptions">No results found.</div>
+    {{else}}
+      {{view listView content=filteredOptions}}
+    {{/if}}
+  </div>
+</div>
+
+<div class="eui-scroller" {{action "hidePoplist"}}>
+  <div class="eui-scroller--net">
+    <div class="eui-scroller--net-content"></div>
+  </div>
+</div>

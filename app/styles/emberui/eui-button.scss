@@ -1,0 +1,112 @@
+eui-button {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  user-select: none;
+  cursor: pointer;
+
+  button {
+    position: absolute;
+    opacity: 0.0001;
+    top: 0px;
+    left: -9000px;
+  }
+
+  .eui-component {
+    position: relative;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: #f6f6f6;
+    outline: none;
+  }
+
+  .eui-component-wrapper {
+    position: relative;
+    text-align: center;
+    border-radius: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .eui-label {
+    font-style: normal;
+    position: relative;
+  }
+
+  .eui-label-value {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+  }
+
+  // TODO: Remove + script when ember 1.8 works with emberui
+  .eui-leading-icon + script + script + script + script + .eui-trailing-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+
+  /* Disabled */
+  &.eui-disabled {
+    pointer-events: none;
+    color: #ababab;
+  }
+
+  /* Loading */
+  &.eui-loading {
+    pointer-events: none;
+  }
+}
+
+
+/* LOADING */
+eui-button.eui-loading {
+  .eui-label {
+    opacity: 0;
+  }
+
+  .eui-loading-animation {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0 4px;
+    box-sizing: border-box;
+    list-style: none;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      float: none;
+      vertical-align: middle;
+      width: 7px;
+      height: 7px;
+      padding: 0;
+      border: none;
+      margin: -4px 0 0 0;
+      opacity: 0.4;
+      border-radius: 7px;
+      box-shadow: 1px 1px rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.2);
+      transition: background 0.2s;
+      animation: eui-button-loading 1s infinite;
+
+      &:nth-child(3n+2) {
+        animation-delay: 0.15s;
+      }
+
+      &:nth-child(3n+3) {
+        animation-delay: 0.3s;
+      }
+    }
+  }
+}

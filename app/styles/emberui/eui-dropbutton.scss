@@ -1,0 +1,23 @@
+eui-dropbutton {
+  display: inline-block;
+  vertical-align: middle;
+
+  .eui-dropbutton--primary-action {
+    float: left;
+
+    .eui-component {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+  }
+
+  .eui-dropbutton--trigger {
+    float: left;
+
+    .eui-component {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      padding-left: 0px;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+.eui-calendar-default {
+  border-radius: 3px;
+  border: solid 1px #e5e5e5;
+
+  .eui-component-wrapper {
+    background: #ffffff;
+    border-radius: 3px;
+    border: none;
+  }
+
+  .eui-previous,
+  .eui-next {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    top: 7.5px;
+    left: 7.5px;
+    color: #39a6e9;
+    border-radius: 3px;
+    font-size: 18px;
+    transition: background 0.2s;
+    text-shadow: 1px 1px rgba(255,255,255,0.7);
+
+    &:hover {
+      background: #ebf6fd;
+    }
+
+    &:disabled {
+      color: #e2e2e2;
+    }
+  }
+
+  .eui-next {
+    left: auto;
+    right: 7.5px;
+  }
+
+  .eui-month-container {
+    &:last-of-type  .eui-month-frame {
+      border-right: 0px;
+    }
+  }
+
+  .eui-month-frame {
+    padding: 0 5px;
+    border-right: solid 1px #e5e5e5;
+  }
+
+  .eui-daysofweek {
+    padding: 0px 5px;
+    margin: 0 -5px;
+
+    .eui-nameofday {
+      width: calc(100% / 7);
+      float: left;
+    }
+  }
+}

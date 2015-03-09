@@ -1,0 +1,18 @@
+<div class="eui-component">
+  {{eui-calendar
+    selection=_selection
+    allowMultiple=dateRange
+    selectAction="closeCalendar"
+    disablePast=disablePast
+    disableFuture=disableFuture
+    maxPastDate=maxPastDate
+    maxFutureDate=maxFutureDate
+    disabledDates=disabledDates
+    style=style}}
+</div>
+
+<div class="eui-scroller" {{action "hidePopcal"}}>
+  <div class="eui-scroller--net">
+    <div class="eui-scroller--net-content"></div>
+  </div>
+</div>

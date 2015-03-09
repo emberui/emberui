@@ -1,0 +1,98 @@
+<div {{bind-attr class=":banner isDemoActive:demo"}}>
+  <div class="site-navigation">
+    <div class="container">
+      {{link-to "EmberUI" "index" class="logo"}}
+      <div class="show-links fa fa-bars fa-2x" {{action "toggleNavigation"}}></div>
+      <ul {{bind-attr class="showNavigation:active"}}>
+        <li>{{link-to "Documentation" "documentation"}}</li>
+        <li><a href="https://medium.com/emberui-updates/">Blog</a></li>
+        <li><a href="https://github.com/emberui/emberui">Fork it!</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slide1">
+    <div class="flexwrapper">
+      <div class="flexobject">
+        <h1>EmberUI</h1>
+        <h2>A component library for crafting <br /> ambitious interfaces.</h2>
+        <br />
+      </div>
+    </div>
+
+    <div class="download">
+      <div class="container">
+        <ul>
+          <li><strong>0.4.0</strong>: <a href="https://github.com/emberui/emberui/archive/v0.3.6.zip">Download</a></li>
+          <li>{{#link-to "documentation"}}Getting Started{{/link-to}}</li>
+          <li><a href="http://venn.lc">Built by Venn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide2">
+    <iframe src="http://emberui.github.io/demo/" style="background: none; width: 100%; height: 100%;"></iframe>
+  </div>
+
+  <canvas id="backgroundcanvas" class="background"></canvas>
+</div>
+
+<div class="container">
+  <div class="bar designed">
+    <div class="copy">
+      <h2>Not just built, designed</h2>
+      <p>
+        It is the small details that makes the difference between good enough and great.  Each component has been constructed with incredible detail to make sure it feels and performs like a native component.
+      </p>
+      <p>
+        We have included functionality such as fluid animations, real-time error handling, loading states, and keyboard navigation to give your application an extra spot of polish.
+      </p>
+    </div>
+    <pre class="example">\{{<span class="tag">eui-button</span>
+  label=<span class="string">"Save Changes"</span>
+  style=<span class="string">"primary"</span>
+  size=<span class="string">"large"</span>
+  icon=<span class="string">"fa fa-upload"</span>  <span class="comment">// Using FontAwesome</span>
+  loadingBinding=<span class="string">"isLoading"</span>
+  disabledBinding=<span class="string">"formIsIncomplete"</span>
+  class=<span class="string">"save-button"</span>
+  action=<span class="string">"save"</span>}}</pre>
+  </div>
+</div>
+
+<div class="bar customize">
+  <div class="container">
+    <div class="copy">
+      <h2>Customizeable to the core</h2>
+      <p>
+        While the default aesthetic was designed to work in as many environments as possible, EmberUI is built to be extended upon. Expand upon the default styles or replace them completely.
+      </p>
+    </div>
+
+    <div class="components"><img src="/assets/images/components.png" width="348.5" height="355" alt=""/></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="column">
+    <h3>Design mockups with ease</h3>
+    <p>
+      Use the {{#link-to "documentation"}}original design documents{{/link-to}} and quickly create mockups in Photoshop. Available as 144dpi PSDs.
+    </p>
+  </div>
+
+  <div class="column">
+    <h3>Works on all modern bowsers</h3>
+    <p>
+      EmberUI support Internet Explorer 9+, Chrome, Firefox, Opera, and any other bowser that follows standards.
+    </p>
+  </div>
+
+  <div class="column">
+    <h3>Built by Venn</h3>
+    <p>
+      <a href="http://venn.lc">We</a> built EmberUI to use in real client projects so you can be sure it will be actively developed for a long time.
+    </p>
+  </div>
+</div>

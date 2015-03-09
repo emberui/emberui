@@ -1,0 +1,80 @@
+<div class="eui-component-wrapper">
+  <button {{action "prev"}} {{bind-attr disabled="isPrevDisabled"}} class="eui-previous"></button>
+  <button {{action "next"}} {{bind-attr disabled="isNextDisabled"}} class="eui-next"></button>
+
+  {{#if showPrevMonth}}
+    <div class="eui-month-container">
+      <header>
+        {{prevMonthLabel}}
+      </header>
+      <div class="eui-month-frame">
+        <ol class="eui-daysofweek">
+          <li class="eui-nameofday">Sun</li>
+          <li class="eui-nameofday">Mon</li>
+          <li class="eui-nameofday">Tue</li>
+          <li class="eui-nameofday">Wed</li>
+          <li class="eui-nameofday">Thu</li>
+          <li class="eui-nameofday">Fri</li>
+          <li class="eui-nameofday">Sat</li>
+        </ol>
+        {{eui-month
+          month=prevMonth
+          selection=_selection
+          disabledDates=disabledDates
+          maxPastDate=maxPastDate
+          maxFutureDate=maxFutureDate
+          select="dateSelected"}}
+      </div>
+    </div>
+  {{/if}}
+
+  <div class="eui-month-container">
+    <header>
+      {{monthLabel}}
+    </header>
+    <div class="eui-month-frame">
+      <ol class="eui-daysofweek">
+        <li class="eui-nameofday">Sun</li>
+        <li class="eui-nameofday">Mon</li>
+        <li class="eui-nameofday">Tue</li>
+        <li class="eui-nameofday">Wed</li>
+        <li class="eui-nameofday">Thu</li>
+        <li class="eui-nameofday">Fri</li>
+        <li class="eui-nameofday">Sat</li>
+      </ol>
+      {{eui-month
+        month=month
+        selection=_selection
+        disabledDates=disabledDates
+        maxPastDate=maxPastDate
+        maxFutureDate=maxFutureDate
+        select="dateSelected"}}
+    </div>
+  </div>
+
+  {{#if showNextMonth}}
+    <div class="eui-month-container">
+      <header>
+        {{nextMonthLabel}}
+      </header>
+      <div class="eui-month-frame">
+        <ol class="eui-daysofweek">
+          <li class="eui-nameofday">Sun</li>
+          <li class="eui-nameofday">Mon</li>
+          <li class="eui-nameofday">Tue</li>
+          <li class="eui-nameofday">Wed</li>
+          <li class="eui-nameofday">Thu</li>
+          <li class="eui-nameofday">Fri</li>
+          <li class="eui-nameofday">Sat</li>
+        </ol>
+        {{eui-month
+          month=nextMonth
+          selection=_selection
+          disabledDates=disabledDates
+          maxPastDate=maxPastDate
+          maxFutureDate=maxFutureDate
+          select="dateSelected"}}
+      </div>
+    </div>
+  {{/if}}
+</div>

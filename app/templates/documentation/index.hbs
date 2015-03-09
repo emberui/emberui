@@ -1,0 +1,159 @@
+<h1>Philosophy</h1>
+
+<p>
+  EmberUI was designed to make building complex web applications simple. Web applications share a common set of components that are needed over and over again. It used to be that you would stitch together a variety of jQuery plugins of dubious quality to make your application function, but that does not lead to great experiences. There needs to be a better way.
+</p>
+<p>
+  EmberUI tries to to be this library&mdash;a uniform set of components that can be depended on to be of very high quality and flexible in their design. Each component's feature set is carefully considered and a ton of attention is paid to the design to make it both usable and "fun".
+</p>
+<p>
+  Because of our design-first approach EmberUI is going to be opinionated. There are some common design decisions that we no longer consider good design that will not make their way into EmberUI. For example, optgroups for selects or text inputs for date selectors.
+</p>
+
+<h3>What EmberUI is not</h3>
+<p>
+  EmberUI is not a CSS framework. It will not assist you in laying out or styling your application. Ambitious interfaces require creativity and CSS frameworks prevent that. Having said that you may use EmberUI in conjuction with a CSS framework.
+</p>
+
+
+<h1>Getting Started</h1>
+
+<p>
+  EmberUI uses <a href="https://github.com/joliss/broccoli">Broccoli</a> for its build process. It makes use of <em>broccoli-dist-es6-module</em> to automatically build AMD, Named AMD, and CommonJS modules. There is also a global version available. If you don't know what this is, use the global version.
+</p>
+
+<p>
+  If you just want to have a look, you can check out the interactive documentation or clone <a href="http://emberjs.jsbin.com/hisogu">http://emberjs.jsbin.com/hisogu</a> and poke around
+</p>
+
+
+<h3>Installation</h3>
+
+<pre>
+// yourproject/bower.json
+{
+  {
+  "name": "your-project",
+  "dependencies": {
+    "handlebars": "~1.1.2",
+    "jquery": "^1.11.1",
+    "ember": "^1.5.0",
+    "ember-resolver": "~0.1.1",
+    "loader.js": "git://github.com/stefanpenner/loader.js",
+    "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
+    "emberui": "^0.4.0",
+    "momentjs": "~2.6.0",
+    "twix": "~0.4.0",
+    "velocity": "~0.9.0"
+  }
+}
+
+$ npm install
+</pre>
+
+<p>
+  note: until the first beta release is cut, please use <em>$ bower update emberui</em> when you need to update EmberUI in your project.
+</p>
+
+
+<p>
+  or just grab your preferred distribution from the <a href="https://github.com/emberui/emberui/tree/master/dist">Github repository</a>. Then include the scripts in <em>app.js</em>.
+</p>
+
+<h6>AMD</h6>
+
+<pre>import emberui from 'emberui';</pre>
+
+<h6>Globals</h6>
+
+<pre>&lt;script src="vendor/emberui/dist/globals/emberui.js"&gt;/script></pre>
+
+<h6>Styles</h6>
+
+<p>
+  There are also some css files that need to be included. The <em>emberui.css</em> stylesheet is required, but <em>default-theme.css</em> is optional if you are creating your own theme.
+</p>
+
+<pre>
+  &lt;link rel="stylesheet" href="/vendor/emberui/dist/emberui.css"&gt;
+  &lt;link rel="stylesheet" href="/vendor/emberui/dist/default-theme.css"&gt;
+</pre>
+
+<h6>ember-cli</h6>
+<p>It's currently possible to use the named-amd build of emberui with ember-cli. It's as simple as:</p>
+
+<pre>app.import('vendor/emberui/dist/named-amd/emberui.js', {
+  exports: {
+    'emberui': ['default']
+  }
+});
+app.import('vendor/emberui/dist/emberui.css');
+app.import('vendor/emberui/dist/default-theme.css');</pre>
+
+<p>but in order for the initalizer to trigger you then have to call</p>
+
+<pre>loadInitializers(App, 'emberui');</pre>
+
+<p>in <em>app.js</em>.</p>
+
+<br>
+
+<p>
+note: you also need to import ember-ui's dependencies in your <em>Brocfile.js</em> if you aren't already using them in your project
+</p>
+<pre>
+app.import('vendor/velocity/jquery.velocity.js')
+app.import('vendor/twix/bin/twix.js')
+app.import('vendor/moment/moment.js')
+app.import('vendor/ember-listview/list-view.prod.js')
+</pre>
+
+<h3>Dependencies</h3>
+
+<p>
+  In the future we would like to reduce or even eliminate these dependencies, but they have made getting to this point much faster.
+</p>
+
+<ul class="dependencies">
+  <li>
+    <a href="https://github.com/emberjs/list-view">list-view</a>
+    <p>
+      An internal component uses <em>list-view</em> to incrementally render itself. <em>list-view</em> is not packaged into EmberUI. You need to install it seperately.
+    </p>
+  </li>
+  <li>
+    <a href="http://momentjs.com">moment.js</a>
+    <p>
+       All date components make use of <em>momentjs</em> for their functionality. <em>moment.js</em> is not packaged into EmberUI. You need to install it seperately.
+    </p>
+  </li>
+  <li>
+    <a href="http://isaaccambron.com/twix.js">twix.js</a>
+    <p>
+      Used to format the date ranges for the <em>selectdate</em> component. <em>twix.js</em> is not packaged into EmberUI. You need to install it seperately.
+    </p>
+  </li>
+</ul>
+
+
+
+<h1>Design Files</h1>
+
+<p>
+  You can use these PSDs to make mocking up layouts with EmberUI super fast. There is one PSD for each form element and it contains the element in all its possible states and variations. EmberUI is under heavy development so it is possible that not all variations shown in the PSDs are currently implemented.
+</p>
+
+<ul class="filelist">
+  <li class="fa fa-download">
+    <a href="/assets/psds/button.psd">Button</a>
+  </li>
+  <li class="fa fa-download">
+    <a href="/assets/psds/checkbox.psd">Checkbox</a>
+  </li>
+  <li class="fa fa-download">
+    <a href="/assets/psds/input.psd">Input</a>
+  </li>
+  <li class="fa fa-download">
+    <a href="/assets/psds/select.psd">Select</a>
+  </li>
+</ul>
