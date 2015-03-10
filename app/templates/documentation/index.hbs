@@ -35,102 +35,56 @@
   {
   "name": "your-project",
   "dependencies": {
-    "handlebars": "~1.1.2",
     "jquery": "^1.11.1",
-    "ember": "^1.5.0",
-    "ember-resolver": "~0.1.1",
-    "loader.js": "git://github.com/stefanpenner/loader.js",
-    "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
-    "emberui": "^0.4.0",
-    "momentjs": "~2.6.0",
-    "twix": "~0.4.0",
-    "velocity": "~0.9.0"
+    "handlebars": "2.0.0",
+    "ember": "1.9.1",
+    "emberui": "^0.6.0",
+    "ember-cli-list-view": ">=0.0.3",
+    "moment": "~2.9.0",
+    "twix": "~0.6.2"
   }
 }
 
-$ npm install
+// yourproject/package.json
+"dependencies": {
+  "ember-cli-velocity": "^0.2.5"
+}
+
+$ ember install
 </pre>
 
 <p>
-  note: until the first beta release is cut, please use <em>$ bower update emberui</em> when you need to update EmberUI in your project.
+You also need to import some of ember-ui's dependencies in your <em>Brocfile.js</em> if you aren't already using them in your project.
 </p>
-
-
-<p>
-  or just grab your preferred distribution from the <a href="https://github.com/emberui/emberui/tree/master/dist">Github repository</a>. Then include the scripts in <em>app.js</em>.
-</p>
-
-<h6>AMD</h6>
-
-<pre>import emberui from 'emberui';</pre>
-
-<h6>Globals</h6>
-
-<pre>&lt;script src="vendor/emberui/dist/globals/emberui.js"&gt;/script></pre>
-
-<h6>Styles</h6>
-
-<p>
-  There are also some css files that need to be included. The <em>emberui.css</em> stylesheet is required, but <em>default-theme.css</em> is optional if you are creating your own theme.
-</p>
-
 <pre>
-  &lt;link rel="stylesheet" href="/vendor/emberui/dist/emberui.css"&gt;
-  &lt;link rel="stylesheet" href="/vendor/emberui/dist/default-theme.css"&gt;
+app.import('bower_components/moment/moment.js');
+app.import('bower_components/twix/bin/twix.js');
 </pre>
 
-<h6>ember-cli</h6>
-<p>It's currently possible to use the named-amd build of emberui with ember-cli. It's as simple as:</p>
-
-<pre>app.import('vendor/emberui/dist/named-amd/emberui.js', {
-  exports: {
-    'emberui': ['default']
-  }
-});
-app.import('vendor/emberui/dist/emberui.css');
-app.import('vendor/emberui/dist/default-theme.css');</pre>
-
-<p>but in order for the initalizer to trigger you then have to call</p>
-
-<pre>loadInitializers(App, 'emberui');</pre>
-
-<p>in <em>app.js</em>.</p>
+<p>TODO: Add instructions for css</p>
 
 <br>
 
-<p>
-note: you also need to import ember-ui's dependencies in your <em>Brocfile.js</em> if you aren't already using them in your project
-</p>
-<pre>
-app.import('vendor/velocity/jquery.velocity.js')
-app.import('vendor/twix/bin/twix.js')
-app.import('vendor/moment/moment.js')
-app.import('vendor/ember-listview/list-view.prod.js')
-</pre>
 
 <h3>Dependencies</h3>
-
-<p>
-  In the future we would like to reduce or even eliminate these dependencies, but they have made getting to this point much faster.
-</p>
 
 <ul class="dependencies">
   <li>
     <a href="https://github.com/emberjs/list-view">list-view</a>
     <p>
-      An internal component uses <em>list-view</em> to incrementally render itself. <em>list-view</em> is not packaged into EmberUI. You need to install it seperately.
+      An internal component uses <em>list-view</em> to incrementally render itself for peformance reasons.
     </p>
   </li>
   <li>
     <a href="http://momentjs.com">moment.js</a>
     <p>
-       All date components make use of <em>momentjs</em> for their functionality. <em>moment.js</em> is not packaged into EmberUI. You need to install it seperately.
+       All date components make use of <em>momentjs</em> for their functionality.
     </p>
   </li>
   <li>
     <a href="http://isaaccambron.com/twix.js">twix.js</a>
     <p>
-      Used to format the date ranges for the <em>selectdate</em> component. <em>twix.js</em> is not packaged into EmberUI. You need to install it seperately.
+      Used to format the date ranges for the <em>selectdate</em> component.
     </p>
   </li>
 </ul>
