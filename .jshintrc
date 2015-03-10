@@ -3,7 +3,8 @@
     "document",
     "window",
     "-Promise",
-    "moment"
+    "moment",
+    "twix"
   ],
   "browser": true,
   "boss": true,

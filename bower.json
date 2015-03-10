@@ -14,6 +14,7 @@
     "ember-qunit-notifications": "0.0.7",
     "qunit": "~1.17.1",
     "moment": "~2.9.0",
-    "ember-cli-list-view": ">=0.0.3"
+    "ember-cli-list-view": ">=0.0.3",
+    "twix": "~0.6.2"
   }
 }

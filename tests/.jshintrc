@@ -22,7 +22,8 @@
     "currentURL",
     "currentPath",
     "currentRouteName",
-    "moment"
+    "moment",
+    "twix"
   ],
   "node": false,
   "browser": false,
