@@ -97,8 +97,8 @@
       text-align: center;
       font-weight: 400;
       background: -webkit-linear-gradient(top left, #bfd6e4 0%, #EDF8FF 100%);
-      background-clip: text;
-      text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 60px;
     }
 

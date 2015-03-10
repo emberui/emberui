@@ -16,6 +16,7 @@ var app = new EmberApp({
 
 app.import('bower_components/moment/moment.js');
 app.import('bower_components/twix/bin/twix.js');
+app.import('vendor/dithered_radial_gradient.js');
 
 prefixCSS: {
   options: {
