@@ -1,8 +1,7 @@
 {
-  "name": "emberui",
+  "name": "ember-cli-emberui",
   "version": "0.6.0",
   "description": "A component library for crafting ambitious interfaces.",
-  "private": true,
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -12,35 +11,44 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": "http://github.com/emberui/emberui",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Jaco Joubert",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.0",
-    "broccoli-ember-inline-template-compiler": "0.0.1",
-    "broccoli-sass": "0.4.0",
-    "ember-cli": "0.2.0-beta.1",
-    "ember-cli-app-version": "0.3.1",
-    "ember-cli-autoprefixer": "^0.3.0",
+    "ember-cli": "0.2.0",
+    "ember-cli-app-version": "0.3.2",
     "ember-cli-babel": "^4.0.0",
-    "ember-cli-coffeescript": "0.9.1",
     "ember-cli-content-security-policy": "0.3.0",
-    "ember-cli-dependency-checker": "0.0.7",
-    "ember-cli-htmlbars": "^0.6.0",
+    "ember-cli-dependency-checker": "0.0.8",
     "ember-cli-ic-ajax": "0.1.1",
     "ember-cli-inject-live-reload": "^1.3.0",
-    "ember-cli-list-view": "0.0.9",
-    "ember-cli-qunit": "0.3.8",
+    "ember-cli-qunit": "0.3.9",
     "ember-cli-uglify": "1.0.1",
-    "ember-export-application-global": "^1.0.2",
-    "express": "^4.8.5",
-    "glob": "^4.0.5"
+    "ember-export-application-global": "^1.0.2"
   },
   "dependencies": {
+    "ember-cli-htmlbars": "0.7.4",
+    "broccoli-ember-inline-template-compiler": "0.0.1",
+    "broccoli-sass": "0.4.0",
     "ember-cli-velocity": "^0.2.5",
-    "rimraf": "2.2.8"
+    "ember-cli-list-view": "0.0.9",
+    "ember-cli-coffeescript": "0.9.1",
+    "ember-cli-autoprefixer": "^0.3.0"
+  },
+  "keywords": [
+    "ember-addon",
+    "components",
+    "button",
+    "calendar",
+    "select",
+    "input",
+    "dropbutton"
+  ],
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
   }
 }
