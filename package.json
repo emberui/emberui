@@ -1,7 +1,7 @@
 {
   "name": "emberui",
-  "version": "0.0.0",
-  "description": "Small description for emberui goes here",
+  "version": "0.6.0",
+  "description": "A component library for crafting ambitious interfaces.",
   "private": true,
   "directories": {
     "doc": "doc",
