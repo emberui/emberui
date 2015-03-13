@@ -36,7 +36,7 @@
     "ember-cli-htmlbars": "0.7.4",
     "ember-cli-velocity": "^0.2.5",
     "ember-cli-list-view": "0.0.9",
-    "ember-cli-coffeescript": "0.9.1",
+    "ember-cli-coffeescript": "0.10.0",
     "ember-cli-autoprefixer": "^0.3.0"
   },
   "keywords": [
