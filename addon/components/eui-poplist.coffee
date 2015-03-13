@@ -4,7 +4,12 @@
 `import preventPageScroll from '../mixins/prevent-page-scroll'`
 `import poplistLayout from '../templates/components/eui-poplist'`
 `import itemViewClassTemplate from '../templates/components/eui-poplist-option'`
-`import poplistOpenDefaultAnimation from '../animations/poplist-open-default'`
+
+`import '../utilities/position';`
+`import '../animations/poplist-open-default'`
+`import '../animations/poplist-close-default'`
+`import '../animations/poplist-open-default'`
+`import '../animations/poplist-close-default'`
 
 poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll,
   layout: poplistLayout

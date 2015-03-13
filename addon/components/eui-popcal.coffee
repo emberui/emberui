@@ -3,6 +3,10 @@
 `import popcalLayout from '../templates/components/eui-popcal'`
 `import preventPageScroll from '../mixins/prevent-page-scroll'`
 
+`import '../utilities/position';`
+`import '../animations/popcal-open-default'`
+`import '../animations/popcal-close-default'`
+
 popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll,
   layout: popcalLayout
   classNames: ['eui-popcal']
