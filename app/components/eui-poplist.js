@@ -1,4 +1,4 @@
 import Ember from 'ember';
-import EuiPoplist from 'ember-cli-emberui/components/eui-poplist';
+import EuiPoplist from 'emberui/components/eui-poplist';
 
 export default EuiPoplist;

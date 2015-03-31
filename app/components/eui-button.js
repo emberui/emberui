@@ -1,4 +1,4 @@
 import Ember from 'ember';
-import EuiButton from 'ember-cli-emberui/components/eui-button';
+import EuiButton from 'emberui/components/eui-button';
 
 export default EuiButton;

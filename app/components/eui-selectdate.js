@@ -1,4 +1,4 @@
 import Ember from 'ember';
-import EuiSelectdate from 'ember-cli-emberui/components/eui-selectdate';
+import EuiSelectdate from 'emberui/components/eui-selectdate';
 
 export default EuiSelectdate;

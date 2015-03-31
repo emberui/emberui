@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-cli-emberui',
+  name: 'emberui',
 
   included: function(app) {
     this._super.included(app);
