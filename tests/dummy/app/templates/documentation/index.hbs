@@ -12,58 +12,21 @@
 
 <h3>What EmberUI is not</h3>
 <p>
-  EmberUI is not a CSS framework. It will not assist you in laying out or styling your application. Ambitious interfaces require creativity and CSS frameworks prevent that. Having said that you may use EmberUI in conjuction with a CSS framework.
-</p>
-
-
-<h1>Getting Started</h1>
-
-<p>
-  EmberUI uses <a href="https://github.com/joliss/broccoli">Broccoli</a> for its build process. It makes use of <em>broccoli-dist-es6-module</em> to automatically build AMD, Named AMD, and CommonJS modules. There is also a global version available. If you don't know what this is, use the global version.
-</p>
-
-<p>
-  If you just want to have a look, you can check out the interactive documentation or clone <a href="http://emberjs.jsbin.com/hisogu">http://emberjs.jsbin.com/hisogu</a> and poke around
+  EmberUI is not a CSS framework. It will not assist you in laying out or styling your application. What it will do is provide you a set of polished UI components that will make building great apps must faster.
 </p>
 
 
 <h3>Installation</h3>
 
-<pre>
-// yourproject/bower.json
-{
-  {
-  "name": "your-project",
-  "dependencies": {
-    "jquery": "^1.11.1",
-    "handlebars": "2.0.0",
-    "ember": "1.9.1",
-    "emberui": "^0.6.0",
-    "ember-cli-list-view": ">=0.0.3",
-    "moment": "~2.9.0",
-    "twix": "~0.6.2"
-  }
-}
-
-// yourproject/package.json
-"dependencies": {
-  "ember-cli-velocity": "^0.2.5"
-}
-
-$ ember install
-</pre>
+<pre>$ ember install:addon emberui</pre>
 
 <p>
-You also need to import some of ember-ui's dependencies in your <em>Brocfile.js</em> if you aren't already using them in your project.
+  This will install EmberUI and add its dependencies to your project. It will also copy the default theme's files to your css folder.
 </p>
-<pre>
-app.import('bower_components/moment/moment.js');
-app.import('bower_components/twix/bin/twix.js');
-</pre>
 
-<p>TODO: Add instructions for css</p>
-
-<br>
+<p>
+  Note: EmberUI theme is writtin in <a href="http://sass-lang.com/">Sass</a>. The theme files we copy are all <em>.scss</em> files and requires broccoli-sass to compile. However, broccoli-sass requires your main css file to also be <em>.scss</em> so you will need to rename it. Luckily sass is backwards compatible with css so a different extension is all that is required. Figuring a way around this is a TODO.
+</p>
 
 
 <h3>Dependencies</h3>
@@ -78,7 +41,7 @@ app.import('bower_components/twix/bin/twix.js');
   <li>
     <a href="http://momentjs.com">moment.js</a>
     <p>
-       All date components make use of <em>momentjs</em> for their functionality.
+       All date components make use of <em>momentjs</em> for sane date handling.
     </p>
   </li>
   <li>
