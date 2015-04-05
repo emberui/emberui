@@ -23,6 +23,7 @@ a {
   text-decoration: none;
   color: #0c93d1;
   transition: color 0.2s;
+  outline: none !important;
 
   &:hover {
     color: #066793;
