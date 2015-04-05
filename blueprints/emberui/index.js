@@ -16,7 +16,7 @@ module.exports = {
       return this.addAddonToProject('ember-cli-velocity')
 
     }.bind(this)).then(function() {
-      return this.addAddonToProject('ember-cli-list-view')
+      return this.addAddonToProject('ember-list-view')
 
     }.bind(this))
   }
