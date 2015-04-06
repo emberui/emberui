@@ -9,6 +9,6 @@ widthsupport = Em.Mixin.create
       large: '250px'
 
     width = @get('width') or widths[@get('size')] or widths['medium']
-    return "width: #{width};"
+    return ("width: #{width};").htmlSafe()
 
 `export default widthsupport`
