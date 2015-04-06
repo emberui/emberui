@@ -31,3 +31,14 @@
     action="toggleWindow"}}
 
 {{/if}}
+
+{{#if showPoplist}}
+  {{eui-poplist
+    selection=selection
+    options=optionsWithoutPrimaryAction
+    isOpen=showPoplist
+    labelPath="label"
+    style="default"
+    listWidth=listWidth
+    animationStyle=animationStyle}}
+{{/if}}

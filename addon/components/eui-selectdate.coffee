@@ -12,7 +12,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   size: 'medium'
   calendarStyle: 'default'
 
-  popcalIsOpen: false
+  showPopcal: false
 
   dateRange: false
 
@@ -88,19 +88,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
   actions:
     openCalendar: ->
-      unless @get 'popcalIsOpen'
-        popcalComponent.show
-          targetObject: @
-          isOpenBinding: 'targetObject.popcalIsOpen'
-          selectionBinding: 'targetObject.selection'
-          dateRangeBinding: 'targetObject.dateRange'
-          disablePastBinding: 'targetObject.disablePast'
-          disableFutureBinding: 'targetObject.disableFuture'
-          maxPastDateBinding: 'targetObject.maxPastDate'
-          maxFutureDateBinding: 'targetObject.maxFutureDate'
-          disabledDatesBinding: 'targetObject.disabledDates'
-          styleBinding: 'targetObject.calendarStyle'
-          animationStyle: @get 'animationStyle'
+      @toggleProperty('showPopcal')
 
 
   # Catch and handle key presses

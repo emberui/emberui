@@ -17,3 +17,17 @@
     </div>
   </div>
 {{/if}}
+
+{{#if showPopcal}}
+  {{eui-popcal
+    isOpen=showPopcal
+    selection=selection
+    dateRange=dateRange
+    disablePast=disablePast
+    disableFuture=disableFuture
+    maxPastDate=maxPastDate
+    maxFutureDate=maxFutureDate
+    disabledDates=disabledDates
+    style=calendarStyle
+    animationStyle=animationStyle}}
+{{/if}}

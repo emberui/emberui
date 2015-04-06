@@ -2,12 +2,13 @@
 `import animationSupport from '../mixins/animation-support'`
 `import popcalLayout from '../templates/components/eui-popcal'`
 `import preventPageScroll from '../mixins/prevent-page-scroll'`
+`import renderOnBody from '../mixins/render-on-body'`
 
 `import '../utilities/position';`
 `import '../animations/popcal-open-default'`
 `import '../animations/popcal-close-default'`
 
-popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll,
+popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll, renderOnBody,
   layout: popcalLayout
   classNames: ['eui-popcal']
   attributeBindings: ['tabindex']
@@ -73,8 +74,6 @@ popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll,
     unless @get('dateRange') and @get('_selection')?.get('length') is 1
       @set 'selection', @get '_selection'
 
-    @destroy()
-
 
   actions:
     closeCalendar: ->
@@ -101,14 +100,6 @@ popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll,
     # ESC
     if event.keyCode == 27
       @hide()
-
-
-popcal.reopenClass
-  show: (options = {}) ->
-    popcal = @.create options
-    popcal.container = popcal.get 'targetObject.container'
-    popcal.appendTo '.ember-application'
-    popcal
 
 
 `export default popcal`

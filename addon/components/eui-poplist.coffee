@@ -2,16 +2,17 @@
 `import animationSupport from '../mixins/animation-support'`
 `import mobileDetection from '../mixins/mobile-detection'`
 `import preventPageScroll from '../mixins/prevent-page-scroll'`
+`import renderOnBody from '../mixins/render-on-body'`
 `import poplistLayout from '../templates/components/eui-poplist'`
 `import itemViewClassTemplate from '../templates/components/eui-poplist-option'`
 
 `import '../utilities/position';`
 `import '../animations/poplist-open-default'`
 `import '../animations/poplist-close-default'`
-`import '../animations/poplist-open-default'`
-`import '../animations/poplist-close-default'`
+`import '../animations/poplist-open-flyin'`
+`import '../animations/poplist-close-flyin'`
 
-poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll,
+poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll, renderOnBody,
   layout: poplistLayout
   classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch']
@@ -32,7 +33,16 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
 
   # Controls the vertical height and row height for the list-view component
 
-  listHeight: '80'
+  listHeight: Ember.computed 'filteredOptions.length', ->
+    optionCount = @get 'filteredOptions.length'
+    rowHeight = @get 'listRowHeight'
+
+    if optionCount <= 12
+      return optionCount * rowHeight
+    else
+      return 10 * rowHeight
+
+
   listRowHeight: Ember.computed 'isMobileDevice', ->
     if @get 'isMobileDevice' then return '30' else return '20'
 
@@ -91,7 +101,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
       complete: => @breakdown()
     })
 
-
   setup: (->
     @setPoplistMinWidth()
 
@@ -139,7 +148,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
     @get('previousFocus').focus()
 
     @enablePageScroll()
-    @destroy()
 
 
   # Set poplist width to the user specified width, but enforce a min width of
@@ -209,23 +217,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
 
 
   hasNoOptions: Ember.computed.empty 'filteredOptions'
-
-
-  # Updates the list-view's height based on the number of options
-
-  optionsLengthDidChange: (->
-    @updateListHeight()
-  ).observes 'filteredOptions.length'
-
-
-  updateListHeight: ->
-    optionCount = @get 'filteredOptions.length'
-    rowHeight = @get 'listRowHeight'
-
-    if optionCount <= 12
-      @set 'listHeight', optionCount * rowHeight
-    else
-      @set 'listHeight', 10 * rowHeight
 
 
   # Scroll the list to make sure the given option is visible.
@@ -421,16 +412,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
         options = @get 'controller.filteredOptions'
         hoveredOption = @get 'content'
         @set 'controller.highlighted', hoveredOption
-
-
-poplist.reopenClass
-  show: (options = {}) ->
-    poplist = @.create options
-    poplist.container = poplist.get 'targetObject.container'
-    poplist.appendTo '.ember-application'
-
-    poplist.updateListHeight()
-    poplist
 
 
 `export default poplist`

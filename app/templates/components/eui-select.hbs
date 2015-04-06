@@ -18,3 +18,15 @@
     </div>
   </div>
 {{/if}}
+
+{{#if showPoplist}}
+  {{eui-poplist
+    isOpen=showPoplist
+    selection=_selection
+    options=optionsWithBlank
+    labelPath=labelPath
+    style="flyin"
+    modalOnMobile=true
+    listWidth=listWidth
+    animationStyle=animationStyle}}
+{{/if}}

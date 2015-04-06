@@ -11,7 +11,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   style: 'default'
   size: 'medium'
 
-  poplistIsOpen: false
+  showPoplist: false
   required: false
   options: []
   labelPath: 'label'
@@ -128,17 +128,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
 
   click: ->
-    unless @get 'poplistIsOpen'
-      @set 'poplist', poplistComponent.show
-        targetObject: @
-        isOpenBinding: 'targetObject.poplistIsOpen'
-        selectionBinding: 'targetObject._selection'
-        optionsBinding: 'targetObject.optionsWithBlank'
-        labelPathBinding: 'targetObject.labelPath'
-        style: 'flyin'
-        modalOnMobile: true
-        listWidth: @get 'listWidth'
-        animationStyle: @get 'animationStyle'
+    @toggleProperty('showPoplist')
 
 
   # Down Arrow Key

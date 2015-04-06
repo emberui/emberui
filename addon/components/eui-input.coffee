@@ -8,7 +8,7 @@ input = Em.Component.extend errorSupport, textSupport, className, widthSupport,
   baseClass: 'input'
   style: 'default'
   size: 'medium'
-  
+
   maxlength: null
   type: 'text'
 

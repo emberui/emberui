@@ -4,7 +4,7 @@
 
 dropbutton = Em.Component.extend styleSupport, sizeSupport,
   tagName: 'eui-dropbutton'
-  poplistIsOpen: false
+  showPoplist: false
 
 
   # Width of the poplist
@@ -36,16 +36,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
 
   actions:
     toggleWindow: ->
-      unless @get('poplistIsOpen')
-        poplistComponent.show
-          targetObject: @
-          isOpenBinding: 'targetObject.poplistIsOpen'
-          selectionBinding: 'targetObject.selection'
-          optionsBinding: 'targetObject.optionsWithoutPrimaryAction'
-          labelPath: 'label'
-          style: 'default'
-          listWidth: @get 'listWidth'
-          animationStyle: @get 'animationStyle'
+      @toggleProperty('showPoplist')
 
     primaryAction: ->
       @sendAction 'primaryAction.action', @
