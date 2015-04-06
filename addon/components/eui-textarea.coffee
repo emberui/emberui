@@ -26,6 +26,6 @@ textarea = Em.Component.extend errorSupport, textSupport, className,
 
     width = @get('width') or widths[@get('size')] or widths['medium']
     height = @get('height') or heights[@get('size')] or heights['medium']
-    return "width: #{width}; height: #{height};"
+    return ("width: #{width}; height: #{height};").htmlSafe()
 
 `export default textarea`
