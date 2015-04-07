@@ -12,6 +12,9 @@
 `import '../animations/poplist-open-flyin'`
 `import '../animations/poplist-close-flyin'`
 
+`import ListView from 'list-view/list-view'`
+`import ListItemView from 'list-view/list-item-view'`
+
 poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll, renderOnBody,
   layout: poplistLayout
   classNames: ['eui-poplist']
@@ -317,7 +320,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
 
   # List View
 
-  listView: Ember.ListView.extend
+  listView: ListView.extend
     attributeBindings: ['role', 'tabindex']
     role: 'menu'
     tabindex: '-1'
@@ -351,7 +354,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
     ).on 'didInsertElement'
 
 
-    itemViewClass: Ember.ListItemView.extend
+    itemViewClass: ListItemView.extend
       classNames: ['eui-option']
       classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
       template: itemViewClassTemplate
