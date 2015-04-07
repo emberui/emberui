@@ -12,8 +12,8 @@
 `import '../animations/poplist-open-flyin'`
 `import '../animations/poplist-close-flyin'`
 
-`import ListView from 'list-view/list-view'`
-`import ListItemView from 'list-view/list-item-view'`
+`import ListView from 'ember-list-view/list-view'`
+`import ListItemView from 'ember-list-view/list-item-view'`
 
 poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll, renderOnBody,
   layout: poplistLayout

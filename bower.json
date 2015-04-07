@@ -13,7 +13,7 @@
     "qunit": "~1.17.1"
   },
   "devDependencies": {
-    "list-view": "git://github.com/emberjs/list-view#pr-219-fix",
+    "ember-list-view": "*",
     "moment": "~2.9.0",
     "twix": "~0.6.2"
   }

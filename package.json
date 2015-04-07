@@ -35,7 +35,7 @@
     "broccoli-sass": "0.5.0",
     "ember-cli-htmlbars": "0.7.4",
     "ember-cli-velocity": "^0.3.1",
-    "list-view": "git://github.com/emberjs/list-view#pr-219-fix",
+    "ember-list-view": "*",
     "ember-cli-coffeescript": "0.10.0",
     "ember-cli-autoprefixer": "^0.3.0"
   },
