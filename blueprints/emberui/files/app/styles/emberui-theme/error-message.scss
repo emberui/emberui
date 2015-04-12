@@ -50,8 +50,8 @@
     font-size: 11px;
 
     &:before {
-      content: '\f05a';
-      font-family: "FontAwesome";
+      content: '\e005';
+      font-family: "emberui";
       font-size: 16px;
       line-height: 16px;
       color: #f4c53e;
@@ -63,8 +63,8 @@
       height: 16px;
       text-align: center;
       text-shadow: none;
-      background: -webkit-linear-gradient(to bottom, #f2c23d, #ffe14c);
-      background-clip: text;
+      background: -webkit-linear-gradient(top, #f2c23d, #ffe14c);
+      background-clip: -webkit-text;
       text-fill-color: transparent;
     }
   }

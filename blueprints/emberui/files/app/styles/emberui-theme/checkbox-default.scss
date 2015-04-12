@@ -35,18 +35,6 @@
     text-shadow: 1px 1px #ffffff;
   }
 
-  .eui-icon:before {
-    content: "\f00c";
-    font-family: "FontAwesome";
-    position: absolute;
-    display: block;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    text-align: center;
-    font-size: 11px;
-  }
-
   /* disabled */
    &.eui-disabled {
     .eui-component-wrapper {

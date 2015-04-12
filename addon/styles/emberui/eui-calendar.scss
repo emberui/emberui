@@ -24,13 +24,6 @@ eui-calendar {
     color: #39a6e9;
     line-height: 50px;
 
-    &:before {
-      content: "\f053";
-      font-family: "FontAwesome";
-      display: block;
-      text-align: center;
-    }
-
     &:disabled {
       color: #e2e2e2;
       pointer-events: none;
@@ -40,10 +33,6 @@ eui-calendar {
   .eui-next {
     left: auto;
     right: 0px;
-
-    &:before {
-      content: "\f054";
-    }
   }
 
   .eui-month-container {

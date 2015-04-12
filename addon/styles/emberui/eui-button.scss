@@ -43,14 +43,6 @@ eui-button {
     vertical-align: top;
   }
 
-  // TODO: Remove + script when ember 1.8 works with emberui
-  .eui-leading-icon + script + script + script + script + .eui-trailing-icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: -10px;
-    margin-right: 10px;
-  }
-
   /* Disabled */
   &.eui-disabled {
     pointer-events: none;
