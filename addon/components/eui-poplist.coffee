@@ -4,7 +4,7 @@
 `import preventPageScroll from '../mixins/prevent-page-scroll'`
 `import renderOnBody from '../mixins/render-on-body'`
 `import poplistLayout from '../templates/components/eui-poplist'`
-`import itemViewClassTemplate from '../templates/components/eui-poplist-option'`
+`import listView from '../lib/eui-poplist/list-view'`
 
 `import '../utilities/position';`
 `import '../animations/poplist-open-default'`
@@ -12,8 +12,6 @@
 `import '../animations/poplist-open-flyin'`
 `import '../animations/poplist-close-flyin'`
 
-`import ListView from 'ember-list-view/list-view'`
-`import ListItemView from 'ember-list-view/list-item-view'`
 
 poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll, renderOnBody,
   layout: poplistLayout
@@ -318,103 +316,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
     @set 'highlightedIndex', newIndex
 
 
-  # List View
-
-  listView: ListView.extend
-    attributeBindings: ['role', 'tabindex']
-    role: 'menu'
-    tabindex: '-1'
-
-    css:
-      position: 'relative'
-      '-webkit-overflow-scrolling': 'touch'
-      'overflow-scrolling': 'touch'
-      overflow: 'auto'
-
-    classNames: ['eui-options']
-    height: Ember.computed.alias 'controller.listHeight'
-    rowHeight: Ember.computed.alias 'controller.listRowHeight'
-
-    setup: (->
-      # Prevents mouse scroll events from passing through to the div
-      # behind the poplist when listView is scrolled to the end. Fixes
-      # the poplist closing if you scroll too far down
-      @.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (e) =>
-        e.preventDefault()
-        scrollTo = @get 'scrollTop'
-
-        if e.type == 'mousewheel'
-          scrollTo += (e.originalEvent.wheelDelta * -1)
-
-        else if e.type == 'DOMMouseScroll'
-          scrollTo += 40 * e.originalEvent.detail
-
-        @scrollTo(scrollTo)
-      )
-    ).on 'didInsertElement'
-
-
-    itemViewClass: ListItemView.extend
-      classNames: ['eui-option']
-      classNameBindings: ['isHighlighted:eui-hover', 'isSelected:eui-selected']
-      template: itemViewClassTemplate
-      attributeBindings: ['role', 'tabindex']
-      role: 'menuitem'
-      tabindex: '0'
-
-      isHighlightedDidChange: (->
-        # Focussing the highlighted item is necessary for screen readers to work.
-        #
-        # Calling focus immediately is expensive. When holding up/down a arrow keys,
-        # this actually causes the highlighted option to lag outside of the scrolled
-        # portion of the list. Performance is maintained by placing it in the next run loop.
-
-        Ember.run.next =>
-          @$().focus() if @get('isHighlighted')
-      ).observes 'isHighlighted'
-
-      initializeIsHighlighted: (->
-        @isHighlightedDidChange()
-      ).on 'init'
-
-      # creates Label property based on specified labelPath
-
-      labelPathDidChange: (->
-        labelPath = @get 'controller.labelPath'
-        Ember.defineProperty(this, 'label', Ember.computed.alias("content.#{labelPath}"))
-        @notifyPropertyChange 'label'
-      ).observes 'content', 'controller.labelPath'
-
-
-      initializeLabelPath: (->
-        @labelPathDidChange()
-      ).on 'init'
-
-
-      # Bindings won't fire if bound to context
-
-      updateContext: (context) ->
-        @_super context
-        @set 'content', context
-
-
-      isHighlighted: Ember.computed 'controller.highlighted', 'content', ->
-        @get('controller.highlighted') is @get('content')
-
-
-      isSelected: Ember.computed 'controller.selection', 'content', ->
-        @get('controller.selection') is @get('content')
-
-
-      click: ->
-        @set 'controller.selection', @get 'content'
-        @get('controller').hide()
-
-
-      mouseEnter: ->
-        options = @get 'controller.filteredOptions'
-        hoveredOption = @get 'content'
-        @set 'controller.highlighted', hoveredOption
+  listView: listView
 
 
 `export default poplist`
