@@ -10,6 +10,13 @@ eui-select {
     text-align: left
   }
 
+  .eui-label-value {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+  }
+
   .eui-trailing-icon {
     position: absolute;
     right: 0px;
