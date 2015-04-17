@@ -11,13 +11,12 @@ list = ListView.extend
   rowHeight: Ember.computed.alias 'controller.listRowHeight'
 
   setup: (->
-    # Prevents mouse scroll events from passing through to the div
-    # behind the poplist when listView is scrolled to the end.
-    @.$().bind('mousewheel.emberui', (e) =>
-      e.preventDefault()
-      scrollTo = @get('scrollTop') + (e.originalEvent.wheelDelta * -1)
+    # Prevents chrome from scrolling the page via momentum when scrolling the list
+    @.$().bind('scroll.emberui', (e) =>
+      scrollTop = $(window).scrollTop()
 
-      @scrollTo(scrollTo)
+      Ember.run.next @, ->
+        $(window).scrollTop(scrollTop)
     )
 
     # Firefox
@@ -25,6 +24,7 @@ list = ListView.extend
       e.cancelBubble = true
     )
   ).on 'didInsertElement'
+
 
   breakdown: (->
     @.$().unbind('mousewheel.emberui DOMMouseScroll.emberui')
