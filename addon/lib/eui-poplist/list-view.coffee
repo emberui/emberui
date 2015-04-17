@@ -6,12 +6,6 @@ list = ListView.extend
   role: 'menu'
   tabindex: '-1'
 
-  css:
-    position: 'relative'
-    '-webkit-overflow-scrolling': 'touch'
-    'overflow-scrolling': 'touch'
-    overflow: 'auto'
-
   classNames: ['eui-options']
   height: Ember.computed.alias 'controller.listHeight'
   rowHeight: Ember.computed.alias 'controller.listRowHeight'
