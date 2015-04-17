@@ -21,11 +21,15 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   # If the selection changes peform the action and reset it so it can get triggered
   # again if same option is selected
 
-  peformSecondaryAction: (->
-    action = @get 'selection.action'
-    @triggerAction { action } if action
-    @set 'selection', null
-  ).observes 'selection'
+  selection: Ember.computed (key, value) ->
+    # Getter
+    if arguments.length is 1
+      return null
+
+    # Setter
+    else
+      action = value.get('action')
+      @triggerAction { action } if action
 
 
   # List of options without any primary actions
