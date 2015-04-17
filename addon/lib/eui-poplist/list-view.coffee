@@ -18,21 +18,23 @@ list = ListView.extend
 
   setup: (->
     # Prevents mouse scroll events from passing through to the div
-    # behind the poplist when listView is scrolled to the end. Fixes
-    # the poplist closing if you scroll too far down
-    @.$().bind('mousewheel.emberui DOMMouseScroll.emberui', (e) =>
+    # behind the poplist when listView is scrolled to the end.
+    @.$().bind('mousewheel.emberui', (e) =>
       e.preventDefault()
-      scrollTo = @get 'scrollTop'
-
-      if e.type == 'mousewheel'
-        scrollTo += (e.originalEvent.wheelDelta * -1)
-
-      else if e.type == 'DOMMouseScroll'
-        scrollTo += 40 * e.originalEvent.detail
+      scrollTo = @get('scrollTop') + (e.originalEvent.wheelDelta * -1)
 
       @scrollTo(scrollTo)
     )
+
+    # Firefox
+    @.$().bind('DOMMouseScroll.emberui', (e) =>
+      e.cancelBubble = true
+    )
   ).on 'didInsertElement'
+
+  breakdown: (->
+    @.$().unbind('mousewheel.emberui DOMMouseScroll.emberui')
+  ).on 'willDestroyElement'
 
   itemViewClass: listItemView
 
