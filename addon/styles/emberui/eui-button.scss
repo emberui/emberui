@@ -35,6 +35,12 @@ eui-button {
     position: relative;
   }
 
+  &.eui-no-label {
+    .eui-trailing-icon {
+      transform: translateX(-65%);
+    }
+  }
+
   .eui-label-value {
     display: inline-block;
     white-space: nowrap;
