@@ -10,24 +10,28 @@ list = ListView.extend
   height: Ember.computed.alias 'controller.listHeight'
   rowHeight: Ember.computed.alias 'controller.listRowHeight'
 
-  setup: (->
-    # Prevents chrome from scrolling the page via momentum when scrolling the list
-    @.$().bind('scroll.emberui', (e) =>
-      scrollTop = $(window).scrollTop()
+  windowScrollPosition: 0
 
-      Ember.run.next @, ->
-        $(window).scrollTop(scrollTop)
+  setup: (->
+    @set('windowScrollPosition', $(window).scrollTop())
+
+    $(window).on('scroll.emberui', (e) =>
+      $(window).scrollTop(@get('windowScrollPosition'))
     )
 
-    # Firefox
-    @.$().bind('DOMMouseScroll.emberui', (e) =>
-      e.cancelBubble = true
+    @.$().on('wheel.emberui', (e) =>
+      e.preventDefault()
+      scrollTop = @.$().scrollTop()
+      momentum =  e.originalEvent.deltaY
+
+      unless scrollTop is @.$().height() - @.$().find('.ember-list-container').height()
+        @.$().scrollTop(scrollTop + momentum)
     )
   ).on 'didInsertElement'
 
-
   breakdown: (->
-    @.$().unbind('mousewheel.emberui DOMMouseScroll.emberui')
+    @.$().off('wheel.emberui')
+    $(window).off('scroll.emberui')
   ).on 'willDestroyElement'
 
   itemViewClass: listItemView
