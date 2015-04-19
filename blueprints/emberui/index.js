@@ -2,15 +2,12 @@ module.exports = {
   normalizeEntityName: function() {}, // no-op since we're just adding dependencies
 
   afterInstall: function() {
-    return this.addPackagesToProject([
-      // TODO: remove this because it forces the consuming user to use app.scss
-      { name: 'broccoli-sass' }
+    return this.addBowerPackagesToProject([
+      { name: 'moment' },
+      { name: 'twix'}
 
     ]).then(function() {
-      return this.addBowerPackagesToProject([
-        { name: 'moment' },
-        { name: 'twix'}
-      ])
+      return this.addAddonToProject('ember-cli-sass')
 
     }.bind(this)).then(function() {
       return this.addAddonToProject('ember-cli-velocity')
