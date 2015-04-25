@@ -1,0 +1,247 @@
+<h1>\{{eui-selectdate}}</h1>
+
+<div class="intro">
+  Select a single date or a date range.
+</div>
+
+<h2>Parameters</h2>
+
+<ul class="parameterindex">
+  <li class="header">Aesthetic</li>
+  <li><a href="#section-animationstyle">animationStyle</a></li>
+  <li><a href="#section-formatting">formatting</a></li>
+  <li><a href="#section-size">size</a></li>
+  <li><a href="#section-style">style</a></li>
+  <li><a href="#section-width">width</a></li>
+
+  <li class="header">States</li>
+  <li><a href="#section-disabled">disabled</a></li>
+
+  <li class="header">Attributes</li>
+  <li><a href="#section-daterange">dateRange</a></li>
+  <li><a href="#section-disableddates">disabledDates</a></li>
+  <li><a href="#section-disablefuture">disableFuture</a></li>
+  <li><a href="#section-disablepast">disablePast</a></li>
+  <li><a href="#section-maxfuturedate">maxFutureDate</a></li>
+  <li><a href="#section-maxpastdate">maxPastDate</a></li>
+  <li><a href="#section-placeholder">placeholder</a></li>
+  <li><a href="#section-selection">selection</a></li>
+  <li><a href="#section-value">value</a></li>
+
+  <li class="header">Error Handling</li>
+  <li><a href="#section-error">error</a></li>
+  <li><a href="#section-forceerrorcheck">forceErrorCheck</a></li>
+</ul>
+
+
+<h4 id="section-animationstyle">animationStyle <span>string</span></h4>
+<p>
+  The name of the animation style to use for open and close animations. See {{link-to "animations" "documentation.animations"}} for more details.
+</p>
+
+
+<h4 id="section-formatting">formatting <span>hash</span></h4>
+<p>
+  Settings you want to use when formatting the date for display purposes. See the <a href="isaaccambron.com/twix.js/#smartFormatting">twix.js</a> documentation for a detailed list of options.
+</p>
+<h5>
+  Default Value
+</h5>
+
+<pre>formatting: {
+  yearFormat: "YYYY"
+  monthFormat: "MMMM"
+  dayFormat: "D"
+}</pre>
+
+
+<h4 id="section-size">size <span>string</span></h4>
+<p>
+  The overall size of the button that opens the calendar. Width is set via the <a href="#section-width">width</a> parameter. Each size has an associated width it will use unless you override it.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>tiny</li>
+  <li>small</li>
+  <li>medium (default)</li>
+  <li>large</li>
+</ul>
+
+<pre>\{{eui-selectdate size="tiny" placeholder="Select a date"}}
+\{{eui-selectdate size="small" placeholder="Select a date"}}
+\{{eui-selectdate size="medium" placeholder="Select a date"}}
+\{{eui-selectdate size="large" placeholder="Select a date"}}</pre>
+
+<div class="output">
+  {{eui-selectdate size="tiny" placeholder="Select a date"}}
+  {{eui-selectdate size="small" placeholder="Select a date"}}
+  {{eui-selectdate size="medium" placeholder="Select a date"}}
+  {{eui-selectdate size="large" placeholder="Select a date"}}
+</div>
+
+<p>
+  Additional sizes can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
+</p>
+
+
+<h4 id="section-style">style <span>string</span></h4>
+<p>
+  Aesthetic style of the button that opens the calendar. The styles are shared with the <em>button</em> component.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>default (default)</li>
+  <li>primary</li>
+</ul>
+
+<pre>\{{eui-selectdate style="default" placeholder="Select a date"}}
+\{{eui-selectdate style="primary" placeholder="Select a date"}}</pre>
+
+<div class="output">
+  {{eui-selectdate style="default" placeholder="Select a date"}}
+  {{eui-selectdate style="primary" placeholder="Select a date"}}
+</div>
+
+
+<h4 id="section-width">width <span>string</span></h4>
+<p>
+  Width of the select. You must pass in a CSS size value with the unit. The select uses CSS box-sizing to ensure precentage-based sizes are actual sizes.
+</p>
+
+<pre>\{{eui-selectdate width="100px" placeholder="100px"}}
+\{{eui-selectdate width="50%" placeholder="50%"}}</pre>
+
+<div class="output">
+  {{eui-selectdate width="100px" placeholder="100px"}}
+  {{eui-selectdate width="50%" placeholder="50%"}}
+</div>
+
+
+<h4 id="section-disabled">disabled <span>boolean</span></h4>
+<p>
+  Disables the select.
+</p>
+
+<pre>\{{eui-selectdate disabled=true placeholder="Select a date"}}</pre>
+
+<div class="output">
+  {{eui-selectdate disabled=true placeholder="Select a date"}}
+</div>
+
+
+
+<h4 id="section-daterange">dateRange <span>boolean</span></h4>
+<p>
+  Set to <em>true</em> if the select should allow the user to select a date range.
+</p>
+
+<pre>selectedDates: [
+  moment('2014-04-25'),
+  moment('2014-04-26')
+],
+disabledDates: [
+  moment('2014-05-20'),
+  moment('2014-05-21'),
+  moment('2014-05-22'),
+  moment('2014-05-23'),
+  moment('2014-05-24'),
+  moment('2014-05-25'),
+  moment('2014-05-26')
+]</pre>
+
+<pre>\{{eui-selectdate placeholder="Select dates" selection=selectedDates dateRange=true disabledDates=disabledDates}}</pre>
+
+<div class="output">
+  {{eui-selectdate placeholder="Select dates" selection=selectedDates dateRange=true disabledDates=disabledDates}}
+</div>
+
+
+<h4 id="section-disableddates">disabledDates <span>array of monents</span></h4>
+<p>
+  Dates to indicate as disabled.
+</p>
+
+<pre>disabledDates: [
+  moment('2014-05-20'),
+  moment('2014-05-21'),
+  moment('2014-05-22'),
+  moment('2014-05-23'),
+  moment('2014-05-24'),
+  moment('2014-05-25'),
+  moment('2014-05-26')
+]</pre>
+
+<pre>\{{eui-selectdate disabledDatesBinding="disabledDates" placeholder="Select a date"}}</pre>
+
+<div class="output">
+  {{eui-selectdate disabledDatesBinding="disabledDates" placeholder="Select a date"}}
+</div>
+
+
+<h4 id="section-disablefuture">disableFuture <span>boolean</span></h4>
+<p>
+  Prevents the user from navigating into the future. Defaults to false.
+</p>
+
+
+<h4 id="section-disablepast">disablePast <span>boolean</span></h4>
+<p>
+  Prevents the user from navigating into the past. Defaults to false.
+</p>
+
+
+<h4 id="section-maxfuturedate">maxFutureDate <span>moment</span></h4>
+<p>
+  Maximum future date.
+</p>
+
+
+<h4 id="section-maxpastdate">maxPastDate <span>moment</span></h4>
+<p>
+  Maximum future date.
+</p>
+
+
+<h4 id="section-placeholder">placeholder <span>string</span></h4>
+<p>
+  Placeholder value for the select.
+</p>
+
+
+<h4 id="section-selection">selection <span>moment | arry of moments</span></h4>
+<p>
+  The currently selected option. <em>null</em> if nothing is selected.
+</p>
+
+<pre>selectedDate: moment('2014-04-26')</pre>
+
+<pre>\{{eui-selectdate selection=selectedDate placeholder="Select a date"}}
+Current Selection: \{{selectedDate}}</pre>
+
+<div class="output">
+  {{eui-selectdate selection=selectedDate placeholder="Select a date"}}
+  <br />
+  <br />
+  Current Selection: {{selectedDate}}
+</div>
+
+
+<h4 id="section-value">value <span>unix time stamp | arry of unix time stamps</span></h4>
+<p>
+  Same as <em>selection</em>, except it returns <em>unix time stamps</em> instead of <em>moment</em> objects.
+</p>
+
+
+
+<h4 id="section-error">error <span>boolean | string</span></h4>
+<p>
+  Responsible for validation and error handling. See {{link-to "Error Handling" "documentation.errorhandling"}}
+</p>
+
+
+<h4 id="section-forceerrorcheck">forceErrorCheck <span>boolean</span></h4>
+<p>
+  If set to <em>true</em> the select will force an error check, even if the value is blank.
+</p>

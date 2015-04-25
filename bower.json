@@ -1,38 +1,20 @@
 {
   "name": "emberui",
-  "version": "0.5.0",
-  "main": [
-    "dist/emberui.css",
-    "dist/default-theme.css",
-    "dist/globals/emberui.js"
-  ],
-  "authors": [
-    "Jaco Joubert <jaco@venn.lc>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "Brocfile.js",
-    "package.json",
-    "node_modules",
-    "bower_components",
-    "**/.*"
-  ],
   "dependencies": {
-    "jquery": ">1.11.1",
-    "qunit": "~1.12.0",
-    "ember": "<=1.7.0",
-    "ember-resolver": "~0.1.1",
-    "ember-testing-httpRespond": "~0.1.1",
-    "ember-list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
-    "moment": "^2.6.0",
-    "twix": "~0.4.0",
-    "velocity": "^1.1.0"
+    "jquery": "^1.11.1",
+    "ember": "1.11.1",
+    "ember-resolver": "~0.1.12",
+    "loader.js": "ember-cli/loader.js#3.2.0",
+    "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
+    "ember-cli-test-loader": "ember-cli-test-loader#0.1.3",
+    "ember-load-initializers": "ember-cli/ember-load-initializers#0.0.2",
+    "ember-qunit": "0.2.8",
+    "ember-qunit-notifications": "0.0.7",
+    "qunit": "~1.17.1"
   },
   "devDependencies": {
-    "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
-    "ember-qunit": "0.1.7"
-  },
-  "resolutions": {
-    "ember": "~1.5.0"
+    "ember-list-view": "*",
+    "moment": "~2.9.0",
+    "twix": "~0.6.2"
   }
 }

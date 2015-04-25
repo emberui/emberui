@@ -1,32 +1,55 @@
 {
   "name": "emberui",
-  "namespace": "emberui",
-  "version": "0.5.0",
+  "version": "0.6.0",
+  "description": "A component library for crafting ambitious interfaces.",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
   "scripts": {
-    "postinstall": "bower install"
+    "start": "ember server",
+    "build": "ember build",
+    "test": "ember test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/emberui/emberui"
+  "repository": "http://github.com/emberui/emberui",
+  "engines": {
+    "node": ">= 0.10.0"
   },
-  "author": {
-    "name": "Jaco Joubert",
-    "url": "https://twitter.com/jaco_says",
-    "email": "jaco@venn.lc"
-  },
+  "author": "Jaco Joubert",
   "license": "MIT",
   "devDependencies": {
-    "broccoli": "^0.9.0",
-    "broccoli-autoprefixer": "^0.2.0",
-    "broccoli-coffee": "0.1.0",
-    "broccoli-debug": "~0.1.1",
-    "broccoli-dist-es6-module": "git+https://github.com/ghedamat/broccoli-dist-es6-module#mattia/use-main-name-for-all-builds",
-    "broccoli-ember-hbs-template-compiler": "^1.6.0",
+    "broccoli-asset-rev": "^2.0.0",
+    "ember-cli": "0.2.2",
+    "ember-cli-app-version": "0.3.2",
+    "ember-cli-babel": "^4.0.0",
+    "ember-cli-content-security-policy": "0.3.0",
+    "ember-cli-dependency-checker": "0.0.8",
+    "ember-cli-divshot": "^0.1.7",
+    "ember-cli-ic-ajax": "0.1.1",
+    "ember-cli-inject-live-reload": "^1.3.0",
+    "ember-cli-qunit": "0.3.9",
+    "ember-cli-uglify": "1.0.1",
+    "ember-export-application-global": "^1.0.2"
+  },
+  "dependencies": {
     "broccoli-ember-inline-template-compiler": "0.0.1",
-    "broccoli-env": "0.0.1",
-    "broccoli-merge-trees": "^0.1.3",
-    "broccoli-sass": "0.1.2",
-    "broccoli-static-compiler": "0.1.4",
-    "broccoli-template": "0.1.1"
+    "ember-cli-autoprefixer": "^0.3.0",
+    "ember-cli-coffeescript": "0.10.0",
+    "ember-cli-htmlbars": "0.7.4",
+    "ember-cli-sass": "4.0.0-beta.5",
+    "ember-cli-velocity": "^0.3.1",
+    "ember-list-view": "*"
+  },
+  "keywords": [
+    "ember-addon",
+    "components",
+    "button",
+    "calendar",
+    "select",
+    "input",
+    "dropbutton"
+  ],
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
   }
 }

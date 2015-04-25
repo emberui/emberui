@@ -1,0 +1,36 @@
+@keyframes hide-slide {
+  0% {
+    opacity: 1;
+    left: 0px;
+  }
+
+  20% {
+    opacity: 0;
+    left: 0px;
+  }
+
+  100% {
+    opacity: 0;
+    left: 0px;
+  }
+}
+
+
+@keyframes show-slide {
+  0% {
+    opacity: 0;
+    left: 0px;
+  }
+
+  30% {
+    opacity: 0;
+    left: 0px;
+  }
+
+  80% {
+    opacity: 1;
+    left: 0px;
+  }
+
+  100 {}
+}

@@ -1,0 +1,108 @@
+/* Medium */
+.eui-checkbox-medium-default {
+  margin-right: 5px;
+
+  .eui-component {
+    display: inline-block;
+    padding: 1px;
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+    margin-bottom: -2px;
+    border-radius: 3px;
+    padding: 1px;
+    background: linear-gradient(to bottom,  rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.30) 100%);
+
+    /* hover */
+    &:hover {
+      .eui-icon {
+        opacity: 1;
+      }
+    }
+  }
+
+  .eui-component-wrapper {
+    border-radius: inherit;
+    position: relative;
+    height: 13px;
+    width: 13px;
+    line-height: 13px;
+    background: #ffffff;
+  }
+
+  .eui-icon {
+    opacity: 0;
+    transition: opacity 0.1s;
+    color: #e2e2e2;
+    text-shadow: 1px 1px #ffffff;
+    font-size: 11px;
+  }
+
+  /* disabled */
+   &.eui-disabled {
+    .eui-component-wrapper {
+      background: #f3f3f3;
+    }
+  }
+
+  /* focus */
+  input:focus + .eui-enabled {
+    background: rgba(0,107,255,0.5);
+    box-shadow: 0px 0px 4px #0090ff;
+    animation: eui-focus-highlight 0.2s 1;
+
+    .eui-icon {
+      opacity: 1;
+    }
+  }
+
+
+  /* CHECKED */
+  &.eui-checked {
+    .eui-component {
+      background: linear-gradient(to bottom, #40a0f0 0%, #1274c6 100%);
+    }
+
+    .eui-component-wrapper {
+      background: #40a0f0;
+    }
+
+    .eui-icon {
+      opacity: 1;
+      color: #ffffff;
+      text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    /* disabled */
+     &.eui-disabled {
+      .eui-icon {
+        opacity: 0.5;
+      }
+    }
+
+    /* focus */
+    input:focus + .eui-component {
+      background: linear-gradient(to bottom, #40a0f0 0%, #1274c6 100%);
+      box-shadow: 0px 0px 4px #0090ff;
+      animation: eui-focus-highlight 0.2s 1;
+
+      .eui-icon {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+
+
+/* ERROR HANDLING */
+eui-checkbox .eui-error-message {
+  margin-left: -7px;
+}
+
+/* ERROR */
+eui-checkbox.eui-error .eui-component,
+eui-checkbox.eui-error .eui-component:hover {
+  background: #ff7f7f !important;
+  box-shadow: 0px 0px 4px #ff0000 !important;
+  animation: eui-error-highlight 0.2s 1;
+}

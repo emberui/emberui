@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "emberui";
+  src:url("../emberui/fonts/emberui.eot");
+  src:url("../emberui/fonts/emberui.eot?#iefix") format("embedded-opentype"),
+    url("../emberui/fonts/emberui.woff") format("woff"),
+    url("../emberui/fonts/emberui.ttf") format("truetype"),
+    url("../emberui/fonts/emberui.svg#emberui") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+.eui-icon {
+  font-family: "emberui";
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.eui-icon--dropbutton:before {
+  content: "\e000";
+}
+
+.eui-icon--previous:before {
+  content: "\e001";
+}
+
+.eui-icon--next:before {
+  content: "\e002";
+}
+
+.eui-icon--select:before {
+  content: "\e003";
+}
+
+.eui-icon--check:before {
+  content: "\e004";
+}
+
+.eui-icon--error:before {
+  content: "\e005";
+}

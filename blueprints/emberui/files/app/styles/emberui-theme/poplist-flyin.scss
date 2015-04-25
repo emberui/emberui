@@ -1,0 +1,78 @@
+.eui-poplist-flyin {
+  border: none;
+
+  .eui-component {
+    border-radius: 3px;
+    padding: 1px;
+    margin-top: -2px;
+    background-image: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 100%);
+    box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+    border: none;
+  }
+
+  .eui-component-wrapper {
+    background: #ffffff;
+    border-radius: 3px;
+    padding: 5px 0;
+  }
+
+  .eui-options {
+    font-size: 13px;
+    font-family: Helvetica, "Helvetica Neue", Arial, Tahoma, sans-serif;
+    transition: height 0.2s;
+  }
+
+  .eui-nooptions {
+    padding: 5px 7.5px 0 7.5px;
+    font-size: 13px;
+    color: #c6c6c6;
+  }
+
+  .eui-option {
+    padding: 0 7.5px 0 20px;
+
+    &.eui-selected {
+      background-image: linear-gradient(to bottom, #eeeeee 0%, #f6f6f6 100%);
+      color: #919191;
+
+      &:before {
+        content: "\e004";
+        font-family: "emberui";
+        color: #c1c1c1;
+        font-size: 13px;
+        text-align: center;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 20px;
+      }
+    }
+
+    &.eui-hover {
+      background-image: linear-gradient(to bottom,  #1493dc 0%, #64bcf7 100%);
+      color: #ffffff;
+      text-shadow: 0px 1px rgba(0,0,0,0.35);
+
+      &:before {
+        color: #aed4f3;
+      }
+    }
+  }
+
+  .eui-search-wrapper {
+    border-bottom: solid 1px transparent;
+    transition:
+      height 0.2s,
+      border-color 0.2s;
+
+    &.eui-active {
+      border-bottom-color: #d7d7d7;
+    }
+  }
+
+  .eui-search {
+    padding: 0 5px 5px 5px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,33 @@
+{{eui-button
+  label=view.label
+  disabled=disabled
+  style=style
+  size=size
+  width='100%'
+  classBinding=":eui-select selectClass showPopcal:eui-active"
+  action="openCalendar"
+  trailingIcon="eui-icon eui-icon--select"}}
+
+{{#if errorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p>
+        {{errorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+
+{{#if showPopcal}}
+  {{eui-popcal
+    isOpen=showPopcal
+    selection=selection
+    dateRange=dateRange
+    disablePast=disablePast
+    disableFuture=disableFuture
+    maxPastDate=maxPastDate
+    maxFutureDate=maxFutureDate
+    disabledDates=disabledDates
+    style=calendarStyle
+    animationStyle=animationStyle}}
+{{/if}}

@@ -1,0 +1,76 @@
+<h1>Philosophy</h1>
+
+<p>
+  EmberUI was designed to make building complex web applications simple. Web applications share a common set of components that are needed over and over again. It used to be that you would stitch together a variety of jQuery plugins of dubious quality to make your application function, but that does not lead to great experiences. There needs to be a better way.
+</p>
+<p>
+  EmberUI tries to to be this library&mdash;a uniform set of components that can be depended on to be of very high quality and flexible in their design. Each component's feature set is carefully considered and a ton of attention is paid to the design to make it both usable and "fun".
+</p>
+<p>
+  Because of our design-first approach EmberUI is going to be opinionated. There are some common design decisions that we no longer consider good design that will not make their way into EmberUI. For example, optgroups for selects or text inputs for date selectors.
+</p>
+
+<h3>What EmberUI is not</h3>
+<p>
+  EmberUI is not a CSS framework. It will not assist you in laying out or styling your application. What it will do is provide you a set of polished UI components that will make building great apps must faster.
+</p>
+
+
+<h3>Installation</h3>
+
+<pre>$ ember install:addon emberui</pre>
+
+<p>
+  This will install EmberUI and add its dependencies to your project. It will also copy the default theme's files to your css folder.
+</p>
+
+<p>
+  Note: EmberUI theme is writtin in <a href="http://sass-lang.com/">Sass</a>. The theme files we copy are all <em>.scss</em> files and requires ember-cli-sass to compile. However, ember-cli-sass requires your main css file to also be <em>.scss</em> so you will need to rename it. Luckily sass is backwards compatible with css so a different extension is all that is required. Figuring a way around this is a TODO.
+</p>
+
+
+<h3>Dependencies</h3>
+
+<ul class="dependencies">
+  <li>
+    <a href="https://github.com/emberjs/list-view">list-view</a>
+    <p>
+      An internal component uses <em>list-view</em> to incrementally render itself for peformance reasons.
+    </p>
+  </li>
+  <li>
+    <a href="http://momentjs.com">moment.js</a>
+    <p>
+       All date components make use of <em>momentjs</em> for sane date handling.
+    </p>
+  </li>
+  <li>
+    <a href="http://isaaccambron.com/twix.js">twix.js</a>
+    <p>
+      Used to format the date ranges for the <em>selectdate</em> component.
+    </p>
+  </li>
+</ul>
+
+
+
+<h1>Design Files</h1>
+
+<p>
+  You can use these PSDs to make mocking up layouts with EmberUI super fast. There is one PSD for each form element and it contains the element in all its possible states and variations. EmberUI is under heavy development so it is possible that not all variations shown in the PSDs are currently implemented.
+</p>
+
+<ul class="filelist">
+  <li class="fa fa-download">
+    <a href="/assets/psds/button.psd">Button</a>
+  </li>
+  <li class="fa fa-download">
+    <a href="/assets/psds/checkbox.psd">Checkbox</a>
+  </li>
+  <li class="fa fa-download">
+    <a href="/assets/psds/input.psd">Input</a>
+  </li>
+  <li class="fa fa-download">
+    <a href="/assets/psds/select.psd">Select</a>
+  </li>
+</ul>
