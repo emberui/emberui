@@ -1,6 +1,6 @@
 {
   "name": "emberui",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A component library for crafting ambitious interfaces.",
   "directories": {
     "doc": "doc",
