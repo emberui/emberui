@@ -90,9 +90,17 @@ calendar = Em.Component.extend className,
       @set 'month', month.clone().add(1, 'months')
 
 
-  selection: Ember.computed '_selection', (key, value) ->
-    # setter
-    if arguments.length is 2
+  selection: Ember.computed '_selection',
+    get: (key) ->
+      selection = @get('_selection')
+
+      if @get 'allowMultiple'
+        return selection
+
+      else
+        return selection.get('firstObject')
+
+    set: (key, value) ->
       if Ember.isArray(value)
         @set '_selection', value
       else if value
@@ -101,16 +109,6 @@ calendar = Em.Component.extend className,
         @set '_selection', []
 
       value
-
-    # getter
-    else
-      selection = @get('_selection')
-
-      if @get 'allowMultiple'
-        return selection
-
-      else
-        return selection.get('firstObject')
 
 
   hasDate: (date) ->

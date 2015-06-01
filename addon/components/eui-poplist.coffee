@@ -81,19 +81,17 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
 
   # Option that is currently highlighted
 
-  highlighted: Ember.computed 'highlightedIndex', 'filteredOptions', (key, value) ->
-    options = @get 'filteredOptions'
+  highlighted: Ember.computed 'highlightedIndex', 'filteredOptions',
+    get: (key) ->
+      options = @get 'filteredOptions'
+      index = @get 'highlightedIndex'
+      options.objectAt index
 
-    # setter
-    if arguments.length is 2
+    set: (key, value) ->
+      options = @get 'filteredOptions'
       index = options.indexOf value
       @set 'highlightedIndex', index
       value
-
-    # getter
-    else
-      index = @get 'highlightedIndex'
-      options.objectAt index
 
 
   hide: ->

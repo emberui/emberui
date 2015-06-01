@@ -35,11 +35,21 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
   # Return Unix Time stamp of selections
 
-  value: Em.computed 'selection.@each', (key, value) ->
-    selection = @get 'selection'
+  value: Em.computed 'selection.@each',
+    get: (key) ->
+      selection = @get 'selection'
 
-    # setter
-    if arguments.length is 2
+      unless selection
+        return if @get('dateRange') then [] else null
+
+      if Em.isArray selection
+          selection.map (date) -> date.format('X')
+      else
+        selection.format('X')
+
+    set: (key, value) ->
+      selection = @get 'selection'
+
       unless value
         @set 'selection', value
         return value
@@ -50,16 +60,6 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
         @set 'selection', moment(value)
 
       value
-
-    # getter
-    else
-      unless selection
-        return if @get('dateRange') then [] else null
-
-      if Em.isArray selection
-          selection.map (date) -> date.format('X')
-      else
-        selection.format('X')
 
 
   # Make sure if a selection is passed in that we immediately calculate what the

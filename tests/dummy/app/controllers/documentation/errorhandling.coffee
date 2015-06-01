@@ -1,4 +1,4 @@
-controller = Ember.ObjectController.extend
+controller = Ember.Controller.extend
   email: 'john@example'
 
   emailValid: (->

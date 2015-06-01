@@ -1,4 +1,4 @@
-controller = Ember.ObjectController.extend
+controller = Ember.Controller.extend
   options: [
     Ember.Object.create label: 'Save', action: 'save'
     Ember.Object.create label: 'Delete', action: 'delete'

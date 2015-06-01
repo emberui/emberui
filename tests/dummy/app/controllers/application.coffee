@@ -1,4 +1,4 @@
-controller = Ember.ObjectController.extend
+controller = Ember.Controller.extend
   # Shows or hides navigation for mobile site
   showNavigation: false
 
