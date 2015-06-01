@@ -1,4 +1,4 @@
-### 0.6.0
+### 0.7.0
 
 - [BREAKING] EmberUI now requires Ember 1.12
 - Move to the new computed get/set syntax
