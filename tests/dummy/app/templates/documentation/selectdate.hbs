@@ -31,6 +31,9 @@
   <li class="header">Error Handling</li>
   <li><a href="#section-error">error</a></li>
   <li><a href="#section-forceerrorcheck">forceErrorCheck</a></li>
+
+  <li class="header">Events</li>
+  <li><a href="#section-onchange">onChange</a></li>
 </ul>
 
 
@@ -245,3 +248,13 @@ Current Selection: \{{selectedDate}}</pre>
 <p>
   If set to <em>true</em> the select will force an error check, even if the value is blank.
 </p>
+
+
+<h4 id="section-onchange">onChange <span>string</span></h4>
+<p>
+  Action to fire when the date selection changes.
+</p>
+
+<div class="output">
+  {{eui-selectdate onChange="dateDidChange" placeholder="Select a date"}}
+</div>

@@ -11,6 +11,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   style: 'default'
   size: 'medium'
   calendarStyle: 'default'
+  onChange: null
 
   showPopcal: false
 
@@ -89,6 +90,9 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   actions:
     openCalendar: ->
       @toggleProperty('showPopcal')
+
+    onSelectionChange: (selection) ->
+      this.sendAction('onChange', selection)
 
 
   # Catch and handle key presses

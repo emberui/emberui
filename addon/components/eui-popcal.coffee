@@ -29,7 +29,9 @@ popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll, 
   previousFocus: null
 
 
-  hide: ->
+  hide: (attrs) ->
+    this.sendAction('selectionDidChange', attrs.selection) if attrs.selectionDidChange
+
     @animateOut({
       target: @get('targetObject').$()
       complete: => @breakdown()
@@ -83,11 +85,11 @@ popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll, 
       if dateRange
         # Close if user has a complete date range selected
         if selection?.get('length') > 1
-          @hide()
+          @hide({ selectionDidChange: true, selection: selection })
 
       # Close if single date mode and they have made a selection
       else if selection
-        @hide()
+        @hide({ selectionDidChange: true, selection: selection })
 
 
     hidePopcal: ->
