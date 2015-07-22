@@ -1,3 +1,6 @@
+### 0.7.1
+- Add onChange event to select date component. 
+
 ### 0.7.0
 
 - [BREAKING] EmberUI now requires Ember 1.12
