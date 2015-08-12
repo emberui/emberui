@@ -30,7 +30,7 @@ popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll, 
 
 
   hide: (attrs) ->
-    this.sendAction('selectionDidChange', attrs.selection) if attrs.selectionDidChange
+    this.sendAction('selectionDidChange', attrs.selection) if attrs?.selectionDidChange and attrs.selection
 
     @animateOut({
       target: @get('targetObject').$()
