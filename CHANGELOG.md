@@ -1,5 +1,8 @@
+### 0.7.2
+- Only trigger selectionDidChange on popcal when it has a selection
+
 ### 0.7.1
-- Add onChange event to select date component. 
+- Add onChange event to select date component.
 
 ### 0.7.0
 
