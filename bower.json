@@ -15,6 +15,6 @@
   "devDependencies": {
     "ember-list-view": "*",
     "moment": "~2.9.0",
-    "twix": "~0.6.2"
+    "twix": "~0.7.2"
   }
 }
