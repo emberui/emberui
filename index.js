@@ -8,6 +8,6 @@ module.exports = {
     this._super.included(app);
 
     app.import(app.bowerDirectory + '/moment/moment.js');
-    app.import(app.bowerDirectory + '/twix/bin/twix.js');
+    app.import(app.bowerDirectory + '/twix/dist/twix.js');
   }
 };
