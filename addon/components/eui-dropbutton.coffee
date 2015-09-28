@@ -15,7 +15,8 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
   # Action for the left button
 
   primaryAction: Em.computed 'options', ->
-    @get('options').findBy 'primary', true
+    @get('options').find (option) ->
+      return option.get('primary') is true
 
 
   # If the selection changes peform the action and reset it so it can get triggered
@@ -28,7 +29,7 @@ dropbutton = Em.Component.extend styleSupport, sizeSupport,
     set: (key, value) ->
       action = value.get('action')
       @triggerAction { action } if action
-      
+
 
   # List of options without any primary actions
 

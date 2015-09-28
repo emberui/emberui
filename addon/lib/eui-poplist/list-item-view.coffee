@@ -9,7 +9,7 @@ listItem = ListItemView.extend
   role: 'menuitem'
   tabindex: '0'
 
-  isHighlightedDidChange: (->
+  isHighlightedDidChange: Ember.observer 'isHighlighted', ->
     # Focussing the highlighted item is necessary for screen readers to work.
     #
     # Calling focus immediately is expensive. When holding up/down a arrow keys,
@@ -18,25 +18,17 @@ listItem = ListItemView.extend
 
     Ember.run.next =>
       @$().focus() if @get('isHighlighted')
-  ).observes 'isHighlighted'
 
-  initializeIsHighlighted: (->
+  setup: Ember.on 'init', ->
     @isHighlightedDidChange()
-  ).on 'init'
+    @labelPathDidChange()
 
   # creates Label property based on specified labelPath
 
-  labelPathDidChange: (->
+  labelPathDidChange: Ember.observer 'content', 'controller.labelPath', ->
     labelPath = @get 'controller.labelPath'
     Ember.defineProperty(this, 'label', Ember.computed.alias("content.#{labelPath}"))
     @notifyPropertyChange 'label'
-  ).observes 'content', 'controller.labelPath'
-
-
-  initializeLabelPath: (->
-    @labelPathDidChange()
-  ).on 'init'
-
 
   # Bindings won't fire if bound to context
 

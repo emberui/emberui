@@ -12,7 +12,7 @@ list = ListView.extend
 
   windowScrollPosition: 0
 
-  setup: (->
+  setup: Ember.on 'didInsertElement', ->
     @set('windowScrollPosition', $(window).scrollTop())
 
     $(window).on('scroll.emberui', (e) =>
@@ -27,12 +27,10 @@ list = ListView.extend
       unless scrollTop is @.$().height() - @.$().find('.ember-list-container').height()
         @.$().scrollTop(scrollTop + momentum)
     )
-  ).on 'didInsertElement'
 
-  breakdown: (->
+  breakdown: Ember.on 'willDestroyElement', ->
     @.$().off('wheel.emberui')
     $(window).off('scroll.emberui')
-  ).on 'willDestroyElement'
 
   itemViewClass: listItemView
 

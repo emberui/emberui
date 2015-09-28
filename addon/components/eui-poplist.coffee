@@ -100,7 +100,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
       complete: => @breakdown()
     })
 
-  setup: (->
+  setup: Ember.on 'didInsertElement', ->
     @setPoplistMinWidth()
 
     component = @.$().find('.eui-component')
@@ -138,7 +138,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
     Ember.run.next this, -> @scrollToSelection @get('options').indexOf(@get 'selection'), true
 
     @disablePageScroll()
-  ).on 'didInsertElement'
 
 
   breakdown: ->
@@ -188,14 +187,13 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
   # TODO: This doesn't fire the bindings on the listView correctly and you end
   # up with multiple items highlighted.
 
-  searchStringDidChange: (->
+  searchStringDidChange: Ember.observer 'searchString', ->
     @set 'highlightedIndex', 0 if @get 'searchString'
-  ).observes 'searchString'
 
 
   # Filter the option list based on the query entered into the search box
 
-  filteredOptions: (->
+  filteredOptions: Ember.computed 'options.@each', 'labelPath', 'searchString', ->
     options = @get 'options'
     query = @get 'searchString'
 
@@ -212,7 +210,6 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
       regex.test(label) if label
 
     return filteredOptions
-  ).property 'options.@each', 'labelPath', 'searchString'
 
 
   hasNoOptions: Ember.computed.empty 'filteredOptions'
