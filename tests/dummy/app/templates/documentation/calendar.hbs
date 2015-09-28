@@ -57,10 +57,10 @@
 </p>
 
 <pre>selectedScatteredDates: [
-  moment('2014-04-21'),
-  moment('2014-04-25'),
-  moment('2014-04-29'),
-  moment('2014-04-30')
+  moment().subtract(4, 'days'),
+  moment(),
+  moment().add(4, 'days'),
+  moment().add(5, 'days')
 ]</pre>
 
 
@@ -77,8 +77,8 @@
 </p>
 
 <pre>disabledDates: [
-  moment('2014-04-25'),
-  moment('2014-04-26')
+  moment(),
+  moment().add(1, 'days')
 ]</pre>
 
 <pre>\{{eui-calendar disabledDates=disabledDates}}</pre>
@@ -158,8 +158,8 @@
 </p>
 
 <pre>selectedDates: [
-  moment('2014-04-25'),
-  moment('2014-04-26')
+  moment(),
+  moment().add(1, 'days')
 ]</pre>
 
 <pre>\{{eui-calendar selection=selectedDates allowMultiple=true}}</pre>
