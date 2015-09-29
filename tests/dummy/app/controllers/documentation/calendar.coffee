@@ -1,4 +1,4 @@
-controller = Ember.ObjectController.extend
+controller = Ember.Controller.extend
   selectedDates: [
     moment(),
     moment().add(1, 'days')
