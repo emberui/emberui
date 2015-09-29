@@ -1,25 +1,14 @@
-eui-button {
+.eui-button {
   position: relative;
   display: inline-block;
   vertical-align: middle;
   user-select: none;
   cursor: pointer;
-
-  button {
-    position: absolute;
-    opacity: 0.0001;
-    top: 0px;
-    left: -9000px;
-  }
-
-  .eui-component {
-    position: relative;
-    border: none;
-    padding: 0;
-    margin: 0;
-    background: #f6f6f6;
-    outline: none;
-  }
+  padding: 0;
+  margin: 0;
+  background: #f6f6f6;
+  outline: none;
+  border: none;
 
   .eui-component-wrapper {
     position: relative;
@@ -33,20 +22,9 @@ eui-button {
   .eui-label {
     font-style: normal;
     position: relative;
-  }
-
-  &.eui-no-label {
-    .eui-trailing-icon {
-      transform: translateX(-65%);
-    }
-  }
-
-  .eui-label-value {
-    display: inline-block;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    vertical-align: top;
+    white-space: nowrap;
   }
 
   /* Disabled */
@@ -63,7 +41,7 @@ eui-button {
 
 
 /* LOADING */
-eui-button.eui-loading {
+.eui-button.eui-loading {
   .eui-label {
     opacity: 0;
   }

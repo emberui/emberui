@@ -3,15 +3,14 @@ import disabledSupport from '../mixins/disabled-support';
 import widthSupport from '../mixins/width-support';
 
 export default Em.Component.extend(className, disabledSupport, widthSupport, {
-  classNameBindings: ['loading:eui-loading', 'icon:eui-icon', 'label::eui-no-label', 'class'],
+  classNames: ['eui-button'],
+  classNameBindings: ['loading:eui-loading', 'class'],
+  attributeBindings: ['type'],
   baseClass: 'button',
-  tagName: 'eui-button',
+  tagName: 'button',
   style: 'default',
   size: 'medium',
 
-  label: null,
-  leadingIcon: null,
-  trailingIcon: null,
   loading: null,
   disabled: null,
   action: null,
