@@ -57,8 +57,13 @@
 \{{eui-input value='john@example' error=true}}</pre>
 
 <div class="output">
-  {{eui-input value='' error=true placeholder="Will error on focus out"}}
-  {{eui-input value='john@example' error=true}}
+  {{#eui-input error=true}}
+    {{input value='' placeholder="Will error on focus out"}}
+  {{/eui-input}}
+
+  {{#eui-input error=true}}
+    {{input value='john@example'}}
+  {{/eui-input}}
 </div>
 
 <p>
@@ -68,7 +73,9 @@
 <pre>\{{eui-input value='dog' error="Please enter a valid location"}}</pre>
 
 <div class="output">
-  {{eui-input value='dog' error="Please enter a valid location"}}
+  {{#eui-input error="Please enter a valid location"}}
+    {{input value='dog'}}
+  {{/eui-input}}
 </div>
 
 <p>
@@ -91,7 +98,9 @@ emailValid: function() {
 }.property('email')</pre>
 
 <div class="output">
-  {{eui-input value=email error=emailValid}}
+  {{#eui-input error=emailValid}}
+    {{input value=email}}
+  {{/eui-input}}
 </div>
 
 <br />
