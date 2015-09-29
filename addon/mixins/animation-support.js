@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-Ember.Mixin.create({
+export default Ember.Mixin.create({
   animationStyle: null,
   animationClass: null,
 
