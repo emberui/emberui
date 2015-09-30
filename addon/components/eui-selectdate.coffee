@@ -66,9 +66,8 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   # Make sure if a selection is passed in that we immediately calculate what the
   # value is
 
-  calculateInitalValue: (->
+  calculateInitalValue: Ember.on 'didInsertElement', ->
     @notifyPropertyChange 'value'
-  ).on 'didInsertElement'
 
 
   # We have to calculate if there is no selection manually because [] will
@@ -78,7 +77,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   isPlaceholder: Em.computed 'selection', ->
     selection = @get 'selection'
 
-    if selection and Em.isArray(selection) and selection.get('length') is 0
+    if selection and Em.isArray(selection) and selection.length is 0
       return false
 
     unless selection
@@ -120,14 +119,14 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
         # If they are in the middle of selecting a date range we want to only
         # show the first date
-        if selection.get('length') < 2
+        if selection.length < 2
           startDate = selection.get('firstObject')
 
           label = @formatDateRange startDate
 
         else
-          startDate = selection.get('firstObject')
-          endDate = selection.get('lastObject')
+          startDate = selection[0]
+          endDate = selection[selection.length - 1]
 
           label = @formatDateRange startDate, endDate
 

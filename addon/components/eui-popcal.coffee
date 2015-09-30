@@ -38,7 +38,7 @@ popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll, 
     })
 
 
-  setup: (->
+  setup: Ember.on 'didInsertElement', ->
     @animateIn()
 
     @set 'previousFocus', $(document.activeElement)
@@ -61,7 +61,6 @@ popcal = Em.Component.extend styleSupport, animationSupport, preventPageScroll, 
     @.$().focus()
 
     @disablePageScroll()
-  ).on 'didInsertElement'
 
 
   breakdown: ->

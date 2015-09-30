@@ -1,5 +1,4 @@
-{{eui-button
-  label=view.label
+{{#eui-button
   disabled=disabled
   style=style
   size=size
@@ -7,6 +6,8 @@
   classBinding=":eui-select selectClass showPopcal:eui-active"
   action="openCalendar"
   trailingIcon="eui-icon eui-icon--select"}}
+  {{view.label}}
+{{/eui-button}}
 
 {{#if errorMessage}}
   <div class="eui-error-message">

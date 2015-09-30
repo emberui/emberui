@@ -39,10 +39,10 @@ export default Ember.Mixin.create({
   }),
 
   computedAnimationStyle: Ember.computed('animationStyle', 'style', function() {
-    let style = (this.get('animationStyle') || '').capitalize();
+    let style = Ember.String.capitalize(this.get('animationStyle') || '')
 
     if (!style) {
-      style = (this.get('style') || '').capitalize();
+      style = Ember.String.capitalize(this.get('style') || '');
     }
 
     return style;
