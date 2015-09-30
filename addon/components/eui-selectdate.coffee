@@ -120,7 +120,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
         # If they are in the middle of selecting a date range we want to only
         # show the first date
         if selection.length < 2
-          startDate = selection.get('firstObject')
+          startDate = selection[0]
 
           label = @formatDateRange startDate
 

@@ -101,7 +101,7 @@ export default Ember.Component.extend(className, {
         return selection;
 
       } else {
-        return selection.get('firstObject');
+        return selection[0];
       }
     },
     set: function(key, value) {
