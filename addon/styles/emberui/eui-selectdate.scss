@@ -10,16 +10,14 @@ eui-selectdate {
   &.eui-disabled {
     pointer-events: none;
   }
-
-  &.eui-placeholder {
-    .eui-selectdate-button {
-      opacity: 0.6;
-    }
-  }
 }
 
 .eui-selectdate-label {
   text-align: left
+}
+
+.eui-selectdate-placeholder {
+  opacity: 0.6;
 }
 
 .eui-selectdate-icon:before {
