@@ -6,37 +6,32 @@ eui-select {
   outline: none;
   border: none;
 
-  .eui-component-wrapper {
-    text-align: left
-  }
-
-  .eui-label-value {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-  }
-
-  .eui-trailing-icon {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    height: 100%;
-    padding-left: 7px;
-  }
-
   /* Disabled */
   &.eui-disabled {
     pointer-events: none;
   }
 
   &.eui-placeholder {
-    .eui-label-value {
+    .eui-select-label {
       opacity: 0.6;
     }
   }
+}
 
-  .eui-trailing-icon {
-    opacity: 0.4;
-  }
+.eui-select-label {
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+
+.eui-select-icon {
+  content: "\e003";
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+  padding-left: 7px;
+  opacity: 0.4;
 }

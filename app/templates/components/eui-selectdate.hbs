@@ -6,7 +6,10 @@
   classBinding=":eui-select selectClass showPopcal:eui-active"
   action="openCalendar"
   trailingIcon="eui-icon eui-icon--select"}}
-  {{view.label}}
+  <div class="eui-selectdate-label">
+    {{view.label}}
+  </div>
+  <div class="eui-selectdate-icon"></div>
 {{/eui-button}}
 
 {{#if errorMessage}}

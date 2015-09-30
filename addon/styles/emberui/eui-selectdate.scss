@@ -4,18 +4,7 @@ eui-selectdate {
   user-select: none;
   cursor: pointer;
   outline: none;
-
-  .eui-component-wrapper {
-    text-align: left
-  }
-
-  .eui-trailing-icon {
-    position: absolute;
-    right: 8px;
-    top: 0px;
-    height: 100%;
-    padding-left: 7px;
-  }
+  border: none;
 
   /* Disabled */
   &.eui-disabled {
@@ -23,12 +12,23 @@ eui-selectdate {
   }
 
   &.eui-placeholder {
-    .eui-label-value {
+    .eui-selectdate-button {
       opacity: 0.6;
     }
   }
+}
 
-  .eui-trailing-icon {
-    opacity: 0.4;
-  }
+.eui-selectdate-label {
+  text-align: left
+}
+
+.eui-selectdate-icon:before {
+  font-family: "emberui";
+  content: "\e003";
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+  padding-left: 7px;
+  opacity: 0.4;
 }
