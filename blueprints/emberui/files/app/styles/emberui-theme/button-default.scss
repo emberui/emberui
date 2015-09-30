@@ -18,8 +18,10 @@
 @mixin eui-button-active-state {
   &:active,
   &.eui-active {
-    box-shadow: none;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.13) 100%);
+    background: rgba(0, 107, 255, 0.5);
+    box-shadow: 0px 0px 4px #0090ff;
+    z-index: 1;
+    animation: eui-button-focus-highlight 0.3s 1;
 
     .eui-component-wrapper {
       background: rgba(249, 249, 249, 1);
@@ -38,7 +40,7 @@
     background: rgba(0, 107, 255, 0.5);
     box-shadow: 0px 0px 4px #0090ff;
     z-index: 1;
-    animation: eui-button-focus-highlight 0.3s 1;
+    animation: eui-button-focus-highlight 0.4s 1;
   }
 }
 
