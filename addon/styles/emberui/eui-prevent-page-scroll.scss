@@ -1,4 +1,4 @@
-.eui-scroller {
+.eui-pevent-page-scroll {
   position: fixed;
   z-index: 1000000;
   background: rgba(0, 0, 0, 0);
@@ -10,7 +10,7 @@
   transform: translate(-30px, -30px);
 }
 
-.eui-scroller--net {
+.eui-pevent-page-scroll--net {
   height: calc(100% + 30px);
   width: calc(100% + 30px);
   overflow: auto;
@@ -20,7 +20,7 @@
   }
 }
 
-.eui-scroller--net-content {
+.eui-pevent-page-scroll--net-content {
   height: 10000px;
   width: 10000px;
 }

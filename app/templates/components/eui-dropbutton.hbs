@@ -1,4 +1,4 @@
-{{#if primaryAction}}
+{{#if primaryOption}}
   {{#eui-button
     style=view.style
     size=view.size
@@ -6,7 +6,7 @@
     disabled=view.disabled
     class="eui-dropbutton--primary-action"
     action="primaryAction"}}
-    {{primaryAction.label}}
+    {{primaryOption.label}}
   {{/eui-button}}
 
   {{#eui-button
@@ -14,8 +14,8 @@
     size=view.size
     loading=false
     disabled=view.disabled
-    classBinding=":eui-dropbutton--trigger :eui-dropbutton--narrow-icon showPoplist:eui-active"
-    action="toggleWindow"}}
+    classBinding=":eui-dropbutton--trigger :eui-dropbutton--narrow-icon showOptionList:eui-active"
+    action="showOptionList"}}
   {{/eui-button}}
 
 {{else}}
@@ -24,20 +24,21 @@
     size=view.size
     loading=view.loading
     disabled=view.disabled
-    classBinding="showPoplist:eui-active :eui-dropbutton--wide-icon"
-    action="toggleWindow"}}
+    classBinding="showOptionList:eui-active :eui-dropbutton--wide-icon"
+    action="showOptionList"}}
       {{label}}
   {{/eui-button}}
 
 {{/if}}
 
-{{#if showPoplist}}
-  {{eui-poplist
-    selection=selection
-    options=optionsWithoutPrimaryAction
-    isOpen=showPoplist
-    labelPath="label"
-    style="default"
-    listWidth=listWidth
-    animationStyle=animationStyle}}
+{{#if showOptionList}}
+  {{#eui-popup onCancel=(action "cancel")}}
+    {{#eui-option-list
+      style="dropbutton"
+      options=optionsWithoutPrimaryOption as |option index|}}
+      <div class="eui-dropbutton--list-option" {{action "secondaryAction" option}}>
+        {{option.label}}
+      </div>
+    {{/eui-option-list}}
+  {{/eui-popup}}
 {{/if}}

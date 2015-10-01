@@ -5,7 +5,7 @@ export default Ember.Mixin.create({
   // to move the scroller off-screen so we can crop out the scrollbars that is visible.
   // If we do it when we show it osx shows the scrollbars regardless.
   disablePageScroll: function() {
-    let net = this.$().find('.eui-scroller--net');
+    let net = this.$().find('.eui-pevent-page-scroll--net');
 
     net.scrollTop(5000).scrollLeft(5000).addClass('eui-enabled');
 
@@ -15,6 +15,6 @@ export default Ember.Mixin.create({
   },
 
   enablePageScroll: function() {
-    return this.$().find('.eui-scroller--net').unbind('scroll');
+    return this.$().find('.eui-pevent-page-scroll--net').unbind('scroll');
   }
 });

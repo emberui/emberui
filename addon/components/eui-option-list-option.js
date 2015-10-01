@@ -8,6 +8,10 @@ export default Ember.Component.extend({
   highlights: null,
 
   isHighlighted: Ember.computed('option', 'highlights.@each', function() {
+    if (!this.get('option') || !this.get('highlights')) {
+      return false;
+    }
+
     return this.get('highlights').indexOf(this.get('option')) !== -1;
   })
 });
