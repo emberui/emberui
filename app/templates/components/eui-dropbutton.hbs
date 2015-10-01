@@ -1,34 +1,33 @@
 {{#if primaryAction}}
-  {{eui-button
-    label=primaryAction.label
+  {{#eui-button
     style=view.style
     size=view.size
-    leadingIcon=view.icon
     loading=view.loading
     disabled=view.disabled
     class="eui-dropbutton--primary-action"
     action="primaryAction"}}
+    {{primaryAction.label}}
+  {{/eui-button}}
 
-  {{eui-button
+  {{#eui-button
     style=view.style
     size=view.size
-    leadingIcon="eui-icon eui-icon--dropbutton"
     loading=false
     disabled=view.disabled
-    classBinding=":eui-dropbutton--trigger showPoplist:eui-active"
+    classBinding=":eui-dropbutton--trigger :eui-dropbutton--narrow-icon showPoplist:eui-active"
     action="toggleWindow"}}
+  {{/eui-button}}
 
 {{else}}
-  {{eui-button
-    label=view.label
+  {{#eui-button
     style=view.style
     size=view.size
-    leadingIcon=view.icon
-    trailingIcon="eui-icon eui-icon--dropbutton"
     loading=view.loading
     disabled=view.disabled
-    classBinding="showPoplist:eui-active"
+    classBinding="showPoplist:eui-active :eui-dropbutton--wide-icon"
     action="toggleWindow"}}
+      {{label}}
+  {{/eui-button}}
 
 {{/if}}
 

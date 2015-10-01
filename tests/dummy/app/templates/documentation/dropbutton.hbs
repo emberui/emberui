@@ -13,7 +13,6 @@
   <li><a href="#section-listwidth">listWidth</a></li>
   <li><a href="#section-size">size</a></li>
   <li><a href="#section-style">style</a></li>
-  <li><a href="#section-icon">icon</a></li>
 
   <li class="header">States</li>
   <li><a href="#section-disabled">disabled</a></li>
@@ -85,35 +84,6 @@ optionsPrimary: [
   {{eui-dropbutton label='Actions' style='primary' options=optionsPrimary}}
 </div>
 
-
-<h4 id="section-icon">icon <span>string</span></h4>
-<p>
-  Displays an icon in front of the label. See {{link-to "button" "documentation.button"}} for usage instructions.
-</p>
-
-<p>
-  There is one thing to consider when making use of an icon. Because the dropbutton already makes use of an icon to indicate a popup will open when clicked, it is not recommended that the button have both a label and an icon at the same time.
-</p>
-
-<div class="output">
-  {{eui-dropbutton label='Actions' icon="fa fa-cog" options=options}}
-</div>
-
-<p>
-  Framing the label in such a way makes it look awkward. It is better to rely purely on an icon or a label.
-</p>
-
-<div class="output">
-  {{eui-dropbutton icon="fa fa-cog" options=options listWidth='60px'}}
-</div>
-
-<p>
-  Because the splitbutton uses a second button as a trigger for the popup it is ok to make use of an icon with the label.
-</p>
-
-<div class="output">
-  {{eui-dropbutton icon="fa fa-save" options=optionsPrimary}}
-</div>
 
 <h4 id="section-disabled">disabled <span>boolean</span></h4>
 <p>
