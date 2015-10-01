@@ -1,0 +1,9 @@
+<div class="eui-option-list--wrapper">
+  <div class="eui-option-list--list">
+    {{#each options as |option index|}}
+      {{#eui-option-list-option highlights=highlights option=option}}
+        {{yield option index}}
+      {{/eui-option-list-option}}
+    {{/each}}
+  </div>
+</div>

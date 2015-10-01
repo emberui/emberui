@@ -19,6 +19,7 @@ Router.map ->
     this.route 'select'
     this.route 'selectdate'
     this.route 'textarea'
+    this.route 'option-list'
 
   this.route '404', { path: '*path' } # Catch all for all remaining routes
 

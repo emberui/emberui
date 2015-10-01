@@ -274,19 +274,19 @@ strong {
   ul {
     list-style-type: none;
     padding-left: 15px;
+  }
+
+  li {
+    padding-bottom: 11px;
+  }
+
+  ul ul {
+    list-style-type: disc;
+    padding-left: 30px;
+    margin-top: 11px;
 
     li {
-      padding-bottom: 11px;
-    }
-
-    ul {
-      list-style-type: disc;
-      padding-left: 30px;
-      margin-top: 11px;
-
-      li {
-        padding-bottom: 0px;
-      }
+      padding-bottom: 0px;
     }
   }
 
