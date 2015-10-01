@@ -85,7 +85,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, prev
     get: (key) ->
       options = @get 'filteredOptions'
       index = @get 'highlightedIndex'
-      options.objectAt index
+      options[index]
 
     set: (key, value) ->
       options = @get 'filteredOptions'

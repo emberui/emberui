@@ -17,7 +17,7 @@ listItem = ListItemView.extend
     # portion of the list. Performance is maintained by placing it in the next run loop.
 
     Ember.run.next =>
-      @$().focus() if @get('isHighlighted')
+      @.$().focus() if @get('isHighlighted') and @.$()
 
   setup: Ember.on 'init', ->
     @isHighlightedDidChange()
