@@ -31,9 +31,8 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
   ariaHasPopup: true
 
-  ariaOwns: (->
+  ariaOwns: Ember.computed 'poplist', ->
     @get('poplist.elementId')
-  ).property 'poplist'
 
 
   # Holds a reference to the poplist component when it is open
@@ -55,7 +54,7 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   # If this field is not required we automatically add a copy of the nullValue object at
   # the top of the list. This acts as a zero value so the user can deselect all options.
 
-  optionsWithBlank: (->
+  optionsWithBlank: Ember.computed 'options.@each', 'required', ->
     options = @get 'options'
     paddedOptions = options[..]
 
@@ -63,15 +62,13 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
       paddedOptions.unshift @get 'nullValue'
 
     return paddedOptions
-  ).property 'options.@each', 'required'
 
 
   # Label of the selected option or the placeholder text
 
-  label: (->
+  label: Ember.computed 'selection', 'placeholder', 'labelPath', ->
     labelPath = @get 'labelPath'
     return @get("selection.#{labelPath}") || @get 'placeholder'
-  ).property 'selection', 'placeholder', 'labelPath'
 
 
   # Current option the user has selected. It is a wrapper around _selection
@@ -100,12 +97,16 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
 
     set: (key, value) ->
       valuePath = @get 'valuePath'
-      selection = @get('options').findProperty(valuePath, value) if valuePath
+
+      if valuePath
+        selection = @get('options').find (option) ->
+          return option.get(valuePath) is value
+
       @set 'selection', selection || value
       value
 
 
-  initialization: (->
+  initialization: Ember.on 'init', ->
     # Make sure we have options or things will break badly
     if @get('options') is undefined
       Ember.Logger.error ('EmberUI: eui-select options paramater has undefined value')
@@ -118,9 +119,12 @@ select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
     # Set the initial selection based on the value
     valuePath = @get 'valuePath'
     value = @get 'value'
-    value = @get('options').findProperty(valuePath, value) if valuePath
+
+    if valuePath
+      value = @get('options').find (option) ->
+        return option[valuePath] is value
+
     @set('_selection', value || @get 'nullValue')
-  ).on 'init'
 
 
   click: ->
