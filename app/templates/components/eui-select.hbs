@@ -7,7 +7,10 @@
   trailingIcon="eui-icon eui-icon--select"
   ariaOwns=ariaOwns
   ariaHaspopup=ariaHasPopup}}
-  {{label}}
+  <div class="eui-select-label {{unless selection 'eui-select-placeholder'}}">
+    {{label}}
+  </div>
+  <div class="eui-select-icon"></div>
 {{/eui-button}}
 
 {{#if errorMessage}}

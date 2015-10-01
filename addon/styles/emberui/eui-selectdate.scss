@@ -30,3 +30,28 @@ eui-selectdate {
   padding-left: 7px;
   opacity: 0.4;
 }
+
+
+eui-selectdate [class*="-tiny"] {
+  .eui-component-wrapper {
+    padding: 0 5px;
+  }
+}
+
+eui-selectdate [class*="-small"] {
+  .eui-component-wrapper {
+    padding: 0 5px;
+  }
+}
+
+eui-selectdate [class*="-medium"] {
+  .eui-component-wrapper {
+    padding: 0 10px;
+  }
+}
+
+eui-selectdate [class*="-large"] {
+  .eui-component-wrapper {
+    padding: 0 10px;
+  }
+}

@@ -10,23 +10,18 @@ eui-select {
   &.eui-disabled {
     pointer-events: none;
   }
-
-  &.eui-placeholder {
-    .eui-select-label {
-      opacity: 0.6;
-    }
-  }
 }
 
 .eui-select-label {
-  text-align: left;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
+  text-align: left
 }
 
-.eui-select-icon {
+.eui-select-placeholder {
+  opacity: 0.6;
+}
+
+.eui-select-icon:before {
+  font-family: "emberui";
   content: "\e003";
   position: absolute;
   right: 0px;
@@ -34,4 +29,28 @@ eui-select {
   height: 100%;
   padding-left: 7px;
   opacity: 0.4;
+}
+
+eui-select [class*="-tiny"] {
+  .eui-component-wrapper {
+    padding: 0 5px;
+  }
+}
+
+eui-select [class*="-small"] {
+  .eui-component-wrapper {
+    padding: 0 5px;
+  }
+}
+
+eui-select [class*="-medium"] {
+  .eui-component-wrapper {
+    padding: 0 10px;
+  }
+}
+
+eui-select [class*="-large"] {
+  .eui-component-wrapper {
+    padding: 0 10px;
+  }
 }

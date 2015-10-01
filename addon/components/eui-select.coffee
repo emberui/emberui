@@ -5,7 +5,7 @@
 
 select = Em.Component.extend disabledSupport, errorSupport, widthSupport,
   tagName: 'eui-select'
-  classNameBindings: ['isDisabled:eui-disabled', 'selection::eui-placeholder', 'class']
+  classNameBindings: ['isDisabled:eui-disabled', 'class']
 
   baseClass: 'select'
   style: 'default'
