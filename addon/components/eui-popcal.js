@@ -1,14 +1,13 @@
 import styleSupport from '../mixins/style-support';
 import animationSupport from '../mixins/animation-support';
 import popcalLayout from '../templates/components/eui-popcal';
-import preventPageScroll from '../mixins/prevent-page-scroll';
 import renderOnBody from '../mixins/render-on-body';
 
 import '../utilities/position';
 import '../animations/popcal-open-default';
 import '../animations/popcal-close-default';
 
-export default Ember.Component.extend(styleSupport, animationSupport, preventPageScroll, renderOnBody, {
+export default Ember.Component.extend(styleSupport, animationSupport, renderOnBody, {
   layout: popcalLayout,
   classNames: ['eui-popcal'],
   attributeBindings: ['tabindex'],

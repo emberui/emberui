@@ -11,8 +11,4 @@
     style=style}}
 </div>
 
-<div class="eui-scroller" {{action "hidePopcal"}}>
-  <div class="eui-scroller--net">
-    <div class="eui-scroller--net-content"></div>
-  </div>
-</div>
+{{eui-prevent-page-scroll click=(action "hidePopcal")}}

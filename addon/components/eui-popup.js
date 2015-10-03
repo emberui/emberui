@@ -1,10 +1,9 @@
 import Ember from 'ember';
-import preventPageScroll from '../mixins/prevent-page-scroll';
 import renderOnBody from '../mixins/render-on-body';
 
 import '../utilities/position';
 
-export default Ember.Component.extend(preventPageScroll, renderOnBody, {
+export default Ember.Component.extend(renderOnBody, {
   tagName: 'eui-popup',
   classNames: ['eui-popup'],
 

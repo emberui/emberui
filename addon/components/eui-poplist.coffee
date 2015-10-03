@@ -1,7 +1,6 @@
 `import className from '../mixins/class-name'`
 `import animationSupport from '../mixins/animation-support'`
 `import mobileDetection from '../mixins/mobile-detection'`
-`import preventPageScroll from '../mixins/prevent-page-scroll'`
 `import renderOnBody from '../mixins/render-on-body'`
 `import poplistLayout from '../templates/components/eui-poplist'`
 `import listView from '../lib/eui-poplist/list-view'`
@@ -13,7 +12,7 @@
 `import '../animations/poplist-close-flyin'`
 
 
-poplist = Em.Component.extend className, animationSupport, mobileDetection, preventPageScroll, renderOnBody,
+poplist = Em.Component.extend className, animationSupport, mobileDetection, renderOnBody,
   layout: poplistLayout
   classNames: ['eui-poplist']
   classNameBindings: ['isOpen::eui-closing', 'isMobileDevice:eui-touch']

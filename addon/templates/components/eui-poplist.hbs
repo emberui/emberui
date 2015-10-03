@@ -12,8 +12,4 @@
   </div>
 </div>
 
-<div class="eui-scroller" {{action "hidePoplist"}}>
-  <div class="eui-scroller--net">
-    <div class="eui-scroller--net-content"></div>
-  </div>
-</div>
+{{eui-prevent-page-scroll click=(action "hidePoplist")}}
