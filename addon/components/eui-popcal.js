@@ -57,8 +57,6 @@ export default Ember.Component.extend(styleSupport, animationSupport, renderOnBo
 
     // Focus on popcal to ensure we can catch keyboard input.
     this.$().focus();
-
-    return this.disablePageScroll();
   }),
 
   breakdown() {
@@ -66,8 +64,6 @@ export default Ember.Component.extend(styleSupport, animationSupport, renderOnBo
 
     // Set status to closed
     this.set('isOpen', false);
-
-    this.enablePageScroll();
 
     // Update selection if it is valid
     if (!(this.get('dateRange') && this.get('_selection') && this.get('_selection.length') === 1)) {
