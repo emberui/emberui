@@ -19,6 +19,29 @@ export default Ember.Component.extend(styleSupport, sizeSupport, {
     return !option.primary;
   }),
 
+  popupWidth: Ember.computed('', function() {
+    let width = this.get('element').offsetWidth;
+    return new Ember.Handlebars.SafeString(`${width}px`);
+  }).volatile(),
+
+  animateInPopup(element) {
+    return $.Velocity.animate(element, {
+      opacity: [1, 0],
+      marginTop: ["0px", "-6px"]
+    }, {
+      duration: 200
+    });
+  },
+
+  animateOutPopup(element) {
+    return $.Velocity.animate(element, {
+      opacity: [0, 1],
+      marginTop: ["10px", "0px"]
+    }, {
+      duration: 200
+    });
+  },
+
   actions: {
     showOptionList() {
       this.set('showOptionList', true);
@@ -30,14 +53,13 @@ export default Ember.Component.extend(styleSupport, sizeSupport, {
     },
 
     secondaryAction(option) {
-      let action = option.action || (option.get && option.get('action'));
+      if (option) {
+        let action = option.action || (option.get && option.get('action'));
 
-      this.set('action', action);
-      this.sendAction('action', option, this);
-      this.hideOptionList();
-    },
+        this.set('action', action);
+        this.sendAction('action', option, this);
+      }
 
-    cancel() {
       this.hideOptionList();
     }
   },

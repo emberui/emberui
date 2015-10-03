@@ -32,13 +32,22 @@
 {{/if}}
 
 {{#if showOptionList}}
-  {{#eui-popup onCancel=(action "cancel")}}
+  {{#eui-popup
+    target=element
+    width=popupWidth
+    animateIn=animateInPopup
+    animateOut=animateOutPopup
+    onClose=(action "secondaryAction") as | closeAction |}}
+
     {{#eui-option-list
       style="dropbutton"
       options=optionsWithoutPrimaryOption as |option index|}}
-      <div class="eui-dropbutton--list-option" {{action "secondaryAction" option}}>
+
+      <div class="eui-dropbutton--list-option" {{action closeAction option}}>
         {{option.label}}
       </div>
+
     {{/eui-option-list}}
+
   {{/eui-popup}}
 {{/if}}

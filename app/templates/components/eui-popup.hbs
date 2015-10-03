@@ -1,5 +1,5 @@
-<div class="eui-popup--positioner">
-  {{yield}}
+<div class="eui-popup--positioner" style="width: {{width}}">
+  {{yield (action "close")}}
 </div>
 
-{{eui-prevent-page-scroll click=onCancel}}
+{{eui-prevent-page-scroll click=(action "close")}}
