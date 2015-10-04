@@ -3,12 +3,16 @@
   style=style
   size=size
   width='100%'
-  classBinding=":eui-select selectClass showPoplist:eui-active"
-  trailingIcon="eui-icon eui-icon--select"
+  classBinding=":eui-select showOptionList:eui-active"
+  action="showOptionList"
   ariaOwns=ariaOwns
   ariaHaspopup=ariaHasPopup}}
   <div class="eui-select-label {{unless selection 'eui-select-placeholder'}}">
-    {{label}}
+    {{#if selection}}
+      TODO
+    {{else}}
+      {{placeholder}}
+    {{/if}}
   </div>
   <div class="eui-select-icon"></div>
 {{/eui-button}}
@@ -23,14 +27,26 @@
   </div>
 {{/if}}
 
-{{#if showPoplist}}
-  {{eui-poplist
-    isOpen=showPoplist
-    selection=_selection
-    options=optionsWithBlank
-    labelPath=labelPath
-    style="flyin"
-    modalOnMobile=true
-    listWidth=listWidth
-    animationStyle=animationStyle}}
+{{#if showOptionList}}
+  {{#eui-popup
+    attachment=attachment
+    target=element
+    targetAttachment=targetAttachment
+    width=popupWidth
+    animateIn=animateInPopup
+    animateOut=animateOutPopup
+    onClose=(action "selectOption") as | closeAction |}}
+
+    {{#eui-option-list
+      style="select"
+      highlights=selectionArray
+      options=optionsWithBlank as |option index|}}
+
+      <div class="eui-select--list-option" {{action closeAction option}}>
+        {{yield option index}}
+      </div>
+
+    {{/eui-option-list}}
+
+  {{/eui-popup}}
 {{/if}}

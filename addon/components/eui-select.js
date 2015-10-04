@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import poplistComponent from '../components/eui-poplist';
 import disabledSupport from '../mixins/disabled-support';
 import errorSupport from '../mixins/error-support';
 import widthSupport from '../mixins/width-support';
@@ -12,29 +11,16 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   style: 'default',
   size: 'medium',
 
-  showPoplist: false,
+  showOptionList: false,
   required: false,
   options: [],
-  labelPath: 'label',
   valuePath: 'value',
-
-  _selection: null,
-
-  selectClass: Ember.computed('size', 'style', function() {
-    const baseClass = this.get('baseClass');
-    const size = this.get('size');
-    const style = this.get('style');
-
-    return `eui-${baseClass}-button-${size}-${style}`;
-  }),
 
   // WAI-ARIA support values
   ariaHasPopup: true,
   ariaOwns: Ember.computed('poplist', function() {
     return this.get('poplist.elementId');
   }),
-
-  listWidth: 'auto',
 
   // Stores a object that we will consider to be null. If this object is selected we
   // will return null instead
@@ -52,35 +38,6 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     }
 
     return paddedOptions;
-  }),
-
-  // Label of the selected option or the placeholder text
-  label: Ember.computed('selection', 'placeholder', 'labelPath', function() {
-    const labelPath = this.get('labelPath');
-
-    return this.get(`selection.${labelPath}`) || this.get('placeholder');
-  }),
-
-
-  // Current option the user has selected. It is a wrapper around _selection
-  // which the poplist binds to. It allows us to return null when the user selects
-  // the nullValue object we inserted.
-  selection: Ember.computed('_selection', {
-    get(key) {
-      const selection = this.get('_selection');
-      const nullValue = this.get('nullValue');
-
-      if (selection === nullValue) {
-        return null;
-      } else {
-        return selection;
-      }
-    },
-
-    set(key, value) {
-      this.set('_selection', value);
-      return value;
-    }
   }),
 
   // Computes the value of the selection based on the valuePath specified by the user.
@@ -103,7 +60,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
       if (valuePath) {
         selection = this.get('options').find(function(option) {
-          return option.get(valuePath) === value;
+          return option[valuePath] === value;
         });
       }
       this.set('selection', selection || value);
@@ -112,42 +69,93 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     }
   }),
 
-  initialization: Ember.on('init', function() {
-    // Make sure we have options or things will break badly
-    if (this.get('options') === void 0) {
-      Ember.Logger.error('EmberUI: eui-select options paramater has undefined value');
+  selectionArray: Ember.computed('selection', function() {
+    return [this.get('selection')];
+  }),
+
+  setup: Ember.on('init', function() {
+    Ember.Logger.error('EmberUI: eui-select options paramater has undefined value', this.get('options'));
+
+    this.setInitialSelection();
+  }),
+
+  // Set the initial selection based on the value attribute
+  setInitialSelection() {
+    const valuePath = this.get('valuePath');
+    const value = this.get('value');
+
+    if (!valuePath) {
       return;
     }
 
-    // Create observer for the selection's label so we can monitor it for changes
-    const labelPath = 'selection.' + this.get('labelPath');
-
-    this.addObserver(labelPath, () => {
-      this.notifyPropertyChange('label');
+    let option = this.get('options').find((option) => {
+      return option[valuePath] === value;
     });
 
-    // Set the initial selection based on the value
-    const valuePath = this.get('valuePath');
-    let value = this.get('value');
-
-    if (valuePath) {
-      value = this.get('options').find((option) => {
-        return option[valuePath] === value;
-      });
+    if (option) {
+      this.set('selection', option);
     }
+  },
 
-    return this.set('_selection', value || this.get('nullValue'));
-  }),
+  listWidth: null,
 
-  click: function() {
-    this.toggleProperty('showPoplist');
+  popupWidth: Ember.computed('listWidth', function() {
+    if (this.get('listWidth')) {
+      let width = this.get('listWidth');
+      return width;
+
+    } else {
+      let width = this.get('element').offsetWidth;
+      return new Ember.Handlebars.SafeString(`${width}px`);
+    }
+  }).volatile(),
+
+  attachment: 'center center',
+  targetAttachment: 'center center',
+
+  animateInPopup(element) {
+    return $.Velocity.animate(element, {
+      opacity: [1, 0],
+      scaleX: [1, 0],
+      scaleY: [1, 0]
+    }, {
+      duration: 200
+    });
+  },
+
+  animateOutPopup(element) {
+    return $.Velocity.animate(element, {
+      opacity: [0, 1],
+      scaleX: [0, 1],
+      scaleY: [0, 1]
+    }, {
+      duration: 200
+    });
+  },
+
+  actions: {
+    showOptionList() {
+      this.set('showOptionList', true);
+    },
+
+    selectOption(option) {
+      const nullValue = this.get('nullValue');
+
+      if (option === nullValue) {
+        this.set('selection', null)
+      } else {
+        this.set('selection', option)
+      }
+
+      this.set('showOptionList', false);
+    }
   },
 
   keyUp: function(event) {
     // Down Arrow Key
     if (event.which === 40) {
       event.preventDefault();
-      this.click();
+      this.send('showOptionList');
     }
   },
 
