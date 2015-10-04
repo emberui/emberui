@@ -6,6 +6,7 @@ import '../utilities/position';
 export default Ember.Component.extend(renderOnBody, {
   tagName: 'eui-popup',
   classNames: ['eui-popup'],
+  attributeBindings: ['tabindex'],
 
   popupElementClassName: '.eui-popup--positioner',
 
@@ -15,11 +16,17 @@ export default Ember.Component.extend(renderOnBody, {
 
   width: null,
 
+  // We don't really want to popup to be focusable, but we nede to focus on it
+  // to catch all key presses
+  tabindex: 0,
+
   setup: Ember.on('didInsertElement', function() {
     let element = this.$().find(this.get('popupElementClassName'))[0];
 
     this.positionPopup().then(() => {
-      this.animateIn(element);
+      this.animateIn(element).then(() => {
+        this.$().focus();
+      });
     });
   }),
 
@@ -52,6 +59,13 @@ export default Ember.Component.extend(renderOnBody, {
 
   animateOut(element) {
     return new Ember.RSVP.Promise((resolve, reject) => { resolve });
+  },
+
+  keyDown(event) {
+    // ESC
+    if (event.which === 27) {
+      this.send('close');
+    }
   },
 
   actions: {
