@@ -64,7 +64,7 @@ export default Ember.Component.extend(renderOnBody, {
   keyDown(event) {
     // ESC
     if (event.which === 27) {
-      this.send('close');
+      this.send('cancel');
     }
   },
 
@@ -73,6 +73,13 @@ export default Ember.Component.extend(renderOnBody, {
       this.breakdown().then(() => {
         this.attrs.onClose(object);
       });
+    },
+
+    // When using the {{action}} helper in the template it by default passes
+    // in the event as a paramater to the action. This means we can't directly
+    // use the cancel action and we need a middle action that strips out the event.
+    cancel() {
+      this.send('close');
     }
   }
 });

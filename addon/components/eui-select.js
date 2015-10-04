@@ -143,9 +143,10 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     selectOption(option) {
       const nullValue = this.get('nullValue');
 
-      if (option === nullValue) {
+      if (option && option === nullValue) {
         this.set('selection', null)
-      } else {
+
+      } else if (option) {
         this.set('selection', option)
       }
 
