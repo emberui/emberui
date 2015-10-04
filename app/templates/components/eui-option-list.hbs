@@ -1,6 +1,6 @@
 <div class="eui-option-list--wrapper">
   <div class="eui-option-list--list">
-    {{#each options key="@guid" as |option index|}}
+    {{#each options as |option index|}}
       {{#eui-option-list-option highlights=highlights option=option}}
         {{yield option index}}
       {{/eui-option-list-option}}

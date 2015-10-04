@@ -75,7 +75,7 @@ export default Ember.Component.extend({
     return Em.run.scheduleOnce('afterRender', this, 'rerender');
   }),
 
-  selectionDidChange: Ember.observer('selection.@each', function() {
+  selectionDidChange: Ember.observer('selection.[]', function() {
     return Em.run.scheduleOnce('afterRender', this, 'setSelection');
   }),
 

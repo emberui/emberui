@@ -33,7 +33,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   },
 
   // Return Unix Time stamp of selections
-  value: Ember.computed('selection.@each', {
+  value: Ember.computed('selection.[]', {
     get(key) {
       const selection = this.get('selection');
       if (!selection) {
@@ -105,7 +105,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     }
   },
 
-  label: Ember.computed('selection.@each', 'placeholder', function() {
+  label: Ember.computed('selection.[]', 'placeholder', function() {
     const selection = this.get('selection');
     let label = null;
 

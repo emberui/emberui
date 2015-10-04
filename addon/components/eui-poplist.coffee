@@ -192,7 +192,7 @@ poplist = Em.Component.extend className, animationSupport, mobileDetection, rend
 
   # Filter the option list based on the query entered into the search box
 
-  filteredOptions: Ember.computed 'options.@each', 'labelPath', 'searchString', ->
+  filteredOptions: Ember.computed 'options.[]', 'labelPath', 'searchString', ->
     options = @get 'options'
     query = @get 'searchString'
 

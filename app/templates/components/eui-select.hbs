@@ -9,7 +9,7 @@
   ariaHaspopup=ariaHasPopup}}
   <div class="eui-select-label {{unless selection 'eui-select-placeholder'}}">
     {{#if selection}}
-      TODO
+      {{yield selection}}
     {{else}}
       {{placeholder}}
     {{/if}}

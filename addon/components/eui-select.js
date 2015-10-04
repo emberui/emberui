@@ -29,7 +29,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
   // If this field is not required we automatically add a copy of the nullValue object at
   // the top of the list. This acts as a zero value so the user can deselect all options.
-  optionsWithBlank: Ember.computed('options.@each', 'required', function() {
+  optionsWithBlank: Ember.computed('options.[]', 'required', function() {
     const options = this.get('options');
     let paddedOptions = options.slice(0);
 
@@ -74,7 +74,9 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   }),
 
   setup: Ember.on('init', function() {
-    Ember.Logger.error('EmberUI: eui-select options paramater has undefined value', this.get('options'));
+    if (!this.attrs.options) {
+      Ember.Logger.warn('EmberUI: eui-select created without any options.');
+    }
 
     this.setInitialSelection();
   }),
