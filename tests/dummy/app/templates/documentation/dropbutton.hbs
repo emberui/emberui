@@ -1,15 +1,13 @@
 <h1>\{{eui-dropbutton}}</h1>
 
 <div class="intro">
-  Combines the button and a popup into a dropbutton or splitbutton.
+  Combines a button and popup into a dropbutton or splitbutton for quick actions.
 </div>
 
 <h2>Parameters</h2>
 
 <ul class="parameterindex">
   <li class="header">Aesthetic</li>
-  <li><a href="#section-animationstyle">animationStyle</a></li>
-  <li><a href="#section-label">label</a></li>
   <li><a href="#section-listwidth">listWidth</a></li>
   <li><a href="#section-size">size</a></li>
   <li><a href="#section-style">style</a></li>
@@ -23,38 +21,6 @@
 </ul>
 
 
-<h4 id="section-animationstyle">animationStyle <span>string</span></h4>
-<p>
-  The name of the animation style to use for open and close animations. See {{link-to "animations" "documentation.animations"}} for more details.
-</p>
-
-
-<h4 id="section-label">label <span>string</span></h4>
-<p>
-  The text displayed on the button. If there are is a primary event associated with the button the label for the primary event will be used instead.
-</p>
-
-<pre>\{{eui-dropbutton label='Actions' options=options}}
-\{{eui-dropbutton label='Actions' options=options}}</pre>
-
-<pre>options: [
-  Ember.Object.create({ label: 'Save', action: 'save' }),
-  Ember.Object.create({ label: 'Delete', action: 'delete' }),
-  Ember.Object.create({ label: 'Edit', action: 'edit' })
-],
-
-optionsPrimary: [
-  Ember.Object.create({ label: 'Save', action: 'save', primary: true }),
-  Ember.Object.create({ label: 'Delete', action: 'delete' }),
-  Ember.Object.create({ label: 'Edit', action: 'edit' })
-]</pre>
-
-<div class="output">
-  {{eui-dropbutton label='Actions' options=options}}
-  {{eui-dropbutton label='Actions' options=optionsPrimary}}
-</div>
-
-
 <h4 id="section-listwidth">listWidth <span>string</span></h4>
 <p>
   Width of the popup. You must pass in a CSS size value with the unit. The select uses CSS box-sizing to ensure precentage-based sizes are actual sizes. A width smaller than the width of the button will be ignored.
@@ -66,9 +32,18 @@ optionsPrimary: [
   Controls the size of the button. See {{link-to "button" "documentation.button"}} for usage instructions.
 </p>
 
+<pre>\{{#eui-dropbutton size='small' options=options}}
+  Actions
+\{{/eui-dropbutton}}
+
+\{{#eui-dropbutton size='small' options=optionsPrimary}}</pre>
+
 <div class="output">
-  {{eui-dropbutton label='Actions' size='small' options=options}}
-  {{eui-dropbutton label='Actions' size='small' options=optionsPrimary}}
+  {{#eui-dropbutton size='small' options=options}}
+    Actions
+  {{/eui-dropbutton}}
+
+  {{eui-dropbutton size='small' options=optionsPrimary}}
 </div>
 
 
@@ -78,10 +53,17 @@ optionsPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' style='default' options=options}}
-  {{eui-dropbutton label='Actions' style='default' options=optionsPrimary}}
-  {{eui-dropbutton label='Actions' style='primary' options=options}}
-  {{eui-dropbutton label='Actions' style='primary' options=optionsPrimary}}
+  {{#eui-dropbutton style='default' options=options}}
+    Actions
+  {{/eui-dropbutton}}
+
+  {{eui-dropbutton style='default' options=optionsPrimary}}
+
+  {{#eui-dropbutton style='primary' options=options}}
+    Actions
+  {{/eui-dropbutton}}
+
+  {{eui-dropbutton style='primary' options=optionsPrimary}}
 </div>
 
 
@@ -106,8 +88,10 @@ optionsPrimary: [
 </p>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' loading=true options=options}}
-  {{eui-dropbutton label='Actions' loading=true options=optionsPrimary}}
+  {{#eui-dropbutton loading=true options=options}}
+    Actions
+  {{/eui-dropbutton}}
+  {{eui-dropbutton loading=true options=optionsPrimary}}
 </div>
 
 
@@ -123,7 +107,9 @@ optionsPrimary: [
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' options=options}}
+  {{#eui-dropbutton options=options}}
+    Actions
+  {{/eui-dropbutton}}
 </div>
 
 <p>
@@ -137,7 +123,9 @@ optionsPrimary: [
 ]</pre>
 
 <div class="output">
-  {{eui-dropbutton label='Actions' options=optionsPrimary}}
+  {{#eui-dropbutton options=optionsPrimary}}
+    Actions
+  {{/eui-dropbutton}}
 </div>
 
 <p>
