@@ -45,7 +45,8 @@ export default Ember.Component.extend(renderOnBody, {
         $(element).position({
           my: attachment,
           at: targetAttachment,
-          of: target
+          of: target,
+          collision: 'flipfit'
         })
 
         resolve();
