@@ -1,28 +1,29 @@
 controller = Ember.Controller.extend
   selectedDates: [
-    moment('2014-04-25'),
-    moment('2014-04-26')
+    moment().add(1, 'days'),
+    moment().add(2, 'days')
   ]
 
-  maxFutureDate: moment('2014-05-15')
+  maxFutureDate: moment().add(10, 'days'),
 
   selectedScatteredDates: [
-    moment('2014-04-21'),
-    moment('2014-04-25'),
-    moment('2014-04-29'),
-    moment('2014-04-30')
+    moment().subtract(4, 'days'),
+    moment(),
+    moment().add(4, 'days'),
+    moment().add(5, 'days')
   ]
 
-  selectedDate: moment('2014-04-26')
+  selectedDate: moment().add(1, 'days')
 
   disabledDates: [
-    moment('2014-05-20'),
-    moment('2014-05-21'),
-    moment('2014-05-22'),
-    moment('2014-05-23'),
-    moment('2014-05-24'),
-    moment('2014-05-25'),
-    moment('2014-05-26')
-  ]
+    moment().add(4, 'days'),
+    moment().add(5, 'days'),
+    moment().add(6, 'days'),
+    moment().add(7, 'days'),
+    moment().add(8, 'days'),
+    moment().add(9, 'days')
+  ],
+
+  valueExample: moment().add(1, 'days').toISOString()
 
 `export default controller`

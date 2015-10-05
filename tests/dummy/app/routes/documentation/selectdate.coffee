@@ -1,6 +1,6 @@
 route = Ember.Route.extend
   actions:
-    dateDidChange: ->
-      alert('Date selection changed');
+    dateDidChange: (date) ->
+      alert('Date selection changed to: ' + date.toISOString());
 
 `export default route`

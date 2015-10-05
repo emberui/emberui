@@ -231,11 +231,22 @@ Current Selection: \{{selectedDate}}</pre>
 </div>
 
 
-<h4 id="section-value">value <span>unix time stamp | arry of unix time stamps</span></h4>
+<h4 id="section-value">value <span>ISO 8601 String | array of ISO 8601 Strings</span></h4>
 <p>
   Same as <em>selection</em>, except it returns <em>unix time stamps</em> instead of <em>moment</em> objects.
 </p>
 
+<pre>valueExample: moment().add(1, 'days').toISOString()</pre>
+
+<pre>\{{eui-selectdate value=valueExample placeholder="Select a date"}}
+Current Selection: \{{valueExample}}</pre>
+
+<div class="output">
+  {{eui-selectdate value=valueExample placeholder="Select a date"}}
+  <br />
+  <br />
+  Current Selection: {{valueExample}}
+</div>
 
 
 <h4 id="section-error">error <span>boolean | string</span></h4>

@@ -36,6 +36,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   value: Ember.computed('selection.[]', {
     get(key) {
       const selection = this.get('selection');
+
       if (!selection) {
         if (this.get('dateRange')) {
           return [];
@@ -46,10 +47,10 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
       if (Ember.isArray(selection)) {
         return selection.map((date) => {
-          return date.format('X');
+          return date.toISOString();
         });
       } else {
-        return selection.format('X');
+        return selection.toISOString();
       }
     },
 
@@ -57,26 +58,23 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
       const selection = this.get('selection');
 
       if (!value) {
-        this.set('selection', value);
-        return value;
+        this.set('selection', null);
+        return null;
       }
 
       if (Ember.isArray(value)) {
-        this.set('selection', value.map((v) => {
+        let newSelection = value.map((v) => {
           return moment(v);
-        }));
+        });
+
+        this.set('selection', newSelection);
+
       } else {
         this.set('selection', moment(value));
       }
 
       return value;
     }
-  }),
-
-  // Make sure if a selection is passed in that we immediately calculate what the
-  // value is
-  calculateInitalValue: Ember.on('didInsertElement', function() {
-    return this.notifyPropertyChange('value');
   }),
 
   // We have to calculate if there is no selection manually because [] will
