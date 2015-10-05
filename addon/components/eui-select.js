@@ -22,19 +22,15 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     return this.get('poplist.elementId');
   }),
 
-  // Stores a object that we will consider to be null. If this object is selected we
-  // will return null instead
-
-  nullValue: new Object(),
-
   // If this field is not required we automatically add a copy of the nullValue object at
   // the top of the list. This acts as a zero value so the user can deselect all options.
   optionsWithBlank: Ember.computed('options.[]', 'required', function() {
     const options = this.get('options');
+
     let paddedOptions = options.slice(0);
 
     if (!this.get('required')) {
-      paddedOptions.unshift(this.get('nullValue'));
+      paddedOptions.unshift(null);
     }
 
     return paddedOptions;
@@ -94,9 +90,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
       return option[valuePath] === value;
     });
 
-    if (option) {
-      this.set('selection', option);
-    }
+    this.set('selection', option || null);
   },
 
   listWidth: null,
@@ -141,15 +135,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     },
 
     selectOption(option) {
-      const nullValue = this.get('nullValue');
-
-      if (option && option === nullValue) {
-        this.set('selection', null)
-
-      } else if (option) {
-        this.set('selection', option)
-      }
-
+      this.set('selection', option)
       this.set('showOptionList', false);
     }
   },

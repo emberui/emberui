@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   highlights: null,
 
   isHighlighted: Ember.computed('option', 'highlights.[]', function() {
-    if (!this.get('option') || !this.get('highlights')) {
+    if (!this.get('highlights')) {
       return false;
     }
 
