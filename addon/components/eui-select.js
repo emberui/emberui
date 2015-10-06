@@ -135,7 +135,9 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     },
 
     selectOption(option) {
-      this.set('selection', option)
+      if (option !== undefined) {
+        this.set('selection', option)
+      }
       this.set('showOptionList', false);
     }
   },
