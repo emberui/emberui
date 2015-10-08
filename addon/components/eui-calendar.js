@@ -8,7 +8,6 @@ export default Ember.Component.extend(className, {
   style: 'default',
 
   showNextMonth: true,
-  showPrevMonth: false,
 
   disabledDates: null,
   disablePast: null,
