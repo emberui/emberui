@@ -6,13 +6,11 @@ Router = Ember.Router.extend
 
 Router.map ->
   this.resource "documentation", ->
-    this.route 'animations'
     this.route 'layout'
     this.route 'theming'
     this.route 'errorhandling'
 
     this.route 'button'
-    this.route 'calendar'
     this.route 'checkbox'
     this.route 'dropbutton'
     this.route 'input'

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import disabledSupport from '../mixins/disabled-support';
 import widthSupport from '../mixins/width-support';
 import errorSupport from '../mixins/error-support';
-import popcalComponent from '../components/eui-popcal';
 
 export default Ember.Component.extend(disabledSupport, errorSupport, widthSupport, {
   classNameBindings: ['isDisabled:eui-disabled', 'class'],
@@ -29,8 +28,8 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     dayFormat: "D"
   },
 
-  attachment: 'center bottom',
-  targetAttachment: 'center top',
+  attachment: 'center center',
+  targetAttachment: 'center center',
 
   animateInPopup(element) {
     return $.Velocity.animate(element, {
