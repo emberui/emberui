@@ -11,6 +11,8 @@ export default Ember.Component.extend({
   maxPastDate: null,
   maxFutureDate: null,
 
+  onSelect: null,
+
   setup: Ember.on('init', function() {
     Ember.assert('You must provide a month to eui-month', this.get('month'));
   }),

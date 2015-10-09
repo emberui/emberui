@@ -55,3 +55,54 @@ eui-selectdate [class*="-large"] {
     padding: 0 10px;
   }
 }
+
+.eui-selectdate--window {
+  background-image: linear-gradient(to bottom,
+    rgba(0,0,0,0.1) 0%,
+    rgba(0,0,0,0.25) 100%);
+  border: none !important;
+  padding: 1px;
+  box-shadow: 3px 5.196px 20px 0px rgba(0,0,0,0.2);
+}
+  .eui-selectdate--window-wrapper {
+    background: #ffffff;
+    border-radius: 3px;
+    display: flex;
+  }
+
+  .eui-selectdate--window-column {
+    flex: 1;
+  }
+
+  .eui-selectdate--window-column-header {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: #262626;
+    font-weight: 600;
+    line-height: 50px;
+  }
+
+  .eui-selectdate--window-previous,
+  .eui-selectdate--window-next {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: none;
+    outline: none;
+    color: #39a6e9;
+    line-height: 50px;
+
+    &:disabled {
+      color: #e2e2e2;
+      pointer-events: none;
+    }
+  }
+
+  .eui-selectdate--window-next {
+    left: auto;
+    right: 0px;
+  }

@@ -18,7 +18,8 @@
   <li><a href="#section-disabled">disabled</a></li>
 
   <li class="header">Attributes</li>
-  <li><a href="#section-daterange">dateRange</a></li>
+  <li><a href="#section-allowMultiple">allowMultiple</a></li>
+  <li><a href="#section-continuousSelection">continuousSelection</a></li>
   <li><a href="#section-disableddates">disabledDates</a></li>
   <li><a href="#section-disablefuture">disableFuture</a></li>
   <li><a href="#section-disablepast">disablePast</a></li>
@@ -135,9 +136,9 @@
 
 
 
-<h4 id="section-daterange">dateRange <span>boolean</span></h4>
+<h4 id="section-allowMultiple">allowMultiple <span>boolean</span></h4>
 <p>
-  Set to <em>true</em> if the select should allow the user to select a date range.
+  Set to <em>true</em> if the select should allow the user to select multiple dates.
 </p>
 
 <pre>selectedDates: [
@@ -154,10 +155,10 @@ disabledDates: [
   moment('2014-05-26')
 ]</pre>
 
-<pre>\{{eui-selectdate placeholder="Select dates" selection=selectedDates dateRange=true disabledDates=disabledDates}}</pre>
+<pre>\{{eui-selectdate placeholder="Select dates" selection=selectedDates allowMultiple=true disabledDates=disabledDates}}</pre>
 
 <div class="output">
-  {{eui-selectdate placeholder="Select dates" selection=selectedDates dateRange=true disabledDates=disabledDates}}
+  {{eui-selectdate placeholder="Select dates" selection=selectedDates allowMultiple=true disabledDates=disabledDates}}
 </div>
 
 
@@ -263,7 +264,7 @@ Current Selection: \{{valueExample}}</pre>
 
 <h4 id="section-onchange">onChange <span>string</span></h4>
 <p>
-  Action to fire when the date selection changes.
+  Action to fire instead of updating the original selection.
 </p>
 
 <div class="output">

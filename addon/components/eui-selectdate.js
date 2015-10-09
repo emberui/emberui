@@ -12,25 +12,63 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   style: 'default',
   size: 'medium',
   calendarStyle: 'default',
+
   onChange: null,
 
-  showPopcal: false,
+  selection: [],
+  _selection: [],
 
-  dateRange: false,
+  allowMultiple: false,
+  continuousSelection: true,
 
-  selectClass: Ember.computed('size', 'style', function() {
-    const baseClass = this.get('baseClass');
-    const size = this.get('size');
-    const style = this.get('style');
-    return `eui-${baseClass}-button-${size}-${style}`;
-  }),
+  showCalendarWindow: false,
 
-  // Settings used when formatting the date
   formatting: {
     yearFormat: "YYYY",
     monthFormat: "MMMM",
     dayFormat: "D"
   },
+
+  attachment: 'center bottom',
+  targetAttachment: 'center top',
+
+  animateInPopup(element) {
+    return $.Velocity.animate(element, {
+      opacity: [1, 0],
+      scaleX: [1, 0],
+      scaleY: [1, 0]
+    }, {
+      duration: 200
+    });
+  },
+
+  animateOutPopup(element) {
+    return $.Velocity.animate(element, {
+      opacity: [0, 1],
+      scaleX: [0, 1],
+      scaleY: [0, 1]
+    }, {
+      duration: 200
+    });
+  },
+
+  month: Ember.computed('', function() {
+    let firstSelectedDate = this.get('selection.firstObject');
+    return moment(firstSelectedDate).date(1);
+  }),
+
+  monthLabel: Ember.computed('month', function() {
+    return this.get('month').format('MMMM YYYY');
+  }),
+
+  nextMonth: Ember.computed('month', function() {
+    let month = this.get('month');
+    return moment(month).add(1, 'months');
+  }),
+
+  nextMonthLabel: Ember.computed('nextMonth', function() {
+    return this.get('nextMonth').format('MMMM YYYY');
+  }),
 
   // Return Unix Time stamp of selections
   value: Ember.computed('selection.[]', {
@@ -38,7 +76,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
       const selection = this.get('selection');
 
       if (!selection) {
-        if (this.get('dateRange')) {
+        if (this.get('allowMultiple')) {
           return [];
         } else {
           return null;
@@ -77,21 +115,144 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     }
   }),
 
-  // We have to calculate if there is no selection manually because [] will
-  // evaluate to true and prevent a multi select from adding the placeholder
-  // class
   isPlaceholder: Ember.computed('selection', function() {
-    const selection = this.get('selection');
+    let selection = this.get('selection');
     return (!selection || (Ember.isArray(selection) && selection.length === 0));
+  }),
+
+  buttonLabel: Ember.computed('selection.[]', 'placeholder', function() {
+    const selection = this.get('selection');
+    const formatting = this.get('formatting');
+
+    if (!selection || (Ember.isArray(selection) && selection.length === 0)) {
+      return this.get('placeholder');
+    }
+
+    if (Ember.isArray(selection)) {
+      if (selection.length < 2) {
+        const startDate = selection[0];
+        return this.formatDate(startDate);
+
+      } else {
+        const startDate = selection[0];
+        const endDate = selection[selection.length - 1];
+
+        return this.formatDateRange(startDate, endDate);
+      }
+    }
+
+    return this.formatDate(selection, formatting);
   }),
 
   actions: {
     openCalendar() {
-      return this.toggleProperty('showPopcal');
+      let selection = this.get('selection');
+
+      if (Ember.isArray(selection)) {
+        this.set('_selection', selection);
+
+      } else {
+        this.set('_selection', [selection]);
+      }
+
+      return this.set('showCalendarWindow', true);
     },
 
-    onSelectionChange(selection) {
-      return this.sendAction('onChange', selection);
+    closeCalendar() {
+      const allowMultiple = this.get('allowMultiple');
+      const continuousSelection = this.get('continuousSelection');
+      const onChange = this.get('onChange');
+      const selection = this.get('_selection');
+
+      if (allowMultiple && !continuousSelection) {
+        if (onChange) {
+          this.sendAction('onChange', selection);
+
+        } else {
+          this.set('selection', selection);
+        }
+      }
+
+      this.set('showCalendarWindow', false);
+    },
+
+    toggleDates(closeModal, date) {
+      const allowMultiple = this.get('allowMultiple');
+      const continuousSelection = this.get('continuousSelection');
+      const selection = this.get('_selection');
+
+      if (allowMultiple && continuousSelection) {
+        if (selection.length === 1) {
+          if (date.isSame(selection[0])) {
+            this.removeDate(date);
+
+          } else {
+            this.addDateRange(selection[0], date);
+            this.send('closeAndUpdateSelection', closeModal);
+          }
+
+        } else {
+          this.set('_selection', [date]);
+        }
+
+      } else if (allowMultiple && !continuousSelection) {
+        if (this.hasDate(date)) {
+          this.removeDate(date);
+
+        } else {
+          this.addDate(date);
+        }
+
+      } else {
+        if (this.hasDate(date, selection)) {
+          this.set('_selection', []);
+
+        } else {
+          this.set('_selection', [date]);
+          this.send('closeAndUpdateSelection', closeModal);
+        }
+      }
+    },
+
+    previousMonth() {
+      let month = this.get('month');
+      const previousMonth = moment(month).subtract(1, 'months');
+
+      this.set('month', previousMonth);
+    },
+
+    nextMonth() {
+      let month = this.get('month');
+      const nextMonth = moment(month).add(1, 'months');
+
+      this.set('month', nextMonth);
+    },
+
+    closeAndUpdateSelection(closeModal) {
+      const allowMultiple = this.get('allowMultiple');
+      const selection = this.get('_selection');
+      const onChange = this.get('onChange');
+
+      if (onChange) {
+        if (allowMultiple) {
+          this.sendAction('onChange', selection);
+
+        } else {
+          this.sendAction('onChange', selection[0]);
+        }
+
+      } else {
+        if (allowMultiple) {
+          this.set('selection', selection);
+
+        } else {
+          this.set('selection', selection[0]);
+        }
+      }
+
+      closeModal().then(() => {
+        this.set('showCalendarWindow', false);
+      });
     }
   },
 
@@ -99,48 +260,22 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     // Down Arrow
     if (event.which === 40) {
       event.preventDefault();
-      this.set('showPopcal', true);
+      this.set('showCalendarWindow', true);
     }
   },
 
-  label: Ember.computed('selection.[]', 'placeholder', function() {
-    const selection = this.get('selection');
-    let label = null;
-
-    if (!selection) {
-      return this.get('placeholder');
-    }
-
-    if (Ember.isArray(selection)) {
-      if (selection.length < 2) {
-        const startDate = selection[0];
-        label = this.formatDateRange(startDate);
-      } else {
-        const startDate = selection[0];
-        const endDate = selection[selection.length - 1];
-        label = this.formatDateRange(startDate, endDate);
-      }
-    } else {
-      label = this.formatDate(selection);
-    }
-
-    return label;
-  }),
-
-  formatDate: function(date) {
+  formatDate(date, formatting) {
     if (!date) {
       return;
     }
 
-    return date.twix(date, true).format(this.get('formatting'));
+    return date.twix(date, true).format(formatting);
   },
 
-  formatDateRange: function(startDate, endDate) {
+  formatDateRange(startDate, endDate, formatting) {
     if (!startDate) {
       return;
     }
-
-    const formatting = this.get('formatting');
 
     // No end date is selected so show partial date
     if (!endDate) {
@@ -155,6 +290,89 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
         return startDate.twix(endDate, true).format(formatting);
       }
     }
+  },
+
+  hasDate(date) {
+    const selection = this.get('_selection');
+
+    return selection.find((item) => {
+      return item.isSame(date, 'day');
+    });
+  },
+
+  removeDate(date) {
+    const selection = this.get('_selection');
+
+    const removeDates = selection.filter((item) => {
+      return item.isSame(date, 'day');
+    });
+
+    if (removeDates.length) {
+      let newSelection = [];
+
+      selection.forEach((item) => {
+        if (removeDates.indexOf(item) === -1) {
+          newSelection.push(item);
+        }
+      })
+
+      this.set('_selection', newSelection);
+    }
+  },
+
+  addDate(date) {
+    let selection = this.get('_selection');
+    let newSelection = [];
+
+    this.removeDate(date);
+
+    selection.forEach((item) => {
+      newSelection.push(item);
+    });
+
+    newSelection.push(date);
+
+    this.set('_selection', newSelection);
+  },
+
+  addDateRange(startDate, endDate) {
+    let day = moment(startDate);
+    let newSelection = [startDate];
+
+    if (endDate.isBefore(startDate)) {
+      day.subtract(1, 'days');
+
+      while (!day.isBefore(endDate)) {
+        if (!this.isDisabledDate(moment(day))) {
+          newSelection.push(moment(day));
+        }
+        day.subtract(1, 'days');
+      }
+
+    } else {
+      day.add(1, 'days');
+
+      while (!day.isAfter(endDate)) {
+        if (!this.isDisabledDate(moment(day))) {
+          newSelection.push(moment(day));
+        }
+        day.add(1, 'days');
+      }
+    }
+
+    this.set('_selection', newSelection);
+  },
+
+  isDisabledDate(date) {
+    const disabledDates = this.get('disabledDates');
+
+    if (!disabledDates) {
+      return;
+    }
+
+    return disabledDates.find((item) => {
+      return item.isSame(date, 'day');
+    });
   },
 
   // Error check should happen without user having to focus on component

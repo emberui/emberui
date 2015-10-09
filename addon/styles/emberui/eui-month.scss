@@ -1,11 +1,11 @@
 .eui-month {
-  padding: 0;
+  padding: 0 5px;
   margin: 0;
 
   .eui-month--daysofweek {
     list-style: none;
-    margin: 0px;
-    padding: 0;
+    margin: 0px -5px;
+    padding: 0 5px;
     background: #f7f7f7;
     height: 30px;
     line-height: 30px;
@@ -24,7 +24,7 @@
     height: 222px;
     overflow: auto;
     list-style: none;
-    padding: 0;
+    padding: 0 5px;
     margin: 0;
     font-size: 16px;
     color: #474747;

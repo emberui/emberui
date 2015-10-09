@@ -71,7 +71,7 @@ export default Ember.Component.extend(renderOnBody, {
 
   actions: {
     close(object) {
-      this.breakdown().then(() => {
+      return this.breakdown().then(() => {
         this.attrs.onClose(object);
       });
     },
