@@ -15,6 +15,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   required: false,
   options: [],
   valuePath: 'value',
+  onChange: null,
 
   // WAI-ARIA support values
   ariaHasPopup: true,
@@ -136,8 +137,14 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
     selectOption(option) {
       if (option !== undefined) {
-        this.set('selection', option)
+
+        if (this.get('onChange')) {
+          this.sendAction('onChange', option);
+        } else {
+          this.set('selection', option)
+        }
       }
+
       this.set('showOptionList', false);
     }
   },
