@@ -16,8 +16,19 @@ export default Ember.Component.extend(errorSupport, className, {
   value: false,
   disabled: false,
 
+  onChange: null,
+
   click() {
-    if (!this.get('disabled')) {
+    if (this.get('disabled')) {
+      return;
+    }
+
+    let onChange = this.get('onChange');
+
+    if (onChange) {
+      this.sendAction('onChange', !this.get('value'));
+
+    } else {
       this.toggleProperty('value');
     }
   }
