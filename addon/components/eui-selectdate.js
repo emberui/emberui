@@ -53,7 +53,12 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
   month: Ember.computed('', function() {
     let firstSelectedDate = this.get('selection.firstObject');
-    return moment(firstSelectedDate).date(1);
+
+    if (firstSelectedDate) {
+      return moment(firstSelectedDate).date(1);
+    } else {
+      return moment();
+    }
   }),
 
   monthLabel: Ember.computed('month', function() {
@@ -150,8 +155,11 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
       if (Ember.isArray(selection)) {
         this.set('_selection', selection);
 
-      } else {
+      } else if (selection) {
         this.set('_selection', [selection]);
+
+      } else {
+        this.set('_selection', []);
       }
 
       return this.set('showCalendarWindow', true);
