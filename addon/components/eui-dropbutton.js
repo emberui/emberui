@@ -5,7 +5,10 @@ export default Ember.Component.extend(styleSupport, sizeSupport, {
   tagName: 'eui-dropbutton',
 
   showOptionList: false,
-  listWidth: 'auto',
+  popupWidth: 'auto',
+
+  attachment: 'right top',
+  targetAttachment: 'right bottom',
 
   // Option for the left button
   primaryOption: Ember.computed('options', function() {
