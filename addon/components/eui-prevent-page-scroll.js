@@ -2,7 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['eui-pevent-page-scroll'],
+  attributeBindings: ['style'],
+
   click: null,
+  zIndex: 1000000,
+
+  style: Ember.computed('zIndex', function() {
+    let zIndex = this.get('zIndex');
+    return `z-index: ${zIndex}`;
+  }),
 
   setup: Ember.on('didInsertElement', function() {
     this.disablePageScroll();
