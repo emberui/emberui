@@ -31,5 +31,8 @@ export default Ember.Component.extend(errorSupport, className, {
     } else {
       this.toggleProperty('value');
     }
-  }
+  },
+
+  // Error check should happen without user having to focus on component
+  isEntered: true
 });

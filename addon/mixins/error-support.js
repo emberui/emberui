@@ -31,7 +31,9 @@ export default Ember.Mixin.create({
   _errorState() {
     switch (this.get('_previousErrorState')) {
       case void 0:
-        if (Ember.isBlank(this.get('value')) && !this.get('forceErrorCheck')) {
+        const value = this.get('value');
+
+        if ((Ember.typeOf(value) === 'boolean' || Ember.isBlank(value)) && !this.get('forceErrorCheck')) {
           return false;
         }
         break;
@@ -40,7 +42,7 @@ export default Ember.Mixin.create({
           return false;
         }
     }
-    
+
     return !!this.get('error');
   }
 });
