@@ -10,8 +10,12 @@
   <div class="eui-select-label {{unless selection 'eui-select-placeholder'}}">
     {{#if selection}}
       {{yield selection}}
-    {{else}}
+
+    {{else if placeholder}}
       {{placeholder}}
+
+    {{else}}
+      &nbsp;
     {{/if}}
   </div>
   <div class="eui-select-icon"></div>
