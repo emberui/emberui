@@ -10,6 +10,11 @@
   outline: none;
   border: none;
 
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
   .eui-component-wrapper {
     position: relative;
     text-align: center;
