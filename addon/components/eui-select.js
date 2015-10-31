@@ -19,9 +19,6 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
   // WAI-ARIA support values
   ariaHasPopup: true,
-  ariaOwns: Ember.computed('poplist', function() {
-    return this.get('poplist.elementId');
-  }),
 
   // If this field is not required we automatically add a copy of the nullValue object at
   // the top of the list. This acts as a zero value so the user can deselect all options.
