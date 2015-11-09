@@ -8,6 +8,5 @@ module.exports = {
 
     app.import(app.bowerDirectory + '/moment/moment.js');
     app.import(app.bowerDirectory + '/twix/dist/twix.js');
-    app.import('vendor/dithered_radial_gradient.js');
   }
 };

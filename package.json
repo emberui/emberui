@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "ember-cli-babel": "^5.1.3",
-    "ember-cli-coffeescript": "0.10.0",
     "ember-cli-htmlbars": "0.7.9",
     "ember-cli-sass": "4.2.1"
   },
