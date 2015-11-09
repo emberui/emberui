@@ -13,7 +13,11 @@ eui-select {
 }
 
 .eui-select-label {
-  text-align: left
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 15px;
 }
 
 .eui-select-placeholder {
