@@ -1,6 +1,11 @@
 export default Ember.Controller.extend({
-  // Shows or hides navigation for mobile site
-  showNavigation: false,
-  
-  isDemoActive: false
+  actions: {
+    viewDocumenation() {
+      this.transitionToRoute('documentation');
+    },
+
+    viewGithub() {
+      window.location.href = 'http://github.com/emberui/emberui';
+    }
+  }
 });
