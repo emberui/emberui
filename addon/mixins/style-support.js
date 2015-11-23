@@ -4,7 +4,7 @@ export default Ember.Mixin.create({
   classNameBindings: ['computedStyle'],
   style: 'default',
 
-  computedStyle: Ember.computed(function() {
+  computedStyle: Ember.computed('style', function() {
     return 'eui-' + this.get('style');
-  }).property('style')
+  })
 });
