@@ -25,6 +25,8 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   optionsWithBlank: Ember.computed('options.[]', 'required', function() {
     const options = this.get('options');
 
+    Ember.assert("You must pass in options to eui-select", options);
+
     let paddedOptions = options.slice(0);
 
     if (!this.get('required')) {
@@ -79,12 +81,15 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   setInitialSelection() {
     const valuePath = this.get('valuePath');
     const value = this.get('value');
+    const options = this.get('options')
 
     if (!valuePath) {
       return;
     }
 
-    let option = this.get('options').find((option) => {
+    Ember.assert("You must pass in options to eui-select", options);
+
+    let option = options.find((option) => {
       return option[valuePath] === value;
     });
 
