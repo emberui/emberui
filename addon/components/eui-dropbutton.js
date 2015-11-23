@@ -3,7 +3,9 @@ import sizeSupport from '../mixins/size-support';
 
 export default Ember.Component.extend(className, sizeSupport, {
   tagName: 'eui-dropbutton',
+
   baseClass: 'dropbutton',
+  style: 'default',
 
   showOptionList: false,
   popupWidth: 'auto',
