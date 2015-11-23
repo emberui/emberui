@@ -1,8 +1,9 @@
-import styleSupport from '../mixins/style-support';
+import className from '../mixins/class-name';
 import sizeSupport from '../mixins/size-support';
 
-export default Ember.Component.extend(styleSupport, sizeSupport, {
+export default Ember.Component.extend(className, sizeSupport, {
   tagName: 'eui-dropbutton',
+  baseClass: 'dropbutton',
 
   showOptionList: false,
   popupWidth: 'auto',
