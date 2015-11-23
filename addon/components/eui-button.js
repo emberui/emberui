@@ -23,6 +23,6 @@ export default Em.Component.extend(className, disabledSupport, widthSupport, {
 
   click(event) {
     event.preventDefault();
-    this.sendAction('action', this.get('context'));
+    this.sendAction('action');
   }
 });
