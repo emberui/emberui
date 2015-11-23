@@ -168,13 +168,13 @@
 </div>
 
 <p>
-  The context of the button gets passed through with the click and allows you to pass through information that the action can act on.
+  You can use closeure actions to pass in context to the actions.
 </p>
 
-<pre>\{{eui-button label='Show Alert' action='deleteItem' itemToDelete=item}}</pre>
+<pre>\{{eui-button label='Show Alert' action=(action "deleteItem" item)}}</pre>
 
 <pre>actions: {
-  deleteItem: function(context) {
-    this.controller.get('items').removeObject(context.itemToDelete);
+  deleteItem(item) {
+    this.controller.get('items').removeObject(item);
   }
 }</pre>

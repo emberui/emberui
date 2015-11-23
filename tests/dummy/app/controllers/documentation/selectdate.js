@@ -1,8 +1,8 @@
-controller = Ember.Controller.extend
+export default Ember.Controller.extend({
   selectedDates: [
     moment().add(1, 'days'),
     moment().add(2, 'days')
-  ]
+  ],
 
   maxFutureDate: moment().add(10, 'days'),
 
@@ -11,9 +11,9 @@ controller = Ember.Controller.extend
     moment(),
     moment().add(4, 'days'),
     moment().add(5, 'days')
-  ]
+  ],
 
-  selectedDate: moment().add(1, 'days')
+  selectedDate: moment().add(1, 'days'),
 
   disabledDates: [
     moment().add(4, 'days'),
@@ -21,9 +21,13 @@ controller = Ember.Controller.extend
     moment().add(6, 'days'),
     moment().add(7, 'days'),
     moment().add(8, 'days'),
-    moment().add(9, 'days')
-  ],
+    moment().add(9, 'days')],
 
-  valueExample: moment().add(1, 'days').toISOString()
+  valueExample: moment().add(1, 'days').toISOString(),
 
-`export default controller`
+  actions: {
+    dateDidChange(date) {
+      alert('Date selected was ' + date.toISOString() + ' but we will ignore it.');
+    }
+  }
+});
