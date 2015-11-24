@@ -83,7 +83,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     const value = this.get('value');
     const options = this.get('options')
 
-    if (!valuePath) {
+    if (!valuePath || !value) {
       return;
     }
 
