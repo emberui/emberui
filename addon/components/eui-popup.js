@@ -55,11 +55,11 @@ export default Ember.Component.extend(renderOnBody, {
   },
 
   animateIn(element) {
-    return new Ember.RSVP.Promise((resolve, reject) => { resolve });
+    return new Ember.RSVP.Promise((resolve, reject) => { resolve() });
   },
 
   animateOut(element) {
-    return new Ember.RSVP.Promise((resolve, reject) => { resolve });
+    return new Ember.RSVP.Promise((resolve, reject) => { resolve() });
   },
 
   keyDown(event) {
