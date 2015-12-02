@@ -105,7 +105,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
     } else {
       let width = this.get('element').offsetWidth;
-      return new Ember.Handlebars.SafeString(`${width}px`);
+      return new Ember.String.htmlSafe(`${width}px`);
     }
   }).volatile(),
 

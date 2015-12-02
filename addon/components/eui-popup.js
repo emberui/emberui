@@ -15,6 +15,12 @@ export default Ember.Component.extend(renderOnBody, {
   targetAttachment: 'right bottom',
 
   width: null,
+  
+  style: Ember.computed('width', function() {
+    const width = this.get('width');
+
+    return new Ember.String.htmlSafe(`width: ${width};`);
+  }),
 
   // We don't really want to popup to be focusable, but we nede to focus on it
   // to catch all key presses

@@ -6,7 +6,7 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.resource("documentation", function() {
+  this.route("documentation", function() {
     this.route('layout');
     this.route('theming');
     this.route('errorhandling');
@@ -19,7 +19,7 @@ Router.map(function() {
     this.route('textarea');
     return this.route('option-list');
   });
-  
+
   return this.route('404', {
     path: '*path'
   });

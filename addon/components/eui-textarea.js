@@ -22,6 +22,6 @@ export default euiInput.extend({
     let width = this.get('width') || widths[this.get('size')] || widths['medium'];
     let height = this.get('height') || heights[this.get('size')] || heights['medium'];
 
-    return `width: ${width}; height: ${height}`;
+    return new Ember.String.htmlSafe(`width: ${width}; height: ${height}`);
   })
 });

@@ -8,8 +8,8 @@ export default Ember.Component.extend({
   zIndex: 1000000,
 
   style: Ember.computed('zIndex', function() {
-    let zIndex = this.get('zIndex');
-    return `z-index: ${zIndex}`;
+    let zIndex = parseInt(this.get('zIndex'));
+    return new Ember.String.htmlSafe(`z-index: ${zIndex}`);
   }),
 
   setup: Ember.on('didInsertElement', function() {

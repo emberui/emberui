@@ -12,6 +12,6 @@ export default Ember.Mixin.create({
     };
     const width = this.get('width') || widths[this.get('size')] || widths['medium'];
 
-    return `width: ${width};`;
+    return Ember.String.htmlSafe(`width: ${width};`);
   })
 });
