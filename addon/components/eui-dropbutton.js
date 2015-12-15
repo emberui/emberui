@@ -8,7 +8,6 @@ export default Ember.Component.extend(className, sizeSupport, {
   style: 'default',
 
   showOptionList: false,
-  popupWidth: 'auto',
 
   attachment: 'right top',
   targetAttachment: 'right bottom',
