@@ -7,7 +7,12 @@
   action="openCalendar"
   trailingIcon="eui-icon eui-icon--select"}}
   <div class="eui-selectdate-label {{if isPlaceholder 'eui-selectdate-placeholder'}}">
-    {{buttonLabel}}
+    {{#if buttonLabel}}
+      {{buttonLabel}}
+
+    {{else}}
+      &nbsp;
+    {{/if}}
   </div>
   <div class="eui-selectdate-icon"></div>
 {{/eui-button}}
