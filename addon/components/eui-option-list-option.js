@@ -12,6 +12,12 @@ export default Ember.Component.extend({
       return false;
     }
 
-    return this.get('highlights').indexOf(this.get('option')) !== -1;
+    let option = this.get('option');
+
+    if (option && option.then && option.isFulfilled) {
+      option = option.content;
+    }
+
+    return this.get('highlights').indexOf(option) !== -1;
   })
 });
