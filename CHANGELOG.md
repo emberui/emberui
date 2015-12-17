@@ -1,3 +1,7 @@
+### 1.0.0-beta.1
+- Brand new API.
+- More notes coming later.
+
 ### 0.7.2
 - Only trigger selectionDidChange on popcal when it has a selection
 
