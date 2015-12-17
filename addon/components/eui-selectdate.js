@@ -32,7 +32,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   targetAttachment: 'center center',
 
   animateInPopup(element) {
-    return $.Velocity.animate(element, {
+    return window.$.Velocity.animate(element, {
       opacity: [1, 0],
       scaleX: [1, 0],
       scaleY: [1, 0]
@@ -42,7 +42,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   },
 
   animateOutPopup(element) {
-    return $.Velocity.animate(element, {
+    return window.$.Velocity.animate(element, {
       opacity: [0, 1],
       scaleX: [0, 1],
       scaleY: [0, 1]
@@ -76,7 +76,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
   // Return Unix Time stamp of selections
   value: Ember.computed('selection.[]', {
-    get(key) {
+    get() {
       const selection = this.get('selection');
 
       if (!selection) {
@@ -97,8 +97,6 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     },
 
     set(key, value) {
-      const selection = this.get('selection');
-
       if (!value) {
         this.set('selection', null);
         return null;
@@ -321,7 +319,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
         if (removeDates.indexOf(item) === -1) {
           newSelection.push(item);
         }
-      })
+      });
 
       this.set('_selection', newSelection);
     }

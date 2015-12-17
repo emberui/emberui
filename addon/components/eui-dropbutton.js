@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import className from '../mixins/class-name';
 import sizeSupport from '../mixins/size-support';
 
@@ -30,7 +31,7 @@ export default Ember.Component.extend(className, sizeSupport, {
   }).volatile(),
 
   animateInPopup(element) {
-    return $.Velocity.animate(element, {
+    return window.$.Velocity.animate(element, {
       opacity: [1, 0],
       marginTop: ["0px", "-6px"]
     }, {
@@ -39,7 +40,7 @@ export default Ember.Component.extend(className, sizeSupport, {
   },
 
   animateOutPopup(element) {
-    return $.Velocity.animate(element, {
+    return window.$.Velocity.animate(element, {
       opacity: [0, 1],
       marginTop: ["10px", "0px"]
     }, {

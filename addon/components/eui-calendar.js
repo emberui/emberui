@@ -93,7 +93,7 @@ export default Ember.Component.extend(className, {
   },
 
   selection: Ember.computed('_selection', {
-    get: function(key) {
+    get() {
       const selection = this.get('_selection');
 
       if (this.get('allowMultiple')) {
@@ -103,7 +103,8 @@ export default Ember.Component.extend(className, {
         return selection[0];
       }
     },
-    set: function(key, value) {
+    
+    set(key, value) {
       if (Ember.isArray(value)) {
         this.set('_selection', Ember.A(value));
 

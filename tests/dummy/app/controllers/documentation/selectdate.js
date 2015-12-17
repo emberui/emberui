@@ -1,7 +1,8 @@
+import Ember from 'ember';
+
 export default Ember.Controller.extend({
   selectedDates: [
-    moment().add(1, 'days'),
-    moment().add(2, 'days')
+    moment().add(1, 'days'), moment().add(2, 'days')
   ],
 
   maxFutureDate: moment().add(10, 'days'),
@@ -27,7 +28,7 @@ export default Ember.Controller.extend({
 
   actions: {
     dateDidChange(date) {
-      alert('Date selected was ' + date.toISOString() + ' but we will ignore it.');
+      window.alert('Date selected was ' + date.toISOString() + ' but we will ignore it.');
     }
   }
 });

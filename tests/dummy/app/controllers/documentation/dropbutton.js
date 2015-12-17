@@ -1,12 +1,18 @@
+import Ember from 'ember';
+
 export default Ember.Controller.extend({
   options: Ember.A([
     {
       label: 'Save',
       action: 'save',
+    },
+    {
+      label: 'Edit',
+      action: 'edit',
+    },
+    {
       label: 'Delete',
       action: 'delete',
-      label: 'Edit',
-      action: 'edit'
     }
   ]),
 
@@ -30,27 +36,27 @@ export default Ember.Controller.extend({
 
   actions: {
     save() {
-      alert("Saving... ");
+      window.alert("Saving... ");
     },
 
     delete() {
-      alert("Deleting... ");
+      window.alert("Deleting... ");
     },
 
     edit() {
-      alert("Editing... ");
+      window.alert("Editing... ");
     },
 
     saveItem(context) {
-      alert("Saving... " + context.item);
+      window.alert("Saving... " + context.item);
     },
 
     deleteItem(context) {
-      alert("Deleting... " + context.item);
+      window.alert("Deleting... " + context.item);
     },
 
     editItem(context) {
-      alert("Editing... " + context.item);
+      window.alert("Editing... " + context.item);
     }
   }
 });

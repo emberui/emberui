@@ -26,7 +26,7 @@ export default Ember.Component.extend({
     net.scrollTop(50000).scrollLeft(50000).addClass('eui-enabled');
 
     return net.scroll(function() {
-      return $(this).scrollTop(50000).scrollLeft(50000);
+      return window.$(this).scrollTop(50000).scrollLeft(50000);
     });
   },
 

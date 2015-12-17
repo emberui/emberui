@@ -1,8 +1,9 @@
+import Ember from 'ember';
 import className from '../mixins/class-name';
 import disabledSupport from '../mixins/disabled-support';
 import widthSupport from '../mixins/width-support';
 
-export default Em.Component.extend(className, disabledSupport, widthSupport, {
+export default Ember.Component.extend(className, disabledSupport, widthSupport, {
   classNames: ['eui-button'],
   classNameBindings: ['loading:eui-loading', 'class'],
   attributeBindings: ['type'],

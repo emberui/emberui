@@ -15,7 +15,7 @@ export default Ember.Component.extend(renderOnBody, {
   targetAttachment: 'right bottom',
 
   width: null,
-  
+
   style: Ember.computed('width', function() {
     const width = this.get('width');
 
@@ -42,30 +42,30 @@ export default Ember.Component.extend(renderOnBody, {
   },
 
   positionPopup() {
-    return new Ember.RSVP.Promise((resolve, reject) => {
+    return new Ember.RSVP.Promise((resolve) => {
       Ember.run.next(this, () => {
         let { element, attachment, target, targetAttachment } = this.getProperties('element', 'attachment', 'target', 'targetAttachment');
 
-        element = $(element).find(this.get('popupElementClassName'))[0];
+        element = window.$(element).find(this.get('popupElementClassName'))[0];
 
-        $(element).position({
+        window.$(element).position({
           my: attachment,
           at: targetAttachment,
           of: target,
           collision: 'flipfit'
-        })
+        });
 
         resolve();
       });
     });
   },
 
-  animateIn(element) {
-    return new Ember.RSVP.Promise((resolve, reject) => { resolve() });
+  animateIn() {
+    return new Ember.RSVP.Promise((resolve) => { resolve(); });
   },
 
-  animateOut(element) {
-    return new Ember.RSVP.Promise((resolve, reject) => { resolve() });
+  animateOut() {
+    return new Ember.RSVP.Promise((resolve) => { resolve(); });
   },
 
   keyDown(event) {

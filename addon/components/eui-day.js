@@ -27,7 +27,7 @@ export default Ember.Component.extend({
 
     return selection.find((selection) => {
       return selection.isSame(date, 'day');
-    })
+    });
   }),
 
   isDisabled: Ember.computed('date', 'disabledDates', 'maxPastDate', 'maxFutureDate', function() {

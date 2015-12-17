@@ -1,8 +1,9 @@
+import Ember from 'ember';
 import className from '../mixins/class-name';
 import errorSupport from '../mixins/error-support';
 import widthSupport from '../mixins/width-support';
 
-export default Em.Component.extend(errorSupport, className, widthSupport, {
+export default Ember.Component.extend(errorSupport, className, widthSupport, {
   classNameBindings: ['computedSize', 'computedStyle', 'class'],
   tagName: 'eui-input',
 

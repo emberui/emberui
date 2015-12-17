@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import euiInput from '../components/eui-input';
 
 export default euiInput.extend({
@@ -5,7 +6,7 @@ export default euiInput.extend({
 
   height: null,
 
-  computedWidthAndHeight: Em.computed('size', 'width', 'height', function() {
+  computedWidthAndHeight: Ember.computed('size', 'width', 'height', function() {
     const widths = {
       tiny: '100px',
       small: '150px',

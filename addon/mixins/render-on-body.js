@@ -8,4 +8,4 @@ export default Ember.Mixin.create({
   removeFromBody: Ember.on('willDestroyElement', function() {
     this.element.parentNode.removeChild(this.element);
   })
-})
+});

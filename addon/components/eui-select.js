@@ -40,7 +40,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   // Allows for getting and setting so the user can set the initial value of the select
   // without passing in the full object
   value: Ember.computed('selection', 'valuePath', {
-    get(key) {
+    get() {
       const valuePath = this.get('valuePath');
 
       if (valuePath) {
@@ -81,7 +81,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   setInitialSelection() {
     const valuePath = this.get('valuePath');
     const value = this.get('value');
-    const options = this.get('options')
+    const options = this.get('options');
 
     if (!valuePath || !value) {
       return;
@@ -113,7 +113,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   targetAttachment: 'center center',
 
   animateInPopup(element) {
-    return $.Velocity.animate(element, {
+    return window.$.Velocity.animate(element, {
       opacity: [1, 0],
       scaleX: [1, 0],
       scaleY: [1, 0]
@@ -123,7 +123,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   },
 
   animateOutPopup(element) {
-    return $.Velocity.animate(element, {
+    return window.$.Velocity.animate(element, {
       opacity: [0, 1],
       scaleX: [0, 1],
       scaleY: [0, 1]

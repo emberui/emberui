@@ -4,7 +4,7 @@ export default Ember.Mixin.create({
   classNameBindings: ['computedSize'],
   size: 'medium',
 
-  computedSize: Em.computed('size', function() {
+  computedSize: Ember.computed('size', function() {
     return 'eui-' + this.get('size');
   })
 });

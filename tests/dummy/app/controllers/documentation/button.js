@@ -5,16 +5,16 @@ export default Ember.Controller.extend({
   isDisabled: false,
 
   actions: {
-    switchToLoading(controller) {
+    switchToLoading() {
       this.set('isLoading', true);
     },
 
-    switchToDisabled(controller) {
+    switchToDisabled() {
       this.set('isDisabled', true);
     },
 
     showAlert() {
-      alert("Showing Alert");
+      window.alert("Showing Alert");
     }
   }
 });
