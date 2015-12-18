@@ -117,19 +117,3 @@
 <p>
   If there is a primary action the button will act as a splitbutton, if no primary action is assigned it will behave as a dropbutton.
 </p>
-
-<p>
-  The context of the button gets passed through with the click and allows you to pass through information that the action can act on.
-</p>
-
-<pre>\{{eui-dropbutton options=optionsPrimary item='item 1'}}</pre>
-
-<pre>optionsContext: [
-  Ember.Object.create({ label: 'Save', action: 'saveItem', primary: true }),
-  Ember.Object.create({ label: 'Delete', action: 'deleteItem' }),
-  Ember.Object.create({ label: 'Edit', action: 'editItem' })
-]</pre>
-
-<div class="output">
-  {{eui-dropbutton options=optionsContext item='item 1'}}
-</div>
