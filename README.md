@@ -5,7 +5,7 @@ A component library for crafting ambitious interfaces.
 
 ## Documentation, Demos
 
-http://emberui.com
+The documenation can be found on the web at http://emberui.com or in this repo located in `/tests/dummy/app/`. Pull the repo and `ember serve` and you will be able read it at `localhost:4200`.
 
 https://speakerdeck.com/jacojoubert/emberui
 

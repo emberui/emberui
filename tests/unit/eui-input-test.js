@@ -127,14 +127,3 @@ test('element focus: focusin resets error state', function(assert) {
 
   assert.ok(input.get('errorState'), 'error updated on focusout');
 });
-
-test('inputId is stored on didInsertElement', function(assert) {
-  assert.expect(2);
-  var input = this.subject({
-    value: 'bonk',
-    error: true
-  });
-  assert.ok(!input.get('inputId'), 'inputId is not set until append');
-  this.append();
-  assert.ok(input.get('inputId'), 'inputId is set after append');
-});

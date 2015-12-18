@@ -1,32 +1,56 @@
-{{eui-button
-  label=view.label
+{{#eui-button
   disabled=disabled
   style=style
   size=size
   width='100%'
-  classBinding=":eui-select selectClass showPoplist:eui-active"
-  trailingIcon="eui-icon eui-icon--select"
+  classBinding=":eui-select showOptionList:eui-active"
+  action="showOptionList"
   ariaOwns=ariaOwns
   ariaHaspopup=ariaHasPopup}}
+  <div class="eui-select-label {{unless selection 'eui-select-placeholder'}}">
+    {{#if selection}}
+      {{yield selection}}
+
+    {{else if placeholder}}
+      {{placeholder}}
+
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </div>
+  <div class="eui-select-icon"></div>
+{{/eui-button}}
 
 {{#if errorMessage}}
   <div class="eui-error-message">
     <div class="eui-error-wrapper">
-      <p>
+      <p class="eui-error-text">
         {{errorMessage}}
       </p>
     </div>
   </div>
 {{/if}}
 
-{{#if showPoplist}}
-  {{eui-poplist
-    isOpen=showPoplist
-    selection=_selection
-    options=optionsWithBlank
-    labelPath=labelPath
-    style="flyin"
-    modalOnMobile=true
-    listWidth=listWidth
-    animationStyle=animationStyle}}
+{{#if showOptionList}}
+  {{#eui-popup
+    attachment=attachment
+    target=element
+    targetAttachment=targetAttachment
+    width=popupWidth
+    animateIn=animateInPopup
+    animateOut=animateOutPopup
+    onClose=(action "selectOption") as | closeAction |}}
+
+    {{#eui-option-list
+      style="select"
+      highlights=selectionArray
+      options=optionsWithBlank as |option index|}}
+
+      <div class="eui-select--list-option" {{action closeAction option}}>
+        {{yield option index}}
+      </div>
+
+    {{/eui-option-list}}
+
+  {{/eui-popup}}
 {{/if}}

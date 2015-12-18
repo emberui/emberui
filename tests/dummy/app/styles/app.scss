@@ -1,4 +1,7 @@
 @import "website/normalize";
+
+@import 'blueprints/emberui/files/app/styles/emberui-theme.scss';
+
 @import "website/font-awesome";
 
 @import "website/main";
@@ -7,5 +10,3 @@
 @import "website/animations";
 
 @import "website/mobile";
-
-@import "../../../../blueprints/emberui/files/app/styles/emberui-theme";

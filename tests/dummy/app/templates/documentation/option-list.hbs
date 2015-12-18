@@ -1,0 +1,15 @@
+<h1>\{{eui-option-list}}</h1>
+
+<div class="intro">
+  ...
+</div>
+
+<br />
+<br />
+
+{{#eui-option-list options=options highlights=highlights as |option index|}}
+  <div {{action "toggleSelection" option}}>
+    <strong>{{option.label}}</strong><br>
+    {{index}}
+  </div>
+{{/eui-option-list}}

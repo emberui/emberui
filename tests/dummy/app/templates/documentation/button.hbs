@@ -1,7 +1,7 @@
 <h1>\{{eui-button}}</h1>
 
 <div class="intro">
-  A reimplementation of the browser button tag that adds a loading state and support for icons.
+  Supercharges the button element with additional states and styling.
 </div>
 
 <h2>Parameters</h2>
@@ -9,11 +9,8 @@
 <ul class="parameterindex">
   <li class="header">Aesthetic</li>
   <li><a href="#section-class">class</a></li>
-  <li><a href="#section-label">label</a></li>
   <li><a href="#section-size">size</a></li>
   <li><a href="#section-style">style</a></li>
-  <li><a href="#section-leadingicon">leadingIcon</a></li>
-  <li><a href="#section-trailingicon">trailingIcon</a></li>
   <li><a href="#section-width">width</a></li>
 
   <li class="header">States</li>
@@ -34,18 +31,6 @@
 </p>
 
 
-<h4 id="section-label">label <span>string</span></h4>
-<p>
-  The text displayed on the button.
-</p>
-
-<pre>\{{eui-button label='Save Changes'}}</pre>
-
-<div class="output">
-  {{eui-button label='Save Changes'}}
-</div>
-
-
 <h4 id="section-size">size <span>string</span></h4>
 <p>
   The size of the button.
@@ -62,16 +47,16 @@
   Additional sizes can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
 </p>
 
-<pre>\{{eui-button label='Save Changes' size='tiny'}}
-\{{eui-button label='Save Changes' size='small'}}
-\{{eui-button label='Save Changes' size='medium'}}
-\{{eui-button label='Save Changes' size='large'}}</pre>
+<pre>\{{#eui-button size='tiny'}}Save Changes\{{/eui-button}}
+\{{#eui-button size='small'}}Save Changes\{{/eui-button}}
+\{{#eui-button size='medium'}}Save Changes\{{/eui-button}}
+\{{#eui-button size='large'}}Save Changes\{{/eui-button}}</pre>
 
 <div class="output">
-  {{eui-button label='Save Changes' size='tiny'}}
-  {{eui-button label='Save Changes' size='small'}}
-  {{eui-button label='Save Changes' size='medium'}}
-  {{eui-button label='Save Changes' size='large'}}
+  {{#eui-button size='tiny'}}Save Changes{{/eui-button}}
+  {{#eui-button size='small'}}Save Changes{{/eui-button}}
+  {{#eui-button size='medium'}}Save Changes{{/eui-button}}
+  {{#eui-button size='large'}}Save Changes{{/eui-button}}
 </div>
 
 
@@ -89,52 +74,25 @@
   Additional styles can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
 </p>
 
-<pre>\{{eui-button label='Save Changes' style='default'}}
-\{{eui-button label='Save Changes' style='primary'}}</pre>
+<pre>\{{#eui-button style='default'}}Save Changes\{{/eui-button}}
+\{{#eui-button style='primary'}}Save Changes\{{/eui-button}}</pre>
 
 <div class="output">
-  {{eui-button label='Save Changes' style='default'}}
-  {{eui-button label='Save Changes' style='primary'}}
-</div>
-
-
-<h4 id="section-leadingicon">leadingIcon <span>string</span></h4>
-<p>
-  Displays an icon in front of the label. If no label is set, the button will show up square with the icon centered.
-</p>
-<p>
-  Pass in a class that will get assgined to a <em>&lt;b&gt;</em> tag inside the button label. You can customize the icon with the css <em>:before</em> selector or set a background image on the tag if icon fonts are not used.
-</p>
-
-<pre>\{{eui-button label='Settings' leadingIcon='fa fa-cog'}}
-\{{eui-button leadingIcon='fa fa-cog'}}</pre>
-
-<div class="output">
-  {{eui-button label='Settings' leadingIcon='fa fa-cog'}}
-  {{eui-button leadingIcon='fa fa-cog'}}
-</div>
-
-<p>
-  The example uses <a href="http://fontawesome.io/">FontAwesome</a> for its icons.
-</p>
-
-
-<h4 id="section-trailingicon">trailingIcon <span>string</span></h4>
-<p>
-  Displays an icon after the label. Requires a label to be set to display correctly.
-</p>
-
-<pre>\{{eui-button label='Next' trailingIcon='fa fa-angle-double-right'}}</pre>
-
-<div class="output">
-  {{eui-button label='Next' trailingIcon='fa fa-angle-double-right'}}
+  {{#eui-button style='default'}}Save Changes{{/eui-button}}
+  {{#eui-button style='primary'}}Save Changes{{/eui-button}}
 </div>
 
 
 <h4 id="section-width">width <span>string</span></h4>
 <p>
-  Width of the button. You must pass in a CSS size value with the unit. The select uses CSS box-sizing to ensure precentage-based sizes are actual sizes.
+  Width of the button. You must pass in a CSS size value with the unit. The select uses CSS box-sizing to ensure precentage-based sizes are actual sizes. If your label is longer than the width of the button the label will get truncated.
 </p>
+
+<pre>\{{#eui-button width="100px"}}Save Changes\{{/eui-button}}</pre>
+
+<div class="output">
+  {{#eui-button width="100px"}}Save Changes{{/eui-button}}
+</div>
 
 
 <h4 id="section-disabled">disabled <span>boolean</span></h4>
@@ -142,8 +100,8 @@
   Disables the button and prevents the action from firing if clicked.
 </p>
 
-<pre>\{{eui-button label='Save Changes' disabled=true}}
-\{{eui-button label='Click to Disable' disabled=isDisabled action='switchToDisabled'}}</pre>
+<pre>\{{#eui-button disabled=true}}Save Changes\{{/eui-button}}
+\{{#eui-button disabled=isDisabled action='switchToDisabled'}}Click to Disable\{{/eui-button}}</pre>
 
 <pre>actions: {
   switchToDisabled: function(controller) {
@@ -152,8 +110,8 @@
 }</pre>
 
 <div class="output">
-  {{eui-button label='Save Changes' disabled=true}}
-  {{eui-button label='Click to Disable' disabled=isDisabled action='switchToDisabled'}}
+  {{#eui-button disabled=true}}Save Changes{{/eui-button}}
+  {{#eui-button disabled=isDisabled action='switchToDisabled'}}Click to Disable{{/eui-button}}
 </div>
 
 
@@ -165,8 +123,8 @@
   The button maintains its size during the loading phase. If the button is too small to show all three dots of the loading animation the amount of dots will be reduced until it fits.
 </p>
 
-<pre>\{{eui-button label='Save Changes' loading=true}}
-\{{eui-button label='Click to Load' loading=isLoading action='switchToLoading'}}</pre>
+<pre>\{{#eui-button loading=true}}Save Changes\{{/eui-button}}
+\{{#eui-button loading=isLoading action='switchToLoading'}}Click to Load\{{/eui-button}}</pre>
 
 <pre>actions: {
   switchToLoading: function(controller) {
@@ -175,8 +133,8 @@
 }</pre>
 
 <div class="output">
-  {{eui-button label='Save Changes' loading=true}}
-  {{eui-button label='Click to Load' loading=isLoading action='switchToLoading'}}
+  {{#eui-button loading=true}}Save Changes{{/eui-button}}
+  {{#eui-button loading=isLoading action='switchToLoading'}}Click to Load{{/eui-button}}
 </div>
 
 
@@ -197,7 +155,7 @@
   The action you want to trigger when the user clicks the button.
 </p>
 
-<pre>\{{eui-button label='Show Alert' action='showAlert'}}</pre>
+<pre>\{{#eui-button action='showAlert'}}Show Alert\{{/eui-button}}</pre>
 
 <pre>actions: {
   showAlert: function() {
@@ -206,17 +164,17 @@
 }</pre>
 
 <div class="output">
-  {{eui-button label='Show Alert' action='showAlert'}}
+  {{#eui-button action='showAlert'}}Show Alert{{/eui-button}}
 </div>
 
 <p>
-  The context of the button gets passed through with the click and allows you to pass through information that the action can act on.
+  You can use closeure actions to pass in context to the actions.
 </p>
 
-<pre>\{{eui-button label='Show Alert' action='deleteItem' itemToDelete=item}}</pre>
+<pre>\{{eui-button label='Show Alert' action=(action "deleteItem" item)}}</pre>
 
 <pre>actions: {
-  deleteItem: function(context) {
-    this.controller.get('items').removeObject(context.itemToDelete);
+  deleteItem(item) {
+    this.controller.get('items').removeObject(item);
   }
 }</pre>

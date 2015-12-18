@@ -9,7 +9,6 @@
 <ul class="parameterindex">
   <li class="header">Aesthetic</li>
   <li><a href="#section-class">class</a></li>
-  <li><a href="#section-label">label</a></li>
   <li><a href="#section-size">size</a></li>
   <li><a href="#section-style">style</a></li>
 
@@ -19,6 +18,9 @@
   <li class="header">Error Handling</li>
   <li><a href="#section-error">error</a></li>
   <li><a href="#section-forceerrorcheck">forceErrorCheck</a></li>
+
+  <li class="header">Events</li>
+  <li><a href="#section-onchange">onChange</a></li>
 </ul>
 
 
@@ -26,18 +28,6 @@
 <p>
   Assigns a custom CSS class to the checkbox.
 </p>
-
-
-<h4 id="section-label">label <span>string</span></h4>
-<p>
-  The text displayed next to the checkbox.
-</p>
-
-<pre>\{{eui-checkbox label='Remember me'}}</pre>
-
-<div class="output">
-  {{eui-checkbox label='Remember me'}}
-</div>
 
 
 <h4 id="section-size">size <span>string</span></h4>
@@ -64,18 +54,29 @@
   <li>default (default)</li>
 </ul>
 
+<pre>\{{#eui-checkbox style="default"}}Remember me\{{/eui-checkbox}}</pre>
+
+<div class="output">
+  {{#eui-checkbox style="default"}}Remember me{{/eui-checkbox}}
+</div>
+
 
 <h4 id="section-disabled">disabled <span>boolean</span></h4>
 <p>
   Disables the checkbox.
 </p>
 
-<pre>\{{eui-checkbox label='Enabled' disabled=true}}
-\{{eui-checkbox label='Checked' value=true disabled=true}}</pre>
+<pre>\{{#eui-checkbox disabled=true}}Unchecked\{{/eui-checkbox}}
+\{{#eui-checkbox value=true disabled=true}}Checked\{{/eui-checkbox}}</pre>
 
 <div class="output">
-  {{eui-checkbox label='Unchecked' disabled=true}}
-  {{eui-checkbox label='Checked' value=true disabled=true}}
+  {{#eui-checkbox disabled=true}}
+    Unchecked
+  {{/eui-checkbox}}
+
+  {{#eui-checkbox value=true disabled=true}}
+    Checked
+  {{/eui-checkbox}}
 </div>
 
 
@@ -88,4 +89,10 @@
 <h4 id="section-forceerrorcheck">forceErrorCheck <span>boolean</span></h4>
 <p>
   If set to <em>true</em> the input will force an error check, even if the value is blank.
+</p>
+
+
+<h4 id="section-onchange">onChange <span>string | action</span></h4>
+<p>
+  If you specify an <em>onChange</em> action the original state will not be changed and instead your action will be fired with the new value.
 </p>

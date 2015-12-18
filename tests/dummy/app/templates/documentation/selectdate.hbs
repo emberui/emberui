@@ -8,7 +8,6 @@
 
 <ul class="parameterindex">
   <li class="header">Aesthetic</li>
-  <li><a href="#section-animationstyle">animationStyle</a></li>
   <li><a href="#section-formatting">formatting</a></li>
   <li><a href="#section-size">size</a></li>
   <li><a href="#section-style">style</a></li>
@@ -18,7 +17,8 @@
   <li><a href="#section-disabled">disabled</a></li>
 
   <li class="header">Attributes</li>
-  <li><a href="#section-daterange">dateRange</a></li>
+  <li><a href="#section-allowMultiple">allowMultiple</a></li>
+  <li><a href="#section-continuousSelection">continuousSelection</a></li>
   <li><a href="#section-disableddates">disabledDates</a></li>
   <li><a href="#section-disablefuture">disableFuture</a></li>
   <li><a href="#section-disablepast">disablePast</a></li>
@@ -35,12 +35,6 @@
   <li class="header">Events</li>
   <li><a href="#section-onchange">onChange</a></li>
 </ul>
-
-
-<h4 id="section-animationstyle">animationStyle <span>string</span></h4>
-<p>
-  The name of the animation style to use for open and close animations. See {{link-to "animations" "documentation.animations"}} for more details.
-</p>
 
 
 <h4 id="section-formatting">formatting <span>hash</span></h4>
@@ -135,9 +129,9 @@
 
 
 
-<h4 id="section-daterange">dateRange <span>boolean</span></h4>
+<h4 id="section-allowMultiple">allowMultiple <span>boolean</span></h4>
 <p>
-  Set to <em>true</em> if the select should allow the user to select a date range.
+  Set to <em>true</em> if the select should allow the user to select multiple dates.
 </p>
 
 <pre>selectedDates: [
@@ -154,10 +148,10 @@ disabledDates: [
   moment('2014-05-26')
 ]</pre>
 
-<pre>\{{eui-selectdate placeholder="Select dates" selection=selectedDates dateRange=true disabledDates=disabledDates}}</pre>
+<pre>\{{eui-selectdate placeholder="Select dates" selection=selectedDates allowMultiple=true disabledDates=disabledDates}}</pre>
 
 <div class="output">
-  {{eui-selectdate placeholder="Select dates" selection=selectedDates dateRange=true disabledDates=disabledDates}}
+  {{eui-selectdate placeholder="Select dates" selection=selectedDates allowMultiple=true disabledDates=disabledDates}}
 </div>
 
 
@@ -231,11 +225,22 @@ Current Selection: \{{selectedDate}}</pre>
 </div>
 
 
-<h4 id="section-value">value <span>unix time stamp | arry of unix time stamps</span></h4>
+<h4 id="section-value">value <span>ISO 8601 String | array of ISO 8601 Strings</span></h4>
 <p>
   Same as <em>selection</em>, except it returns <em>unix time stamps</em> instead of <em>moment</em> objects.
 </p>
 
+<pre>valueExample: moment().add(1, 'days').toISOString()</pre>
+
+<pre>\{{eui-selectdate value=valueExample placeholder="Select a date"}}
+Current Selection: \{{valueExample}}</pre>
+
+<div class="output">
+  {{eui-selectdate value=valueExample placeholder="Select a date"}}
+  <br />
+  <br />
+  Current Selection: {{valueExample}}
+</div>
 
 
 <h4 id="section-error">error <span>boolean | string</span></h4>
@@ -250,9 +255,9 @@ Current Selection: \{{selectedDate}}</pre>
 </p>
 
 
-<h4 id="section-onchange">onChange <span>string</span></h4>
+<h4 id="section-onchange">onChange <span>string | action</span></h4>
 <p>
-  Action to fire when the date selection changes.
+  If you specify an <em>onChange</em> action the original selection will not be changed and instead your action will be fired with the new value.
 </p>
 
 <div class="output">

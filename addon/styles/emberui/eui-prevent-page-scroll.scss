@@ -1,0 +1,20 @@
+.eui-pevent-page-scroll {
+  position: fixed;
+  background: rgba(0, 0, 0, 0);
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.eui-pevent-page-scroll--net {
+  height: calc(100% + 30px);
+  width: calc(100% + 30px);
+  overflow: auto;
+}
+
+.eui-pevent-page-scroll--net-content {
+  height: 100000px;
+  width: 100000px;
+}

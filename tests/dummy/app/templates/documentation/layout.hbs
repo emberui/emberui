@@ -5,11 +5,7 @@
 </div>
 
 <p>
-  EmberUI does not try to replicate what css frameworks such as Bootstrap try to do. Components are structured such that they are easy to use together, but if you are expecting a grid framework for layout you will not find it here.
-</p>
-
-<p>
-  EmberUI will work with css frameworks if you choose, but if you are writing an ambitious application then you probably should spend some time writing custom layout code and not rely on generic css.
+  EmberUI does not try to replicate what css frameworks such as Bootstrap try to do. Components are structured such that they are easy to use together using your own custom CSS.
 </p>
 
 <h2>Working with components</h2>
@@ -18,28 +14,50 @@
   All components are designed to work together when the same size is specified. If there is no line break they will flow onto the same line and align with each other.
 </p>
 
-<pre>\{{eui-input placeholder="Name"}}
-\{{eui-input placeholder="Email Address"}}
-\{{eui-button label="Signup"}}</pre>
+<pre>\{{#eui-input}}
+  \{{input type="text" placeholder="Name"}}
+\{{/eui-input}}
+
+\{{#eui-input}}
+  \{{input type="text" placeholder="Email Address"}}
+\{{/eui-input}}
+
+\{{#eui-button}}
+  Signup
+\{{/eui-button}}</pre>
 
 <div class="output">
-  {{eui-input placeholder="Name"}}
-  {{eui-input placeholder="Email Address"}}
-  {{eui-button label="Signup"}}
+  {{#eui-input}}
+    {{input type="text" placeholder="Name"}}
+  {{/eui-input}}
+
+  {{#eui-input}}
+    {{input type="text" placeholder="Email Address"}}
+  {{/eui-input}}
+
+  {{#eui-button}}
+    Signup
+  {{/eui-button}}
 </div>
 
 <p>
   Components are set to display as inline-block items via css. If you put two components of different sizes next to each other they will vertically align.
 </p>
 
-<pre>\{{eui-input placeholder="Todo" size="large"}}
-\{{eui-button label="Add" size="small"}}</pre>
+<pre>\{{#eui-input size="large"}}
+  \{{input type="text" placeholder="Todo"}}
+\{{/eui-input}}
+
+\{{#eui-button size="small"}}
+  Add
+\{{/eui-button}}</pre>
 
 <div class="output">
-  {{eui-input placeholder="Todo" size="large"}}
-  {{eui-button label="Add" size="small"}}
-</div>
+  {{#eui-input size="large"}}
+    {{input type="text" placeholder="Todo"}}
+  {{/eui-input}}
 
-<p>
-  You probably would not want to mix sizes as demonstrated, but it is important to understand how components interact with each other.
-</p>
+  {{#eui-button size="small"}}
+    Add
+  {{/eui-button}}
+</div>

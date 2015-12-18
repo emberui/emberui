@@ -3,7 +3,6 @@
 
 module.exports = {
   name: 'emberui',
-
   included: function(app) {
     this._super.included(app);
 

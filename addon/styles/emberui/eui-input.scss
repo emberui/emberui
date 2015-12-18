@@ -1,5 +1,4 @@
-eui-input,
-eui-textarea {
+eui-input {
   padding: 1px;
   display: inline-block;
   vertical-align: middle;
@@ -14,9 +13,6 @@ eui-textarea {
 
   input,
   textarea {
-    position: absolute;
-    top: 0px;
-    left: 0px;
     height: 100%;
     width: 100%;
     padding: 0;
@@ -26,31 +22,10 @@ eui-textarea {
     font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
   }
 
-  label {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    cursor: text;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    box-sizing: border-box;
-    text-align: left;
-    color: #c6c6c6;
-  }
-
   /* disabled */
   input:disabled,
   textarea:disabled {
     background: #f6f6f6;
     color: #777777;
   }
-}
-
-eui-textarea .eui-component-wrapper {
-  height: 100% !important;
 }

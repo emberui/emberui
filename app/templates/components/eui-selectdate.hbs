@@ -1,34 +1,81 @@
-{{eui-button
-  label=view.label
+{{#eui-button
   disabled=disabled
   style=style
   size=size
   width='100%'
-  classBinding=":eui-select selectClass showPopcal:eui-active"
+  classBinding=":eui-select showCalendarWindow:eui-active"
   action="openCalendar"
   trailingIcon="eui-icon eui-icon--select"}}
+  <div class="eui-selectdate-label {{if isPlaceholder 'eui-selectdate-placeholder'}}">
+    {{#if buttonLabel}}
+      {{buttonLabel}}
+
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </div>
+  <div class="eui-selectdate-icon"></div>
+{{/eui-button}}
 
 {{#if errorMessage}}
   <div class="eui-error-message">
     <div class="eui-error-wrapper">
-      <p>
+      <p class="eui-error-text">
         {{errorMessage}}
       </p>
     </div>
   </div>
 {{/if}}
 
-{{#if showPopcal}}
-  {{eui-popcal
-    isOpen=showPopcal
-    selection=selection
-    dateRange=dateRange
-    disablePast=disablePast
-    disableFuture=disableFuture
-    maxPastDate=maxPastDate
-    maxFutureDate=maxFutureDate
-    disabledDates=disabledDates
-    style=calendarStyle
-    selectionDidChange="onSelectionChange"
-    animationStyle=animationStyle}}
+{{#if showCalendarWindow}}
+  {{#eui-popup
+    attachment=attachment
+    target=element
+    targetAttachment=targetAttachment
+    animateIn=animateInPopup
+    animateOut=animateOutPopup
+    onClose=(action "closeCalendar") as | closeAction |}}
+
+    <div class="eui-selectdate--window">
+      <div class="eui-selectdate--window-wrapper">
+        <button
+          {{action "previousMonth"}}
+          disabled={{isPrevDisabled}}
+          class="eui-selectdate--window-previous eui-icon eui-icon--previous"></button>
+
+        <button
+          {{action "nextMonth"}}
+          disabled={{isNextDisabled}}
+          class="eui-selectdate--window-next eui-icon eui-icon--next"></button>
+
+        <div class="eui-selectdate--window-column">
+          <div class="eui-selectdate--window-column-header">
+            {{monthLabel}}
+          </div>
+
+          {{eui-month
+            month=month
+            selection=_selection
+            disabledDates=disabledDates
+            maxPastDate=maxPastDate
+            maxFutureDate=maxFutureDate
+            onSelect=(action "toggleDates" closeAction)}}
+        </div>
+        <div class="eui-selectdate--window-column">
+          <div class="eui-selectdate--window-column-header">
+            {{nextMonthLabel}}
+          </div>
+
+          {{eui-month
+            month=nextMonth
+            selection=_selection
+            disabledDates=disabledDates
+            maxPastDate=maxPastDate
+            maxFutureDate=maxFutureDate
+            onSelect=(action "toggleDates" closeAction)}}
+        </div>
+      </div>
+    </div>
+
+  {{/eui-popup}}
 {{/if}}

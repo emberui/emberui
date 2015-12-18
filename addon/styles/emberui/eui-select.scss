@@ -6,37 +6,55 @@ eui-select {
   outline: none;
   border: none;
 
-  .eui-component-wrapper {
-    text-align: left
-  }
-
-  .eui-label-value {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-  }
-
-  .eui-trailing-icon {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    height: 100%;
-    padding-left: 7px;
-  }
-
   /* Disabled */
   &.eui-disabled {
     pointer-events: none;
   }
+}
 
-  &.eui-placeholder {
-    .eui-label-value {
-      opacity: 0.6;
-    }
+.eui-select-label {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 15px;
+}
+
+.eui-select-placeholder {
+  opacity: 0.6;
+}
+
+.eui-select-icon:before {
+  font-family: "emberui";
+  content: "\e003";
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+  padding-left: 7px;
+  opacity: 0.4;
+}
+
+eui-select [class*="-tiny"] {
+  .eui-component-wrapper {
+    padding: 0 5px;
   }
+}
 
-  .eui-trailing-icon {
-    opacity: 0.4;
+eui-select [class*="-small"] {
+  .eui-component-wrapper {
+    padding: 0 5px;
+  }
+}
+
+eui-select [class*="-medium"] {
+  .eui-component-wrapper {
+    padding: 0 10px;
+  }
+}
+
+eui-select [class*="-large"] {
+  .eui-component-wrapper {
+    padding: 0 10px;
   }
 }

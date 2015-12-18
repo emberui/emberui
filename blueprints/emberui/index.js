@@ -12,9 +12,6 @@ module.exports = {
     }.bind(this)).then(function() {
       return this.addAddonToProject('ember-cli-velocity')
 
-    }.bind(this)).then(function() {
-      return this.addAddonToProject('ember-list-view')
-
-    }.bind(this))
+    }.bind(this));
   }
 };

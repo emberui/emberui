@@ -1,0 +1,25 @@
+<ol class="eui-month--daysofweek">
+  <li class="eui-nameofday">Sun</li>
+  <li class="eui-nameofday">Mon</li>
+  <li class="eui-nameofday">Tue</li>
+  <li class="eui-nameofday">Wed</li>
+  <li class="eui-nameofday">Thu</li>
+  <li class="eui-nameofday">Fri</li>
+  <li class="eui-nameofday">Sat</li>
+</ol>
+
+<ol class="eui-month--slots">
+  {{#each days as |slot|}}
+    {{#if slot}}
+      {{eui-day
+        date=slot
+        selection=selection
+        disabledDates=disabledDates
+        maxPastDate=maxPastDate
+        maxFutureDate=maxFutureDate
+        click=(action onSelect slot)}}
+    {{else}}
+      <li class="eui-month--slot eui-month--empty"></li>
+    {{/if}}
+  {{/each}}
+</ol>

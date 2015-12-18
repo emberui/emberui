@@ -1,24 +1,47 @@
 .eui-month {
-  width: 259px;
-  height: 222px;
-  overflow: auto;
-  list-style: none;
-  padding: 0 2px;
+  padding: 0 5px;
   margin: 0;
-  font-size: 16px;
-  color: #474747;
-  user-select: none;
 
-  .eui-slot {
+  .eui-month--daysofweek {
+    list-style: none;
+    margin: 0px -5px;
+    padding: 0 5px;
+    background: #f7f7f7;
+    height: 30px;
+    line-height: 30px;
+    color: #9e9e9e;
+    font-size: 13px;
+    text-align: center;
+
+    .eui-nameofday {
+      width: calc(100% / 7);
+      float: left;
+    }
+  }
+
+  .eui-month--slots {
+    width: 259px;
+    height: 222px;
+    overflow: auto;
+    list-style: none;
+    padding: 0 5px;
+    margin: 0;
+    font-size: 16px;
+    color: #474747;
+    user-select: none;
+  }
+
+  .eui-month--slot {
     float: left;
     width: 41px;
     height: 35px;
     text-align: center;
     line-height: 35px;
     margin: 1px -2px;
+    padding: 0;
   }
 
-  .eui-day {
+  .eui-month--day {
     cursor: pointer;
     border-radius: 3px;
 
@@ -28,27 +51,16 @@
     }
   }
 
-  .eui-selected + .eui-day:hover:not(.eui-selected) {
-    width: 33px;
-    padding-right: 4px;
-    margin-left: 2px;
-  }
-
-  .eui-today {
+  .eui-month--today {
     font-weight: bold;
     color: #f00000 !important;
 
-    &.eui-selected {
+    &.eui-month--selected {
       color: #fffebc !important;
     }
   }
 
-  .eui-disabled {
-    pointer-events: none;
-    color: #d4d4d4;
-  }
-
-  .eui-selected {
+  .eui-month--selected {
     background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
     color: #ffffff;
     text-shadow: 0px 1px rgba(0,0,0,0.35);
@@ -58,5 +70,16 @@
       color: #ffffff;
       background-image: linear-gradient(to bottom, #1493dc 0%, #64bcf7 100%);
     }
+  }
+
+  .eui-month--selected + .eui-month--day:hover:not(.eui-month--selected) {
+    width: 33px;
+    padding-right: 4px;
+    margin-left: 2px;
+  }
+
+  .eui-month--disabled {
+    pointer-events: none;
+    color: #d4d4d4;
   }
 }

@@ -1,7 +1,7 @@
 .site-navigation {
   position: relative;
   z-index: 1;
-  background: linear-gradient(to right, #05112c 0%,#0f4078 50%,#2a6fb5 100%);
+  background: #535e68;
   text-shadow: 1px 1px rgba(0,0,0,0.2);
   text-align: left;
   line-height: 45px;
@@ -33,7 +33,7 @@
 
     &:hover,
     &.active {
-      color: #ffeeba;
+      color: #d7e5f1;
     }
   }
 

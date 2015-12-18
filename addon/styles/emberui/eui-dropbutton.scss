@@ -1,23 +1,33 @@
 eui-dropbutton {
-  display: inline-block;
+  display: inline-flex;
   vertical-align: middle;
 
   .eui-dropbutton--primary-action {
-    float: left;
-
-    .eui-component {
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
 
   .eui-dropbutton--trigger {
-    float: left;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding-left: 0px;
+  }
+}
 
-    .eui-component {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-      padding-left: 0px;
-    }
+.eui-dropbutton--wide-icon .eui-label:after {
+  font-family: "emberui";
+  content: "\e000";
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.eui-dropbutton--narrow-icon .eui-label {
+  margin: 0 -10px;
+
+  &:after {
+    font-family: "emberui";
+    content: "\e000";
+    display: inline-block;
+    vertical-align: bottom;
   }
 }
