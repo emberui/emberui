@@ -72,6 +72,7 @@ eui-selectdate [class*="-large"] {
 
   .eui-selectdate--window-column {
     flex: 1;
+    min-width: 279px; // IE fix
   }
 
   .eui-selectdate--window-column-header {

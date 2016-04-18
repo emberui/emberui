@@ -23,7 +23,7 @@ export default Ember.Component.extend({
 
   isSelected: Ember.computed('date', 'selection', function() {
     const date = this.get('date');
-    const selection = this.get('selection');
+    const selection = Ember.A(this.get('selection'));
 
     return selection.find((selection) => {
       return selection.isSame(date, 'day');
@@ -32,7 +32,7 @@ export default Ember.Component.extend({
 
   isDisabled: Ember.computed('date', 'disabledDates', 'maxPastDate', 'maxFutureDate', function() {
     const date = this.get('date');
-    const disabledDates = this.get('disabledDates') || [];
+    const disabledDates = Ember.A(this.get('disabledDates') || []);
 
     const isDisabledDate = disabledDates.find((disabledDate) => {
       return disabledDate.isSame(date, 'day');
