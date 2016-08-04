@@ -16,6 +16,7 @@ Router.map(function() {
     this.route('input');
     this.route('select');
     this.route('selectdate');
+    this.route('select-time');
     this.route('textarea');
     return this.route('option-list');
   });

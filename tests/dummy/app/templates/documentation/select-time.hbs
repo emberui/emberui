@@ -1,0 +1,114 @@
+<h1>\{{eui-select-time}}</h1>
+
+
+{{eui-select-time placeholder="Select a time"}}
+{{eui-select-time selection=selection placeholder="Select a time"}}
+
+<h4 id="section-size">size <span>string</span></h4>
+<p>
+  The overall size of the button that opens the calendar. Width is set via the <a href="#section-width">width</a> parameter. Each size has an associated width it will use unless you override it.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>tiny</li>
+  <li>small</li>
+  <li>medium (default)</li>
+  <li>large</li>
+</ul>
+
+<pre>\{{eui-select-time size="tiny" placeholder="Select a date"}}
+\{{eui-select-time size="small" placeholder="Select a date"}}
+\{{eui-select-time size="medium" placeholder="Select a date"}}
+\{{eui-select-time size="large" placeholder="Select a date"}}</pre>
+
+<div class="output">
+  {{eui-select-time size="tiny" placeholder="Select a date"}}
+  {{eui-select-time size="small" placeholder="Select a date"}}
+  {{eui-select-time size="medium" placeholder="Select a date"}}
+  {{eui-select-time size="large" placeholder="Select a date"}}
+</div>
+
+<p>
+  Additional sizes can be added via CSS. See {{link-to "Theming" "documentation.theming"}}
+</p>
+
+
+<h4 id="section-style">style <span>string</span></h4>
+<p>
+  Aesthetic style of the button that opens the calendar. The styles are shared with the <em>button</em> component.
+</p>
+
+<h5>Values</h5>
+<ul class="defaults">
+  <li>default (default)</li>
+  <li>primary</li>
+</ul>
+
+<pre>\{{eui-select-time style="default" placeholder="Select a date"}}
+\{{eui-select-time style="primary" placeholder="Select a date"}}</pre>
+
+<div class="output">
+  {{eui-select-time style="default" placeholder="Select a date"}}
+  {{eui-select-time style="primary" placeholder="Select a date"}}
+</div>
+
+
+<h4 id="section-width">width <span>string</span></h4>
+<p>
+  Width of the select. You must pass in a CSS size value with the unit. The select uses CSS box-sizing to ensure precentage-based sizes are actual sizes.
+</p>
+
+<pre>\{{eui-select-time width="100px" placeholder="100px"}}
+\{{eui-select-time width="50%" placeholder="50%"}}</pre>
+
+<div class="output">
+  {{eui-select-time width="100px" placeholder="100px"}}
+  {{eui-select-time width="50%" placeholder="50%"}}
+</div>
+
+
+<h4 id="section-disabled">disabled <span>boolean</span></h4>
+<p>
+  Disables the select.
+</p>
+
+<pre>\{{eui-select-time disabled=true placeholder="Select a date"}}</pre>
+
+<div class="output">
+  {{eui-select-time disabled=true placeholder="Select a date"}}
+</div>
+
+
+<h4 id="section-placeholder">placeholder <span>string</span></h4>
+<p>
+  Placeholder value for the select.
+</p>
+
+
+<h4 id="section-selection">selection <span>moment | arry of moments</span></h4>
+<p>
+  The currently selected time. <em>null</em> if nothing is selected. Returns a moment if a time is selected.
+</p>
+
+
+<h4 id="section-error">error <span>boolean | string</span></h4>
+<p>
+  Responsible for validation and error handling. See {{link-to "Error Handling" "documentation.errorhandling"}}
+</p>
+
+
+<h4 id="section-forceerrorcheck">forceErrorCheck <span>boolean</span></h4>
+<p>
+  If set to <em>true</em> the select will force an error check, even if the value is blank.
+</p>
+
+
+<h4 id="section-onchange">onChange <span>string | action</span></h4>
+<p>
+  If you specify an <em>onChange</em> action the original selection will not be changed and instead your action will be fired with the new value.
+</p>
+
+<div class="output">
+  {{eui-select-time onChange="dateDidChange" placeholder="Select a date"}}
+</div>

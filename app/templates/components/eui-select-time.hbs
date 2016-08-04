@@ -1,0 +1,89 @@
+{{#eui-button
+  disabled=disabled
+  style=style
+  size=size
+  width='100%'
+  classBinding=":eui-select showTimePicker:eui-active"
+  action="openTimePicker"
+  trailingIcon="eui-icon eui-icon--select"}}
+  <div class="eui-select-time-label {{if isPlaceholder 'eui-select-time-placeholder'}}">
+    {{#if buttonLabel}}
+      {{buttonLabel}}
+
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </div>
+  <div class="eui-select-time-icon"></div>
+{{/eui-button}}
+
+{{#if errorMessage}}
+  <div class="eui-error-message">
+    <div class="eui-error-wrapper">
+      <p class="eui-error-text">
+        {{errorMessage}}
+      </p>
+    </div>
+  </div>
+{{/if}}
+
+{{#if showTimePicker}}
+  {{#eui-popup
+    attachment=attachment
+    target=element
+    targetAttachment=targetAttachment
+    animateIn=animateInPopup
+    animateOut=animateOutPopup
+    onClose=(action "closeTimePicker") as | closeAction |}}
+
+    <div class="eui-select-time--window">
+      <div class="eui-select-time--window-wrapper">
+        <h2 class="eui-select-time--header">
+          {{timePickerLabel}}
+        </h2>
+
+        <h3 class="eui-select-time--heading">Hour</h3>
+        <ol class="eui-select-time--slots">
+          {{#each hours as |hour|}}
+            {{eui-hour
+              hour=hour
+              selection=_selection
+              click=(action "selectHour" hour.value)}}
+          {{/each}}
+        </ol>
+
+        <h3 class="eui-select-time--heading">Minute</h3>
+        <ol class="eui-select-time--slots">
+          {{#each minutes as |minute|}}
+            {{eui-minute
+              minute=minute
+              selection=_selection
+              click=(action "selectMinute" minute.value)}}
+          {{/each}}
+        </ol>
+
+
+        {{#unless show24Clock}}
+          <div class="eui-select-time--am-pm-toggle">
+            {{#eui-button
+              size="small"
+              action="setToAm"
+              disabled=isAm
+              classBinding="isAm:eui-active"}}
+              AM
+            {{/eui-button}}
+            {{#eui-button
+              size="small"
+              action="setToPm"
+              disabled=isPm
+              classBinding="isPm:eui-active"}}
+              PM
+            {{/eui-button}}
+          </div>
+        {{/unless}}
+
+      </div>
+    </div>
+
+  {{/eui-popup}}
+{{/if}}
