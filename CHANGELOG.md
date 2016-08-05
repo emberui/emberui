@@ -1,3 +1,6 @@
+### 1.0.0-beta.3
+- Add select-time component.
+
 ### 1.0.0-beta.2
 - Calendar fixes for IE
 - Support boolean values in selects
