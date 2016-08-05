@@ -2,7 +2,7 @@
 
 <h4 id="section-size">size <span>string</span></h4>
 <p>
-  The overall size of the button that opens the calendar. Width is set via the <a href="#section-width">width</a> parameter. Each size has an associated width it will use unless you override it.
+  The overall size of the button that opens the time picker. Width is set via the <a href="#section-width">width</a> parameter. Each size has an associated width it will use unless you override it.
 </p>
 
 <h5>Values</h5>
@@ -13,16 +13,16 @@
   <li>large</li>
 </ul>
 
-<pre>\{{eui-select-time size="tiny" placeholder="Select a date"}}
-\{{eui-select-time size="small" placeholder="Select a date"}}
-\{{eui-select-time size="medium" placeholder="Select a date"}}
-\{{eui-select-time size="large" placeholder="Select a date"}}</pre>
+<pre>\{{eui-select-time size="tiny" placeholder="Select a time"}}
+\{{eui-select-time size="small" placeholder="Select a time"}}
+\{{eui-select-time size="medium" placeholder="Select a time"}}
+\{{eui-select-time size="large" placeholder="Select a time"}}</pre>
 
 <div class="output">
-  {{eui-select-time size="tiny" placeholder="Select a date"}}
-  {{eui-select-time size="small" placeholder="Select a date"}}
-  {{eui-select-time size="medium" placeholder="Select a date"}}
-  {{eui-select-time size="large" placeholder="Select a date"}}
+  {{eui-select-time size="tiny" placeholder="Select a time"}}
+  {{eui-select-time size="small" placeholder="Select a time"}}
+  {{eui-select-time size="medium" placeholder="Select a time"}}
+  {{eui-select-time size="large" placeholder="Select a time"}}
 </div>
 
 <p>
@@ -41,12 +41,12 @@
   <li>primary</li>
 </ul>
 
-<pre>\{{eui-select-time style="default" placeholder="Select a date"}}
-\{{eui-select-time style="primary" placeholder="Select a date"}}</pre>
+<pre>\{{eui-select-time style="default" placeholder="Select a time"}}
+\{{eui-select-time style="primary" placeholder="Select a time"}}</pre>
 
 <div class="output">
-  {{eui-select-time style="default" placeholder="Select a date"}}
-  {{eui-select-time style="primary" placeholder="Select a date"}}
+  {{eui-select-time style="default" placeholder="Select a time"}}
+  {{eui-select-time style="primary" placeholder="Select a time"}}
 </div>
 
 
@@ -69,10 +69,10 @@
   Disables the select.
 </p>
 
-<pre>\{{eui-select-time disabled=true placeholder="Select a date"}}</pre>
+<pre>\{{eui-select-time disabled=true placeholder="Select a time"}}</pre>
 
 <div class="output">
-  {{eui-select-time disabled=true placeholder="Select a date"}}
+  {{eui-select-time disabled=true placeholder="Select a time"}}
 </div>
 
 
@@ -106,5 +106,5 @@
 </p>
 
 <div class="output">
-  {{eui-select-time onChange="dateDidChange" placeholder="Select a date"}}
+  {{eui-select-time onChange="timeDidChange" placeholder="Select a time"}}
 </div>
