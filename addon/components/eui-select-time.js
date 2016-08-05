@@ -86,7 +86,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   show24Clock: false,
 
   selection: null,
-  _selection: moment().minute(0).hour(10).second(0).millisecond(0),
+  _selection: moment().minute(0).hour(0).second(0).millisecond(0),
 
   attachment: 'center center',
   targetAttachment: 'center center',
@@ -171,8 +171,8 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     closeTimePicker() {
       this.set('showTimePicker', false);
 
-      if (this.get('onchange')) {
-        this.send('onchange', this.get('_selection'));
+      if (this.get('onChange')) {
+        this.send('onChange', this.get('_selection'));
       } else {
         this.set('selection', this.get('_selection'))
       }

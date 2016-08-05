@@ -138,6 +138,8 @@ eui-select-time [class*="-large"] {
     font-weight: normal;
     line-height: 30px;
     padding: 5px 0;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
 
     .eui-button:first-child {
       border-top-right-radius: 0px;
