@@ -1,3 +1,6 @@
+### 1.0.0-beta.4
+- Fix select-time not being closable in iOS.
+
 ### 1.0.0-beta.3
 - Add select-time component.
 
