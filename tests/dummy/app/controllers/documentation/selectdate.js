@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import moment from 'npm:moment';
+import moment from 'moment';
 
 export default Ember.Controller.extend({
   selectedDates: [

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import className from '../mixins/class-name';
-import moment from 'npm:moment';
+import moment from 'moment';
 
 export default Ember.Component.extend(className, {
   tagName: 'eui-calendar',

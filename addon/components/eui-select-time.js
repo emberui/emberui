@@ -2,7 +2,7 @@ import Ember from 'ember';
 import disabledSupport from '../mixins/disabled-support';
 import widthSupport from '../mixins/width-support';
 import errorSupport from '../mixins/error-support';
-import moment from 'npm:moment';
+import moment from 'moment';
 
 const HOURS_12 = [
   { value: 0, label: "12" },
