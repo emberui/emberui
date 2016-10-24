@@ -103,7 +103,7 @@ export default Ember.Component.extend(className, {
         return selection[0];
       }
     },
-    
+
     set(key, value) {
       if (Ember.isArray(value)) {
         this.set('_selection', Ember.A(value));
