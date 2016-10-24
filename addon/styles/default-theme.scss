@@ -1,0 +1,103 @@
+@mixin emberui-theme() {
+  .eui-button-tiny {
+    &-default {
+      @include eui-button(
+        $radius: 3px,
+        $line-height: 18px,
+        $font-size: 10px,
+        $padding: 0 7px
+      );
+    }
+
+    &-primary {
+      @include eui-button(
+        $border-background: linear-gradient(to bottom, #6fbcfc 0%, #408fd1 100%),
+        $color: #1787e5
+      );
+    }
+  }
+
+  .eui-button-small {
+    &-default {
+      @include eui-button(
+        $radius: 3px,
+        $line-height: 25px,
+        $font-size: 12px,
+        $padding: 0 11px
+      );
+    }
+
+    &-primary {
+      @include eui-button(
+        $border-background: linear-gradient(to bottom, #6fbcfc 0%, #408fd1 100%),
+        $color: #1787e5
+      );
+    }
+  }
+
+  .eui-button-medium {
+    &-default {
+      @include eui-button();
+    }
+
+    &-primary {
+      @include eui-button(
+        $border-background: linear-gradient(to bottom, #6fbcfc 0%, #408fd1 100%),
+        $color: #1787e5
+      );
+    }
+  }
+
+  .eui-button-large {
+    &-default {
+      @include eui-button(
+        $radius: 5px,
+        $line-height: 45px,
+        $font-size: 17px,
+        $padding: 0 20px
+      );
+    }
+
+    &-primary {
+      @include eui-button(
+        $border-background: linear-gradient(to bottom, #6fbcfc 0%, #408fd1 100%),
+        $color: #1787e5
+      );
+    }
+  }
+
+  .eui-checkbox-medium-default {
+    @include eui-checkbox();
+  }
+
+  .eui-input-tiny-default {
+    @include eui-input(
+      $radius: 3px,
+      $line-height: 18px,
+      $font-size: 10px,
+      $padding: 3px 4px
+    );
+  }
+
+  .eui-input-small-default {
+    @include eui-input(
+      $radius: 3px,
+      $line-height: 25px,
+      $font-size: 12px,
+      $padding: 6px 5px
+    );
+  }
+
+  .eui-input-medium-default {
+    @include eui-input();
+  }
+
+  .eui-input-large-default {
+    @include eui-input(
+      $radius: 5px,
+      $line-height: 45px,
+      $font-size: 17px,
+      $padding: 12px 9px
+    );
+  }
+}

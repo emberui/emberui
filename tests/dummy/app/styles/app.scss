@@ -1,6 +1,7 @@
 @import "website/normalize";
 
-@import 'blueprints/emberui/files/app/styles/emberui-theme.scss';
+@import 'addon/styles/addon.scss';
+@include emberui-theme();
 
 @import "website/font-awesome";
 

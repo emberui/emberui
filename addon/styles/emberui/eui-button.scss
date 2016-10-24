@@ -1,14 +1,27 @@
-.eui-button {
+@mixin eui-button(
+  $radius: 4px,
+  $line-height: 35px,
+  $font-size: 14px,
+  $padding: 0 14px,
+  $min-width: 5px,
+  $background: rgba(255, 255, 255, 1),
+  $border-background: linear-gradient(to bottom, rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0.25) 100%),
+  $color: #6a6a6a
+) {
   position: relative;
   display: inline-block;
   vertical-align: middle;
   user-select: none;
   cursor: pointer;
-  padding: 0;
   margin: 0;
   background: transparent;
   outline: none;
   border: none;
+  border-radius: $radius;
+  color: $color;
+  background: $border-background;
+  padding: 1px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 
   &::-moz-focus-inner {
     border: 0;
@@ -22,6 +35,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: $font-size;
+    line-height: $line-height;
+    padding: $padding;
+    min-width: $min-width;
+    background: $background;
   }
 
   .eui-label {
@@ -30,17 +48,51 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: opacity 0.5s;
   }
 
-  /* Disabled */
+  &:active,
+  &.eui-active {
+    background: rgba(0, 107, 255, 0.5);
+    box-shadow: 0px 0px 4px #0090ff;
+    z-index: 1;
+    animation: eui-button-focus-highlight 0.3s 1;
+
+    .eui-component-wrapper {
+      background: rgba(249, 249, 249, 1);
+      box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.10);
+    }
+
+    .eui-label {
+      transform: translateY(1px);
+    }
+  }
+
+  &:focus {
+    background: rgba(0, 107, 255, 0.5);
+    box-shadow: 0px 0px 4px #0090ff;
+    z-index: 1;
+    animation: eui-button-focus-highlight 0.4s 1;
+  }
+
   &.eui-disabled {
     pointer-events: none;
     color: #ababab;
+
+    .eui-component-wrapper {
+      background: rgba(249, 249, 249, 1);
+      color: rgba(0, 0, 0, 0.3)
+    }
   }
 
-  /* Loading */
   &.eui-loading {
     pointer-events: none;
+  }
+
+  .eui-loading-animation li {
+    box-shadow:
+      1px 1px 0px rgba(255, 255, 255, 1),
+      inset 0px 1px 0px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -90,4 +142,12 @@
       }
     }
   }
+}
+
+/* error state for selects */
+.eui-error .eui-button {
+  background: #ff7f7f;
+  box-shadow: 0px 0px 4px #ff0000;
+  outline: none;
+  animation: eui-error-highlight 0.2s 1;
 }
