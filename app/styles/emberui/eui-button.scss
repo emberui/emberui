@@ -5,8 +5,28 @@
   $padding: 0 14px,
   $min-width: 5px,
   $background: rgba(255, 255, 255, 1),
+  $background--active: rgba(249, 249, 249, 1),
+  $background--disabled: rgba(249, 249, 249, 1),
   $border-background: linear-gradient(to bottom, rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0.25) 100%),
-  $color: #6a6a6a
+  $border-background--active: rgba(0, 107, 255, 0.5),
+  $border-background--focus: rgba(0, 107, 255, 0.5),
+  $border-background--disabled: linear-gradient(to bottom, rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0.25) 100%),
+  $box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1),
+  $box-shadow--focus: 0px 0px 4px #0090ff,
+  $box-shadow--active: 0px 0px 4px #0090ff,
+  $box-shadow--disabled: 0px 1px 1px rgba(0, 0, 0, 0.1),
+  $box-shadow__inner: none,
+  $box-shadow__inner--active: inset 0px 1px 1px rgba(0, 0, 0, 0.10),
+  $box-shadow__inner--disabled: none,
+  $color: #6a6a6a,
+  $color--focus: inherit,
+  $color--active: inherit,
+  $color--disabled: rgba(0, 0, 0, 0.3),
+  $text-shadow: none,
+  $text-shadow--disabled: none,
+  $animation--active: eui-button-focus-highlight 0.3s 1,
+  $animation--focus: eui-button-focus-highlight 0.4s 1,
+  $animation--disabled: none
 ) {
   position: relative;
   display: inline-block;
@@ -21,7 +41,8 @@
   color: $color;
   background: $border-background;
   padding: 1px;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: $box-shadow;
+  transition: background 0.2s;
 
   &::-moz-focus-inner {
     border: 0;
@@ -40,6 +61,9 @@
     padding: $padding;
     min-width: $min-width;
     background: $background;
+    box-shadow: $box-shadow__inner;
+    text-shadow: $text-shadow;
+    transition: background 0.2s, color 0.2s;
   }
 
   .eui-label {
@@ -53,14 +77,15 @@
 
   &:active,
   &.eui-active {
-    background: rgba(0, 107, 255, 0.5);
-    box-shadow: 0px 0px 4px #0090ff;
+    background: $border-background--active;
+    box-shadow: $box-shadow--active;
     z-index: 1;
-    animation: eui-button-focus-highlight 0.3s 1;
+    animation: $animation--active;
 
     .eui-component-wrapper {
-      background: rgba(249, 249, 249, 1);
-      box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.10);
+      background: $background--active;
+      box-shadow: $box-shadow__inner--active;
+      color: $color--active;
     }
 
     .eui-label {
@@ -69,19 +94,27 @@
   }
 
   &:focus {
-    background: rgba(0, 107, 255, 0.5);
-    box-shadow: 0px 0px 4px #0090ff;
+    background: $border-background--focus;
+    box-shadow: $box-shadow--focus;
     z-index: 1;
-    animation: eui-button-focus-highlight 0.4s 1;
+    animation: $animation--focus;
+
+    .eui-component-wrapper {
+      color: $color--focus;
+    }
   }
 
   &.eui-disabled {
     pointer-events: none;
-    color: #ababab;
+    background: $border-background--disabled;
+    box-shadow: $box-shadow--disabled;
+    animation: $animation--disabled;
 
     .eui-component-wrapper {
-      background: rgba(249, 249, 249, 1);
-      color: rgba(0, 0, 0, 0.3)
+      text-shadow: $text-shadow--disabled;
+      background: $background--disabled;
+      color: $color--disabled;
+      box-shadow: $box-shadow__inner--disabled;
     }
   }
 
