@@ -1,3 +1,14 @@
+### 1.0.0-beta.5
+- Upgrade emerb-cli
+- Move scss to use mixins to enable better styling
+- Expose additional variables for styling buttons
+
+To include the base css in your app you need to include the following in your primary app scss file.
+```scss
+@import "emberui";
+@include emberui-theme();
+```
+
 ### 1.0.0-beta.4
 - Fix select-time not being closable in iOS.
 
