@@ -1,5 +1,10 @@
+### 1.0.0-beta.6
+- Upgrade ember-cli
+- Remove rending of popup on body element.
+- Upgrade position library
+
 ### 1.0.0-beta.5
-- Upgrade emerb-cli
+- Upgrade ember-cli
 - Move scss to use mixins to enable better styling
 - Expose additional variables for styling buttons
 
