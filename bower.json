@@ -1,9 +1,6 @@
 {
   "name": "emberui",
   "dependencies": {
-    "ember": "~2.9.0",
-    "ember-cli-shims": "0.1.3",
-    "jquery": "^1.11.3",
     "twix": "~1.1.1"
   }
 }
