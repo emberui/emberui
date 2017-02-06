@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import renderOnBody from '../mixins/render-on-body';
 
 import '../utilities/position';
 
-export default Ember.Component.extend(renderOnBody, {
+export default Ember.Component.extend({
   tagName: 'eui-popup',
   classNames: ['eui-popup'],
   attributeBindings: ['tabindex'],
