@@ -26,26 +26,28 @@ export default Ember.Component.extend({
   tabindex: 0,
 
   setup: Ember.on('didInsertElement', function() {
-    let element = this.$().find(this.get('popupElementClassName'))[0];
+    Ember.run.next(this, () => {
+      let element = Ember.$('#eui-popup-destination').find(this.get('popupElementClassName'))[0];
 
-    this.positionPopup().then(() => {
-      this.animateIn(element).then(() => {
-        this.$().focus();
+      this.positionPopup().then(() => {
+        this.animateIn(element).then(() => {
+          this.$().focus();
+        });
       });
     });
   }),
 
   breakdown() {
-    let element = this.$().find(this.get('popupElementClassName'))[0];
+    let element = Ember.$('#eui-popup-destination').find(this.get('popupElementClassName'))[0];
     return this.animateOut(element);
   },
 
   positionPopup() {
     return new Ember.RSVP.Promise((resolve) => {
       Ember.run.next(this, () => {
-        let { element, attachment, target, targetAttachment } = this.getProperties('element', 'attachment', 'target', 'targetAttachment');
+        let { attachment, target, targetAttachment } = this.getProperties('attachment', 'target', 'targetAttachment');
 
-        element = window.$(element).find(this.get('popupElementClassName'))[0];
+        let element = Ember.$('#eui-popup-destination').find(this.get('popupElementClassName'))[0];
 
         window.$(element).position({
           my: attachment,

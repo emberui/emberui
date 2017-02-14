@@ -1,5 +1,9 @@
-<div class="eui-popup--positioner" style={{style}}>
-  {{yield (action "close")}}
-</div>
+{{#ember-wormhole to="eui-popup-destination"}}
+  <div>
+    <div class="eui-popup--positioner" style={{style}}>
+      {{yield (action "close")}}
+    </div>
 
-{{eui-prevent-page-scroll click=(action "cancel")}}
+    {{eui-prevent-page-scroll click=(action "cancel")}}
+  </div>
+{{/ember-wormhole}}
