@@ -1,3 +1,6 @@
+### 1.0.0-beta.7
+- Use ember-wormhole to render popup to a popup container. This fixes positioning in Safari
+
 ### 1.0.0-beta.6
 - Upgrade ember-cli
 - Remove rending of popup on body element.
