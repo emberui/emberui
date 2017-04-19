@@ -63,8 +63,8 @@
       height: 16px;
       text-align: center;
       text-shadow: none;
-      background: -webkit-linear-gradient(top, #f2c23d, #ffe14c);
-      background-clip: -webkit-text;
+      -webkit-background: linear-gradient(top, #f2c23d, #ffe14c);
+      -webkit-background-clip: text;
       text-fill-color: transparent;
     }
   }
