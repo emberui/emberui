@@ -1,3 +1,7 @@
+### 1.0.0-beta.9
+- Upgrade ember-cli
+- Upgrading dependencies fixes issue where ember-wormhole did not work in Ember 2.13
+
 ### 1.0.0-beta.8
 - Additional variables for input styling
 - Fix error message icon clipping on Chrome
