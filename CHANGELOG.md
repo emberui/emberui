@@ -1,3 +1,6 @@
+### 1.0.0-beta.10
+- Upgrade ember-cli and dependencies
+
 ### 1.0.0-beta.9
 - Upgrade ember-cli
 - Upgrading dependencies fixes issue where ember-wormhole did not work in Ember 2.13
