@@ -1,54 +1,64 @@
 {
   "name": "emberui",
-  "version": "1.0.0-beta.10",
+  "version": "2.0.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
   ],
+  "repository": "",
   "license": "MIT",
   "author": "",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
   "scripts": {
     "build": "ember build",
-    "start": "ember server",
-    "test": "ember try:each"
+    "lint:hbs": "ember-template-lint .",
+    "lint:js": "eslint .",
+    "start": "ember serve",
+    "test": "ember test",
+    "test:all": "ember try:each"
   },
   "dependencies": {
-    "ember-browserify": "^1.1.13",
-    "ember-cli-moment-shim": "^2.2.1",
-    "ember-cli-sass": "^5.6.0",
+    "ember-cli-babel": "7.12.0",
+    "ember-cli-htmlbars": "^4.0.0",
+    "ember-cli-moment-shim": "~3.7.1",
+    "ember-cli-sass": "^10.0.1",
     "ember-cli-velocity": "0.4.0",
-    "ember-wormhole": "^0.5.1",
-    "moment": "^2.15.2",
-    "twix": "^1.1.5",
-    "velocity-animate": "^1.2.3",
-    "ember-cli-babel": "^6.3.0"
+    "ember-wormhole": "^0.5.5",
+    "moment": "~2.24.0",
+    "velocity-animate": "^1.2.3"
   },
   "devDependencies": {
-    "broccoli-asset-rev": "^2.4.5",
-    "ember-cli": "~2.15.0",
-    "ember-cli-dependency-checker": "^2.0.0",
-    "ember-cli-eslint": "^4.0.0",
-    "ember-cli-htmlbars": "^2.0.1",
-    "ember-cli-htmlbars-inline-precompile": "^1.0.0",
-    "ember-cli-inject-live-reload": "^1.4.1",
-    "ember-cli-qunit": "^4.0.0",
-    "ember-cli-shims": "^1.1.0",
-    "ember-cli-sri": "^2.1.0",
-    "ember-cli-uglify": "^1.2.0",
-    "ember-disable-prototype-extensions": "^1.1.2",
+    "@ember/jquery": "^1.1.0",
+    "@ember/optional-features": "^1.0.0",
+    "babel-eslint": "^10.0.3",
+    "broccoli-asset-rev": "^3.0.0",
+    "ember-auto-import": "^1.5.3",
+    "ember-cli": "~3.13.1",
+    "ember-cli-dependency-checker": "^3.2.0",
+    "ember-cli-eslint": "^5.1.0",
+    "ember-cli-inject-live-reload": "^2.0.2",
+    "ember-cli-sri": "^2.1.1",
+    "ember-cli-template-lint": "^1.0.0-beta.3",
+    "ember-cli-uglify": "^3.0.0",
     "ember-export-application-global": "^2.0.0",
-    "ember-load-initializers": "^1.0.0",
-    "ember-resolver": "^4.0.0",
-    "ember-source": "~2.15.0",
-    "loader.js": "^4.2.3"
+    "ember-load-initializers": "^2.1.0",
+    "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-qunit": "^4.5.1",
+    "ember-resolver": "^5.3.0",
+    "ember-source": "~3.13.3",
+    "ember-source-channel-url": "^2.0.1",
+    "ember-try": "^1.2.1",
+    "eslint-plugin-ember": "^7.1.0",
+    "eslint-plugin-node": "^10.0.0",
+    "loader.js": "^4.7.0",
+    "qunit-dom": "^0.9.0",
+    "sass": "^1.23.0"
   },
   "engines": {
-    "node": "^4.5 || 6.* || >= 7.*"
+    "node": "8.* || >= 10.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

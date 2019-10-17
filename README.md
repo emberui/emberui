@@ -26,8 +26,6 @@ https://speakerdeck.com/jacojoubert/emberui
 
 ## Running / Development
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
 
 
 ## Running Tests
