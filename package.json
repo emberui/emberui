@@ -24,7 +24,6 @@
     "ember-cli-velocity": "0.4.0",
     "ember-wormhole": "^0.5.5",
     "moment": "~2.24.0",
-    "twix": "^1.1.5",
     "velocity-animate": "^1.2.3"
   },
   "devDependencies": {

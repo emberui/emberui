@@ -8962,11 +8962,6 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
-twix@^1.1.5:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/twix/-/twix-1.3.0.tgz#012067f19a5a14acee83176bd5fafab3ad00b650"
-  integrity sha512-D1kCQgEuRZLZHIoYa6HUMgEBwHTzN8n8gYVX1y8uBooM+ZpowNyPcAuYk8YCkZxoIKIMOR7qgrae9yUUBP3yDQ==
-
 type-check@~0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.3.2.tgz#5884cab512cf1d355e3fb784f30804b2b520db72"
