@@ -3,6 +3,7 @@ import disabledSupport from '../mixins/disabled-support';
 import widthSupport from '../mixins/width-support';
 import errorSupport from '../mixins/error-support';
 import moment from 'moment';
+import twix from 'twix';
 
 export default Ember.Component.extend(disabledSupport, errorSupport, widthSupport, {
   classNameBindings: ['isDisabled:eui-disabled', 'class'],
