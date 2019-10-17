@@ -1,6 +1,0 @@
-{
-  "name": "emberui",
-  "dependencies": {
-    "twix": "~1.2.1"
-  }
-}

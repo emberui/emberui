@@ -23,11 +23,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
   showCalendarWindow: false,
 
-  formatting: {
-    yearFormat: "YYYY",
-    monthFormat: "MMMM",
-    dayFormat: "D"
-  },
+  formatting: "MMMM D, YYYY",
 
   attachment: 'center center',
   targetAttachment: 'center center',
@@ -275,7 +271,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
       return;
     }
 
-    return date.twix(date, true).format(formatting);
+    return date.format(formatting);
   },
 
   formatDateRange(startDate, endDate, formatting) {
@@ -285,15 +281,15 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
     // No end date is selected so show partial date
     if (!endDate) {
-      return startDate.twix(startDate, true).format(formatting) + ' -';
+      return startDate.format(formatting) + ' -';
     }
 
     // Full date range
     if (startDate && endDate) {
       if (endDate.isBefore(startDate)) {
-        return endDate.twix(startDate, true).format(formatting);
+        return endDate.format(formatting) + ' - ' + startDate.format(formatting);
       } else {
-        return startDate.twix(endDate, true).format(formatting);
+        return startDate.format(formatting) + ' - ' + endDate.format(formatting);
       }
     }
   },
