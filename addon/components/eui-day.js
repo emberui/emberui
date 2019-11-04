@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   today: moment(),
 
   day: Ember.computed('date', function() {
-    return this.get('date').format('D');
+    return moment(this.get('date')).format('D');
   }),
 
   isSelected: Ember.computed('date', 'selection', function() {
@@ -27,16 +27,16 @@ export default Ember.Component.extend({
     const selection = Ember.A(this.get('selection'));
 
     return selection.find((selection) => {
-      return selection.isSame(date, 'day');
+      return moment(selection).isSame(date, 'day');
     });
   }),
 
   isDisabled: Ember.computed('date', 'disabledDates', 'maxPastDate', 'maxFutureDate', function() {
-    const date = this.get('date');
+    const date = moment(this.get('date'));
     const disabledDates = Ember.A(this.get('disabledDates') || []);
 
     const isDisabledDate = disabledDates.find((disabledDate) => {
-      return disabledDate.isSame(date, 'day');
+      return moment(disabledDate).isSame(date, 'day');
     });
 
     if (isDisabledDate) { return true; }
@@ -54,6 +54,6 @@ export default Ember.Component.extend({
   }),
 
   isToday: Ember.computed('date', 'today', function() {
-    return this.get('date').isSame(this.get('today'), 'day');
+    return moment(this.get('date')).isSame(this.get('today'), 'day');
   })
 });

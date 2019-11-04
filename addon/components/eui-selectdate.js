@@ -298,7 +298,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     const selection = this.get('_selection');
 
     return selection.find((item) => {
-      return item.isSame(date, 'day');
+      return moment(item).isSame(date, 'day');
     });
   },
 
@@ -306,7 +306,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     const selection = this.get('_selection');
 
     const removeDates = selection.filter((item) => {
-      return item.isSame(date, 'day');
+      return moment(item).isSame(date, 'day');
     });
 
     if (removeDates.length) {
@@ -373,7 +373,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     }
 
     return disabledDates.find((item) => {
-      return item.isSame(date, 'day');
+      return moment(item).isSame(date, 'day');
     });
   },
 
