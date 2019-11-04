@@ -153,11 +153,11 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
       return this.get('placeholder');
     }
 
-    return selection.format(this.get('format'));
+    return moment(selection).format(this.get('format'));
   }),
 
   timePickerLabel: Ember.computed('_selection', 'format', function() {
-    return this.get('_selection').format(this.get('format'));
+    return moment(this.get('_selection')).format(this.get('format'));
   }),
 
   actions: {
