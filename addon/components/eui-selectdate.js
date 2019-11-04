@@ -271,7 +271,7 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
       return;
     }
 
-    return date.format(formatting);
+    return moment(date).format(formatting);
   },
 
   formatDateRange(startDate, endDate, formatting) {
@@ -281,15 +281,15 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
     // No end date is selected so show partial date
     if (!endDate) {
-      return startDate.format(formatting) + ' -';
+      return moment(startDate).format(formatting) + ' -';
     }
 
     // Full date range
     if (startDate && endDate) {
       if (endDate.isBefore(startDate)) {
-        return endDate.format(formatting) + ' - ' + startDate.format(formatting);
+        return moment(endDate).format(formatting) + ' - ' + startDate.format(formatting);
       } else {
-        return startDate.format(formatting) + ' - ' + endDate.format(formatting);
+        return moment(startDate).format(formatting) + ' - ' + endDate.format(formatting);
       }
     }
   },

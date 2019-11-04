@@ -139,11 +139,10 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
 
     selectOption(option) {
       if (option !== undefined) {
-
-        if (this.get('onChange')) {
-          this.sendAction('onChange', option);
+        if (this.onChange) {
+          this.onChange(option);
         } else {
-          this.set('selection', option);
+          this.set('value', option);
         }
       }
 
