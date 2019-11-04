@@ -172,8 +172,8 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     closeTimePicker() {
       this.set('showTimePicker', false);
 
-      if (this.get('onChange')) {
-        this.send('onChange', this.get('_selection'));
+      if (this.onChange) {
+        this.onChange(this._selection);
       } else {
         this.set('selection', this.get('_selection'))
       }
