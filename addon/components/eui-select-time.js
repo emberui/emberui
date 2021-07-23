@@ -116,26 +116,6 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
     return MINUTES;
   }),
 
-  animateInPopup(element) {
-    return window.$.Velocity.animate(element, {
-      opacity: [1, 0],
-      scaleX: [1, 0],
-      scaleY: [1, 0]
-    }, {
-      duration: 200
-    });
-  },
-
-  animateOutPopup(element) {
-    return window.$.Velocity.animate(element, {
-      opacity: [0, 1],
-      scaleX: [0, 1],
-      scaleY: [0, 1]
-    }, {
-      duration: 200
-    });
-  },
-
   isPlaceholder: Ember.computed.empty('selection'),
 
   format: Ember.computed('show24Clock', function () {

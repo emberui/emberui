@@ -30,24 +30,6 @@ export default Ember.Component.extend(className, sizeSupport, {
     return new Ember.String.htmlSafe(`${width}px`);
   }).volatile(),
 
-  animateInPopup(element) {
-    return window.$.Velocity.animate(element, {
-      opacity: [1, 0],
-      marginTop: ["0px", "-6px"]
-    }, {
-      duration: 200
-    });
-  },
-
-  animateOutPopup(element) {
-    return window.$.Velocity.animate(element, {
-      opacity: [0, 1],
-      marginTop: ["10px", "0px"]
-    }, {
-      duration: 200
-    });
-  },
-
   actions: {
     showOptionList() {
       this.set('showOptionList', true);

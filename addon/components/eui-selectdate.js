@@ -28,26 +28,6 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
   attachment: 'center center',
   targetAttachment: 'center center',
 
-  animateInPopup(element) {
-    return window.$.Velocity.animate(element, {
-      opacity: [1, 0],
-      scaleX: [1, 0],
-      scaleY: [1, 0]
-    }, {
-      duration: 200
-    });
-  },
-
-  animateOutPopup(element) {
-    return window.$.Velocity.animate(element, {
-      opacity: [0, 1],
-      scaleX: [0, 1],
-      scaleY: [0, 1]
-    }, {
-      duration: 200
-    });
-  },
-
   month: Ember.computed('', function() {
     let firstSelectedDate = this.get('selection.firstObject');
 
