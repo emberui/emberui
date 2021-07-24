@@ -122,7 +122,12 @@ export default Ember.Component.extend(disabledSupport, errorSupport, widthSuppor
         if (this.onChange) {
           this.onChange(option);
         } else {
-          this.set('value', option);
+          const valuePath = this.get('valuePath');
+          if (valuePath) {
+            this.set('value', option[valuePath]);
+          } else {
+            this.set('value', option);
+          }
         }
       }
 
