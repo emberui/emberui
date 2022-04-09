@@ -25,8 +25,8 @@
     "ember-cli-htmlbars": "^4.0.0",
     "ember-cli-moment-shim": "~3.8.0",
     "ember-cli-sass": "^10.0.1",
-    "ember-wormhole": "^0.5.5",
-    "moment": "~2.24.0"
+    "ember-wormhole": "^0.6.0",
+    "moment": "2.29.2"
   },
   "devDependencies": {
     "@ember/jquery": "^1.1.0",
@@ -54,6 +54,9 @@
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.9.0",
     "sass": "^1.23.0"
+  },
+  "resolutions": {
+    "moment": "2.29.2"
   },
   "engines": {
     "node": "8.* || >= 10.*"
